@@ -562,15 +562,27 @@ TertiaryDark: #666
 Error: #f88
 </pre>
 </div>
+<div title="ConfigParser" creator="samuel" modifier="samuel" created="201208130603" modified="201208130618" changecount="14">
+<pre>@@bgcolor(green): The ~ConfigParser module has been renamed to configparser in Python 3.0@@
+*{{normal{@@color(blue):''配置文件格式''@@
+配置文件分为几个段[sectionName]  
+variable :/=  value
+其中 ‘#’, ';' 在@@color(red):行首@@是被忽略，可以写注释语言
+}}}
+*{{normal{@@color(blue):''函数''@@
+&gt;''config = ~ConfigParser()'' : 获取配置传递句柄 
+&gt;''config.read''(&quot;/path/config.txt&quot;) : 读取配置文件
+&gt;''variable = config.get''('sectionName', 'variable') : 获取值
+}}}</pre>
+</div>
 <div title="DefaultTiddlers" creator="YourName" modifier="Samuel" created="201206180441" modified="201206180448" changecount="6">
 <pre></pre>
 </div>
-<div title="Emacs" creator="Samuel" modifier="samuel" created="201207100654" modified="201208060306" tags="_EMACS_" changecount="5">
+<div title="Emacs" creator="Samuel" modifier="samuel" created="201207100654" modified="201208140817" tags="_EMACS_" changecount="6">
 <pre>[[Emacs GDB]]
-[[Emacs Edit]]
-[[Emacs config]]</pre>
+[[Emacs Edit]]</pre>
 </div>
-<div title="Emacs Edit" creator="Samuel" modifier="samuel" created="201207130549" modified="201208060150" tags="_EMACS_ _EMACS_EDIT_" changecount="58">
+<div title="Emacs Edit" creator="Samuel" modifier="samuel" created="201207130549" modified="201208130717" tags="_EMACS_ _EMACS_EDIT_" changecount="59">
 <pre>@@color(red):''C =Ctrl    
 M=Alt （或先按一下 ESC 键然后放开，再输入 &lt;chr&gt;）''@@
 !
@@ -634,7 +646,7 @@ M=Alt （或先按一下 ESC 键然后放开，再输入 &lt;chr&gt;）''@@
 &gt;{{normal{@@color(green):一个屏以另一个屏为参考时比较有用@@
 ''C-x 2 '' :     它会将屏幕水平划分成两个窗格,显示相同内容
 ''C-x 3'' :      它会将屏幕垂直划分成两个窗格,显示相同内容
-''~C-M-v ''     :滚动下方的窗格 （如果没有Meta（Alt）键，你必须先输入 ESC ，然后再输入 CONTROL-v）
+''~C-M-v ''     :滚动下方的窗格 （如果没有Meta（Alt）键，你必须先输入 ESC ，然后再输入 ~CONTROL-v）
 ''~C-M-shift-v '' :   相反方向 滚动下方的窗格
 ''C-x  o(other) '' :光标切换到另一个窗格(多窗格时才有用)
 ''C-x C-c '' :  退出Emacs（退出之前提醒存盘）}}}
@@ -1082,11 +1094,12 @@ def test():
 &gt;[[字符串]]
 &gt;[[字典]]</pre>
 </div>
-<div title="Python模块" creator="Samuel" modifier="Samuel" created="201206290836" modified="201207030110" tags="_PYTHON_ _PYTHON_MODULE_" changecount="10">
+<div title="Python模块" creator="Samuel" modifier="samuel" created="201206290836" modified="201208130603" tags="_PYTHON_ _PYTHON_MODULE_" changecount="12">
 <pre>&gt;[[sys]]
 &gt;[[types]]
 &gt;[[os]]
-&gt;[[subprocess]]</pre>
+&gt;[[subprocess]]
+&gt;[[ConfigParser]]</pre>
 </div>
 <div title="Python类" creator="Samuel" modifier="Samuel" created="201206290725" modified="201206290841" tags="_PYTHON_ _PYTHON_CLASS_" changecount="38">
 <pre>*@@color(red):''使用新式类'' @@
