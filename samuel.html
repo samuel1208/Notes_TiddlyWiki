@@ -514,7 +514,7 @@ Also see [[AdvancedOptions]]</pre>
 <div title="AdvancedOptions" creator="YourName" modifier="YourName" created="201206180447" modified="201206180447" changecount="2">
 <pre>&lt;&lt;options&gt;&gt;</pre>
 </div>
-<div title="Branches and merging" creator="Samuel" modifier="Samuel" created="201207190811" modified="201207190811" tags="_GIT_" changecount="2">
+<div title="Branches and merging" creator="Samuel" modifier="Samuel" created="201207190811" modified="201208220659" tags="_GIT_" changecount="5">
 <pre>*''git branch'' 
 :列出所有本地的分支， 带*表示当前活动的分支
 :-a 列出所有本地和远程的分支
@@ -533,7 +533,11 @@ Also see [[AdvancedOptions]]</pre>
 2、应该只git checkout  某个版本的某个文件
 }}}
 *''git revert  commit-name''
-:revert与reset的区别？</pre>
+:revert与reset的区别？
+*''git reset  commit-name''
+:git reset –mixed：此为默认方式，不带任何参数的git reset，即时这种方式，它回退到某个版本，只保留源码，回退commit和index信息
+:git reset –soft：回退到某个版本，只回退了commit的信息，不会恢复到index file一级。如果还要提交，直接commit即可
+:git reset –hard：彻底回退到某个版本，本地的源码也会变为上一个版本的内容</pre>
 </div>
 <div title="Cmake" creator="Samuel" modifier="Samuel" created="201206180614" modified="201207230708" tags="_CMAKE_" changecount="138">
 <pre>*[[cmake:常见问题]]
@@ -688,6 +692,9 @@ M=Alt （或先按一下 ESC 键然后放开，再输入 &lt;chr&gt;）''@@
 &gt;''quit(q)''  退出GDB调试
 </pre>
 </div>
+<div title="FFT" creator="YourName" modifier="Samuel" created="201208200746" modified="201208200747" changecount="2">
+<pre>Type the text for 'FFT'</pre>
+</div>
 <div title="Feature Extraction" creator="Samuel" modifier="Samuel" created="201207160245" modified="201207180851" tags="_IMAGE_ALGORITHM_ _FEATURE_" changecount="15">
 <pre>[[HOG (Histogram of oriented gradient)]]
 </pre>
@@ -782,7 +789,7 @@ output = input^gamma 即对输入进行幂指数的压缩（gamma = 1/2）
 &gt;[[xargs]]:将前一输入转换为后面命令的输入参数。多用于管道
 &gt;[[find]] : 查找文件和文件夹</pre>
 </div>
-<div title="MainMenu" creator="YourName" modifier="Samuel" created="201206180446" modified="201207240627" changecount="62">
+<div title="MainMenu" creator="YourName" modifier="Samuel" created="201206180446" modified="201208200747" changecount="64">
 <pre>!Tools
 [[Git]]
 [[Emacs]]
@@ -801,7 +808,7 @@ output = input^gamma 即对输入进行幂指数的压缩（gamma = 1/2）
 [[Feature Extraction]]
 [[Img Format Convertion]]
 [[Training&amp;detection]]
-
+[[FFT]]
 !Others
 [[Todo]]
 [[Project]]
