@@ -789,7 +789,7 @@ output = input^gamma 即对输入进行幂指数的压缩（gamma = 1/2）
 &gt;[[xargs]]:将前一输入转换为后面命令的输入参数。多用于管道
 &gt;[[find]] : 查找文件和文件夹</pre>
 </div>
-<div title="MainMenu" creator="YourName" modifier="Samuel" created="201206180446" modified="201208200747" changecount="64">
+<div title="MainMenu" creator="YourName" modifier="Samuel" created="201206180446" modified="201208280252" changecount="66">
 <pre>!Tools
 [[Git]]
 [[Emacs]]
@@ -799,6 +799,7 @@ output = input^gamma 即对输入进行幂指数的压缩（gamma = 1/2）
 !Languages
 [[Python]]
 [[Shell]]
+[[OpenCL]]
 
 !Compiler Tools
 [[Cmake]]
@@ -911,6 +912,95 @@ config.formatters.push({
 *''最后释放整个大的内存即可''
 @@color(red):''Attention''@@
 当在''~MM_MemMgrCreate''产生的''Mhandle''再通过~MM_MemMgrCreate分配''subMhandle''时需要在''Mhandle''中分配一块内存，并将地址传给~MM_MemMgrCreate。 最后不用时须释放</pre>
+</div>
+<div title="OpenCL" creator="YourName" modifier="Samuel" created="201208280252" modified="201208290120" tags="__OPENCL__ __LANGUAGE__" changecount="8">
+<pre>[[OpenCL Learning]]
+[[OpenCL update 1.0-1.2]]</pre>
+</div>
+<div title="OpenCL Learning" creator="Samuel" modifier="Samuel" created="201208280328" modified="201208290236" changecount="30">
+<pre>*{{normal{@@color(blue):''cl_context''@@
+可以和@@color(red):''N''@@个device联系到一起创建@@color(red):''一个''@@context, 创建cotext的时候可以创建一个回调函数来打印错误。
+}}}
+*{{normal{@@color(blue):''cl_command_queue''@@
+必须和一个context和一个device联系到一起，一个ct有@@color(red):''N''@@个devices就可以有创建@@color(red):''N''@@个cq, 可以通过多线程是这@@color(red):''N''@@个cq同时运行
+}}}
+*{{normal{@@color(blue):''constant memory''@@
+可以再主机端动态分配，主机端：''Read / Write''. @@color(green):我认为和cuda不一样，不会比global快@@
+}}}
+*{{normal{@@color(blue):''synchronization''@@
+commands之间的同步有两种Command-queue barrier（''clEnqueueBarrier'',只适合single command-queue）和Waiting on an event
+}}}
+*{{normal{@@color(blue):''kernel的二进制编译码可以通过clGetProgramInfo获取''@@
+}}}
+*{{normal{@@color(blue):''clEnqueueTask ''@@
+clEnqueueTask 相当于clEnqueueNDRangeKernel 的work_dim = 1,global_work_offset = NULL, global_work_size[0] set to 1 and local_work_size[0] set to 1.即占用一个block，@@color(red):其他block不是浪费了吗？@@
+}}}
+*{{normal{@@color(blue):''clEnqueueNativeKernel''@@
+可以执行不是通过opencl编译的在主机端的C/C++代码@@color(red):（try）@@
+}}}
+*{{normal{@@color(blue):''async_work_group_copy等''@@
+global和local之间的内存copy可以异步执行，@@color(red):不知道效果怎么样@@
+}}}
+
+
+</pre>
+</div>
+<div title="OpenCL update 1.0-1.2" creator="Samuel" modifier="Samuel" created="201208280254" modified="201208290256" changecount="70">
+<pre>*@@color(blue):''~OpenCL-1.0''@@
+*@@color(blue):''~OpenCL-1.1''@@
+**{{normal{''Platform Mixed Version Support''(spec3.1.1):
+#支持不同的平台，不同的device，以及不同的~OpenCL版本的混合编程
+}}}
+**{{normal{''buffer''(Spec5.2.1)
+#增加了''clCreateSubBuffer''函数来获取@@color(green):sub-buffer@@.
+#增加了''clEnqueueRead/Write/~CopyBufferRect''函数来来操作2-D或3-D图像区域
+}}}
+**{{normal{''event'')
+#增加了''clSetEventCallback''函数来获取@@color(green):sub-buffer@@.
+}}}
+**{{normal{''数据类型''
+#增加3维的矢量支持， @@color(red):数据对齐是还是以vector4对齐的， 是以pow（2）对齐的@@
+}}}
+**{{normal{''global和local之间的内存异步copy''
+#增加了async_work_group_strided_copy函数
+}}}
+**{{normal{''原子操作''
+#变成了内建操作， 但是其修饰符（如：cl_khr_local_int32_base_atomics）任然支持
+}}}
+*@@color(blue):''~OpenCL-1.2''@@
+**{{normal{''Partitioning a Device'' (Spec4.3)
+#创建sub-device，''clReleaseDevice''只在1.2以后有定义
+}}}
+**{{normal''{context''(Spec4.4)
+#增加了''~CL_CONTEXT_INTEROP_USER''属性，同外部的API数据共享时谁负责同步（见extention spec）
+}}}
+**{{normal{''buffer (buffer/image object)''(Spec5.2.1)
+#增加了''~CL_MEM_HOST_WRITE_ONLY, ~CL_MEM_HOST_READ_ONLY,(优化数据的读写) ~CL_MEM_HOST_NO_ACCESS''三个属性.
+#增加了''clEnqueueFillBuffer''函数来设置buffer的值.
+#改变了分配~ImageObject的方法， 可以分配一维的image buffer(将buffer映射到image)，以及1D, 2D的image  和image array.
+#增加了''clEnqueueFillImage''函数来设置image的值.
+#@@color(red):增加clEnqueueMigrateMemObjects来显式使buffer迁移到一个设备上, 减少第一次使用时的隐式初始化的延迟@@(spec5.4.4)
+#在kernel中读写image时支持Sampler-less的read/write_image. 具有默认的sampler
+}}}
+**{{normal{''program''
+#增加了clCreateProgramWithBuiltInKernels函数
+#增加了clLinkProgram和clCompileProgram将编译和链接分开
+}}}
+**{{normal{''kernel''
+#增加了clGetKernelArgInfo函数
+}}}
+**{{normal{''event''
+#clEnqueueMarker/Barrier被改为clEnqueueMarker/~BarrierWithWaitList
+#clEnqueueWaitForEvents被删除，可以用clEnqueueBarrierWithWaitList来完成
+}}}
+**{{normal{''数据类型''
+#double为内建的标量Scalar和矢量Vector
+#增加了image1d_buffer_t，image1d_array_t等内建类型
+#支持@@color(blue):typedef, extern 和static@@
+}}}
+**{{normal{''增加了printf功能''
+}}}
+</pre>
 </div>
 <div title="Operating of local repository" creator="Samuel" modifier="Samuel" created="201207190808" modified="201207260257" tags="_GIT_" changecount="6">
 <pre>*''git add  [file/directories]'' 
@@ -1461,6 +1551,20 @@ var dp={sh:{Toolbar:{},Utils:{},RegexLib:{},Brushes:{},Strings:{AboutDialog:&quo
 <div title="WindowTitle" creator="YourName" modifier="YourName" created="201206180441" changecount="1">
 <pre>&lt;&lt;tiddler SiteTitle&gt;&gt; - &lt;&lt;tiddler SiteSubtitle&gt;&gt;</pre>
 </div>
+<div title="add_executable" creator="samuel" modifier="samuel" created="201208270711" modified="201208270718" changecount="25">
+<pre>*@@bgcolor(green):功能@@
+**增加一个可执行工程。 
+*@@bgcolor(green):用法@@
+**{{normal{add_executable(&lt;name&gt; [~WIN32] [~MACOSX_BUNDLE] [~EXCLUDE_FROM_ALL]  source1 source2 ...) 
+*{{normal{@@bgcolor(green):说明@@
+&gt; (source1 , source2..包含源文件和头文件)
+&gt;''~WIN32''  :  设置''~WIN32_EXECYTABLE''属性@@color(green):(即窗口程序MFC， 默认为console) @@(见Properties on Targets 详细说明)
+&gt;''~MACOSX_BUNDLE''  :  设置为''~MACOSX_BUNDLE''属性
+&gt;''~EXCLUDE_FROM_ALL''  :  设置为''~EXCLUDE_FROM_ALL''属性
+}}}
+}}}
+**add_executable(&lt;name&gt;  IMPORTED)</pre>
+</div>
 <div title="case" creator="Samuel" modifier="Samuel" created="201206290247" modified="201207160757" tags="_SHELL_ _SHELL_CONTROL_STRUCT_" changecount="39">
 <pre>*{{normal{@@bgcolor(green):用法@@
 &lt;code sh&gt;
@@ -1473,13 +1577,16 @@ esac
 }}}
  </pre>
 </div>
-<div title="cmake:命令" creator="Samuel" modifier="Samuel" created="201207130139" modified="201207230707" tags="_CMAKE_ _CMAKE_COMMAND_" changecount="4">
-<pre>*[[set]]
+<div title="cmake:命令" creator="Samuel" modifier="samuel" created="201207130139" modified="201208270710" tags="_CMAKE_ _CMAKE_COMMAND_" changecount="6">
+<pre>*[[add_executable]]
 *[[configure_file]]
 *[[cmake_minimum_required]]
 *[[macro、function]]
 *[[install]]
 *[[get_filename_component]]
+*[[set]]
+
+
 
 </pre>
 </div>
@@ -1521,7 +1628,7 @@ esac
 
 </pre>
 </div>
-<div title="configure_file" creator="Samuel" modifier="Samuel" created="201206270336" modified="201206290249" tags="_CMAKE_ _CMAKE_COMMAND_" changecount="38">
+<div title="configure_file" creator="Samuel" modifier="samuel" created="201206270336" modified="201208270710" tags="_CMAKE_ _CMAKE_COMMAND_" changecount="39">
 <pre>*@@color(blue):''configure_file''@@(&lt;input&gt; &lt;output&gt;  [COPYONLY] [~ESCAPE_QUOTES] [@ONLY])
 **@@bgcolor(green):功能@@
 ***复制一个文件到其他地方，并改变其内容。 
@@ -1667,7 +1774,7 @@ install(PROGRAMS files... DESTINATION &lt;dir&gt;
 :''-s'' : 软链接，可以使目录和文件。相当于windows下快捷名
 </pre>
 </div>
-<div title="macro、function" creator="Samuel" modifier="Samuel" created="201206270720" modified="201207200332" tags="_CMAKE_ _CMAKE_COMMAND_" changecount="40">
+<div title="macro、function" creator="Samuel" modifier="samuel" created="201206270720" modified="201208270720" tags="_CMAKE_ _CMAKE_COMMAND_" changecount="41">
 <pre>*@@color(blue):''macro''@@(&lt;name&gt; [arg1 [arg2...]])  @@color(blue):''endmacro''@@(&lt;name&gt;)
 *@@color(blue):''function''@@(&lt;name&gt; [arg1 [arg2...]])  @@color(blue):''function''@@(&lt;name&gt;)
 **@@bgcolor(green):功能@@
