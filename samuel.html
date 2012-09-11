@@ -566,7 +566,7 @@ TertiaryDark: #666
 Error: #f88
 </pre>
 </div>
-<div title="ConfigParser" creator="samuel" modifier="samuel" created="201208130603" modified="201208130618" changecount="14">
+<div title="ConfigParser" creator="samuel" modifier="samuel" created="201208130603" modified="201209110543" tags="_PYTHON_ _PYTHON_MODULE_ _CONFIGPARSER_" changecount="15">
 <pre>@@bgcolor(green): The ~ConfigParser module has been renamed to configparser in Python 3.0@@
 *{{normal{@@color(blue):''配置文件格式''@@
 配置文件分为几个段[sectionName]  
@@ -706,7 +706,7 @@ M=Alt （或先按一下 ESC 键然后放开，再输入 &lt;chr&gt;）''@@
 * [[DefaultTiddlers]]: Contains the names of the tiddlers that you want to appear when the TiddlyWiki is opened
 You'll also need to enter your username for signing your edits: &lt;&lt;option txtUserName&gt;&gt;</pre>
 </div>
-<div title="Git" creator="Samuel" modifier="Samuel" created="201206200611" modified="201207190821" tags="_GIT_" changecount="117">
+<div title="Git" creator="Samuel" modifier="Samuel" created="201206200611" modified="201208310858" tags="_GIT_" changecount="118">
 <pre>*@@color(blue):''Initializing''@@
 **''git init :''
 ***初始化本地仓库，并生成.git目录 
@@ -913,33 +913,32 @@ config.formatters.push({
 @@color(red):''Attention''@@
 当在''~MM_MemMgrCreate''产生的''Mhandle''再通过~MM_MemMgrCreate分配''subMhandle''时需要在''Mhandle''中分配一块内存，并将地址传给~MM_MemMgrCreate。 最后不用时须释放</pre>
 </div>
-<div title="OpenCL" creator="YourName" modifier="Samuel" created="201208280252" modified="201208290120" tags="__OPENCL__ __LANGUAGE__" changecount="8">
+<div title="OpenCL" creator="YourName" modifier="Samuel" created="201208280252" modified="201209040248" tags="__OPENCL__ __LANGUAGE__" changecount="10">
 <pre>[[OpenCL Learning]]
-[[OpenCL update 1.0-1.2]]</pre>
+[[OpenCL update 1.0-1.2]]
+[[Optimized Stradegy]]</pre>
 </div>
-<div title="OpenCL Learning" creator="Samuel" modifier="Samuel" created="201208280328" modified="201208290236" changecount="30">
+<div title="OpenCL Learning" creator="Samuel" modifier="Samuel" created="201208280328" modified="201209040253" changecount="60">
 <pre>*{{normal{@@color(blue):''cl_context''@@
-可以和@@color(red):''N''@@个device联系到一起创建@@color(red):''一个''@@context, 创建cotext的时候可以创建一个回调函数来打印错误。
+*可以和@@color(red):''N''@@个device联系到一起创建@@color(red):''一个''@@context, 创建cotext的时候可以创建一个回调函数来打印错误。
 }}}
 *{{normal{@@color(blue):''cl_command_queue''@@
-必须和一个context和一个device联系到一起，一个ct有@@color(red):''N''@@个devices就可以有创建@@color(red):''N''@@个cq, 可以通过多线程是这@@color(red):''N''@@个cq同时运行
+*必须和一个context和一个device联系到一起，一个ct有@@color(red):''N''@@个devices就可以有创建@@color(red):''N''@@个cq, 可以通过多线程是这@@color(red):''N''@@个cq同时运行
 }}}
 *{{normal{@@color(blue):''constant memory''@@
-可以再主机端动态分配，主机端：''Read / Write''. @@color(green):我认为和cuda不一样，不会比global快@@
+*可以再主机端动态分配，主机端：''Read / Write''. 
 }}}
 *{{normal{@@color(blue):''synchronization''@@
-commands之间的同步有两种Command-queue barrier（''clEnqueueBarrier'',只适合single command-queue）和Waiting on an event
-}}}
-*{{normal{@@color(blue):''kernel的二进制编译码可以通过clGetProgramInfo获取''@@
+*host : commands之间的同步有两种Command-queue barrier（''clEnqueueBarrier'',只适合single command-queue）和Waiting on an event
+*device : block之间是无法同步的
 }}}
 *{{normal{@@color(blue):''clEnqueueTask ''@@
-clEnqueueTask 相当于clEnqueueNDRangeKernel 的work_dim = 1,global_work_offset = NULL, global_work_size[0] set to 1 and local_work_size[0] set to 1.即占用一个block，@@color(red):其他block不是浪费了吗？@@
+*clEnqueueTask 相当于clEnqueueNDRangeKernel 的work_dim = 1,global_work_offset = NULL, global_work_size[0] set to 1 and local_work_size[0] set to 1.即占用一个block，@@color(red):其他block不是浪费了吗？@@
 }}}
-*{{normal{@@color(blue):''clEnqueueNativeKernel''@@
-可以执行不是通过opencl编译的在主机端的C/C++代码@@color(red):（try）@@
-}}}
-*{{normal{@@color(blue):''async_work_group_copy等''@@
-global和local之间的内存copy可以异步执行，@@color(red):不知道效果怎么样@@
+*{{normal{@@color(blue):''kernel''@@
+*当enqueue一个kernel时，函数是立即返回的
+*kernel的二进制编译码可以通过clGetProgramInfo获取
+*可以执行不是通过opencl编译的在主机端的C/C++代码@@color(green):(clEnqueueNativeKernel)@@ @@color(red):（try）@@
 }}}
 
 
@@ -1031,7 +1030,7 @@ global和local之间的内存copy可以异步执行，@@color(red):不知道效�
 *''git clean''
 :删除没有被加到git中的文件</pre>
 </div>
-<div title="Operating of remote repository" creator="Samuel" modifier="samuel" created="201207190813" modified="201208130217" tags="_GIT_" changecount="10">
+<div title="Operating of remote repository" creator="Samuel" modifier="Samuel" created="201207190813" modified="201208310908" tags="_GIT_" changecount="14">
 <pre>*''git clone''  
 :1、NULL 显示当前所有的远程仓库名 
 :2、{{{--}}}bare  [src-directory]  [dst-directory[如gitlearn.git]] 创建远程
@@ -1042,10 +1041,22 @@ global和local之间的内存copy可以异步执行，@@color(red):不知道效�
 :: 一个名字只能对应一个远程， 一个远程可以对应多个名字
 *''git push  [remote-repository.git / short-name]''
 :如果没有dst，则默认push到origin对应的远程仓库，没有设置origin则会出错
+:-all ,push所有的改变(默认不会push tag)
+:-tags push tags
 *''git pull  [remote-repository.git / short-name]''
 : 获取远程仓库中的文件， 并merge
 *''git fetch'' 
 :获取远程仓库中的文件，@@color(red):(放在哪)但是不merge@@</pre>
+</div>
+<div title="Optimized Stradegy" creator="Samuel" modifier="Samuel" created="201209040248" modified="201209040258" tags="__OPENCL__" changecount="2">
+<pre>{{normal{@@bgcolor(green):optimized stradegy@@
+*@@color(green):host@@
+**当enqueue一个kernel时，函数是立即返回的，@@color(green):可以在enqueuekernel后面来执行一些CPU的代码来进行CPU和GPU的同步优化@@
+**视频的数据可以用两个command， 一个负责数据传输，一个负责执行kernel
+*@@color(green):device@@
+**global和local之间的内存copy可以异步执行@@color(green):(async_work_group_copy)@@
+**prefetch来预先读global的的数据到cache中， 应该是异步的否则就没有意义了@@color(green):(大多数GPU不支持)@@
+}}}</pre>
 </div>
 <div title="OptionsPanel" creator="Samuel" modifier="Samuel" created="201207180824" modified="201207180834" changecount="15">
 <pre>These [[InterfaceOptions]] for customising [[TiddlyWiki]] are saved in your browser
@@ -1110,33 +1121,41 @@ Also see [[AdvancedOptions]]</pre>
 *矩阵转置的时候， 不是正方形时，不能在原矩阵上转置
 </pre>
 </div>
-<div title="Python" creator="Samuel" modifier="Samuel" created="201206290703" modified="201207160844" tags="_SCRIPT_LANGUAGE_ _PYTHON_" changecount="20">
+<div title="Python" creator="Samuel" modifier="samuel" created="201206290703" modified="201209060218" tags="_SCRIPT_LANGUAGE_ _PYTHON_" changecount="21">
 <pre>&gt;[[Python FAQ]]
 &gt;[[Python数据结构]]
 &gt;[[Python控制结构]]
 &gt;[[Python函数]]
 &gt;[[Python类]]
 &gt;[[Python模块]]
-</pre>
+&gt;[[Python Internet]]</pre>
 </div>
-<div title="Python FAQ" creator="Samuel" modifier="Samuel" created="201207020638" modified="201207160844" tags="_PYTHON_ _PYTHON_FAQ_" changecount="18">
+<div title="Python FAQ" creator="Samuel" modifier="Samuel" created="201207020638" modified="201209050109" tags="_PYTHON_ _PYTHON_FAQ_" changecount="21">
 <pre>*@@color(blue):''全局变量的访问''@@
 :使用@@color(blue):''global''@@关键字，在函数内部访问全局变量，否则会当场局部变量
 
 </pre>
 </div>
-<div title="Python函数" creator="Samuel" modifier="Samuel" created="201206290716" modified="201207020247" tags="_PYTHON_ _PYTHON_FUNCTION_" changecount="16">
+<div title="Python Internet" creator="samuel" modifier="samuel" created="201209060220" modified="201209060656" changecount="10">
+<pre>*@@color(blue):获取地址@@
+: ''socket.gethostbyname''(&quot;www.google.com&quot;)
+: ''socket.getservbyname''('domain')
+: 使用''socket.connect()''@@color(green):(使用connect以后，客户机只和connect的地址交互)@@以后使用''socket.getpeername()''
+</pre>
+</div>
+<div title="Python函数" creator="Samuel" modifier="Samuel" created="201206290716" modified="201209050109" tags="_PYTHON_ _PYTHON_FUNCTION_" changecount="23">
 <pre>*@@color(blue):''添加函数说明''@@
-**@@bgcolor(green):示例@@
-{{{
+**{{normal{@@bgcolor(green):示例@@
+&lt;code python&gt;
 def test():             
     'for test'                     访问方式1：test.__doc__   
     print('test')                  访问方式2：help(test)
+&lt;/code&gt;
 }}}
 *@@color(blue):''函数的参数''@@
 :列表相当于数组即指针，在函数内是可以改变参数的值的。而字符串、数字、元组是不可以变的。即内部不会影响外部
-*@@color(blue):''函数的传参数方式''@@
-{{{
+*{{normal{@@color(blue):''函数的传参数方式''@@
+&lt;code python&gt;
 1、关键字参数 ，不需要按顺序传参数
     func(para2='val2', para1 = 'val1')
 2、默认参数值
@@ -1144,11 +1163,12 @@ def test():
        ...
    调用
    func()
+&lt;/code&gt;
 }}}
 *@@color(blue):''函数的返回''@@
 :return 后可以不接变量。 作用为结束函数</pre>
 </div>
-<div title="Python控制结构" creator="Samuel" modifier="YourName" created="201206290847" modified="201207020628" tags="_PYTHON_" changecount="55">
+<div title="Python控制结构" creator="Samuel" modifier="samuel" created="201206290847" modified="201209060724" tags="_PYTHON_" changecount="57">
 <pre>@@bgcolor(green):''python中没有switch-case, 可以用if-elif 或 字典来实现''@@
 *@@color(blue):''while &amp; for''@@
 *{{normal{
@@ -1176,6 +1196,12 @@ def test():
        statements
 &lt;/code&gt;
 }}}
+*@@color(blue):''条件运算符''@@
+*{{normal{
+&lt;code python&gt;
+    a = trueVal if condition else falseVal
+&lt;/code&gt;
+}}}
 *@@color(blue):''and， or， not''@@
 :条件连接符
 *@@color(blue):''assert''@@
@@ -1186,19 +1212,27 @@ def test():
 }}}
 </pre>
 </div>
-<div title="Python数据结构" creator="Samuel" modifier="Samuel" created="201206290908" modified="201207020702" tags="_PYTHON_ _PYTHON_DATASTRUCTURE_" changecount="6">
+<div title="Python数据结构" creator="Samuel" modifier="samuel" created="201206290908" modified="201209060218" tags="_PYTHON_ _PYTHON_DATASTRUCTURE_" changecount="8">
 <pre>&gt;[[列表与元组]]
 &gt;[[字符串]]
-&gt;[[字典]]</pre>
+&gt;[[字典]]
+&gt;[[集合]]
+&gt;[[堆]] , [[双端队列]]</pre>
 </div>
-<div title="Python模块" creator="Samuel" modifier="samuel" created="201206290836" modified="201208130603" tags="_PYTHON_ _PYTHON_MODULE_" changecount="12">
-<pre>&gt;[[sys]]
+<div title="Python模块" creator="Samuel" modifier="samuel" created="201206290836" modified="201209110541" tags="_PYTHON_ _PYTHON_MODULE_" changecount="21">
+<pre>*@@color(blue):导入方法@@
+&gt;''import os as myModel''
+*@@color(blue):models@@
+&gt;[[sys]]
 &gt;[[types]]
 &gt;[[os]]
 &gt;[[subprocess]]
-&gt;[[ConfigParser]]</pre>
+&gt;[[ConfigParser]] : 导入配置文件的内容
+&gt;[[Random]] : 随机模块
+&gt;[[shelve]] : 将文件当成字典来做
+&gt;[[re]] : 正则表达式</pre>
 </div>
-<div title="Python类" creator="Samuel" modifier="Samuel" created="201206290725" modified="201206290841" tags="_PYTHON_ _PYTHON_CLASS_" changecount="38">
+<div title="Python类" creator="Samuel" modifier="Samuel" created="201206290725" modified="201209050113" tags="_PYTHON_ _PYTHON_CLASS_" changecount="45">
 <pre>*@@color(red):''使用新式类'' @@
 :Python 3.0以后不用注意，否则在使用新式类时，需先赋值{{{__}}}metaclass=type
 *@@color(red):''类中函数的参数self'' @@
@@ -1210,7 +1244,21 @@ def test():
 *@@color(blue):''检查继承的基类'' @@ 
 :使用特性{{{__}}}bases{{{__}}},如，className.{{{__}}}bases{{{__}}}
 *@@color(blue):''{{{__}}}all{{{__}}}变量'' @@ 
-:定义{{{__all__}}}, 这样import只能导入定义的，否则可以导入所有未加双下划线的全局名。而且可以查看</pre>
+:定义{{{__all__}}}, 这样import只能导入定义的，否则可以导入所有未加双下划线的全局名。而且可以查看
+*{{normal{@@color(red):''操作所有对象的变量'' @@ 
+&lt;code python&gt;
+class test:
+    &quot;The UI of Login&quot;
+    mem = 0
+    def init__(self) :
+        test.mem +=1  #使用test而不是self来访问mem, 这样是对所有对象的mem来操作
+&lt;/code&gt;
+}}}</pre>
+</div>
+<div title="Random" creator="samuel" modifier="samuel" created="201209060337" modified="201209110542" tags="_PYTHON_ _PYTHON_MODULE_ _RANDOM_" changecount="5">
+<pre>*@@bgcolor(green):函数@@
+&gt; ''randint(a,b)'' : 返回[a,b]之间的整数。randint(0,1)返回0或1模拟50%的概率
+&gt; ''uniform(a,b)'' : 返回[a,b)之间的浮点数</pre>
 </div>
 <div title="SVM" creator="Samuel" modifier="Samuel" created="201207240628" modified="201207260537" tags="_TRAINING_ _DETECTION_ _SVM_" changecount="29">
 <pre>@@bgcolor(green):''Refer to the libSVM''@@
@@ -1530,9 +1578,11 @@ var dp={sh:{Toolbar:{},Utils:{},RegexLib:{},Brushes:{},Strings:{AboutDialog:&quo
 [[格式]]
 [[隐藏MainMenu]]</pre>
 </div>
-<div title="Todo" creator="Samuel" modifier="Samuel" created="201207240627" modified="201207260301" changecount="2">
+<div title="Todo" creator="Samuel" modifier="Samuel" created="201207240627" modified="201208310932" changecount="5">
 <pre>[[SVM]]
-测试git fetch命令</pre>
+测试git fetch命令
+
+研究一下opencl的内存copy问题, 以及AMD的FFT</pre>
 </div>
 <div title="Training&amp;detection" creator="YourName" modifier="Samuel" created="201207240627" modified="201207240628" tags="_TRAINING_ _DETECTION_" changecount="3">
 <pre>[[SVM]]</pre>
@@ -1652,7 +1702,7 @@ esac
        输出为10
 }}}</pre>
 </div>
-<div title="export" creator="Samuel" modifier="Samuel" created="201207030551" modified="201207110159" tags="_SHELL_ _SHELL_COMMAND_" changecount="11">
+<div title="export" creator="Samuel" modifier="Samuel" created="201207030551" modified="201208290656" tags="_SHELL_ _SHELL_COMMAND_" changecount="12">
 <pre>*@@bgcolor(green):功能@@
 :设置或显示环境变量
 *@@bgcolor(green):用法@@
@@ -1661,6 +1711,8 @@ esac
       export LANG=en_US.UTF-8
       export LANG=c
       export LANG=zh_CN.UTF-8
+      export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:/home/lib
+      export 查看所有变量
 &lt;/code&gt;
 }}}</pre>
 </div>
@@ -1790,7 +1842,7 @@ install(PROGRAMS files... DESTINATION &lt;dir&gt;
 :::#function在version 2.6以上支持
 </pre>
 </div>
-<div title="os" creator="Samuel" modifier="Samuel" created="201207030108" modified="201207270619" tags="_PYTHON_ _PYTHON_MODULE_" changecount="24">
+<div title="os" creator="Samuel" modifier="samuel" created="201207030108" modified="201209110542" tags="_PYTHON_ _PYTHON_MODULE_ _OS_" changecount="25">
 <pre>*{{normal{@@color(blue):''os.system &amp; os.popen''@@
 @@bgcolor(green):''执行外部命令''@@}}}
 :{{normal{
@@ -1804,6 +1856,51 @@ install(PROGRAMS files... DESTINATION &lt;dir&gt;
 :获取当前路径
 *@@color(blue):''os.listdir('path')''@@
 :列出当前路径下的所有文件</pre>
+</div>
+<div title="re" creator="YourName" modifier="samuel" created="201209110151" modified="201209110542" tags="_PYTHON_ _PYTHON_MODULE_ _RE_" changecount="36">
+<pre>@@bgcolor(green):常用正则表达式符号@@
+&gt;''re1 | re2 '' : 匹配正则表达式re1或re2  ''e.g''. foo | bar
+&gt;''.'' : 匹配任何字符（换行符除外(可以设置python的编译标示[S or DOTALL]取消这一限制)）   ''e.g''. b.b
+&gt;''^'' : 匹配字符串的开始     ''e.g''.^dear
+&gt;''$'' : 匹配字符串的结尾    ''e.g''.dear$
+&gt;''*'' : 匹配前面出现的正则表达式0次或多次    ''e.g''.[~A-Z]*
+&gt;''+'' : 匹配前面出现的正则表达式1次或多次    ''e.g''.[~A-Z]+
+&gt;''?'' : 匹配前面出现的正则表达式0次或1次@@color(red):(第二个含义：紧跟在重复字符后面，表示字符串越短越好) @@    ''e.g''.[~A-Z]?
+&gt;''{N}'' : 匹配前面出现的正则表达式N次     ''e.g''.[~A-Z]{3}
+&gt;''{M,N}'' : 匹配重复出现M次到N次的正则表达式     ''e.g''.[~A-Z]{2， 3}
+&gt;''[.....]'' : 匹配字符组里面出现的任意@@color(red):''单个''@@字符  ''e.g''.[aeiou]
+&gt;''[^.....]'': 不匹配字符组里面出现的任意@@color(red):''单个''@@字符， 包含某一范围内的字符 ''e.g'' . [^0-9A-Za-z]
+&gt;''[..x-y...]'' : 匹配字x到y的任意一个字符  ''e.g''.[0-9], [~A-Za-z]
+&gt;''(* | + | ? | {} )?'' : 重复匹配字符集次数符号，@@color(red): 而不是一个字符@@
+&gt;''(....)'' : 匹配封闭括号中正则表达式，并保存为子组 @@color(red):''?''@@
+@@bgcolor(green):特殊字符@@
+&gt;''\'' : 转义符号
+&gt;''\d'' : 匹配任何数字， 与[0-9]一样(''/D'':''\d''的反义,任何非数字符)
+&gt;''\w'' : 匹配任何数字字符字符， 与[~A-Za-z0-9]一样(''/W'': ''/w''的反义)
+&gt;''\s'' : 匹配任何空白字符， 与[\n\t\r\v\f]一样(''/S'': ''/s''的反义) ''e.g'' : of\sThe
+&gt;''\b'' : 匹配单词边界(''/B''': ''/b''的反义) ''e.g'' : \bthe\b
+&gt;''\nn'' : 匹配以保存的子组，（refer to ''(....)''） ''eg''.price:\18
+&gt;''\c'' : 逐一匹配特殊字符（即取消它的特殊含义， 按字面匹配）
+&gt;''\A(\Z)'' : 匹配字符串的起始(结束)， 和''^/$''一样
+@@bgcolor(green):函数方法@@
+*{{normal{''compile''(pattern,flags=0)
+匹配之前需要先编译}}}
+*{{normal{''match'':
+匹配字符串，@@color(red):从字符串的开头开始对模式进行匹配@@
+}}}
+*{{normal{''search'':
+查找字符串，@@color(red):从字符串任意位置的地方与给定正则表达式模式进行匹配，和match的区别@@
+}}}
+*{{normal{''group(num=0) / groups'':
+使用group/groups来访问返回的匹配的字符串@@color(red):（也可以使用findall,finditer）@@
+}}}
+*{{normal{''sub/ subn'':
+进行字符串的替换，@@color(red):（subn会返回替换的次数）@@
+}}}
+*{{normal{''split()'':
+进行字符串的分割，@@color(red):（subn会返回替换的次数）@@
+}}}
+@@color(red):''Attention'':@@''在python中使用原始字符创与ASSIC中的特殊字符区别开''</pre>
 </div>
 <div title="rm" creator="Samuel" modifier="Samuel" created="201207110210" modified="201207160244" tags="_SHELL_ _SHELL_COMMAND_" changecount="3">
 <pre>*@@bgcolor(green):功能@@
@@ -1831,7 +1928,7 @@ install(PROGRAMS files... DESTINATION &lt;dir&gt;
 **将shell脚本的参数个数减去Num， 并将参数前移，及$1变成了后面的第Num个参数的值
 </pre>
 </div>
-<div title="subprocess" creator="Samuel" modifier="Samuel" created="201207030110" modified="201207300447" tags="_PYTHON_ _PYTHON_MODULE_" changecount="30">
+<div title="subprocess" creator="Samuel" modifier="samuel" created="201207030110" modified="201209110542" tags="_PYTHON_ _PYTHON_MODULE_ _SUBPROCESS_" changecount="31">
 <pre>*{{normal{@@color(blue):''subprocess.call &amp; subprocess.Popen''@@
 @@bgcolor(green):''执行外部命令''@@}}}
 :{{normal{
@@ -1849,7 +1946,7 @@ install(PROGRAMS files... DESTINATION &lt;dir&gt;
 :与subprocess.call(*popenargs, **kwargs)功能一样，只是如果子进程返回的returncode不为0的话，将触发~CalledProcessError异常。在异常对象中，包括进程的returncode信息。
 }}}</pre>
 </div>
-<div title="sys" creator="Samuel" modifier="Samuel" created="201206290837" modified="201207030110" tags="_PYTHON_ _PYTHON_MODULE_" changecount="12">
+<div title="sys" creator="Samuel" modifier="samuel" created="201206290837" modified="201209110541" tags="_PYTHON_ _PYTHON_MODULE_ _SYS_" changecount="14">
 <pre>@@bgcolor(green):包含一些与Python解释器紧密相连的变量和函数@@
 *@@color(blue):argv@@
 :命令行参数， 包含脚本名称
@@ -1904,7 +2001,7 @@ tar -jxvf    file
 : tr  -s  &quot;sting&quot; &lt; file.txt   删除字符串string中的重复出现的字符
 : tr  -s   [a-z] &lt; file.txt </pre>
 </div>
-<div title="types" creator="Samuel" modifier="Samuel" created="201206290932" modified="201206290934" tags="_PYTHON_ _PYTHON_MODULE_" changecount="9">
+<div title="types" creator="Samuel" modifier="samuel" created="201206290932" modified="201209110542" tags="_PYTHON_ _PYTHON_MODULE_ _TYPRS_" changecount="10">
 <pre>@@bgcolor(green):元素类型的一些操作@@
 *判断类型：type(x) is types.~IntType # 判断是否int 类型</pre>
 </div>
@@ -1930,7 +2027,7 @@ done
 <pre>*@@color(green):'string'@@ 被单引号用括住的内容，将被视为单一字串。在引号内的代表变数的$符号，没有作用，也就是说，他被视为一般符号处理，防止任何变量替换。
 *@@color(green):&quot;string&quot;@@ 被双引号用括住的内容，将被视为单一字串。它防止通配符扩展，但允许变量扩展。这点与单引数的处理方式不同。</pre>
 </div>
-<div title="列表与元组" creator="Samuel" modifier="Samuel" created="201206290913" modified="201207020325" tags="_PYTHON_ _PYTHON_DATASTRUCTURE_" changecount="50">
+<div title="列表与元组" creator="Samuel" modifier="Samuel" created="201206290913" modified="201209050107" tags="_PYTHON_ _PYTHON_DATASTRUCTURE_" changecount="52">
 <pre>*@@bgcolor(green):说明@@
 **列表与元组的主要@@color(red):区别：@@列表可以修改，元组则不能。 一般情况下元组可以用列表替换，@@color(red): 例外：@@元组作为字典的键（不允许修改）
 **列表用''[ ]'', 元组用''( )''
@@ -1943,30 +2040,32 @@ done
 :@@bgcolor(green):''分片赋值与分片类似''@@
 :{{normal{
 访问序列中部分元素。如:
+&lt;code python&gt;
 tag=[1,2,3,4,5,6,7,8,9]
 tag[0:3] 为1 2 3，最后索引为包含最后元素的下一个元素
 tag[-3:] 7 8 9, tag[-3: -1] 7 8 后一个索引必须必前一个后出现 
 tag[:] 1 2 3 4 5 6 7 8 9
 tag[1:4:2] 为2  4。@@color(green):''2为步长， 上面的默认步长为1''@@
+&lt;/code&gt;
 }}}
 
 
 </pre>
 </div>
-<div title="字典" creator="Samuel" modifier="Samuel" created="201207020702" modified="201207020735" tags="_PYTHON_ _PYTHON_DATASTRUCTURE_" changecount="22">
+<div title="字典" creator="Samuel" modifier="Samuel" created="201207020702" modified="201209050106" tags="_PYTHON_ _PYTHON_DATASTRUCTURE_" changecount="28">
 <pre>@@bgcolor(green):''键值不唯一，键是唯一的''@@
-*@@color(blue):''字典的创建''@@
-:{{normal{
-#d = {'key1' : 'val', 'key2' : 'val'} 
-#d = dict(key1='val', key2='val')
-#{{normal{items = [ ('key1' , 'val'), ('key2' : 'val')]       
+*{{normal{@@color(blue):''字典的创建''@@
+&lt;code python&gt;
+d = {'key1' : 'val', 'key2' : 'val'} 
+d = dict(key1='val', key2='val')
+items = [ ('key1' , 'val'), ('key2' : 'val')]       
 d = dict[items]
-}}}
+&lt;/code&gt;
 }}}
 *@@color(blue):''赋值式与列表的区别''@@
 :可以为不存在的键添加值，列表超过索引则不行（可以用append方法）</pre>
 </div>
-<div title="字符串" creator="Samuel" modifier="Samuel" created="201207020222" modified="201207110133" tags="_PYTHON_ _PYTHON_DATASTRUCTURE_" changecount="55">
+<div title="字符串" creator="Samuel" modifier="Samuel" created="201207020222" modified="201209050105" tags="_PYTHON_ _PYTHON_DATASTRUCTURE_" changecount="57">
 <pre>*@@color(blue):''字符串常量''@@
 &gt;''string.digits'' ： 0-9的字符串
 &gt;''string.letters'' ： 包含所有字母（大小写）的字符串
@@ -2132,6 +2231,16 @@ a.另建一 tiddler (MyStyle) 内容如下,
 #sidebar {width: 17em;}
 #sidebarTabs .tabContents {width: 16em;}
 b.在 StyleSheet 或 StyleSheetLaouts 中加入[[MyStyle]]</pre>
+</div>
+<div title="集合" creator="samuel" modifier="samuel" created="201209060217" changecount="1">
+<pre>*@@bgcolor(green):说明@@
+:set是python2.3以后引入的内建类型。
+*@@bgcolor(green):方法@@
+&gt; ''union'' == ''|''
+&gt; ''issubset'', ''issupperset''
+&gt;''difference'' == ''-''
+&gt;''symmetric_difference'' == ''^''
+</pre>
 </div>
 </div>
 <!--POST-STOREAREA-->
