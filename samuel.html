@@ -1130,9 +1130,11 @@ Also see [[AdvancedOptions]]</pre>
 &gt;[[Python模块]]
 &gt;[[Python Internet]]</pre>
 </div>
-<div title="Python FAQ" creator="Samuel" modifier="Samuel" created="201207020638" modified="201209050109" tags="_PYTHON_ _PYTHON_FAQ_" changecount="21">
+<div title="Python FAQ" creator="Samuel" modifier="samuel" created="201207020638" modified="201209130904" tags="_PYTHON_ _PYTHON_FAQ_" changecount="23">
 <pre>*@@color(blue):''全局变量的访问''@@
-:使用@@color(blue):''global''@@关键字，在函数内部访问全局变量，否则会当场局部变量
+:使用@@color(blue):''global''@@关键字，在函数内部访问全局变量时，先用global声明一下，否则会当场局部变量
+*@@color(blue):''获取CPU的数量''@@
+: multiprocessing.cpu_count()
 
 </pre>
 </div>
@@ -1142,6 +1144,10 @@ Also see [[AdvancedOptions]]</pre>
 : ''socket.getservbyname''('domain')
 : 使用''socket.connect()''@@color(green):(使用connect以后，客户机只和connect的地址交互)@@以后使用''socket.getpeername()''
 </pre>
+</div>
+<div title="Python Miscellaneous" creator="samuel" modifier="samuel" created="201209130328" modified="201209130338" changecount="6">
+<pre>@@color(blue):''apply(func [, args [, kwargs ]]) ''@@@@color(red):（Python 3没有了）@@
+&gt;函数用于当函数参数已经存在于一个元组或字典中时，间接地调用函数。在python3中可以使用在列表和字典前加星号来进行传递（参数两种方式传递：直接传和用关键字传）</pre>
 </div>
 <div title="Python函数" creator="Samuel" modifier="Samuel" created="201206290716" modified="201209050109" tags="_PYTHON_ _PYTHON_FUNCTION_" changecount="23">
 <pre>*@@color(blue):''添加函数说明''@@
@@ -1219,7 +1225,7 @@ def test():
 &gt;[[集合]]
 &gt;[[堆]] , [[双端队列]]</pre>
 </div>
-<div title="Python模块" creator="Samuel" modifier="samuel" created="201206290836" modified="201209110541" tags="_PYTHON_ _PYTHON_MODULE_" changecount="21">
+<div title="Python模块" creator="Samuel" modifier="samuel" created="201206290836" modified="201209130328" tags="_PYTHON_ _PYTHON_MODULE_" changecount="23">
 <pre>*@@color(blue):导入方法@@
 &gt;''import os as myModel''
 *@@color(blue):models@@
@@ -1230,9 +1236,11 @@ def test():
 &gt;[[ConfigParser]] : 导入配置文件的内容
 &gt;[[Random]] : 随机模块
 &gt;[[shelve]] : 将文件当成字典来做
-&gt;[[re]] : 正则表达式</pre>
+&gt;[[re]] : 正则表达式
+&gt;[[thread]]: 多线程
+&gt;[[Python Miscellaneous]]</pre>
 </div>
-<div title="Python类" creator="Samuel" modifier="Samuel" created="201206290725" modified="201209050113" tags="_PYTHON_ _PYTHON_CLASS_" changecount="45">
+<div title="Python类" creator="Samuel" modifier="samuel" created="201206290725" modified="201209130657" tags="_PYTHON_ _PYTHON_CLASS_" changecount="49">
 <pre>*@@color(red):''使用新式类'' @@
 :Python 3.0以后不用注意，否则在使用新式类时，需先赋值{{{__}}}metaclass=type
 *@@color(red):''类中函数的参数self'' @@
@@ -1253,6 +1261,12 @@ class test:
     def init__(self) :
         test.mem +=1  #使用test而不是self来访问mem, 这样是对所有对象的mem来操作
 &lt;/code&gt;
+}}}
+*{{normal{@@color(blue):''{{{__init__}}}'' @@ 
+:初始化函数
+}}}
+*{{normal{@@color(blue):''{{{__call__}}}'' @@ 
+:将实例化后的类当函数来使用。
 }}}</pre>
 </div>
 <div title="Random" creator="samuel" modifier="samuel" created="201209060337" modified="201209110542" tags="_PYTHON_ _PYTHON_MODULE_ _RANDOM_" changecount="5">
@@ -1857,7 +1871,7 @@ install(PROGRAMS files... DESTINATION &lt;dir&gt;
 *@@color(blue):''os.listdir('path')''@@
 :列出当前路径下的所有文件</pre>
 </div>
-<div title="re" creator="YourName" modifier="samuel" created="201209110151" modified="201209110542" tags="_PYTHON_ _PYTHON_MODULE_ _RE_" changecount="36">
+<div title="re" creator="YourName" modifier="samuel" created="201209110151" modified="201209130641" tags="_PYTHON_ _PYTHON_MODULE_ _RE_" changecount="39">
 <pre>@@bgcolor(green):常用正则表达式符号@@
 &gt;''re1 | re2 '' : 匹配正则表达式re1或re2  ''e.g''. foo | bar
 &gt;''.'' : 匹配任何字符（换行符除外(可以设置python的编译标示[S or DOTALL]取消这一限制)）   ''e.g''. b.b
@@ -1894,7 +1908,7 @@ install(PROGRAMS files... DESTINATION &lt;dir&gt;
 *{{normal{''group(num=0) / groups'':
 使用group/groups来访问返回的匹配的字符串@@color(red):（也可以使用findall,finditer）@@
 }}}
-*{{normal{''sub/ subn'':
+*{{normal{''sub/ subn(pattern, repl, string, max=0)'':
 进行字符串的替换，@@color(red):（subn会返回替换的次数）@@
 }}}
 *{{normal{''split()'':
@@ -1988,6 +2002,10 @@ tar -zxvf   file
 tar -jxvf    file
 &lt;/code&gt;
 }}}</pre>
+</div>
+<div title="thread" creator="samuel" modifier="samuel" created="201209130713" tags="_PYTHON_ _PYTHON_MODULE_ _THREAD_" changecount="1">
+<pre>*@@color(blue):''守护线程''@@
+&gt;在调用threading.thread.start()之前设置threading.thread.setDaemon(True)默认为False</pre>
 </div>
 <div title="tr" creator="YourName" modifier="Samuel" created="201207020157" modified="201207030551" tags="_SHELL_ _SHELL_COMMAND_" changecount="14">
 <pre>@@bgcolor(green):''不接受指定的文件参数，而只是对标准输入进行翻译''@@
