@@ -539,7 +539,7 @@ Also see [[AdvancedOptions]]</pre>
 :git reset –soft：回退到某个版本，只回退了commit的信息，不会恢复到index file一级。如果还要提交，直接commit即可
 :git reset –hard：彻底回退到某个版本，本地的源码也会变为上一个版本的内容</pre>
 </div>
-<div title="Cmake" creator="Samuel" modifier="Samuel" created="201206180614" modified="201207230708" tags="_CMAKE_" changecount="138">
+<div title="Cmake" creator="Samuel" modifier="Samuel" created="201206180614" modified="201209180929" tags="_CMAKE_" changecount="139">
 <pre>*[[cmake:常见问题]]
 
 *[[cmake：变量]]
@@ -789,7 +789,7 @@ output = input^gamma 即对输入进行幂指数的压缩（gamma = 1/2）
 &gt;[[xargs]]:将前一输入转换为后面命令的输入参数。多用于管道
 &gt;[[find]] : 查找文件和文件夹</pre>
 </div>
-<div title="MainMenu" creator="YourName" modifier="Samuel" created="201206180446" modified="201208280252" changecount="66">
+<div title="MainMenu" creator="YourName" modifier="Samuel" created="201206180446" modified="201209180324" changecount="67">
 <pre>!Tools
 [[Git]]
 [[Emacs]]
@@ -800,7 +800,7 @@ output = input^gamma 即对输入进行幂指数的压缩（gamma = 1/2）
 [[Python]]
 [[Shell]]
 [[OpenCL]]
-
+[[Object C]]
 !Compiler Tools
 [[Cmake]]
 [[Make]]
@@ -816,8 +816,11 @@ output = input^gamma 即对输入进行幂指数的压缩（gamma = 1/2）
 [[Project FAQ]]
 </pre>
 </div>
-<div title="Make" creator="Samuel" modifier="Samuel" created="201206190153" tags="_Make_" changecount="1">
-<pre>Type the text for 'Make'</pre>
+<div title="Make" creator="Samuel" modifier="Samuel" created="201206190153" modified="201209190319" tags="_Make_" changecount="15">
+<pre>*[[gcc&amp;g++]]
+*[[make learning]]
+
+</pre>
 </div>
 <div title="MarkupPostBody" creator="YourName" modifier="YourName" created="201206180442" changecount="1">
 <pre></pre>
@@ -912,6 +915,9 @@ config.formatters.push({
 *''最后释放整个大的内存即可''
 @@color(red):''Attention''@@
 当在''~MM_MemMgrCreate''产生的''Mhandle''再通过~MM_MemMgrCreate分配''subMhandle''时需要在''Mhandle''中分配一块内存，并将地址传给~MM_MemMgrCreate。 最后不用时须释放</pre>
+</div>
+<div title="Object C" creator="Samuel" modifier="Samuel" created="201209180324" changecount="1">
+<pre>[[question ]]</pre>
 </div>
 <div title="OpenCL" creator="YourName" modifier="Samuel" created="201208280252" modified="201209040248" tags="__OPENCL__ __LANGUAGE__" changecount="10">
 <pre>[[OpenCL Learning]]
@@ -1240,9 +1246,9 @@ def test():
 &gt;[[thread]]: 多线程
 &gt;[[Python Miscellaneous]]</pre>
 </div>
-<div title="Python类" creator="Samuel" modifier="samuel" created="201206290725" modified="201209130657" tags="_PYTHON_ _PYTHON_CLASS_" changecount="49">
+<div title="Python类" creator="Samuel" modifier="Samuel" created="201206290725" modified="201209170722" tags="_PYTHON_ _PYTHON_CLASS_" changecount="51">
 <pre>*@@color(red):''使用新式类'' @@
-:Python 3.0以后不用注意，否则在使用新式类时，需先赋值{{{__}}}metaclass=type
+:Python 3.0以后不用注意，否则在使用新式类时，需先赋值{{{__}}}metaclass=type， 最好是继承object类
 *@@color(red):''类中函数的参数self'' @@
 :类中的函数的第一参数需写上是self， 因为在函数的调用的时候，第一个参数默认帮你传了self
 *@@color(blue):''查看文档信息'' @@
@@ -1592,11 +1598,14 @@ var dp={sh:{Toolbar:{},Utils:{},RegexLib:{},Brushes:{},Strings:{AboutDialog:&quo
 [[格式]]
 [[隐藏MainMenu]]</pre>
 </div>
-<div title="Todo" creator="Samuel" modifier="Samuel" created="201207240627" modified="201208310932" changecount="5">
-<pre>[[SVM]]
-测试git fetch命令
+<div title="Todo" creator="Samuel" modifier="Samuel" created="201207240627" modified="201209180612" changecount="8">
+<pre>*[[SVM]]
 
-研究一下opencl的内存copy问题, 以及AMD的FFT</pre>
+*测试git fetch命令
+
+*研究一下opencl的内存copy问题, 以及AMD的FFT
+
+*将cmake笔记移过来</pre>
 </div>
 <div title="Training&amp;detection" creator="YourName" modifier="Samuel" created="201207240627" modified="201207240628" tags="_TRAINING_ _DETECTION_" changecount="3">
 <pre>[[SVM]]</pre>
@@ -1641,7 +1650,7 @@ esac
 }}}
  </pre>
 </div>
-<div title="cmake:命令" creator="Samuel" modifier="samuel" created="201207130139" modified="201208270710" tags="_CMAKE_ _CMAKE_COMMAND_" changecount="6">
+<div title="cmake:命令" creator="Samuel" modifier="Samuel" created="201207130139" modified="201209180623" tags="_CMAKE_ _CMAKE_COMMAND_" changecount="7">
 <pre>*[[add_executable]]
 *[[configure_file]]
 *[[cmake_minimum_required]]
@@ -1649,7 +1658,7 @@ esac
 *[[install]]
 *[[get_filename_component]]
 *[[set]]
-
+*[[set_source_files_properties]]
 
 
 </pre>
@@ -1747,10 +1756,55 @@ done
 }}}
 </pre>
 </div>
-<div title="get_filename_component" creator="Samuel" modifier="Samuel" created="201206270956" modified="201206290250" tags="_CMAKE_ _CMAKE_COMMAND_" changecount="23">
+<div title="gcc&amp;g++" creator="Samuel" modifier="Samuel" created="201209190133" modified="201209190315" tags="_GCC_ _G++_" changecount="41">
+<pre>@@color(blue):''两编译器的区别''@@
+*{{normal{@@color(blue):''误区一''@@:gcc只能编译c代码,g++只能编译c++代码
+@@bgcolor(green):两者都可以，但是请注意@@
+:#@@color(green):后缀为.c的，gcc把它当作是C程序，而g++当作是c++程序@@；后缀为.cpp的，两者都会认为是c++程序，注意，虽然c++是c的超集，但是两者对语法的要求是有区别的。C++的语法规则更加严谨一些。
+:#.编译阶段，g++会调用gcc，对于c++代码，两者是等价的，但是因为@@color(red):gcc命令不能自动@@和C＋＋程序使用的库联接，所以通常用g++来完成链接，为了统一起见，干脆编译/链接统统用g++了，这就给人一种错觉，好像cpp程序只能用g++似的。 
+}}}
+*{{normal{@@color(blue):''误区二''@@:gcc不会定义{{{__}}}cplusplus宏，而g++会@@color(red):(如果是cpp的文件就会定义这个宏)@@
+&gt;实际上，这个宏只是标志着编译器将会把代码按C还是C++语法来解释，如上所述，如果后缀为.c，并且采用gcc编译器，则该宏就是未定义的，否则，就是已定义。 
+}}}
+*{{normal{@@color(blue):''误区三''@@:编译只能用gcc，链接只能用g++
+&gt;严格来说，这句话不算错误，但是它混淆了概念，应该这样说：编译可以用gcc/g++，而链接可以用g++或者gcc -lstdc++。@@color(green):因为gcc命令不能自动和C＋＋程序使用的库联接，所以通常使用g++来完成联接@@。但在编译阶段，g++会自动调用gcc，二者等价
+}}}
+@@color(blue):''编译选项''@@
+*{{normal{@@color(blue):''基本选项''@@
+&gt;''-E'' : 只进行预处理（一般进行宏的替换，以及将头文件内容拷贝到文件中）
+&gt;''-S'':  只进行预处理和编译
+&gt;''-c'' : 只进行预处理和编译以及汇编， 即生成.o文件
+&gt;''-o'' : 进行预处理和编译以及汇编和链接， 即生成可执行文件
+&gt;''-g'' : 增加调试信息，调试时有用。最高可以使用''g3''.
+}}}
+*{{normal{@@color(blue):''链接选项''@@
+&gt;''-LDIRECTORY'' : 定义连接库文件的目录 
+&gt;''-l(小L)LIBRARY'' :连接时搜索指定的函数库LIBRARY
+&gt;''-IDIRECTORY''  : 定义C源码的头文件的目录
+&gt;''-shared'' :  生成动态连接库，@@color(red):与''-fPic''连用@@
+&gt;''-fPic'' : 生成相对地址的代码，用于最后生成动态连接库
+&gt;''-static'' : 链接库时强制使用静态库, @@color(red):运行时就不需要动态库了@@
+&gt;''ar crv'' : 生成静态连接库, 静态链接库就是将''.o''文件打包 , @@color(red):然后在运行ranlib libfoo.a @@，并不是必须的 但对于源于Berkley Unix的系统这一步必须做
+&gt;''-Wl,option'' : 传递参数到连接器， 以空格结束，以逗号隔开，如：'' -Wl,-Map,output.map''
+&gt;''-Wa,option'' : 传递参数到汇编器
+}}}
+*{{normal{@@color(blue):''警告选项''@@
+&gt;'' -w '' :不生成任何警告信息。
+&gt;''-Wall'' : 生成所有警告信息
+&gt;''-Werror'' : 在发生警告时取消编译操作，即将警报看作是错误
+}}}
+*{{normal{@@color(blue):''优化选项''@@
+&gt;''-O0'' : 不进行优化处理
+&gt;''-O或-O1'' : 进行基本的优化，这些优化在大所属情况下都会使程序执行的更快
+&gt;''-O2'' : 除了完成-O1级别的优化外，还需要一些其他的调整工作，如处理器指令调度等，@@color(red):是GNU发布软件的默认优化@@
+&gt;''-O3'' : 除了完成-O2级别的优化外，还进行循环的展开（这往往会提高执行速度）以及其他的一些预处理器相关的优化工作。
+&gt;''-Os'' : 生成最小的可执行文件，主要用在嵌入式领域。
+}}}</pre>
+</div>
+<div title="get_filename_component" creator="Samuel" modifier="Samuel" created="201206270956" modified="201209180628" tags="_CMAKE_ _CMAKE_COMMAND_" changecount="27">
 <pre>*@@color(blue):''get_filename_component''@@(&lt;VAR&gt; ~FileName  PATH|ABSOLUTE|NAME|EXT|~NAME_WE|REALPATH  [CACHE])
 **@@bgcolor(green):功能@@
-***从一个全路径的文件名中提取子部分
+***从一个全路径的文件名中提取子部分， VAR为返回值
 **@@bgcolor(green):说明@@
 ***PATH : 得到路径名
 ***ABSOLUTE : 获取绝对路径
@@ -1761,7 +1815,7 @@ done
 ***CACHE : 将变量值写入cache
 *@@color(blue):''get_filename_component''@@(&lt;VAR&gt; ~FileName  PROGRAM [~PROGRAM_ARGS &lt;~ARG_VAL&gt; [CACHE])
 **@@bgcolor(green):功能@@
-***在系统路径或全路径名的~FileName中寻找程序
+***在系统路径或全路径名的~FileName中寻找程序， VAR为返回值
 **@@bgcolor(green):说明@@
 *** 当~FileName为文件名时,从系统查找路径中寻找程序。找到将全路径名赋给VAL
 *** 当~FileName为全路径的文件名时, 在这个全路径中查找。找到将全路径名赋给VAL
@@ -1856,6 +1910,108 @@ install(PROGRAMS files... DESTINATION &lt;dir&gt;
 :::#function在version 2.6以上支持
 </pre>
 </div>
+<div title="make command option" creator="samuel" modifier="samuel" created="201209190630" modified="201209190633" tags="_MAKE_COMMAND_OPTION_" changecount="3">
+<pre>*{{normal{@@color(blue):''命令参数''@@
+&gt;''{{{--}}}just-print'' 或 ''-n'' : 只打印过程不执行
+&gt;可以再命令行中改变所有makefile中变量的值
+}}}</pre>
+</div>
+<div title="make learning" creator="Samuel" modifier="samuel" created="201209190320" modified="201209190805" tags="_MAKE_LEARNING_" changecount="53">
+<pre>[[make command option]]
+[[make rule]]
+[[make variable and function]]</pre>
+</div>
+<div title="make rule" creator="samuel" modifier="samuel" created="201209190630" modified="201209190814" tags="_MAKE_RULE_" changecount="25">
+<pre>*{{normal{@@color(blue):''具体规则''@@
+#在make命令行中没有指定目标的话，会将第一个目标指定为默认的目标@@color(green):(所以你是可以指定目标的)@@
+#make中每个文件或中间生成的文件都有一个时间戳。当文件有更新时，时间戳就会更新，@@color(red):这样就可以根据一些中间文件的时间戳是否在园文件之前来判断是否要更新@@
+#{{normal{@@color(blue):make的一项规则分为3个部分@@@@color(red): (#命令前面加@可以阻止make打印命令)@@
+&lt;code  make&gt;
+target (工作目标): prereq1 prereq2(必要条件)              hello : hello.c
+     commands (命令)                                             gcc  hello.c -o hello  
+     #当没有prereq1，只有当target不存在时才会执行命令
+&lt;/code&gt;
+}}}
+#可以有多个目标。 如:tar1 tar2 : a.c b.c &lt;==&gt;两条命令tar1 : a.c b.c  tar2 : a.c b.c
+#一个 规则也可以拆开。 如tar : a.c b.c &lt;==&gt;两条命令tar : a.c  tar:b.c 
+#通配符(*等，类似于表达式)在@@color(red):目标和条件中是由make进行扩展。 在命令中是由shell进行扩展@@， 最好只用在源文件上
+#{{normal{@@color(red):''假想目标''@@可以作为其他假想目标的必要条件（假想目标总是没有更新的）。
+#{{normal{如:make clean实现如下
+&lt;code  make&gt;
+.PHONY : clean
+clean:
+    rm -rf *
+&lt;/code&gt;
+}}}
+}}}
+#{{normal{工作目标和模式的专有属性
+&lt;code make&gt;
+gui.o : CPPFLAGS += -DVAL=1 #执行完gui.o以后，CPPFLAGS的值就会恢复
+gui.o: gui.h
+&lt;/code&gt;
+}}}
+}}}
+
+*{{normal{@@color(blue):''隐藏规则''@@
+# {{normal{''.c''-&gt;可执行程序  ''.c''-&gt;''.o''  ''.o''-&gt;可执行程序
+}}}
+}}}
+*{{normal{@@color(blue):''自定义规则''@@
+#{{normal{如自定义 ''.c''-&gt; ''.o''
+&lt;code make&gt;
+%.o :  %.c
+$(COMPILE.c) $(OUTPUT_OPTION)  $&lt;   
+OUTPUT_OPTION = -o $@
+&lt;/code&gt;
+}}}
+#删除内置的规则，如:  ''%.c''-&gt; ''%.o'' 不加脚本命令就可以了@@color(green):(%相当于*)@@
+}}}
+*{{normal{@@color(blue):''特殊工作目标''@@
+@@color(red):''Todo''@@
+}}}</pre>
+</div>
+<div title="make variable and function" creator="samuel" modifier="samuel" created="201209190631" modified="201209190813" tags="_MAKE_ _VARIABLE_" changecount="16">
+<pre>@@color(green):''变量''@@
+*{{normal{@@color(blue):''自动变量''@@
+&gt;''$@'' : 工作目标的文件名
+&gt;''$*'' :工作目标的文件名， 不包含扩展名
+&gt;''$^'' 所有必要条件中文件名， 不包含重复的
+&gt;''$+'' 所有必要条件中文件名， 包含重复的
+&gt;''$&lt;'' 第一个必要条件中文件名
+&gt;''$？'' 时间戳在工作目标之后的所有必要条件
+}}}
+*{{normal{@@color(blue):''变量设置''@@
+*''CPPFLAGS = -I include'' : 设置头文件路径，为gcc设置
+*''VPATH = src inc''  : 设置源文件的路径， 为make设置@@color(green):(当不同目录有相同文件时，使用第一个找到的)@@
+*''vpath  %.cpp %.c src ; vpath  %.h %.hpp inc'' :
+}}}
+*{{normal{@@color(blue):''自定义变量''@@
+&gt;''='' : 右边有引用变量的话不会立即扩展
+&gt;'':='' : 右边有引用变量的话会立即扩展
+&gt;''?='' : 只会在左边变量没有被赋值的情况下使用
+&gt;''+='' : 附加操作，将未扩展的值附加到变量中@@color(green):(在使用‘=’时需注意)@@
+}}}
+@@color(green):''宏''@@
+*{{normal{@@color(blue):''自定义宏''@@ : 宏引用是也需要''$()''
+&lt;code make&gt;
+define  macro
+    @command1   #在命令前面加@以后， make就不会再打印这个命令了
+    command2
+endif 
+&lt;/code&gt;
+}}}
+@@color(green):''函数''@@
+*{{normal{@@color(blue):''自定义函数''@@ : 宏引用是也需要''$()''
+&lt;code make&gt;
+define  function
+    command1   $1 $2(表示函数的第一个和第二个参数)
+    command2
+endif 
+$(call function, para1, para2)
+&lt;/code&gt;
+}}}
+*@@color(blue):''内置函数''@@ </pre>
+</div>
 <div title="os" creator="Samuel" modifier="samuel" created="201207030108" modified="201209110542" tags="_PYTHON_ _PYTHON_MODULE_ _OS_" changecount="25">
 <pre>*{{normal{@@color(blue):''os.system &amp; os.popen''@@
 @@bgcolor(green):''执行外部命令''@@}}}
@@ -1870,6 +2026,20 @@ install(PROGRAMS files... DESTINATION &lt;dir&gt;
 :获取当前路径
 *@@color(blue):''os.listdir('path')''@@
 :列出当前路径下的所有文件</pre>
+</div>
+<div title="question" creator="Samuel" modifier="Samuel" created="201209180325" modified="201209180930" changecount="7">
+<pre>1、不调用父类的init会怎么样呢？
+2、类继承中使用父类的赋给self， 以前的self自动就是释放了吗
+3、 test
+&lt;code c&gt;
+-(void) setString:(NSString*)newString
+ { 
+     if (self-&gt;string != newString)
+          [self-&gt;string release]; // 正确：给 nil 发送 release 是安全的 
+     self-&gt;string = [newString retain]; // 错误！应该在 if 里面 // 因为如果 string == newString， // 计数器不会被增加
+ }
+&lt;/code&gt;
+4、分类的使用，及其使用范围</pre>
 </div>
 <div title="re" creator="YourName" modifier="samuel" created="201209110151" modified="201209130641" tags="_PYTHON_ _PYTHON_MODULE_ _RE_" changecount="39">
 <pre>@@bgcolor(green):常用正则表达式符号@@
@@ -1935,6 +2105,13 @@ install(PROGRAMS files... DESTINATION &lt;dir&gt;
 ***CACHE : 值是写入~CMakeCache.txt的，如果没加FORCE选项，值改变是没有效果的(INTERNAL类型除外) 
 ***@@bgcolor(red):~PARENT_SCOPE?@@
 </pre>
+</div>
+<div title="set_source_files_properties" creator="Samuel" modifier="Samuel" created="201209180625" modified="201209180752" changecount="16">
+<pre>*@@color(blue):''set_source_files_properties''@@([file1 [file2 [...]]]   PROPERTIES prop1 value1  [prop2 value2 [...]])
+**@@bgcolor(green):功能@@
+***设置文件编译的属性
+**@@bgcolor(green):说明@@
+*** 可以设置多个属性， 使用''键/值对''@@color(red):(详细见property on files)@@</pre>
 </div>
 <div title="shift" creator="Samuel" modifier="Samuel" created="201206290317" modified="201206290549" tags="_SHELL_ SHELL_COMMAND" changecount="17">
 <pre>*@@color(blue):''shift''@@ [Num] ,
@@ -2045,7 +2222,7 @@ done
 <pre>*@@color(green):'string'@@ 被单引号用括住的内容，将被视为单一字串。在引号内的代表变数的$符号，没有作用，也就是说，他被视为一般符号处理，防止任何变量替换。
 *@@color(green):&quot;string&quot;@@ 被双引号用括住的内容，将被视为单一字串。它防止通配符扩展，但允许变量扩展。这点与单引数的处理方式不同。</pre>
 </div>
-<div title="列表与元组" creator="Samuel" modifier="Samuel" created="201206290913" modified="201209050107" tags="_PYTHON_ _PYTHON_DATASTRUCTURE_" changecount="52">
+<div title="列表与元组" creator="Samuel" modifier="Samuel" created="201206290913" modified="201209180530" tags="_PYTHON_ _PYTHON_DATASTRUCTURE_" changecount="53">
 <pre>*@@bgcolor(green):说明@@
 **列表与元组的主要@@color(red):区别：@@列表可以修改，元组则不能。 一般情况下元组可以用列表替换，@@color(red): 例外：@@元组作为字典的键（不允许修改）
 **列表用''[ ]'', 元组用''( )''
