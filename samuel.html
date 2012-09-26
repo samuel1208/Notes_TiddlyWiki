@@ -539,12 +539,12 @@ Also see [[AdvancedOptions]]</pre>
 :git reset –soft：回退到某个版本，只回退了commit的信息，不会恢复到index file一级。如果还要提交，直接commit即可
 :git reset –hard：彻底回退到某个版本，本地的源码也会变为上一个版本的内容</pre>
 </div>
-<div title="Cmake" creator="Samuel" modifier="Samuel" created="201206180614" modified="201209180929" tags="_CMAKE_" changecount="139">
-<pre>*[[cmake:常见问题]]
+<div title="Cmake" creator="Samuel" modifier="samuel" created="201206180614" modified="201209190902" tags="_CMAKE_" changecount="144">
+<pre>*[[cmake FAQ]]
 
-*[[cmake：变量]]
+*[[cmake variable]]
 
-*[[cmake:命令]]
+*[[cmake command]]
 
 </pre>
 </div>
@@ -586,7 +586,7 @@ variable :/=  value
 <pre>[[Emacs GDB]]
 [[Emacs Edit]]</pre>
 </div>
-<div title="Emacs Edit" creator="Samuel" modifier="samuel" created="201207130549" modified="201208130717" tags="_EMACS_ _EMACS_EDIT_" changecount="59">
+<div title="Emacs Edit" creator="Samuel" modifier="samuel" created="201207130549" modified="201209260119" tags="_EMACS_ _EMACS_EDIT_" changecount="61">
 <pre>@@color(red):''C =Ctrl    
 M=Alt （或先按一下 ESC 键然后放开，再输入 &lt;chr&gt;）''@@
 !
@@ -616,6 +616,7 @@ M=Alt （或先按一下 ESC 键然后放开，再输入 &lt;chr&gt;）''@@
 ''M-d''               :       移除光标后的一个词
 ''C-k''               :        移除从光标到“行尾”间的字符
 ''M-k''               :       移除从光标到“句尾”间的字, 需要先按''C-k''，再用''M-k''进行选择
+''@@color(red):C-x  h@@''               :       选中buffer中所有文件
 ''移除一段文字：''C-@ 或 ~C-SPC（最好使用C-@）。然后将光标移动到另一端，再按 C-w 就可以把位于这两点之间的所有文字移除了
 ''粘贴一段文字：''C-@ 或 ~C-SPC（最好使用C-@）。然后将光标移动到另一端，再按 M-w，然后在需要粘贴的地方C-y
 ''C-y'' : 召回最近一次移除的内容
@@ -916,8 +917,83 @@ config.formatters.push({
 @@color(red):''Attention''@@
 当在''~MM_MemMgrCreate''产生的''Mhandle''再通过~MM_MemMgrCreate分配''subMhandle''时需要在''Mhandle''中分配一块内存，并将地址传给~MM_MemMgrCreate。 最后不用时须释放</pre>
 </div>
-<div title="Object C" creator="Samuel" modifier="Samuel" created="201209180324" changecount="1">
-<pre>[[question ]]</pre>
+<div title="Object C" creator="Samuel" modifier="Samuel" created="201209180324" modified="201209210754" changecount="10">
+<pre>[[Object C FAQ]]
+[[Object C : Class]]
+[[Object C : Protocol]]
+[[Object C : Category]]</pre>
+</div>
+<div title="Object C : Category" creator="Samuel" modifier="Samuel" created="201209200718" modified="201209200718" changecount="2">
+<pre>*{{normal{@@color(blue):''功能''@@
+对类进行扩展
+}}}</pre>
+</div>
+<div title="Object C : Class" creator="YourName" modifier="samuel" created="201209200156" modified="201209240754" tags="_OBJECT_C_LEARNING_" changecount="103">
+<pre>*{{normal{@@color(blue):''key''@@
+*@@color(red):''类中方法有相同的名字的时候，一定要有相同的参数名和函数名''@@(learning object -C 2.0  105的例子 )
+*''overwrite copywithzone'' 函数时一定要小心，使用 [self class] 而不是直接写类名（learning object -C 140）@@color(red):''任何类中使用自己类名时，都要使用self''@@
+*''intialized'' : 在发送alloc消息的时候，会调用intialized。当子类继承父类没有overwrite的时候，@@color(red):会产生两次调用@@ (learning object -C 2.0 150)
+*object c是不允许在栈上创建类对象的，@@color(red):所以你只能创建类指针在堆上面@@
+*每个对象都会自动增加一个实例isa变量，用来指向类结构信息；发送消息时会增加self和cmd（方法名）两个变量（learning object -C 106 ： under the hood）
+*''forwardInvocation'' : 当方法没有找到时，会抛出错误。 你可以重写这个方法， 这样你就可以把出错的消息发给其他对象来执行
+*''IMP'' :  消息的发送是比纯C 慢的， 如果你的消息发送是在上千次的循环中， 可以使用IMP来获取函数指针（learning object -C 109 ： efficiency）@@color(red):''（写一个例子????）''@@
+*''respondsToSelector'': 判断协议是否被实现，当协议被实现但是没在头文件声明的时候也会返回false
+*{{normal{''class'' 和 ''superclass''方法可以返回类和超类如：
+&lt;code c&gt;
+Class objectsClass;
+Class objectsSuperClass;
+id anObject;
+objectsClass = [anObject class];
+objectsSuperClass = [anObject superclass];
+&lt;/code&gt;
+}}}
+*''isMemberOfClass: and isKindOfClass'' : 判断是否为一个类的实例(learning object -C 2.0  145)
+}}}
+
+*{{normal{@@color(blue):''关键字''@@
+object c中使用@@color(blue):@interface@@， 而不是@@color(blue):@class@@。 @@color(blue):''@class''@@是一个''前向声明''
+**{{normal{''前向声明''
+#''用法1''  :  当类A和B互相引用时，如A引用B，但此时B没有定义需要使用前向声明。前向声明中不能定义对象 @@color(red):(无法得到对象的具体信息，析构的时候，将无法析构参数类存泄露)@@，只能定义指针或引用
+#''用法2''  :  前向声明可以将少编译时间, 当头文件发生改变时，所有引用这个头文件的都要重编译，使用@@color(blue):@class@@则不需要(learning object -C 2.0: 117)
+}}}
+}}}
+*{{normal{@@color(blue):''static属性''@@
+*''static变量''
+&gt;1、c++中static变量必须在类外面初始化@@color(green):(如：int class::var=0)@@,否则类中其他函数不可引用。是类变量，只能由类中函数调用
+&gt;2、object c中不支持。static会被忽略。可以定义全局static变量， 然后使用类方法来访问实现
+*''static函数''
+&gt;1、c++中static函数不可访问类成员变量及类函数@@color(green):(只能访问static的变量和函数,其不包含this指针)@@，不能被定义成virtual和const函数@@color(green):(类中const函数表示此函数不能修改类成员的值)@@
+&gt;2、object c中使用+放在函数前面来实现
+}}}
+*{{normal{@@color(blue):''@public, @private, @protected @package''@@
+#object c中只有变量有这3个属性@@color(green):(默认是protected)@@，函数没有@@color(green):(全是public)@@。(@@color(red):''说明''@@：private不能被类对象和''派生类''访问. protected可以被派生类访问。这就是protected存在的用处)
+#可以不再头文件中定义，但在源文件中实现来模拟private，但是也是可以调用只不过在头文件中隐藏了
+}}}
+*{{normal{@@color(blue):''继承''@@
+继承只能是public，且一个类只能继承一个父类， @@color(red):即不允许多重继承，而是通过协议来做@@ 
+}}}
+*{{normal{@@color(blue):''重载''@@
+函数和C一样不能重载，但方法(类中的函数)可以根据label重载。
+}}}</pre>
+</div>
+<div title="Object C : Protocol" creator="Samuel" modifier="Samuel" created="201209200601" modified="201209200717" changecount="10">
+<pre>*{{normal{@@color(blue):''关键字''@@
+#object c中使用@@color(blue):@protocol@@ 和 @@color(blue):@end@@来实现协议 。 
+#类实现时使用''&lt;...&gt;''表明
+#~Objective-C 2.0 提出了新的关键字@@color(blue):@optional@@ 和 @@color(blue):@required@@
+}}}
+*{{normal{@@color(blue):''正式协议''@@
+#协议中不能有变量
+#类必须实现协议中的所有方法
+#一个类可以实现多个协议
+#一个类也可以不经过协议声明，直接实现协议规定的方法。但是，conformsToProtocol: 方法依然返回 NO。
+}}}
+*{{normal{@@color(blue):''非正式协议''@@
+#其实就是一个分类，可以让代码可读。object c2以后都应该用正式协议的optional
+}}}</pre>
+</div>
+<div title="Object C FAQ" creator="Samuel" modifier="Samuel" created="201209180325" modified="201209210754" changecount="9">
+<pre></pre>
 </div>
 <div title="OpenCL" creator="YourName" modifier="Samuel" created="201208280252" modified="201209040248" tags="__OPENCL__ __LANGUAGE__" changecount="10">
 <pre>[[OpenCL Learning]]
@@ -1598,14 +1674,17 @@ var dp={sh:{Toolbar:{},Utils:{},RegexLib:{},Brushes:{},Strings:{AboutDialog:&quo
 [[格式]]
 [[隐藏MainMenu]]</pre>
 </div>
-<div title="Todo" creator="Samuel" modifier="Samuel" created="201207240627" modified="201209180612" changecount="8">
+<div title="Todo" creator="Samuel" modifier="samuel" created="201207240627" modified="201209260339" changecount="11">
 <pre>*[[SVM]]
 
 *测试git fetch命令
 
 *研究一下opencl的内存copy问题, 以及AMD的FFT
 
-*将cmake笔记移过来</pre>
+*将cmake笔记移过来
+
+*如何生成带版本号的动态库
+*pkg-config</pre>
 </div>
 <div title="Training&amp;detection" creator="YourName" modifier="Samuel" created="201207240627" modified="201207240628" tags="_TRAINING_ _DETECTION_" changecount="3">
 <pre>[[SVM]]</pre>
@@ -1624,7 +1703,7 @@ var dp={sh:{Toolbar:{},Utils:{},RegexLib:{},Brushes:{},Strings:{AboutDialog:&quo
 <div title="WindowTitle" creator="YourName" modifier="YourName" created="201206180441" changecount="1">
 <pre>&lt;&lt;tiddler SiteTitle&gt;&gt; - &lt;&lt;tiddler SiteSubtitle&gt;&gt;</pre>
 </div>
-<div title="add_executable" creator="samuel" modifier="samuel" created="201208270711" modified="201208270718" changecount="25">
+<div title="add_executable" creator="samuel" modifier="samuel" created="201208270711" modified="201209190912" changecount="27">
 <pre>*@@bgcolor(green):功能@@
 **增加一个可执行工程。 
 *@@bgcolor(green):用法@@
@@ -1638,6 +1717,12 @@ var dp={sh:{Toolbar:{},Utils:{},RegexLib:{},Brushes:{},Strings:{AboutDialog:&quo
 }}}
 **add_executable(&lt;name&gt;  IMPORTED)</pre>
 </div>
+<div title="aux_source_directory" creator="samuel" modifier="samuel" created="201209190905" modified="201209190911" changecount="4">
+<pre>*@@color(blue):''aux_source_directory''@@(&lt;dir&gt; &lt;variable&gt;)
+:将dir目录下的所有*.c,*.cpp文件放到variable中，@@color(red):不会覆盖variable的值@@
+
+</pre>
+</div>
 <div title="case" creator="Samuel" modifier="Samuel" created="201206290247" modified="201207160757" tags="_SHELL_ _SHELL_CONTROL_STRUCT_" changecount="39">
 <pre>*{{normal{@@bgcolor(green):用法@@
 &lt;code sh&gt;
@@ -1650,10 +1735,17 @@ esac
 }}}
  </pre>
 </div>
-<div title="cmake:命令" creator="Samuel" modifier="Samuel" created="201207130139" modified="201209180623" tags="_CMAKE_ _CMAKE_COMMAND_" changecount="7">
+<div title="cmake FAQ" creator="Samuel" modifier="samuel" created="201207130140" modified="201209190902" tags="_CMAKE_ _CMAKE_FAQ_" changecount="8">
+<pre>#在vs中设置忽略指定库
+:SET(~CMAKE_EXE_LINKER_FLAGS /NODEFAULTLIB:LIBC) ;
+#在执行cmake的命令时，定义的变量是存放到~CMakeCache.txt中的</pre>
+</div>
+<div title="cmake command" creator="Samuel" modifier="samuel" created="201207130139" modified="201209190911" tags="_CMAKE_ _CMAKE_COMMAND_" changecount="11">
 <pre>*[[add_executable]]
+*[[aux_source_directory]]
 *[[configure_file]]
 *[[cmake_minimum_required]]
+*[[file]]
 *[[macro、function]]
 *[[install]]
 *[[get_filename_component]]
@@ -1661,21 +1753,10 @@ esac
 *[[set_source_files_properties]]
 
 
+
 </pre>
 </div>
-<div title="cmake:常见问题" creator="Samuel" modifier="Samuel" created="201207130140" modified="201207130143" tags="_CMAKE_ _CMAKE_FAQ_" changecount="6">
-<pre>#在vs中设置忽略指定库
-:SET(~CMAKE_EXE_LINKER_FLAGS /NODEFAULTLIB:LIBC) ;
-#在执行cmake的命令时，定义的变量是存放到~CMakeCache.txt中的</pre>
-</div>
-<div title="cmake_minimum_required" creator="YourName" modifier="Samuel" created="201207200205" modified="201207200211" changecount="5">
-<pre>*@@color(blue):''cmake_minimum_required''@@(VERSION major[.minor[.patch[.tweak]]] [~FATAL_ERROR])
-**@@bgcolor(green):功能@@
-***cmake的版本需求
-**@@bgcolor(green):说明@@
-***~FATAL_ERROR: 2.6以上支持， 当指定时， 版本低的时候只是给出warning， 而不是error</pre>
-</div>
-<div title="cmake：变量" creator="Samuel" modifier="Samuel" created="201206270916" modified="201207230711" tags="_CMAKE_ _CMAKE_VARIABLE_" changecount="19">
+<div title="cmake variable" creator="Samuel" modifier="samuel" created="201206270916" modified="201209190902" tags="_CMAKE_ _CMAKE_VARIABLE_" changecount="22">
 <pre>**@@color(blue): ''~PROJECT_SOURCE_DIR &amp;  ~PROJECT_BINARY_DIR''@@
 ***~PROJECT_SOURCE_DIR'   离目前运行的~CMakeLists.txt的最近的project的那个~CMakeLists.txt所在的路径
 ***~PROJECT_BINARY_DIR   离目前运行的~CMakeLists.txt的最近的project进行out-of-source所建文件夹的那个路径
@@ -1700,6 +1781,13 @@ esac
 
 
 </pre>
+</div>
+<div title="cmake_minimum_required" creator="YourName" modifier="Samuel" created="201207200205" modified="201207200211" changecount="5">
+<pre>*@@color(blue):''cmake_minimum_required''@@(VERSION major[.minor[.patch[.tweak]]] [~FATAL_ERROR])
+**@@bgcolor(green):功能@@
+***cmake的版本需求
+**@@bgcolor(green):说明@@
+***~FATAL_ERROR: 2.6以上支持， 当指定时， 版本低的时候只是给出warning， 而不是error</pre>
 </div>
 <div title="configure_file" creator="Samuel" modifier="samuel" created="201206270336" modified="201208270710" tags="_CMAKE_ _CMAKE_COMMAND_" changecount="39">
 <pre>*@@color(blue):''configure_file''@@(&lt;input&gt; &lt;output&gt;  [COPYONLY] [~ESCAPE_QUOTES] [@ONLY])
@@ -1739,6 +1827,51 @@ esac
 &lt;/code&gt;
 }}}</pre>
 </div>
+<div title="file" creator="samuel" modifier="samuel" created="201209190914" modified="201209190921" changecount="14">
+<pre>*@@bgcolor(green):功能@@
+**文件操作指令 
+*{{normal{@@bgcolor(green):用法@@
+*@@color(blue):file@@(WRITE  filename &quot;message&quot;)
+&gt;向filename中写消息，如果文件不存在则创建，如果原文件有内容则覆盖(可以指定路径： e.g.  file(WRITE  &quot;../../a.txt&quot;  &quot;ok&quot;) )
+*@@color(blue):file@@(APPEND  filename  &quot;message&quot;)
+&gt;将消息内容追加到文件后面
+*@@color(blue):file@@(READ filename variable :A [LIMIT  numBytes : N] [OFFSET  offset: O] [HEX])
+&gt;读取文件中~O-F的内容到变量A，HEX转换成16进制 (e.g.  file(READ  &quot;a.txt&quot;  valA  OFFSET 0 LIMIT 4))
+*{{normal{@@color(blue):file@@(STRINGS  filename  variable : A  [~LIMIT_COUNT  num]
+              [~LIMIT_INPUT  numBytes] [~LIMIT_OUTPUT numBytes]
+              [~LENGTH_MINIMUM  numBytes]  [~LENGTH_MAXIMUM  numBytes] 
+              [~NEWLINE_CONSUME]  [~REGEX  regex]  [~NO_HEX_CONVERSION] )
+}}}
+&gt;~LIMIT_COUNT : 从文件中读取的最大字符串的个数
+&gt;~LIMIT_INPUT  : 从文件中读取的最大字节数    
+&gt;~LIMIT_OUTPUT : 存放在变量A中的最大字节数   
+&gt;~LENGTH_MINIMUM  : 设置返回字符串的最小长度
+&gt;~LENGTH_MAXIMUM  : 设置返回字符串的最大长度
+&gt;~NEWLINE_CONSUME : 忽略换行符，遇到换行符不在终止
+&gt;~REGEX : 指定一个正则表达式， 其返回的字符串需符合正则表达式
+*@@color(blue):file@@(GLOB  variable [RELATIVE  path]  [globbing expressions1 ...])
+&gt;e.g.  file(GLOB   src  &quot;src/*.c&quot; &quot;src/*.cpp&quot;  &quot;f[3-5].txt&quot;)
+*@@color(blue):file@@(GLOB_RECURSE variable  [RELATIVE  path]    [~FOLLOW_SYMLINKS] [globbing expressions1 ...])
+&gt;与GLOB类似，但会寻找所有子目录中相匹配的
+*@@color(blue):file@@(RENAME &lt;old name&gt; &lt;new name&gt;)
+*@@color(blue):file@@(REMOVE  [file1 ...])
+*@@color(blue):file@@(~REMOVE_RECURSE  [file1 ...])
+*@@color(blue):file@@(~MAKE_DIRECTORY   [directory1  directory2 ...])
+*@@color(blue):file@@(~RELATIVE_PATH variable directory file)
+*@@color(blue):file@@(~TO_CMAKE_PATH path result)
+*@@color(blue):file@@(~TO_NATIVE_PATH path result)
+*@@color(blue):file@@(DOWNLOAD  url  file [TIMEOUT timeout] [STATUS status]  [LOG log] [~EXPECTED_MD5 sum] [~SHOW_PROGRESS])
+*{{normal{@@color(blue):file@@(&lt;~COPY|INSTALL&gt; files... DESTINATION &lt;dir&gt;
+                 [~FILE_PERMISSIONS permissions...]
+                 [~DIRECTORY_PERMISSIONS permissions...]
+                 [~NO_SOURCE_PERMISSIONS] [~USE_SOURCE_PERMISSIONS]
+                 [~FILES_MATCHING]
+                 [[PATTERN &lt;pattern&gt; | ~REGEX &lt;regex&gt;]
+                 [EXCLUDE] [PERMISSIONS permissions...]] [...])
+}}}
+}}}
+</pre>
+</div>
 <div title="find" creator="samuel" modifier="samuel" created="201208060245" changecount="1">
 <pre>*@@bgcolor(green):功能@@
 :查找文件和文件夹
@@ -1756,7 +1889,7 @@ done
 }}}
 </pre>
 </div>
-<div title="gcc&amp;g++" creator="Samuel" modifier="Samuel" created="201209190133" modified="201209190315" tags="_GCC_ _G++_" changecount="41">
+<div title="gcc&amp;g++" creator="Samuel" modifier="samuel" created="201209190133" modified="201209260648" tags="_GCC_ _G++_" changecount="44">
 <pre>@@color(blue):''两编译器的区别''@@
 *{{normal{@@color(blue):''误区一''@@:gcc只能编译c代码,g++只能编译c++代码
 @@bgcolor(green):两者都可以，但是请注意@@
@@ -1783,7 +1916,7 @@ done
 &gt;''-IDIRECTORY''  : 定义C源码的头文件的目录
 &gt;''-shared'' :  生成动态连接库，@@color(red):与''-fPic''连用@@
 &gt;''-fPic'' : 生成相对地址的代码，用于最后生成动态连接库
-&gt;''-static'' : 链接库时强制使用静态库, @@color(red):运行时就不需要动态库了@@
+&gt;''-static'' : 链接库时强制使用静态库@@color(red):(''可能会提示你有时候找不到so文件'')@@, @@color(red):运行时就不需要动态库了@@
 &gt;''ar crv'' : 生成静态连接库, 静态链接库就是将''.o''文件打包 , @@color(red):然后在运行ranlib libfoo.a @@，并不是必须的 但对于源于Berkley Unix的系统这一步必须做
 &gt;''-Wl,option'' : 传递参数到连接器， 以空格结束，以逗号隔开，如：'' -Wl,-Map,output.map''
 &gt;''-Wa,option'' : 传递参数到汇编器
@@ -2026,20 +2159,6 @@ $(call function, para1, para2)
 :获取当前路径
 *@@color(blue):''os.listdir('path')''@@
 :列出当前路径下的所有文件</pre>
-</div>
-<div title="question" creator="Samuel" modifier="Samuel" created="201209180325" modified="201209180930" changecount="7">
-<pre>1、不调用父类的init会怎么样呢？
-2、类继承中使用父类的赋给self， 以前的self自动就是释放了吗
-3、 test
-&lt;code c&gt;
--(void) setString:(NSString*)newString
- { 
-     if (self-&gt;string != newString)
-          [self-&gt;string release]; // 正确：给 nil 发送 release 是安全的 
-     self-&gt;string = [newString retain]; // 错误！应该在 if 里面 // 因为如果 string == newString， // 计数器不会被增加
- }
-&lt;/code&gt;
-4、分类的使用，及其使用范围</pre>
 </div>
 <div title="re" creator="YourName" modifier="samuel" created="201209110151" modified="201209130641" tags="_PYTHON_ _PYTHON_MODULE_ _RE_" changecount="39">
 <pre>@@bgcolor(green):常用正则表达式符号@@
