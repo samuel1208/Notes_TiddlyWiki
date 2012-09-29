@@ -511,6 +511,23 @@ Also see [[AdvancedOptions]]</pre>
 <pre>*@@bgcolor(green):功能@@
 **命令替换符，在括号和引号里可以执行命令, 将其结果作为其他的输入</pre>
 </div>
+<div title="ASD" creator="Samuel" modifier="Samuel" created="201209290653" modified="201209290705" changecount="3">
+<pre>图像数据
+&gt;http://people.csail.mit.edu/torralba/courses/6.870/6.870.recognition.htm
+*行人检查数据库
+&gt;http://nicta.com.au/research/projects/AutoMap/computer_vision_datasets
+&gt;http://cbcl.mit.edu/software-datasets/
+*物体分类数据库
+&gt;http://www.robots.ox.ac.uk/~vgg/data/
+*Cat 数据库
+&gt;http://137.189.35.203/WebUI/CatDatabase/catData.html
+*Caltech 数据库
+&gt;http://vision.caltech.edu/Image_Datasets/Caltech101/Caltech101.html
+
+@@color(blue):''BOW''@@
+1、改进 bow的图像特征是基于全局的（第三步）
+2、bow-learning脚本中describe-images和build-vocabulary 需要加类名</pre>
+</div>
 <div title="AdvancedOptions" creator="YourName" modifier="YourName" created="201206180447" modified="201206180447" changecount="2">
 <pre>&lt;&lt;options&gt;&gt;</pre>
 </div>
@@ -586,7 +603,7 @@ variable :/=  value
 <pre>[[Emacs GDB]]
 [[Emacs Edit]]</pre>
 </div>
-<div title="Emacs Edit" creator="Samuel" modifier="samuel" created="201207130549" modified="201209260119" tags="_EMACS_ _EMACS_EDIT_" changecount="61">
+<div title="Emacs Edit" creator="Samuel" modifier="Samuel" created="201207130549" modified="201209290648" tags="_EMACS_ _EMACS_EDIT_" changecount="62">
 <pre>@@color(red):''C =Ctrl    
 M=Alt （或先按一下 ESC 键然后放开，再输入 &lt;chr&gt;）''@@
 !
@@ -642,7 +659,7 @@ M=Alt （或先按一下 ESC 键然后放开，再输入 &lt;chr&gt;）''@@
 ''C-s''  : 是向下搜索 &lt;Enter&gt;结束搜索，继续C-s搜索下一个
 ''C-r '' : 是向上搜索  &lt;Enter&gt;结束搜索，继续C-r搜索下一个}}}
 *@@color(blue):''buffer操作''@@
-&gt;{{normal{''C-x C-b''  :   列出缓冲区
+&gt;{{normal{''C-x C-b''  :   列出缓冲区   在前面加d ，然后按x就可以执行
 ''C-x  b     buffer1'' : 切换到buffer1并关闭当前buffer
 ''@@color(red):C-x 4 b   buffer1@@'' : 切换到buffer1不关闭当前buffer
 ''C-x 5 b   buffer1'' : 新emacs进程中打开buffer1
@@ -763,7 +780,7 @@ output = input^gamma 即对输入进行幂指数的压缩（gamma = 1/2）
 # ''对每一个block内的特征向量进行归一化(每个block单独进行，找到最大最小值，归一化)''
 </pre>
 </div>
-<div title="Img Format Convertion" creator="Samuel" modifier="Samuel" created="201207180853" modified="201207180903" changecount="11">
+<div title="Img format convertion" creator="Samuel" modifier="samuel" created="201207180853" modified="201209270111" tags="_IMG_FORMAT_" changecount="15">
 <pre>*@@color(blue):''RGB  -&gt; GRAY''@@
 :Gray= R*0.229 + G*0.587 + B*0.114
 *@@color(blue):''RGB  -&gt; ~YCrCb''@@
@@ -776,7 +793,26 @@ output = input^gamma 即对输入进行幂指数的压缩（gamma = 1/2）
 
 </pre>
 </div>
-<div title="Linux" creator="Samuel" modifier="samuel" created="201207160840" modified="201208060244" changecount="2">
+<div title="Img processing" creator="samuel" modifier="samuel" created="201209270110" modified="201209270606" changecount="6">
+<pre>[[Img format convertion]]
+[[形态学的腐蚀和膨胀]]
+[[直方图均衡化(Histogram Equalization)]]
+
+!math
+[[协方差-方差-标准差]]</pre>
+</div>
+<div title="K-means" creator="samuel" modifier="samuel" created="201209270617" modified="201209270723" changecount="6">
+<pre>*{{normal{@@color(blue):''算法''@@
+#从N个文档@@color(green):''随机选''@@取K个文档作为质心可以@@color(red):(可以多跑几边，取最小值)@@
+#对剩余的每个文档测量其到每个质心的距离，并把它归到最近的质心的类
+#重新计算已经得到的各个类的质心@@color(red):(每个类的平均值)@@
+#迭代2～3步直至新的质心与原质心相等或小于指定阀值，算法结束
+}}}
+*{{normal{@@color(blue):''缺点''@@
+#k的大小对结果影响比较大
+}}}</pre>
+</div>
+<div title="Linux" creator="Samuel" modifier="Samuel" created="201207160840" modified="201209290606" tags="_LINUX_COMMAND_" changecount="4">
 <pre>*@@color(blue):''Linux 命令''@@
 &gt;[[shift]]   : 移动shell脚本传入的参数位置
 &gt;[[$()与``]] :命令替换符， 在其中执行命令并作为输入
@@ -790,7 +826,7 @@ output = input^gamma 即对输入进行幂指数的压缩（gamma = 1/2）
 &gt;[[xargs]]:将前一输入转换为后面命令的输入参数。多用于管道
 &gt;[[find]] : 查找文件和文件夹</pre>
 </div>
-<div title="MainMenu" creator="YourName" modifier="Samuel" created="201206180446" modified="201209180324" changecount="67">
+<div title="MainMenu" creator="YourName" modifier="Samuel" created="201206180446" modified="201209290653" changecount="70">
 <pre>!Tools
 [[Git]]
 [[Emacs]]
@@ -808,13 +844,14 @@ output = input^gamma 即对输入进行幂指数的压缩（gamma = 1/2）
 
 !Image Processing
 [[Feature Extraction]]
-[[Img Format Convertion]]
+[[Img processing]]
 [[Training&amp;detection]]
 [[FFT]]
-!Others
+! Miscellaneous 
 [[Todo]]
 [[Project]]
 [[Project FAQ]]
+[[ASD]]
 </pre>
 </div>
 <div title="Make" creator="Samuel" modifier="Samuel" created="201206190153" modified="201209190319" tags="_Make_" changecount="15">
@@ -1674,7 +1711,7 @@ var dp={sh:{Toolbar:{},Utils:{},RegexLib:{},Brushes:{},Strings:{AboutDialog:&quo
 [[格式]]
 [[隐藏MainMenu]]</pre>
 </div>
-<div title="Todo" creator="Samuel" modifier="samuel" created="201207240627" modified="201209260339" changecount="11">
+<div title="Todo" creator="Samuel" modifier="samuel" created="201207240627" modified="201209260722" changecount="12">
 <pre>*[[SVM]]
 
 *测试git fetch命令
@@ -1684,10 +1721,14 @@ var dp={sh:{Toolbar:{},Utils:{},RegexLib:{},Brushes:{},Strings:{AboutDialog:&quo
 *将cmake笔记移过来
 
 *如何生成带版本号的动态库
-*pkg-config</pre>
+*pkg-config
+
+*mpi</pre>
 </div>
-<div title="Training&amp;detection" creator="YourName" modifier="Samuel" created="201207240627" modified="201207240628" tags="_TRAINING_ _DETECTION_" changecount="3">
-<pre>[[SVM]]</pre>
+<div title="Training&amp;detection" creator="YourName" modifier="samuel" created="201207240627" modified="201209270640" tags="_TRAINING_ _DETECTION_" changecount="6">
+<pre>[[SVM]]
+[[K-means]]
+[[Meanshift]]</pre>
 </div>
 <div title="ViewTemplate" creator="Samuel" modifier="Samuel" created="201207180830" modified="201207180830" changecount="2">
 <pre>&lt;!--{{{--&gt;
@@ -1872,11 +1913,13 @@ esac
 }}}
 </pre>
 </div>
-<div title="find" creator="samuel" modifier="samuel" created="201208060245" changecount="1">
+<div title="find" creator="samuel" modifier="Samuel" created="201208060245" modified="201209290607" changecount="3">
 <pre>*@@bgcolor(green):功能@@
 :查找文件和文件夹
-*@@bgcolor(green):举例@@
-:find  ./path  -name  &quot;*shen.*&quot;</pre>
+*{{normal{@@bgcolor(green):举例@@
+#find  ./path  -name  &quot;*shen.*&quot;
+# find  ./path  会列出路径下所有文件名+路径名
+}}}</pre>
 </div>
 <div title="for" creator="Samuel" modifier="Samuel" created="201207160803" modified="201207160808" tags="_SHELL_ _SHELL_CONTROL_STRUCT_" changecount="2">
 <pre>*{{normal{@@bgcolor(green):用法@@
@@ -1889,7 +1932,7 @@ done
 }}}
 </pre>
 </div>
-<div title="gcc&amp;g++" creator="Samuel" modifier="samuel" created="201209190133" modified="201209260648" tags="_GCC_ _G++_" changecount="44">
+<div title="gcc&amp;g++" creator="Samuel" modifier="samuel" created="201209190133" modified="201209260854" tags="_GCC_ _G++_" changecount="47">
 <pre>@@color(blue):''两编译器的区别''@@
 *{{normal{@@color(blue):''误区一''@@:gcc只能编译c代码,g++只能编译c++代码
 @@bgcolor(green):两者都可以，但是请注意@@
@@ -1906,7 +1949,7 @@ done
 *{{normal{@@color(blue):''基本选项''@@
 &gt;''-E'' : 只进行预处理（一般进行宏的替换，以及将头文件内容拷贝到文件中）
 &gt;''-S'':  只进行预处理和编译
-&gt;''-c'' : 只进行预处理和编译以及汇编， 即生成.o文件
+&gt;''-c'' : 只进行预处理和编译以及汇编， 即生成.o文件@@color(red):(生成.o文件的时候一定要加上)@@
 &gt;''-o'' : 进行预处理和编译以及汇编和链接， 即生成可执行文件
 &gt;''-g'' : 增加调试信息，调试时有用。最高可以使用''g3''.
 }}}
@@ -1915,11 +1958,12 @@ done
 &gt;''-l(小L)LIBRARY'' :连接时搜索指定的函数库LIBRARY
 &gt;''-IDIRECTORY''  : 定义C源码的头文件的目录
 &gt;''-shared'' :  生成动态连接库，@@color(red):与''-fPic''连用@@
-&gt;''-fPic'' : 生成相对地址的代码，用于最后生成动态连接库
+&gt;''-fPIC'' : 生成相对地址的代码，用于最后生成动态连接库
 &gt;''-static'' : 链接库时强制使用静态库@@color(red):(''可能会提示你有时候找不到so文件'')@@, @@color(red):运行时就不需要动态库了@@
 &gt;''ar crv'' : 生成静态连接库, 静态链接库就是将''.o''文件打包 , @@color(red):然后在运行ranlib libfoo.a @@，并不是必须的 但对于源于Berkley Unix的系统这一步必须做
 &gt;''-Wl,option'' : 传递参数到连接器， 以空格结束，以逗号隔开，如：'' -Wl,-Map,output.map''
 &gt;''-Wa,option'' : 传递参数到汇编器
+&gt;''-Wp,option'' : 传递参数到预处理器
 }}}
 *{{normal{@@color(blue):''警告选项''@@
 &gt;'' -w '' :不生成任何警告信息。
@@ -2043,10 +2087,11 @@ install(PROGRAMS files... DESTINATION &lt;dir&gt;
 :::#function在version 2.6以上支持
 </pre>
 </div>
-<div title="make command option" creator="samuel" modifier="samuel" created="201209190630" modified="201209190633" tags="_MAKE_COMMAND_OPTION_" changecount="3">
+<div title="make command option" creator="samuel" modifier="samuel" created="201209190630" modified="201209270903" tags="_MAKE_COMMAND_OPTION_" changecount="6">
 <pre>*{{normal{@@color(blue):''命令参数''@@
-&gt;''{{{--}}}just-print'' 或 ''-n'' : 只打印过程不执行
-&gt;可以再命令行中改变所有makefile中变量的值
+*''{{{--}}}just-print'' 或 ''-n'' : 只打印过程不执行
+*可以再命令行中改变所有makefile中变量的值
+*''-f'' : 指定makefile文件
 }}}</pre>
 </div>
 <div title="make learning" creator="Samuel" modifier="samuel" created="201209190320" modified="201209190805" tags="_MAKE_LEARNING_" changecount="53">
@@ -2054,7 +2099,7 @@ install(PROGRAMS files... DESTINATION &lt;dir&gt;
 [[make rule]]
 [[make variable and function]]</pre>
 </div>
-<div title="make rule" creator="samuel" modifier="samuel" created="201209190630" modified="201209190814" tags="_MAKE_RULE_" changecount="25">
+<div title="make rule" creator="samuel" modifier="Samuel" created="201209190630" modified="201209290626" tags="_MAKE_RULE_" changecount="26">
 <pre>*{{normal{@@color(blue):''具体规则''@@
 #在make命令行中没有指定目标的话，会将第一个目标指定为默认的目标@@color(green):(所以你是可以指定目标的)@@
 #make中每个文件或中间生成的文件都有一个时间戳。当文件有更新时，时间戳就会更新，@@color(red):这样就可以根据一些中间文件的时间戳是否在园文件之前来判断是否要更新@@
@@ -2366,6 +2411,16 @@ tag[1:4:2] 为2  4。@@color(green):''2为步长， 上面的默认步长为1''@
 
 </pre>
 </div>
+<div title="协方差-方差-标准差" creator="samuel" modifier="samuel" created="201209270548" modified="201209270605" changecount="11">
+<pre>*@@color(blue):''方差''@@
+&gt;''D(X)=E[ (X - E(X)) (X - E(X)) ]''是各个数据与''平均数''之差的平方的平均数。 用来衡量一个样本中，样本值的偏离程度
+*@@color(blue):''标准差''@@
+&gt;标准差是方差平方根
+*@@color(blue):''协方差''@@
+&gt;''COV(X，Y)=E[ (X - E(X)) (Y - E(Y)) ]'' : 方差是协方差的特例
+*@@color(blue):''相关系数''@@
+&gt;协方差/[根号D（X）*根号D（Y）]</pre>
+</div>
 <div title="字典" creator="Samuel" modifier="Samuel" created="201207020702" modified="201209050106" tags="_PYTHON_ _PYTHON_DATASTRUCTURE_" changecount="28">
 <pre>@@bgcolor(green):''键值不唯一，键是唯一的''@@
 *{{normal{@@color(blue):''字典的创建''@@
@@ -2456,6 +2511,23 @@ res = str.split('+')
 &lt;/code&gt;
 }}}</pre>
 </div>
+<div title="形态学的腐蚀和膨胀" creator="samuel" modifier="samuel" created="201209270115" modified="201209270119" changecount="7">
+<pre>*{{normal{@@color(blue):''灰度图像''@@
+* 腐蚀：若我们把重合区域中所有点灰度值的最大值赋给当前点，就是对灰度图的腐蚀操作 @@color(red):(可以分为垂直和水平两个方向来做)@@
+&gt;即：(3, 7, 9, 12, 3, 6, 8)-&gt;(7, 9, 12, 12, 12, 8, 8)
+* 膨胀：若我们把重合区域中所有点灰度值的最小值赋给当前点，就是对灰度图的膨胀操作
+&gt;即：(3, 7, 9, 12, 3, 6, 8)-&gt;(3, 3, 7, 3, 3, 3, 6)
+
+}}}
+*{{normal{@@color(blue):''二值图像''@@
+* 膨胀：用3x3的结构元素，扫描图像的每一个像素，用结构元素与其覆盖的二值图像做“与”操作，如果都为0，结果图像的该像素为0。否则为1。 @@color(red):结果：使二值图像扩大一圈@@
+* 腐蚀：用3x3的结构元素，扫描图像的每一个像素，用结构元素(0 表示未覆盖)与其覆盖的二值图像做“与”操作如果都为1，结果图像的该像素为1。否则为0。 @@color(red):结果：使二值图像减小一圈@@
+&gt;{{normal{结构元素如： &amp;nbsp;
+ 0  1  0
+ 0  1  0                                                
+ 0  1  0 }}}
+}}}</pre>
+</div>
 <div title="格式" creator="Samuel" modifier="Samuel" created="201206180454" modified="201207130553" tags="TiddlyWilki" changecount="120">
 <pre>#使用#添加数字标题
 {{{
@@ -2518,6 +2590,12 @@ __下划线__
 {{{
 /% 不想被看到的內容 %/
 }}}
+</pre>
+</div>
+<div title="直方图均衡化(Histogram Equalization)" creator="samuel" modifier="samuel" created="201209270115" changecount="1">
+<pre>* 直方图统计：p(k) = En(k)/n  k(0, l-1)  。  其中 L 为级数 如：256
+* 累计归一化直方图：
+* 还原到像素级：
 </pre>
 </div>
 <div title="表格" creator="Samuel" modifier="Samuel" created="201206180540" modified="201207190909" tags="TiddlyWilki" changecount="25">
