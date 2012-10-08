@@ -511,23 +511,6 @@ Also see [[AdvancedOptions]]</pre>
 <pre>*@@bgcolor(green):功能@@
 **命令替换符，在括号和引号里可以执行命令, 将其结果作为其他的输入</pre>
 </div>
-<div title="ASD" creator="Samuel" modifier="Samuel" created="201209290653" modified="201209290705" changecount="3">
-<pre>图像数据
-&gt;http://people.csail.mit.edu/torralba/courses/6.870/6.870.recognition.htm
-*行人检查数据库
-&gt;http://nicta.com.au/research/projects/AutoMap/computer_vision_datasets
-&gt;http://cbcl.mit.edu/software-datasets/
-*物体分类数据库
-&gt;http://www.robots.ox.ac.uk/~vgg/data/
-*Cat 数据库
-&gt;http://137.189.35.203/WebUI/CatDatabase/catData.html
-*Caltech 数据库
-&gt;http://vision.caltech.edu/Image_Datasets/Caltech101/Caltech101.html
-
-@@color(blue):''BOW''@@
-1、改进 bow的图像特征是基于全局的（第三步）
-2、bow-learning脚本中describe-images和build-vocabulary 需要加类名</pre>
-</div>
 <div title="AdvancedOptions" creator="YourName" modifier="YourName" created="201206180447" modified="201206180447" changecount="2">
 <pre>&lt;&lt;options&gt;&gt;</pre>
 </div>
@@ -826,7 +809,7 @@ output = input^gamma 即对输入进行幂指数的压缩（gamma = 1/2）
 &gt;[[xargs]]:将前一输入转换为后面命令的输入参数。多用于管道
 &gt;[[find]] : 查找文件和文件夹</pre>
 </div>
-<div title="MainMenu" creator="YourName" modifier="Samuel" created="201206180446" modified="201209290653" changecount="70">
+<div title="MainMenu" creator="YourName" modifier="Samuel" created="201206180446" modified="201210080140" changecount="72">
 <pre>!Tools
 [[Git]]
 [[Emacs]]
@@ -849,9 +832,6 @@ output = input^gamma 即对输入进行幂指数的压缩（gamma = 1/2）
 [[FFT]]
 ! Miscellaneous 
 [[Todo]]
-[[Project]]
-[[Project FAQ]]
-[[ASD]]
 </pre>
 </div>
 <div title="Make" creator="Samuel" modifier="Samuel" created="201206190153" modified="201209190319" tags="_Make_" changecount="15">
@@ -938,21 +918,6 @@ config.formatters.push({
 	}
 });
 //}}}</pre>
-</div>
-<div title="Memory Managing" creator="Samuel" modifier="Samuel" created="201207190841" modified="201207190938" tags="_PROJECT_ _MEMORY_MANAGE_" changecount="39">
-<pre>*''~MM_MemMgrCreate(@@color(blue):''~MVoid''@@ *pMem, @@color(blue):''~MLong''@@ nMemSize)''
-:{{normal{通过外部分配一块大的内存，并将指针传给pMem, nMemSizede 实际大小是nMemSizede -两个node的大小
- 返回 headNode}}}
-*''~MM_MemAlloc(@@color(blue):''~MHandle''@@ *pMem, @@color(blue):''~MULong''@@ nMemSize)''
-:{{normal{此函数调用''~MM_MemAllocStatic'',''~MM_MemAllocStatic''在headnode与endnode之间分配内存，并把当前的headNode标记为used，并创建新的headNode，形式如下：
-|!~HeadNode-1| Mem used| !~HeadNode-2 | Mem used|...|!~HeadNode-n|Mem nonused|!~EndNode|
-}}}
-*''~MM_MemFree(@@color(blue):''~MHandle''@@ *pMem, @@color(blue):''~MVoid**''@@ pMem)''
-:{{normal{此函数调用''~MM_MemFreeStatic'',''~MM_MemFreeStatic''找到当前内存块所对应的~HeadNode，如果后一个node没被用则合并，如果前一个node没被用则合并，如何都在用不合并，但是把当前的node标记为可以用，即没被用过
-}}}
-*''最后释放整个大的内存即可''
-@@color(red):''Attention''@@
-当在''~MM_MemMgrCreate''产生的''Mhandle''再通过~MM_MemMgrCreate分配''subMhandle''时需要在''Mhandle''中分配一块内存，并将地址传给~MM_MemMgrCreate。 最后不用时须释放</pre>
 </div>
 <div title="Object C" creator="Samuel" modifier="Samuel" created="201209180324" modified="201209210754" changecount="10">
 <pre>[[Object C FAQ]]
@@ -1229,16 +1194,6 @@ Also see [[AdvancedOptions]]</pre>
 </div>
 <div title="PluginManager" creator="Samuel" modifier="Samuel" created="201207020527" modified="201207020528" changecount="3">
 <pre>&lt;&lt;plugins&gt;&gt;</pre>
-</div>
-<div title="Project" creator="Samuel" modifier="Samuel" created="201207190841" changecount="1">
-<pre>[[Memory Managing]]</pre>
-</div>
-<div title="Project FAQ" creator="Samuel" modifier="samuel" created="201207110928" modified="201208010934" tags="_FAQ_" changecount="13">
-<pre>*''图像输入时，注意是否上下颠倒。''
-*''linux和windows下换行不一样''
-*最小char型数据为''-128''，但在写的时候应该写成''-127-1'',
-*矩阵转置的时候， 不是正方形时，不能在原矩阵上转置
-</pre>
 </div>
 <div title="Python" creator="Samuel" modifier="samuel" created="201206290703" modified="201209060218" tags="_SCRIPT_LANGUAGE_ _PYTHON_" changecount="21">
 <pre>&gt;[[Python FAQ]]
@@ -1711,7 +1666,7 @@ var dp={sh:{Toolbar:{},Utils:{},RegexLib:{},Brushes:{},Strings:{AboutDialog:&quo
 [[格式]]
 [[隐藏MainMenu]]</pre>
 </div>
-<div title="Todo" creator="Samuel" modifier="samuel" created="201207240627" modified="201209260722" changecount="12">
+<div title="Todo" creator="Samuel" modifier="samuel" created="201207240627" modified="201210080310" changecount="14">
 <pre>*[[SVM]]
 
 *测试git fetch命令
@@ -1723,7 +1678,8 @@ var dp={sh:{Toolbar:{},Utils:{},RegexLib:{},Brushes:{},Strings:{AboutDialog:&quo
 *如何生成带版本号的动态库
 *pkg-config
 
-*mpi</pre>
+*mpi
+*GOBJECT / glib</pre>
 </div>
 <div title="Training&amp;detection" creator="YourName" modifier="samuel" created="201207240627" modified="201209270640" tags="_TRAINING_ _DETECTION_" changecount="6">
 <pre>[[SVM]]
@@ -1932,7 +1888,7 @@ done
 }}}
 </pre>
 </div>
-<div title="gcc&amp;g++" creator="Samuel" modifier="samuel" created="201209190133" modified="201209260854" tags="_GCC_ _G++_" changecount="47">
+<div title="gcc&amp;g++" creator="Samuel" modifier="samuel" created="201209190133" modified="201210080926" tags="_GCC_ _G++_" changecount="51">
 <pre>@@color(blue):''两编译器的区别''@@
 *{{normal{@@color(blue):''误区一''@@:gcc只能编译c代码,g++只能编译c++代码
 @@bgcolor(green):两者都可以，但是请注意@@
@@ -1949,7 +1905,7 @@ done
 *{{normal{@@color(blue):''基本选项''@@
 &gt;''-E'' : 只进行预处理（一般进行宏的替换，以及将头文件内容拷贝到文件中）
 &gt;''-S'':  只进行预处理和编译
-&gt;''-c'' : 只进行预处理和编译以及汇编， 即生成.o文件@@color(red):(生成.o文件的时候一定要加上)@@
+&gt;''-c'' : 只进行预处理和编译以及汇编， 即生成.o文件@@color(red):(生成.o文件的时候一定要加上, 不用在指定-o自动输出{{{**.o}}}了)@@
 &gt;''-o'' : 进行预处理和编译以及汇编和链接， 即生成可执行文件
 &gt;''-g'' : 增加调试信息，调试时有用。最高可以使用''g3''.
 }}}
