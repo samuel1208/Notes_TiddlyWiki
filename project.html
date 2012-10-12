@@ -525,6 +525,9 @@ Also see [[AdvancedOptions]]</pre>
 #改进 bow的图像特征是基于全局的（第三步）
 #bow-learning脚本中describe-images和build-vocabulary 需要加类名</pre>
 </div>
+<div title="DefaultTiddlers" creator="YourName" modifier="samuel" created="201210120158" modified="201210120159" changecount="2">
+<pre></pre>
+</div>
 <div title="Image data" creator="samuel" modifier="samuel" created="201210080136" changecount="1">
 <pre>&gt;http://people.csail.mit.edu/torralba/courses/6.870/6.870.recognition.htm
 *行人检查数据库
@@ -537,9 +540,10 @@ Also see [[AdvancedOptions]]</pre>
 *Caltech 数据库
 &gt;http://vision.caltech.edu/Image_Datasets/Caltech101/Caltech101.html</pre>
 </div>
-<div title="MainMenu" creator="YourName" modifier="samuel" created="201210080130" modified="201210080140" changecount="8">
+<div title="MainMenu" creator="YourName" modifier="samuel" created="201210080130" modified="201210120651" changecount="10">
 <pre>!Project
 [[ASD]]
+[[SIM3D]]
 [[Project FAQ]]
 [[Memory Managing]]
 </pre>
@@ -564,6 +568,14 @@ Also see [[AdvancedOptions]]</pre>
 *''linux和windows下换行不一样''
 *最小char型数据为''-128''，但在写的时候应该写成''-127-1'',
 *矩阵转置的时候， 不是正方形时，不能在原矩阵上转置</pre>
+</div>
+<div title="SIM3D" creator="samuel" modifier="samuel" created="201210120652" modified="201210120818" changecount="4">
+<pre>*脚本编译的时候注意，svn的版本是否是英文版本。否则bc会出错
+*windows下将freeImage放到vc的收索路径中
+
+*@@color(blue):提交注意事项@@
+*使用release.sh之前，需要把customer下的changlog改好。如果是自动提交 (-n ${next_rev.sh})版本号是加1的，所有后面你要commit一下
+*当然也可以自己指定版本号</pre>
 </div>
 <div title="SiteSubtitle" creator="samuel" modifier="samuel" created="201210080141" changecount="1">
 <pre>a reusable non-linear personal web notebook</pre>

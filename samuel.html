@@ -507,6 +507,27 @@ Also see [[AdvancedOptions]]</pre>
 </div>
 <!--POST-SHADOWAREA-->
 <div id="storeArea">
+<div title="#pragma" creator="Samuel" modifier="Samuel" created="201210090259" modified="201210090330" changecount="43">
+<pre>*{{normal{@@color(blue):''#pragma message(&quot;hello&quot;)''@@
+编译时输出信息
+}}}
+*{{normal{@@color(blue):''#pragma warning ''@@
+&lt;code c&gt;
+#pragma   warning( disable: 4507  34; once : 4385; error : 164   )   
+ /* is equal to   */
+#pragma   warning(disable:4507   34)    //不显示4507和34号警告信息 
+#pragma   warning(once:4385)            //4385号警告信息仅报告一次   
+#pragma   warning(error:164)            //把164号警告信息作为一个错误
+#pragma   warning( push )               //保存所有警告信息的现有的警告状态
+#pragma   warning( push,n)              //保存所有警告信息的现有的警告状态，并且把全局警告等级设定为n(1,2,3,4四个级别)。  
+#pragma   warning( pop )                //向栈中弹出最后一个警告信息，在入栈和出栈之间所作的一切改动取消
+&lt;/code&gt;
+}}}
+*{{normal{@@color(blue):''#pragma comment''@@
+*''#pragma comment(lib,&quot;windows.lib&quot;)''
+}}}
+</pre>
+</div>
 <div title="$()与``" creator="Samuel" modifier="Samuel" created="201206290532" modified="201206290620" tags="_SHELL_ _SHELL_COMMAND_" changecount="7">
 <pre>*@@bgcolor(green):功能@@
 **命令替换符，在括号和引号里可以执行命令, 将其结果作为其他的输入</pre>
@@ -538,6 +559,9 @@ Also see [[AdvancedOptions]]</pre>
 :git reset –mixed：此为默认方式，不带任何参数的git reset，即时这种方式，它回退到某个版本，只保留源码，回退commit和index信息
 :git reset –soft：回退到某个版本，只回退了commit的信息，不会恢复到index file一级。如果还要提交，直接commit即可
 :git reset –hard：彻底回退到某个版本，本地的源码也会变为上一个版本的内容</pre>
+</div>
+<div title="C/C++" creator="Samuel" modifier="Samuel" created="201210090257" modified="201210090259" changecount="4">
+<pre>[[#pragma]]</pre>
 </div>
 <div title="Cmake" creator="Samuel" modifier="samuel" created="201206180614" modified="201209190902" tags="_CMAKE_" changecount="144">
 <pre>*[[cmake FAQ]]
@@ -586,9 +610,10 @@ variable :/=  value
 <pre>[[Emacs GDB]]
 [[Emacs Edit]]</pre>
 </div>
-<div title="Emacs Edit" creator="Samuel" modifier="Samuel" created="201207130549" modified="201209290648" tags="_EMACS_ _EMACS_EDIT_" changecount="62">
+<div title="Emacs Edit" creator="Samuel" modifier="samuel" created="201207130549" modified="201210100655" tags="_EMACS_ _EMACS_EDIT_" changecount="66">
 <pre>@@color(red):''C =Ctrl    
-M=Alt （或先按一下 ESC 键然后放开，再输入 &lt;chr&gt;）''@@
+M=Alt (或先按一下 ESC 键然后放开，再输入 &lt;chr&gt;)''@@
+@@color(red):''C-x d'' @@ : emacs进入目录模式，q退出
 !
 *@@color(blue):''光标的移动''@@
 &gt;{{normal{''C-v''    : 向前移动一屏(可用pagedown和pageup代替)
@@ -809,22 +834,21 @@ output = input^gamma 即对输入进行幂指数的压缩（gamma = 1/2）
 &gt;[[xargs]]:将前一输入转换为后面命令的输入参数。多用于管道
 &gt;[[find]] : 查找文件和文件夹</pre>
 </div>
-<div title="MainMenu" creator="YourName" modifier="Samuel" created="201206180446" modified="201210080140" changecount="72">
+<div title="MainMenu" creator="YourName" modifier="Samuel" created="201206180446" modified="201210090257" changecount="73">
 <pre>!Tools
 [[Git]]
 [[Emacs]]
 [[Linux]]
 [[TiddlyWiki Turior]]
-
 !Languages
 [[Python]]
 [[Shell]]
 [[OpenCL]]
 [[Object C]]
+[[C/C++]]
 !Compiler Tools
 [[Cmake]]
 [[Make]]
-
 !Image Processing
 [[Feature Extraction]]
 [[Img processing]]
@@ -1195,14 +1219,75 @@ Also see [[AdvancedOptions]]</pre>
 <div title="PluginManager" creator="Samuel" modifier="Samuel" created="201207020527" modified="201207020528" changecount="3">
 <pre>&lt;&lt;plugins&gt;&gt;</pre>
 </div>
-<div title="Python" creator="Samuel" modifier="samuel" created="201206290703" modified="201209060218" tags="_SCRIPT_LANGUAGE_ _PYTHON_" changecount="21">
-<pre>&gt;[[Python FAQ]]
+<div title="Python" creator="Samuel" modifier="Samuel" created="201206290703" modified="201210110905" tags="_SCRIPT_LANGUAGE_ _PYTHON_" changecount="27">
+<pre>@@color(green):''类似于Java，Python实际上是字节编译的，其结果就是可以生成一种近似机器语言的中间形式''@@
+&gt;[[Python FAQ]]
 &gt;[[Python数据结构]]
 &gt;[[Python控制结构]]
 &gt;[[Python函数]]
 &gt;[[Python类]]
 &gt;[[Python模块]]
-&gt;[[Python Internet]]</pre>
+&gt;[[Python Build-in Function]]
+&gt;[[Python Internet]]
+&gt;[[Python Exception]]
+&gt;[[Python Miscellaneous]]</pre>
+</div>
+<div title="Python Build-in Function" creator="Samuel" modifier="Samuel" created="201210110906" modified="201210111036" changecount="13">
+<pre>*@@color(blue):''input 和 raw_input''@@
+&gt;raw_input:将所有输入当成原始输入，不会把数字变成int等
+*@@color(blue):''dir()''@@
+&gt; 显示属性
+*@@color(blue):''help()''@@
+&gt;显示帮助文档
+*@@color(blue):''eval()/ exec()''@@
+&gt;eval():计算表达式的值， 可以返回repr字符串的的本来对象
+&gt;exec(): 执行字符串中的命令
+*@@color(blue):''isinstance()''@@
+&gt;判断是否为某个对象的实例，如：isinstance(1, int)
+*@@color(blue):''cmp(var1, var2)''@@
+&gt;判断两个对象大小
+*@@color(blue):''coerce(var1, var2)''@@
+&gt;将2个数据转换为相同类型，遵循转换规则
+*@@color(blue):''int(), float()等''@@
+&gt;@@color(red):可以直接将字符串转换为数字@@
+*@@color(blue):''abs()''@@
+&gt;如果是复数则返回复数的模； 不用借助这个实现可以自己来写
+*@@color(blue):''divmod()''@@
+&gt;返回元组，保存除数和余数
+*@@color(blue):''round(flt, ndig=0)''@@
+&gt;接受一个浮点数 flt 并对其四舍五入，保存 ndig位小数</pre>
+</div>
+<div title="Python Debug" creator="samuel" modifier="samuel" created="201210100928" modified="201210110125" changecount="12">
+<pre>*{{normal{@@color(blue):''pdb''@@
+#{{normal{命令行启动目标程序，加上-m参数，这样调用myscript.py的话断点就是程序的执行第一行之前 
+&gt;python -m pdb myscript.py
+}}}
+#{{normal{pdb.set_trace(): 在需要的地方设置断点， 程序运行到此处进入pdb环境，然后类似于GDB进行调试
+&gt;''!'' : 感叹号后面跟着语句，可以直接改变某个变量
+}}}
+#{{normal{pdb.run(&quot;function&quot;):启动pdb
+&gt;''b model.function()''设置断点， 否则提示end of file 然后在''b linenum''来设置断点
+}}}
+
+}}}</pre>
+</div>
+<div title="Python Exception" creator="samuel" modifier="samuel" created="201210100827" modified="201210100833" changecount="4">
+<pre>*@@color(blue):''引发异常''@@
+&gt;raise Exception(&quot;info&quot;) : 可以引发很多其他异常
+*{{normal{@@color(blue):''捕捉异常''@@
+&lt;code py&gt;
+try:
+    statements
+excep (ZeroDivsionError,  TypeError): #捕获2个异常
+    statements
+excep :  #捕获所有异常
+    statements
+else : #加个子句，没有异常时执行
+    statement
+finally : 
+    statement
+&lt;/code&gt;
+}}}</pre>
 </div>
 <div title="Python FAQ" creator="Samuel" modifier="samuel" created="201207020638" modified="201209130904" tags="_PYTHON_ _PYTHON_FAQ_" changecount="23">
 <pre>*@@color(blue):''全局变量的访问''@@
@@ -1219,11 +1304,21 @@ Also see [[AdvancedOptions]]</pre>
 : 使用''socket.connect()''@@color(green):(使用connect以后，客户机只和connect的地址交互)@@以后使用''socket.getpeername()''
 </pre>
 </div>
-<div title="Python Miscellaneous" creator="samuel" modifier="samuel" created="201209130328" modified="201209130338" changecount="6">
-<pre>@@color(blue):''apply(func [, args [, kwargs ]]) ''@@@@color(red):（Python 3没有了）@@
-&gt;函数用于当函数参数已经存在于一个元组或字典中时，间接地调用函数。在python3中可以使用在列表和字典前加星号来进行传递（参数两种方式传递：直接传和用关键字传）</pre>
+<div title="Python Miscellaneous" creator="samuel" modifier="Samuel" created="201209130328" modified="201210110943" changecount="26">
+<pre>@@color(blue):''运算符''@@
+&gt;** :平方
+&gt;{{{//}}} : 浮点除法（四舍五入），from __future__ import division ： / 将使用真正的浮点除法，不会管是否整数
+&gt;不支持++， -- .。++和-- 等价于 -（-） 没有效果还是原值
+@@color(blue):''内存管理''@@
+&gt;python中不需要关注类存管理。 但可以显式的使用del x将引用计数-1， 其x不能再用
+@@color(blue):''判断id是否相同''@@
+&gt;python通过传递引用来处理对象：float时 a=1.1 b=1.1 指向不同的对象， 但是int str时 ， 只要值相同就指向相同的对象 (a is b  id(a)==id(b))@@color(red):(整数对象和字符串对象是不可变对象，所以Python 会很高效的缓存它们，只会对一个小范围内的数值进行缓存如：（-1,100）范围版本不一样会变，不要依赖这个)@@
+@@color(blue):''long型数据''@@
+&gt;python中long可以表示非常大的数据，@@color(red):与你的类存有关@@，只要在数字后面加上大写L
+@@color(blue):''Python不支持函数或方法的重载''@@
+&gt;后定义的函数或方法@@color(red):会覆盖@@前面的定义的同名函数或方法</pre>
 </div>
-<div title="Python函数" creator="Samuel" modifier="Samuel" created="201206290716" modified="201209050109" tags="_PYTHON_ _PYTHON_FUNCTION_" changecount="23">
+<div title="Python函数" creator="Samuel" modifier="samuel" created="201206290716" modified="201210100729" tags="_PYTHON_ _PYTHON_FUNCTION_" changecount="26">
 <pre>*@@color(blue):''添加函数说明''@@
 **{{normal{@@bgcolor(green):示例@@
 &lt;code python&gt;
@@ -1235,6 +1330,8 @@ def test():
 *@@color(blue):''函数的参数''@@
 :列表相当于数组即指针，在函数内是可以改变参数的值的。而字符串、数字、元组是不可以变的。即内部不会影响外部
 *{{normal{@@color(blue):''函数的传参数方式''@@
+*@@color(blue):apply(func [, args [, kwargs ]]) @@ @@color(red):''（Python 3没有了）''@@
+:函数用于当函数参数已经存在于一个元组或字典中时，间接地调用函数。@@color(green):在python3中可以使用在列表和字典前加星号来进行传递@@（参数两种方式传递：直接传和用关键字传）
 &lt;code python&gt;
 1、关键字参数 ，不需要按顺序传参数
     func(para2='val2', para1 = 'val1')
@@ -1248,8 +1345,10 @@ def test():
 *@@color(blue):''函数的返回''@@
 :return 后可以不接变量。 作用为结束函数</pre>
 </div>
-<div title="Python控制结构" creator="Samuel" modifier="samuel" created="201206290847" modified="201209060724" tags="_PYTHON_" changecount="57">
+<div title="Python控制结构" creator="Samuel" modifier="samuel" created="201206290847" modified="201210100818" tags="_PYTHON_" changecount="59">
 <pre>@@bgcolor(green):''python中没有switch-case, 可以用if-elif 或 字典来实现''@@
+*@@color(blue):''控制结构可以用在list的赋值中''@@
+&gt;sqdEvens = [x ** 2 for x in range(8) if x&gt;2 ]
 *@@color(blue):''while &amp; for''@@
 *{{normal{
 &lt;code python&gt;
@@ -1292,14 +1391,15 @@ def test():
 }}}
 </pre>
 </div>
-<div title="Python数据结构" creator="Samuel" modifier="samuel" created="201206290908" modified="201209060218" tags="_PYTHON_ _PYTHON_DATASTRUCTURE_" changecount="8">
-<pre>&gt;[[列表与元组]]
+<div title="Python数据结构" creator="Samuel" modifier="samuel" created="201206290908" modified="201210100802" tags="_PYTHON_ _PYTHON_DATASTRUCTURE_" changecount="13">
+<pre>&gt;[[python 数字类型]]
+&gt;[[列表与元组]]
 &gt;[[字符串]]
 &gt;[[字典]]
 &gt;[[集合]]
 &gt;[[堆]] , [[双端队列]]</pre>
 </div>
-<div title="Python模块" creator="Samuel" modifier="samuel" created="201206290836" modified="201209130328" tags="_PYTHON_ _PYTHON_MODULE_" changecount="23">
+<div title="Python模块" creator="Samuel" modifier="Samuel" created="201206290836" modified="201210110233" tags="_PYTHON_ _PYTHON_MODULE_" changecount="27">
 <pre>*@@color(blue):导入方法@@
 &gt;''import os as myModel''
 *@@color(blue):models@@
@@ -1312,17 +1412,19 @@ def test():
 &gt;[[shelve]] : 将文件当成字典来做
 &gt;[[re]] : 正则表达式
 &gt;[[thread]]: 多线程
-&gt;[[Python Miscellaneous]]</pre>
+&gt;[[Python Debug]] : 调试模块
+</pre>
 </div>
-<div title="Python类" creator="Samuel" modifier="Samuel" created="201206290725" modified="201209170722" tags="_PYTHON_ _PYTHON_CLASS_" changecount="51">
+<div title="Python类" creator="Samuel" modifier="samuel" created="201206290725" modified="201210100850" tags="_PYTHON_ _PYTHON_CLASS_" changecount="53">
 <pre>*@@color(red):''使用新式类'' @@
-:Python 3.0以后不用注意，否则在使用新式类时，需先赋值{{{__}}}metaclass=type， 最好是继承object类
+:Python 3.0以后不用注意，否则在使用新式类时，需先赋值{{{__}}}metaclass=type， @@color(red):最好是继承object类@@
 *@@color(red):''类中函数的参数self'' @@
 :类中的函数的第一参数需写上是self， 因为在函数的调用的时候，第一个参数默认帮你传了self
 *@@color(blue):''查看文档信息'' @@
 :使用className.{{{__doc__}}}查看， 在类中使用文档说明，同函数
 *@@color(blue):''创建私有函数和变量'' @@ @@color(green):(外部其实还是可以访问,Python没有真正的私有化支持)@@
-:在函数和变量前面使用{{{__}}}(双下划线)，这样函数(变量)名在被翻译时变成&quot;_+类名+变量名“ 如：_className{{{__}}}function
+&gt;在函数和变量前面使用{{{__}}}(双下划线)，这样函数(变量)名在被翻译时变成&quot;_+类名+变量名“ 如：_className{{{__}}}function
+&gt;在函数和变量前面使用{{{_}}}(单下划线)，这样函数(变量)名就不会被import *导入
 *@@color(blue):''检查继承的基类'' @@ 
 :使用特性{{{__}}}bases{{{__}}},如，className.{{{__}}}bases{{{__}}}
 *@@color(blue):''{{{__}}}all{{{__}}}变量'' @@ 
@@ -1666,7 +1768,7 @@ var dp={sh:{Toolbar:{},Utils:{},RegexLib:{},Brushes:{},Strings:{AboutDialog:&quo
 [[格式]]
 [[隐藏MainMenu]]</pre>
 </div>
-<div title="Todo" creator="Samuel" modifier="samuel" created="201207240627" modified="201210080310" changecount="14">
+<div title="Todo" creator="Samuel" modifier="Samuel" created="201207240627" modified="201210090645" changecount="18">
 <pre>*[[SVM]]
 
 *测试git fetch命令
@@ -1679,7 +1781,10 @@ var dp={sh:{Toolbar:{},Utils:{},RegexLib:{},Brushes:{},Strings:{AboutDialog:&quo
 *pkg-config
 
 *mpi
-*GOBJECT / glib</pre>
+*GOBJECT / glib
+
+*pragma
+*CPPUNIT</pre>
 </div>
 <div title="Training&amp;detection" creator="YourName" modifier="samuel" created="201207240627" modified="201209270640" tags="_TRAINING_ _DETECTION_" changecount="6">
 <pre>[[SVM]]
@@ -1737,11 +1842,13 @@ esac
 :SET(~CMAKE_EXE_LINKER_FLAGS /NODEFAULTLIB:LIBC) ;
 #在执行cmake的命令时，定义的变量是存放到~CMakeCache.txt中的</pre>
 </div>
-<div title="cmake command" creator="Samuel" modifier="samuel" created="201207130139" modified="201209190911" tags="_CMAKE_ _CMAKE_COMMAND_" changecount="11">
-<pre>*[[add_executable]]
+<div title="cmake command" creator="Samuel" modifier="samuel" created="201207130139" modified="201210120224" tags="_CMAKE_ _CMAKE_COMMAND_" changecount="14">
+<pre>*[[add_custom_command]]
+*[[add_executable]]
 *[[aux_source_directory]]
 *[[configure_file]]
 *[[cmake_minimum_required]]
+*[[execute_process]]
 *[[file]]
 *[[macro、function]]
 *[[install]]
@@ -1786,7 +1893,7 @@ esac
 **@@bgcolor(green):说明@@
 ***~FATAL_ERROR: 2.6以上支持， 当指定时， 版本低的时候只是给出warning， 而不是error</pre>
 </div>
-<div title="configure_file" creator="Samuel" modifier="samuel" created="201206270336" modified="201208270710" tags="_CMAKE_ _CMAKE_COMMAND_" changecount="39">
+<div title="configure_file" creator="Samuel" modifier="YourName" created="201206270336" modified="201210120223" tags="_CMAKE_ _CMAKE_COMMAND_" changecount="40">
 <pre>*@@color(blue):''configure_file''@@(&lt;input&gt; &lt;output&gt;  [COPYONLY] [~ESCAPE_QUOTES] [@ONLY])
 **@@bgcolor(green):功能@@
 ***复制一个文件到其他地方，并改变其内容。 
@@ -1810,9 +1917,14 @@ esac
        输出为10
 }}}</pre>
 </div>
-<div title="export" creator="Samuel" modifier="Samuel" created="201207030551" modified="201208290656" tags="_SHELL_ _SHELL_COMMAND_" changecount="12">
+<div title="execute_process" creator="YourName" modifier="samuel" created="201210120223" modified="201210120223" changecount="2">
+<pre>*@@color(blue):''execute_process''@@
+**@@bgcolor(green):功能@@
+***执行一个或多个子进程，相当于和bash交互。 </pre>
+</div>
+<div title="export" creator="Samuel" modifier="Samuel" created="201207030551" modified="201210120528" tags="_SHELL_ _SHELL_COMMAND_" changecount="14">
 <pre>*@@bgcolor(green):功能@@
-:设置或显示环境变量
+:设置或显示环境变量； 将变量导出当前进程， 变量只属于当前的进程需要export来导出
 *@@bgcolor(green):用法@@
 {{noemal{
 &lt;code sh&gt;
@@ -1888,7 +2000,7 @@ done
 }}}
 </pre>
 </div>
-<div title="gcc&amp;g++" creator="Samuel" modifier="samuel" created="201209190133" modified="201210080926" tags="_GCC_ _G++_" changecount="51">
+<div title="gcc&amp;g++" creator="Samuel" modifier="samuel" created="201209190133" modified="201210100727" tags="_GCC_ _G++_" changecount="52">
 <pre>@@color(blue):''两编译器的区别''@@
 *{{normal{@@color(blue):''误区一''@@:gcc只能编译c代码,g++只能编译c++代码
 @@bgcolor(green):两者都可以，但是请注意@@
@@ -1907,7 +2019,7 @@ done
 &gt;''-S'':  只进行预处理和编译
 &gt;''-c'' : 只进行预处理和编译以及汇编， 即生成.o文件@@color(red):(生成.o文件的时候一定要加上, 不用在指定-o自动输出{{{**.o}}}了)@@
 &gt;''-o'' : 进行预处理和编译以及汇编和链接， 即生成可执行文件
-&gt;''-g'' : 增加调试信息，调试时有用。最高可以使用''g3''.
+&gt;''-g'' : 增加调试信息，调试时有用。最高可以使用''g3'' ，编译时有效.
 }}}
 *{{normal{@@color(blue):''链接选项''@@
 &gt;''-LDIRECTORY'' : 定义连接库文件的目录 
@@ -2146,7 +2258,7 @@ $(call function, para1, para2)
 }}}
 *@@color(blue):''内置函数''@@ </pre>
 </div>
-<div title="os" creator="Samuel" modifier="samuel" created="201207030108" modified="201209110542" tags="_PYTHON_ _PYTHON_MODULE_ _OS_" changecount="25">
+<div title="os" creator="Samuel" modifier="Samuel" created="201207030108" modified="201210110710" tags="_PYTHON_ _PYTHON_MODULE_ _OS_" changecount="29">
 <pre>*{{normal{@@color(blue):''os.system &amp; os.popen''@@
 @@bgcolor(green):''执行外部命令''@@}}}
 :{{normal{
@@ -2154,12 +2266,27 @@ $(call function, para1, para2)
 *''os.popen''(command [, mode [,buffersize]]])    返回个文件句柄。可以读取命令执行的类容mode默认为‘r’.@@color(green):''建议使用subprogress的call和Popen函数''@@
 : ''e.g.'' f = ''os.popen''(command)  ; ''print''(f.''read()'')
 }}}
+*@@color(blue):''os.sep''@@
+: 系统路径分隔符
 *@@color(blue):''os.chdir(‘path’)''@@
 :改变路径
 *@@color(blue):''os.getcwd()''@@
 :获取当前路径
 *@@color(blue):''os.listdir('path')''@@
-:列出当前路径下的所有文件</pre>
+:列出当前路径下的所有文件
+*@@color(blue):'' os.path.isdir/isfile('file')''@@
+:判断文件是路径还是文件
+</pre>
+</div>
+<div title="python 数字类型" creator="samuel" modifier="samuel" created="201210100744" modified="201210100802" changecount="8">
+<pre>@@bgcolor(green):五种数字类型：int , long ,  bool , float , complex@@
+*{{normal{@@color(blue):''complex''@@
+*@@bgcolor(green):表示方法@@
+&gt;a = 1+2j 或者 a=complex（1,2）
+&gt;*.real: 实部
+&gt;*.imag :  虚部
+&gt;*.conjugate() : 共轭复数
+}}}</pre>
 </div>
 <div title="re" creator="YourName" modifier="samuel" created="201209110151" modified="201209130641" tags="_PYTHON_ _PYTHON_MODULE_ _RE_" changecount="39">
 <pre>@@bgcolor(green):常用正则表达式符号@@
@@ -2342,9 +2469,9 @@ done
 <pre>*@@color(green):'string'@@ 被单引号用括住的内容，将被视为单一字串。在引号内的代表变数的$符号，没有作用，也就是说，他被视为一般符号处理，防止任何变量替换。
 *@@color(green):&quot;string&quot;@@ 被双引号用括住的内容，将被视为单一字串。它防止通配符扩展，但允许变量扩展。这点与单引数的处理方式不同。</pre>
 </div>
-<div title="列表与元组" creator="Samuel" modifier="Samuel" created="201206290913" modified="201209180530" tags="_PYTHON_ _PYTHON_DATASTRUCTURE_" changecount="53">
+<div title="列表与元组" creator="Samuel" modifier="samuel" created="201206290913" modified="201210120939" tags="_PYTHON_ _PYTHON_DATASTRUCTURE_" changecount="59">
 <pre>*@@bgcolor(green):说明@@
-**列表与元组的主要@@color(red):区别：@@列表可以修改，元组则不能。 一般情况下元组可以用列表替换，@@color(red): 例外：@@元组作为字典的键（不允许修改）
+**列表与元组(list, tuple)的主要@@color(red):区别：@@列表可以修改，元组则不能。 一般情况下元组可以用列表替换，@@color(red): 例外：@@元组作为字典的键（不允许修改）
 **列表用''[ ]'', 元组用''( )''
 *@@bgcolor(green):操作@@
 **@@color(blue):''len, max, min''@@
@@ -2363,6 +2490,12 @@ tag[:] 1 2 3 4 5 6 7 8 9
 tag[1:4:2] 为2  4。@@color(green):''2为步长， 上面的默认步长为1''@@
 &lt;/code&gt;
 }}}
+*@@color(blue):''控制结构可以用在list的赋值中''@@
+&gt;sqdEvens = [x ** 2 for x in range(8) if x&gt;2 ]
+*@@color(blue):''单元素元组''@@
+&gt;('xyz',) ;需要加逗号，负责会被认为是字符串@@color(red):圆括号被重载了，它也被用作分组操作符@@
+*@@color(blue):''注意浅copy和深copy的区别''@@
+&gt;深copy是两个对象互不影响， 浅copy是子copy不能影响原来的对象。但原来的对象可以影响copy
 
 
 </pre>
@@ -2390,17 +2523,23 @@ d = dict[items]
 *@@color(blue):''赋值式与列表的区别''@@
 :可以为不存在的键添加值，列表超过索引则不行（可以用append方法）</pre>
 </div>
-<div title="字符串" creator="Samuel" modifier="Samuel" created="201207020222" modified="201209050105" tags="_PYTHON_ _PYTHON_DATASTRUCTURE_" changecount="57">
-<pre>*@@color(blue):''字符串常量''@@
+<div title="字符串" creator="Samuel" modifier="Samuel" created="201207020222" modified="201210120911" tags="_PYTHON_ _PYTHON_DATASTRUCTURE_" changecount="64">
+<pre>*@@color(blue):''str()和repr()区别''@@
+:str和int等是一种类型，而repr是函数，显示时候用： 如list等不能用str，可以用repr来显示其值
+*@@color(blue):''原始字符串''@@
+: 前面加r/R，字符中的特殊字符将会被当着一般字符
+*@@color(blue):''字符串常量''@@
 &gt;''string.digits'' ： 0-9的字符串
 &gt;''string.letters'' ： 包含所有字母（大小写）的字符串
 &gt;''string.lowercase'' ： 包含所有小写字母的字符串
 &gt;''string.printable'' ： 包含所有可打印的字符
 &gt;''string.punctuation'' ： 包含所有标点的字符串
 &gt;''string.uppercase'' ： 包含所有大写字母的字符串
+*@@color(blue):''三引号''@@
+:三引号中的字符可以换行
 *@@color(blue):''format() &amp; %''@@
 **@@bgcolor(green):''功能''@@
-::格式化字符串
+::格式化字符串.@@color(red):详细见：python核心编程6.4.~String-Only Operators@@
 **@@bgcolor(green):''用法''@@
 ::{{normal{
 &lt;code python&gt;
