@@ -732,7 +732,7 @@ M=Alt (或先按一下 ESC 键然后放开，再输入 &lt;chr&gt;)''@@
 * [[DefaultTiddlers]]: Contains the names of the tiddlers that you want to appear when the TiddlyWiki is opened
 You'll also need to enter your username for signing your edits: &lt;&lt;option txtUserName&gt;&gt;</pre>
 </div>
-<div title="Git" creator="Samuel" modifier="Samuel" created="201206200611" modified="201208310858" tags="_GIT_" changecount="118">
+<div title="Git" creator="Samuel" modifier="Samuel" created="201206200611" modified="201210190805" tags="_GIT_" changecount="120">
 <pre>*@@color(blue):''Initializing''@@
 **''git init :''
 ***初始化本地仓库，并生成.git目录 
@@ -748,6 +748,8 @@ You'll also need to enter your username for signing your edits: &lt;&lt;option t
 *@@color(blue):''[[Git tag]]''@@
 
 *@@color(blue):''[[Others]]''@@
+
+*使用gitosis的来配置管理的git服务器端
 
 </pre>
 </div>
@@ -809,6 +811,71 @@ output = input^gamma 即对输入进行幂指数的压缩（gamma = 1/2）
 !math
 [[协方差-方差-标准差]]</pre>
 </div>
+<div title="Java" creator="Samuel" modifier="Samuel" created="201210170117" modified="201210190514" changecount="9">
+<pre>[[Java Datatype]]
+[[Java Method]]
+[[Java Class]]
+[[Java  GUI]]</pre>
+</div>
+<div title="Java  GUI" creator="Samuel" modifier="Samuel" created="201210190515" modified="201210190516" changecount="3">
+<pre>*''@@color(blue):javax.swing.~JFileChooser@@''
+&gt;创建文件选择对话框</pre>
+</div>
+<div title="Java Class" creator="Samuel" modifier="Samuel" created="201210180735" modified="201210180753" changecount="5">
+<pre>*{{normal{@@color(blue):''修饰符-四种''@@
+*默认的 ： 可以被同一个包@@color(green):(package)@@中的任何类访问
+*public  ： 可以被任意包@@color(green):(package)@@中的任何类访问
+*private  ： 只能在自己的类中被访问
+*protected
+}}}
+*{{normal{@@color(blue):''包package''@@
+*没有使用则使用默认的包
+*package name; 放在类名前面语句@@color(green):''必须顶行''@@
+}}}</pre>
+</div>
+<div title="Java Datatype" creator="Samuel" modifier="Samuel" created="201210170119" modified="201210190507" changecount="31">
+<pre>*{{normal{@@color(blue):''常量用final''@@
+@@color(blue):final static int@@ a;
+}}}
+*{{normal{@@color(blue):''char''@@
+Java中char默认是Unicode型的，所以占有两个字节@@color(green):（Character.SIZE/8）@@
+}}}
+*{{normal{@@color(blue):''string''@@
+*''string是对象''
+&gt; Java中将字符串默认为string对象， 所有String str=“welcome” 是合法的 
+*''string对象是不可改变的，可以使用~StringBuffer或~StringBuilder替代''
+&gt;~StringBuffer的修改缓冲区是同步的，实用与多任务。其他~StringBuffer和~StringBuilder可以互用
+*''可以转换成数组''
+&gt;char[] array = &quot;welcome&quot;.toCharArray()
+*''数组构造string''
+&gt; 用valueOf @@color(green):(也可以转换数字)@@或者构造函数
+*''格式化字符串''
+&gt;format函数
+}}}
+*{{normal{@@color(blue):''数组''@@
+*''定义方式''
+&gt;@@color(blue):double@@[] arrary1 = @@color(blue):new double@@[10];
+&gt;@@color(blue):double@@[] arrary1 = {1.0,2.0};
+*''支持for-each语法''
+&gt;@@color(blue):for@@(@@color(blue):double@@ u : array1)
+*''数组复制''
+&gt;可以使用java.lang.System中的arraycopy， 或循环，或clone 
+*''二维以及n维数组可以使锯齿数组''
+}}}
+*{{normal{@@color(blue):''数据类型包装类''@@
+Java对每一个数据类型都有包装类，其中有很多是静态方法如：
+Character , Boolean, Byte, Short, Integer,Long , Float 和 Double
+}}}</pre>
+</div>
+<div title="Java Method" creator="Samuel" modifier="Samuel" created="201210170453" modified="201210180751" changecount="7">
+<pre>*{{normal{@@color(blue):''main函数''@@
+main函数返回值必须为void
+}}}
+*{{normal{@@color(blue):''可变参数列表''@@
+可变参数必须放在最后， 会将其当着数组对待。所以可以传数组
+&gt;@@color(blue):public static void @@method（@@color(blue):int @@a, @@color(blue):double...@@ bs） 
+}}}</pre>
+</div>
 <div title="K-means" creator="samuel" modifier="samuel" created="201209270617" modified="201209270723" changecount="6">
 <pre>*{{normal{@@color(blue):''算法''@@
 #从N个文档@@color(green):''随机选''@@取K个文档作为质心可以@@color(red):(可以多跑几边，取最小值)@@
@@ -834,7 +901,7 @@ output = input^gamma 即对输入进行幂指数的压缩（gamma = 1/2）
 &gt;[[xargs]]:将前一输入转换为后面命令的输入参数。多用于管道
 &gt;[[find]] : 查找文件和文件夹</pre>
 </div>
-<div title="MainMenu" creator="YourName" modifier="Samuel" created="201206180446" modified="201210090257" changecount="73">
+<div title="MainMenu" creator="YourName" modifier="Samuel" created="201206180446" modified="201210170117" changecount="74">
 <pre>!Tools
 [[Git]]
 [[Emacs]]
@@ -846,6 +913,7 @@ output = input^gamma 即对输入进行幂指数的压缩（gamma = 1/2）
 [[OpenCL]]
 [[Object C]]
 [[C/C++]]
+[[Java]]
 !Compiler Tools
 [[Cmake]]
 [[Make]]
@@ -1219,7 +1287,7 @@ Also see [[AdvancedOptions]]</pre>
 <div title="PluginManager" creator="Samuel" modifier="Samuel" created="201207020527" modified="201207020528" changecount="3">
 <pre>&lt;&lt;plugins&gt;&gt;</pre>
 </div>
-<div title="Python" creator="Samuel" modifier="Samuel" created="201206290703" modified="201210110905" tags="_SCRIPT_LANGUAGE_ _PYTHON_" changecount="27">
+<div title="Python" creator="Samuel" modifier="Samuel" created="201206290703" modified="201210150300" tags="_SCRIPT_LANGUAGE_ _PYTHON_" changecount="29">
 <pre>@@color(green):''类似于Java，Python实际上是字节编译的，其结果就是可以生成一种近似机器语言的中间形式''@@
 &gt;[[Python FAQ]]
 &gt;[[Python数据结构]]
@@ -1227,12 +1295,13 @@ Also see [[AdvancedOptions]]</pre>
 &gt;[[Python函数]]
 &gt;[[Python类]]
 &gt;[[Python模块]]
+&gt;[[Python File IO]]
 &gt;[[Python Build-in Function]]
 &gt;[[Python Internet]]
 &gt;[[Python Exception]]
 &gt;[[Python Miscellaneous]]</pre>
 </div>
-<div title="Python Build-in Function" creator="Samuel" modifier="Samuel" created="201210110906" modified="201210111036" changecount="13">
+<div title="Python Build-in Function" creator="Samuel" modifier="samuel" created="201210110906" modified="201210150131" changecount="15">
 <pre>*@@color(blue):''input 和 raw_input''@@
 &gt;raw_input:将所有输入当成原始输入，不会把数字变成int等
 *@@color(blue):''dir()''@@
@@ -1255,7 +1324,10 @@ Also see [[AdvancedOptions]]</pre>
 *@@color(blue):''divmod()''@@
 &gt;返回元组，保存除数和余数
 *@@color(blue):''round(flt, ndig=0)''@@
-&gt;接受一个浮点数 flt 并对其四舍五入，保存 ndig位小数</pre>
+&gt;接受一个浮点数 flt 并对其四舍五入，保存 ndig位小数
+*@@color(blue):''zip(var1, var2)''@@
+&gt;取var1和var2中的第一个元素组成一个元素，创建字典时也比较有用
+</pre>
 </div>
 <div title="Python Debug" creator="samuel" modifier="samuel" created="201210100928" modified="201210110125" changecount="12">
 <pre>*{{normal{@@color(blue):''pdb''@@
@@ -1271,7 +1343,7 @@ Also see [[AdvancedOptions]]</pre>
 
 }}}</pre>
 </div>
-<div title="Python Exception" creator="samuel" modifier="samuel" created="201210100827" modified="201210100833" changecount="4">
+<div title="Python Exception" creator="samuel" modifier="Samuel" created="201210100827" modified="201210150305" changecount="10">
 <pre>*@@color(blue):''引发异常''@@
 &gt;raise Exception(&quot;info&quot;) : 可以引发很多其他异常
 *{{normal{@@color(blue):''捕捉异常''@@
@@ -1287,7 +1359,25 @@ else : #加个子句，没有异常时执行
 finally : 
     statement
 &lt;/code&gt;
-}}}</pre>
+}}}
+*{{normal{@@color(blue):''异常参数''@@
+&lt;code py&gt;
+try:
+    statements
+excep (ZeroDivsionError,  TypeError), reason: #reason异常参数
+    statements
+excep IOError, reason :  #reason异常参数
+&lt;/code&gt;
+}}}
+*{{normal{@@color(blue):''with字句''@@
+它仅能工作于支持上下文管理协议的对象, @@color(green):Python2.6支持，见python核心编程10.4@@,
+&lt;code py&gt;
+with open('/etc/passwd', 'r') as f:
+    for eachLine in f:
+      do stuff with eachLine or f...
+&lt;/code&gt;
+}}}
+</pre>
 </div>
 <div title="Python FAQ" creator="Samuel" modifier="samuel" created="201207020638" modified="201209130904" tags="_PYTHON_ _PYTHON_FAQ_" changecount="23">
 <pre>*@@color(blue):''全局变量的访问''@@
@@ -1297,6 +1387,15 @@ finally :
 
 </pre>
 </div>
+<div title="Python File IO" creator="samuel" modifier="samuel" created="201210150149" modified="201210150155" changecount="5">
+<pre>*@@color(blue):''文件操作中使用通用换行符 ''@@
+&gt;打开方式使用U选项， 表示提供通用换行符支持
+*@@color(blue):''writeline和readline  ''@@
+&gt;readline函数会读取回车符;  writeline不会写回车符到文件中
+*@@color(blue):''文件操作使用迭代器 和 xreadlines()''@@
+&gt;for eachLine in f: 文件迭代更为高效 @@color(green):(Python 2.3支持)@@
+&gt;xreadlines(): 每次只读取固定的块， 减少内存的使用； iter有相同的功能，所有可以放弃这个函数</pre>
+</div>
 <div title="Python Internet" creator="samuel" modifier="samuel" created="201209060220" modified="201209060656" changecount="10">
 <pre>*@@color(blue):获取地址@@
 : ''socket.gethostbyname''(&quot;www.google.com&quot;)
@@ -1304,22 +1403,25 @@ finally :
 : 使用''socket.connect()''@@color(green):(使用connect以后，客户机只和connect的地址交互)@@以后使用''socket.getpeername()''
 </pre>
 </div>
-<div title="Python Miscellaneous" creator="samuel" modifier="Samuel" created="201209130328" modified="201210110943" changecount="26">
-<pre>@@color(blue):''运算符''@@
+<div title="Python Miscellaneous" creator="samuel" modifier="Samuel" created="201209130328" modified="201210170458" changecount="31">
+<pre>*@@color(blue):''运算符''@@
 &gt;** :平方
 &gt;{{{//}}} : 浮点除法（四舍五入），from __future__ import division ： / 将使用真正的浮点除法，不会管是否整数
 &gt;不支持++， -- .。++和-- 等价于 -（-） 没有效果还是原值
-@@color(blue):''内存管理''@@
+*@@color(blue):''内存管理''@@
 &gt;python中不需要关注类存管理。 但可以显式的使用del x将引用计数-1， 其x不能再用
-@@color(blue):''判断id是否相同''@@
+*@@color(blue):''判断id是否相同''@@
 &gt;python通过传递引用来处理对象：float时 a=1.1 b=1.1 指向不同的对象， 但是int str时 ， 只要值相同就指向相同的对象 (a is b  id(a)==id(b))@@color(red):(整数对象和字符串对象是不可变对象，所以Python 会很高效的缓存它们，只会对一个小范围内的数值进行缓存如：（-1,100）范围版本不一样会变，不要依赖这个)@@
-@@color(blue):''long型数据''@@
+*@@color(blue):''long型数据''@@
 &gt;python中long可以表示非常大的数据，@@color(red):与你的类存有关@@，只要在数字后面加上大写L
-@@color(blue):''Python不支持函数或方法的重载''@@
-&gt;后定义的函数或方法@@color(red):会覆盖@@前面的定义的同名函数或方法</pre>
+*@@color(blue):''print语句会自动加一个回车符''@@
+&gt;print语句后加逗号取消换行
+</pre>
 </div>
-<div title="Python函数" creator="Samuel" modifier="samuel" created="201206290716" modified="201210100729" tags="_PYTHON_ _PYTHON_FUNCTION_" changecount="26">
-<pre>*@@color(blue):''添加函数说明''@@
+<div title="Python函数" creator="Samuel" modifier="Samuel" created="201206290716" modified="201210180724" changecount="44">
+<pre>*@@color(blue):''Python不支持函数或方法的重载''@@
+&gt;后定义的函数或方法@@color(red):会覆盖@@前面的定义的同名函数或方法
+*@@color(blue):''添加函数说明''@@
 **{{normal{@@bgcolor(green):示例@@
 &lt;code python&gt;
 def test():             
@@ -1333,19 +1435,72 @@ def test():
 *@@color(blue):apply(func [, args [, kwargs ]]) @@ @@color(red):''（Python 3没有了）''@@
 :函数用于当函数参数已经存在于一个元组或字典中时，间接地调用函数。@@color(green):在python3中可以使用在列表和字典前加星号来进行传递@@（参数两种方式传递：直接传和用关键字传）
 &lt;code python&gt;
-1、关键字参数 ，不需要按顺序传参数
-    func(para2='val2', para1 = 'val1')
-2、默认参数值
+#1、关键字参数 ，不需要按顺序传参数，相当于字典
+    func(para2='val2', para1 = 'val1') 
+#2、默认参数值
    def  func(para1='val1', para2 = 'val2') :
-       ...
-   调用
-   func()
+#3、传元组、列表或字典作为参数，在函数中自己需要知道， 参考如下：4
+&lt;/code&gt;
+}}}
+*{{normal{@@color(blue):''函数的可变参数个数''@@
+#参数加* ： 任意的非关键字参数将被放到元组里面， 还可以传元组需加*
+#参数加** ： 任意的关键字参数将被放到字典里面，还可以传字典需加**； @@color(red):这样传递是无法修改字典的值的@@可以3的方式传递字典或列表，或者可以在函数中返回列表和字典
+&lt;code python&gt;
+#4、可变参数
+def foo(arg1, arg2, *TuplePara, **Dictpara) :
+     statement
+#调用
+aTuple = (6, 7, 8)
+aDict = {'z': 9}
+newfoo(1, 2, 3,'hello' , x=4, y=5, *aTuple, **aDict)
+#3,hello,aTuple将被放到TuplePara中
+#x=4, y=5,aDict将被放到Dictpara中   
 &lt;/code&gt;
 }}}
 *@@color(blue):''函数的返回''@@
-:return 后可以不接变量。 作用为结束函数</pre>
+:return 后可以不接变量。 作用为结束函数
+*{{normal{@@color(blue):''函数装饰器''@@
+其实也是一个函数，装饰器的作用就是为已经存在的对象添加额外的功能。 如看一下下面时间测试函数:
+&lt;code python&gt;
+def timeit(func):
+    def wrapper(*a , ** aa): #函数的参数
+        start = time.clock()
+        func(*a , **aa) 
+        end =time.clock()
+        print 'used:', end - start
+    return wrapper  #注意此处一定要返回函数
+ 
+@timeit
+def foo():
+    print 'in foo()' 
+foo()
+
+#带参数的装饰器, 可以用于判断来选择修饰器。 就是多定义了一层函数
+def decoWithArgs(arg): 
+    print str(arg)
+    def newDeco(func):    
+        print str(func)
+        def replaceFunc(*a,**b):    
+            print &quot;Enter decorator&quot;   
+            print &quot;para:&quot; + str(arg)
+            if arg == &quot;test&quot;:      
+                return None
+            return func(*a,**b)  
+        replaceFunc.__name__ = func.__name__
+        return replaceFunc
+    return newDeco 
+
+@decoWithArgs('test')
+def test(para):
+    print para
+
+if __name__ == &quot;__main__&quot;:
+    test('abcd')
+&lt;/code&gt;
+}}}
+</pre>
 </div>
-<div title="Python控制结构" creator="Samuel" modifier="samuel" created="201206290847" modified="201210100818" tags="_PYTHON_" changecount="59">
+<div title="Python控制结构" creator="Samuel" modifier="samuel" created="201206290847" modified="201210150139" tags="_PYTHON_" changecount="60">
 <pre>@@bgcolor(green):''python中没有switch-case, 可以用if-elif 或 字典来实现''@@
 *@@color(blue):''控制结构可以用在list的赋值中''@@
 &gt;sqdEvens = [x ** 2 for x in range(8) if x&gt;2 ]
@@ -1364,6 +1519,8 @@ def test():
 }}}
 *@@color(blue):''break &amp; continue''@@
 :跳出本次或所有的循环
+*@@color(blue):''while &amp; for的else子句''@@
+:只要循环是正常结束的(不是通过 break ), else 子句就会执行
 *@@color(blue):''if''@@
 *{{normal{
 &lt;code python&gt;
@@ -1399,7 +1556,7 @@ def test():
 &gt;[[集合]]
 &gt;[[堆]] , [[双端队列]]</pre>
 </div>
-<div title="Python模块" creator="Samuel" modifier="Samuel" created="201206290836" modified="201210110233" tags="_PYTHON_ _PYTHON_MODULE_" changecount="27">
+<div title="Python模块" creator="Samuel" modifier="Samuel" created="201206290836" modified="201210150300" tags="_PYTHON_ _PYTHON_MODULE_" changecount="30">
 <pre>*@@color(blue):导入方法@@
 &gt;''import os as myModel''
 *@@color(blue):models@@
@@ -1409,13 +1566,13 @@ def test():
 &gt;[[subprocess]]
 &gt;[[ConfigParser]] : 导入配置文件的内容
 &gt;[[Random]] : 随机模块
-&gt;[[shelve]] : 将文件当成字典来做
+&gt;[[shelve]] : 模块永久性存储; 将文件当成字典来做
 &gt;[[re]] : 正则表达式
 &gt;[[thread]]: 多线程
 &gt;[[Python Debug]] : 调试模块
 </pre>
 </div>
-<div title="Python类" creator="Samuel" modifier="samuel" created="201206290725" modified="201210100850" tags="_PYTHON_ _PYTHON_CLASS_" changecount="53">
+<div title="Python类" creator="Samuel" modifier="Samuel" created="201206290725" modified="201210180730" tags="_PYTHON_ _PYTHON_CLASS_" changecount="56">
 <pre>*@@color(red):''使用新式类'' @@
 :Python 3.0以后不用注意，否则在使用新式类时，需先赋值{{{__}}}metaclass=type， @@color(red):最好是继承object类@@
 *@@color(red):''类中函数的参数self'' @@
@@ -1424,7 +1581,7 @@ def test():
 :使用className.{{{__doc__}}}查看， 在类中使用文档说明，同函数
 *@@color(blue):''创建私有函数和变量'' @@ @@color(green):(外部其实还是可以访问,Python没有真正的私有化支持)@@
 &gt;在函数和变量前面使用{{{__}}}(双下划线)，这样函数(变量)名在被翻译时变成&quot;_+类名+变量名“ 如：_className{{{__}}}function
-&gt;在函数和变量前面使用{{{_}}}(单下划线)，这样函数(变量)名就不会被import *导入
+&gt;在函数和变量前面使用{{{_}}}(单下划线)，这样函数(变量)名就不会被import *导入，也可以导入import classname
 *@@color(blue):''检查继承的基类'' @@ 
 :使用特性{{{__}}}bases{{{__}}},如，className.{{{__}}}bases{{{__}}}
 *@@color(blue):''{{{__}}}all{{{__}}}变量'' @@ 
@@ -1443,7 +1600,13 @@ class test:
 }}}
 *{{normal{@@color(blue):''{{{__call__}}}'' @@ 
 :将实例化后的类当函数来使用。
-}}}</pre>
+}}}
+*{{normal{@@color(blue):''static方法和变量'' @@ 
+&gt;static变量：定义变量使用类名来调用，最好加下划线，这样就可以防止用对象名来调用
+&gt;static方法：使用函数修饰符来实现，详细见函数中的介绍@@color(red):（TODO: 写个例子）@@
+}}}
+
+</pre>
 </div>
 <div title="Random" creator="samuel" modifier="samuel" created="201209060337" modified="201209110542" tags="_PYTHON_ _PYTHON_MODULE_ _RANDOM_" changecount="5">
 <pre>*@@bgcolor(green):函数@@
@@ -2384,12 +2547,14 @@ $(call function, para1, para2)
 :与subprocess.call(*popenargs, **kwargs)功能一样，只是如果子进程返回的returncode不为0的话，将触发~CalledProcessError异常。在异常对象中，包括进程的returncode信息。
 }}}</pre>
 </div>
-<div title="sys" creator="Samuel" modifier="samuel" created="201206290837" modified="201209110541" tags="_PYTHON_ _PYTHON_MODULE_ _SYS_" changecount="14">
+<div title="sys" creator="Samuel" modifier="samuel" created="201206290837" modified="201210150142" tags="_PYTHON_ _PYTHON_MODULE_ _SYS_" changecount="16">
 <pre>@@bgcolor(green):包含一些与Python解释器紧密相连的变量和函数@@
 *@@color(blue):argv@@
 :命令行参数， 包含脚本名称
 *@@color(blue):platform@@
 :当前的平台名称：“win32” ，“cygwin” ，“darwin” ，“linux2” ...
+*@@color(blue):stdout,  stdin, stderror变量@@
+:是文件句柄 
 </pre>
 </div>
 <div title="system" creator="Samuel" modifier="Samuel" created="201207160828" changecount="1">
