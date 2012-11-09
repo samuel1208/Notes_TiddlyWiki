@@ -560,8 +560,9 @@ Also see [[AdvancedOptions]]</pre>
 :git reset –soft：回退到某个版本，只回退了commit的信息，不会恢复到index file一级。如果还要提交，直接commit即可
 :git reset –hard：彻底回退到某个版本，本地的源码也会变为上一个版本的内容</pre>
 </div>
-<div title="C/C++" creator="Samuel" modifier="Samuel" created="201210090257" modified="201210090259" changecount="4">
-<pre>[[#pragma]]</pre>
+<div title="C/C++" creator="Samuel" modifier="Samuel" created="201210090257" modified="201210250253" changecount="6">
+<pre>[[#pragma]]
+[[c++ template]]</pre>
 </div>
 <div title="Cmake" creator="Samuel" modifier="samuel" created="201206180614" modified="201209190902" tags="_CMAKE_" changecount="144">
 <pre>*[[cmake FAQ]]
@@ -811,29 +812,49 @@ output = input^gamma 即对输入进行幂指数的压缩（gamma = 1/2）
 !math
 [[协方差-方差-标准差]]</pre>
 </div>
-<div title="Java" creator="Samuel" modifier="Samuel" created="201210170117" modified="201210190514" changecount="9">
+<div title="Java" creator="Samuel" modifier="samuel" created="201210170117" modified="201210230852" changecount="12">
 <pre>[[Java Datatype]]
 [[Java Method]]
 [[Java Class]]
-[[Java  GUI]]</pre>
+[[Java Exception]]
+[[Java  GUI]]
+[[Java 泛型]]
+</pre>
 </div>
 <div title="Java  GUI" creator="Samuel" modifier="Samuel" created="201210190515" modified="201210190516" changecount="3">
 <pre>*''@@color(blue):javax.swing.~JFileChooser@@''
 &gt;创建文件选择对话框</pre>
 </div>
-<div title="Java Class" creator="Samuel" modifier="Samuel" created="201210180735" modified="201210180753" changecount="5">
-<pre>*{{normal{@@color(blue):''修饰符-四种''@@
-*默认的 ： 可以被同一个包@@color(green):(package)@@中的任何类访问
+<div title="Java Class" creator="Samuel" modifier="Samuel" created="201210180735" modified="201211080131" changecount="31">
+<pre>*{{normal{''修饰符-四种''
+*默认的 ： 可以被同一个包@@color(green):(package)@@中的任何类访问， @@color(red):不能被其他包中的类访问@@
 *public  ： 可以被任意包@@color(green):(package)@@中的任何类访问
 *private  ： 只能在自己的类中被访问
 *protected
 }}}
-*{{normal{@@color(blue):''包package''@@
+*{{normal{''包package''
 *没有使用则使用默认的包
 *package name; 放在类名前面语句@@color(green):''必须顶行''@@
+*使用package以后，其中的类可以和其他package中的类同名。相当于namespace
+}}}
+*{{normal{''继承、覆盖''
+*java不支持多重继承 使用@@color(blue):''extents''@@ 关键字，只能public继承
+*如果子类中没有显式的调用super，java会自动调用super(), @@color(red):所以最好为每个类定义一个无参的构造方法@@
+*@@color(red):如过对象没有定义继承，则默认是继承object的@@。object中''tostring''方法，返回类的描述
+*父类中被覆盖的静态函数需要使用superclassname.func而不是super.func
+*使用@@color(blue):''final''@@定义类是不能被继承的
+*@@color(blue):''protected''@@:不同包中的类对象不能访问@@color(red):(同一个包中的其他类是可以访问的)@@，子类可以访问。@@color(red):默认的子类也不能访问。@@
+}}}
+*{{normal{@@color(blue):''instanceof''@@
+#判断是否为一个对象的实例的关键字 ： a instanceof  b
+#判断是否是一个类的实例，子类对象可以是父类对象的实例，因为它可以调用父类的所有方法和数据
+}}}
+*{{normal{@@color(blue):''接口''@@
+#接口里面的变量都是final的， 函数都是abstract。 默认关键字可以省略。
+#接口可以继承多个接口
 }}}</pre>
 </div>
-<div title="Java Datatype" creator="Samuel" modifier="Samuel" created="201210170119" modified="201210190507" changecount="31">
+<div title="Java Datatype" creator="Samuel" modifier="Samuel" created="201210170119" modified="201210220115" changecount="35">
 <pre>*{{normal{@@color(blue):''常量用final''@@
 @@color(blue):final static int@@ a;
 }}}
@@ -861,11 +882,17 @@ Java中char默认是Unicode型的，所以占有两个字节@@color(green):（Ch
 *''数组复制''
 &gt;可以使用java.lang.System中的arraycopy， 或循环，或clone 
 *''二维以及n维数组可以使锯齿数组''
+*''使用~ArrayList类来创建存储个数不定的对象，相当于vector''
 }}}
 *{{normal{@@color(blue):''数据类型包装类''@@
 Java对每一个数据类型都有包装类，其中有很多是静态方法如：
 Character , Boolean, Byte, Short, Integer,Long , Float 和 Double
 }}}</pre>
+</div>
+<div title="Java Exception" creator="Samuel" modifier="Samuel" created="201210220236" modified="201210220236" changecount="2">
+<pre>*Java不允许编写代码捕获或声明免检异常？
+*如果方法声明了一个必捡异常，调用是必须用try-catch？？
+*catch中throw的会怎么样？ 看一下p362的答应结果</pre>
 </div>
 <div title="Java Method" creator="Samuel" modifier="Samuel" created="201210170453" modified="201210180751" changecount="7">
 <pre>*{{normal{@@color(blue):''main函数''@@
@@ -875,6 +902,27 @@ main函数返回值必须为void
 可变参数必须放在最后， 会将其当着数组对待。所以可以传数组
 &gt;@@color(blue):public static void @@method（@@color(blue):int @@a, @@color(blue):double...@@ bs） 
 }}}</pre>
+</div>
+<div title="Java 泛型" creator="samuel" modifier="samuel" created="201210230854" modified="201210230934" changecount="12">
+<pre>*{{normal{@@color(blue):''泛型的用处''@@
+*泛型的数据类型是在编译阶段检测的，所有更安全。 @@color(red):提高软件的可靠性@@
+*@@color(red):泛型的数据类型必须是引用@@，即是类而不能是int，short这样的基本类型
+*当使用泛型类没有指定具体类型时， 相当于使用Object类型
+}}}
+*{{normal{@@color(blue):''泛型定义方法''@@
+*class：放在类名之后。如：public class classname&lt;E&gt;
+*method : 放在方法返回类型之前。如：public &lt;E&gt; void function()
+}}}
+*{{normal{@@color(blue):''受限泛型''@@
+*泛型是某个类的子类型： &lt;E extents  className&gt;
+*非受限泛型是某object的子类型： &lt;E&gt; = &lt;E extends Object&gt;
+}}}
+*{{normal{@@color(blue):''泛型的使用限制''@@
+*不能用new E()和new E[]@@color(red):(可以使用折中方法见p10)@@
+*@@color(red):静态方法和静态变量不允许是泛型类型@@,静态的方法和类是属于所有类的实例的
+*异常类不能是泛型
+}}}
+</pre>
 </div>
 <div title="K-means" creator="samuel" modifier="samuel" created="201209270617" modified="201209270723" changecount="6">
 <pre>*{{normal{@@color(blue):''算法''@@
@@ -901,7 +949,7 @@ main函数返回值必须为void
 &gt;[[xargs]]:将前一输入转换为后面命令的输入参数。多用于管道
 &gt;[[find]] : 查找文件和文件夹</pre>
 </div>
-<div title="MainMenu" creator="YourName" modifier="Samuel" created="201206180446" modified="201210170117" changecount="74">
+<div title="MainMenu" creator="YourName" modifier="Samuel" created="201206180446" modified="201210240238" changecount="76">
 <pre>!Tools
 [[Git]]
 [[Emacs]]
@@ -911,6 +959,7 @@ main函数返回值必须为void
 [[Python]]
 [[Shell]]
 [[OpenCL]]
+[[OpenGL]]
 [[Object C]]
 [[C/C++]]
 [[Java]]
@@ -1177,6 +1226,9 @@ object c中使用@@color(blue):@interface@@， 而不是@@color(blue):@class@@�
 }}}
 </pre>
 </div>
+<div title="OpenGL" creator="YourName" modifier="Samuel" created="201210240147" modified="201210240148" changecount="2">
+<pre>*临时修改一些状态时，需使用push和pop操作，这比直接修改效率更高</pre>
+</div>
 <div title="Operating of local repository" creator="Samuel" modifier="Samuel" created="201207190808" modified="201207260257" tags="_GIT_" changecount="6">
 <pre>*''git add  [file/directories]'' 
 : 后面接文件和目录表示增加文件或改变到git仓库，否则只表示增加改变
@@ -1287,19 +1339,21 @@ Also see [[AdvancedOptions]]</pre>
 <div title="PluginManager" creator="Samuel" modifier="Samuel" created="201207020527" modified="201207020528" changecount="3">
 <pre>&lt;&lt;plugins&gt;&gt;</pre>
 </div>
-<div title="Python" creator="Samuel" modifier="Samuel" created="201206290703" modified="201210150300" tags="_SCRIPT_LANGUAGE_ _PYTHON_" changecount="29">
+<div title="Python" creator="Samuel" modifier="samuel" created="201206290703" modified="201211050632" tags="_SCRIPT_LANGUAGE_ _PYTHON_" changecount="31">
 <pre>@@color(green):''类似于Java，Python实际上是字节编译的，其结果就是可以生成一种近似机器语言的中间形式''@@
 &gt;[[Python FAQ]]
 &gt;[[Python数据结构]]
 &gt;[[Python控制结构]]
 &gt;[[Python函数]]
+&gt;[[Python生成器]]
 &gt;[[Python类]]
 &gt;[[Python模块]]
 &gt;[[Python File IO]]
 &gt;[[Python Build-in Function]]
 &gt;[[Python Internet]]
 &gt;[[Python Exception]]
-&gt;[[Python Miscellaneous]]</pre>
+&gt;[[Python Miscellaneous]]
+&gt;[[python todo]]</pre>
 </div>
 <div title="Python Build-in Function" creator="Samuel" modifier="samuel" created="201210110906" modified="201210150131" changecount="15">
 <pre>*@@color(blue):''input 和 raw_input''@@
@@ -1418,7 +1472,7 @@ with open('/etc/passwd', 'r') as f:
 &gt;print语句后加逗号取消换行
 </pre>
 </div>
-<div title="Python函数" creator="Samuel" modifier="Samuel" created="201206290716" modified="201210180724" changecount="44">
+<div title="Python函数" creator="Samuel" modifier="Samuel" created="201206290716" modified="201210220256" changecount="46">
 <pre>*@@color(blue):''Python不支持函数或方法的重载''@@
 &gt;后定义的函数或方法@@color(red):会覆盖@@前面的定义的同名函数或方法
 *@@color(blue):''添加函数说明''@@
@@ -1459,7 +1513,9 @@ newfoo(1, 2, 3,'hello' , x=4, y=5, *aTuple, **aDict)
 }}}
 *@@color(blue):''函数的返回''@@
 :return 后可以不接变量。 作用为结束函数
-*{{normal{@@color(blue):''函数装饰器''@@
+*@@color(blue):''闭包''@@
+:函数内声明的函数称为闭包
+*{{normal{@@color(blue):''函数装饰器''-可用来实现静态函数@@
 其实也是一个函数，装饰器的作用就是为已经存在的对象添加额外的功能。 如看一下下面时间测试函数:
 &lt;code python&gt;
 def timeit(func):
@@ -1556,31 +1612,43 @@ if __name__ == &quot;__main__&quot;:
 &gt;[[集合]]
 &gt;[[堆]] , [[双端队列]]</pre>
 </div>
-<div title="Python模块" creator="Samuel" modifier="Samuel" created="201206290836" modified="201210150300" tags="_PYTHON_ _PYTHON_MODULE_" changecount="30">
-<pre>*@@color(blue):导入方法@@
+<div title="Python模块" creator="Samuel" modifier="samuel" created="201206290836" modified="201211050128" tags="_PYTHON_ _PYTHON_MODULE_" changecount="52">
+<pre>*@@color(blue):''导入方法''@@
+&gt;使用sys.path.append()或insert(),增加路径
 &gt;''import os as myModel''
-*@@color(blue):models@@
-&gt;[[sys]]
-&gt;[[types]]
-&gt;[[os]]
-&gt;[[subprocess]]
-&gt;[[ConfigParser]] : 导入配置文件的内容
-&gt;[[Random]] : 随机模块
-&gt;[[shelve]] : 模块永久性存储; 将文件当成字典来做
-&gt;[[re]] : 正则表达式
-&gt;[[thread]]: 多线程
-&gt;[[Python Debug]] : 调试模块
+&gt;1、可以从zip文件中导入模块
+&gt;2、可以定义自己的导入方法
+&gt;3、@@color(red):模块可以使用包来管理， 每个包目录下使用__init__.py文件。在里面定义__all__变量@@
+*@@color(blue):''循环导入'':  当A导入B， B又导入A时会出现其中一个模块导入不存在@@
+&gt;1.可以将其中一条导入放在最后，但是如果在这之前使用了函数的话就不可以了
+&gt;2.在需要使用这个模块的函数的内部导入这个模块
+*@@color(blue):''作用域''@@
+&gt;使用from ** import *时，模块中的变量被赋值的时候，会被当成局部变量 
+&gt;使用globals和locals函数查看作用域
+*@@color(blue):''编码格式''@@
+&gt;在代码开始处写上(''# -*- coding: ~UTF-8 -*-'')
+*[[models_python]]
+
 </pre>
 </div>
-<div title="Python类" creator="Samuel" modifier="Samuel" created="201206290725" modified="201210180730" tags="_PYTHON_ _PYTHON_CLASS_" changecount="56">
-<pre>*@@color(red):''使用新式类'' @@
-:Python 3.0以后不用注意，否则在使用新式类时，需先赋值{{{__}}}metaclass=type， @@color(red):最好是继承object类@@
+<div title="Python生成器" creator="Samuel" modifier="Samuel" created="201210220254" modified="201210220254" changecount="2">
+<pre>*{{normal{使用yield实现 (详细见python-core p445)
+#有next方法
+}}}</pre>
+</div>
+<div title="Python类" creator="Samuel" modifier="Samuel" created="201206290725" modified="201211080841" tags="_PYTHON_ _PYTHON_CLASS_" changecount="72">
+<pre>*{{normal{@@color(red):''使用新式类'' @@
+#Python 3.0以后不用注意，否则在使用新式类时， @@color(red):最好是继承object类@@，而不是type
+#在多重继承中。新式类使用广度优先搜索，旧式类使用深度优先搜索
+#{{{__metaclass__}}}@@color(red):(难点)@@
+}}}
 *@@color(red):''类中函数的参数self'' @@
 :类中的函数的第一参数需写上是self， 因为在函数的调用的时候，第一个参数默认帮你传了self
 *@@color(blue):''查看文档信息'' @@
 :使用className.{{{__doc__}}}查看， 在类中使用文档说明，同函数
 *@@color(blue):''创建私有函数和变量'' @@ @@color(green):(外部其实还是可以访问,Python没有真正的私有化支持)@@
 &gt;在函数和变量前面使用{{{__}}}(双下划线)，这样函数(变量)名在被翻译时变成&quot;_+类名+变量名“ 如：_className{{{__}}}function
+&gt;使用{{{__}}}(双下划线)后，子类中的变量不会影响父类中变量
 &gt;在函数和变量前面使用{{{_}}}(单下划线)，这样函数(变量)名就不会被import *导入，也可以导入import classname
 *@@color(blue):''检查继承的基类'' @@ 
 :使用特性{{{__}}}bases{{{__}}},如，className.{{{__}}}bases{{{__}}}
@@ -1595,15 +1663,25 @@ class test:
         test.mem +=1  #使用test而不是self来访问mem, 这样是对所有对象的mem来操作
 &lt;/code&gt;
 }}}
-*{{normal{@@color(blue):''{{{__init__}}}'' @@ 
-:初始化函数
+*{{normal{@@color(blue):''{{{__init__/__new__. __del__}}}'' @@ 
+&gt;初始化函数， 子类需要调用父类的__init__， 需要传递self这个参数。 且init函数是没有返回值的
+&gt;@@color(red):在__init__函数中可以动态的增加属性@@
+&gt;__new__比init调用更早，需要返回一个实例
+&gt;在使用累计数来增加应用时， 需要在__del__函数减
 }}}
 *{{normal{@@color(blue):''{{{__call__}}}'' @@ 
 :将实例化后的类当函数来使用。
 }}}
+*{{normal{@@color(blue):''{{{vars()}}}'' @@ 
+#返回一个字典保存了所有的属性和其值。也可以使用class.{{{__dict__}}}来访问
+#python新式类中所有的的属性都是放在{{{__dict__}}}中的@@color(green):(inst.foo等价于inst.__dict__['foo'])@@， 字典是比较占类存的，可以使用{{{__slots__}}}来定义
+}}}
+*{{normal{@@color(blue):''方法'' @@ 
+&gt;方法必须使用实例来访问, 
+}}}
 *{{normal{@@color(blue):''static方法和变量'' @@ 
 &gt;static变量：定义变量使用类名来调用，最好加下划线，这样就可以防止用对象名来调用
-&gt;static方法：使用函数修饰符来实现，详细见函数中的介绍@@color(red):（TODO: 写个例子）@@
+&gt;static方法：使用函数修饰符来实现，详细见函数中的介绍@@color(red):（TODO: 写个例子）或者使用staticmethod内建函数@@
 }}}
 
 </pre>
@@ -1931,7 +2009,7 @@ var dp={sh:{Toolbar:{},Utils:{},RegexLib:{},Brushes:{},Strings:{AboutDialog:&quo
 [[格式]]
 [[隐藏MainMenu]]</pre>
 </div>
-<div title="Todo" creator="Samuel" modifier="Samuel" created="201207240627" modified="201210090645" changecount="18">
+<div title="Todo" creator="Samuel" modifier="samuel" created="201207240627" modified="201210290618" changecount="19">
 <pre>*[[SVM]]
 
 *测试git fetch命令
@@ -1947,7 +2025,9 @@ var dp={sh:{Toolbar:{},Utils:{},RegexLib:{},Brushes:{},Strings:{AboutDialog:&quo
 *GOBJECT / glib
 
 *pragma
-*CPPUNIT</pre>
+*CPPUNIT
+
+UMLet</pre>
 </div>
 <div title="Training&amp;detection" creator="YourName" modifier="samuel" created="201207240627" modified="201209270640" tags="_TRAINING_ _DETECTION_" changecount="6">
 <pre>[[SVM]]
@@ -1986,6 +2066,17 @@ var dp={sh:{Toolbar:{},Utils:{},RegexLib:{},Brushes:{},Strings:{AboutDialog:&quo
 <pre>*@@color(blue):''aux_source_directory''@@(&lt;dir&gt; &lt;variable&gt;)
 :将dir目录下的所有*.c,*.cpp文件放到variable中，@@color(red):不会覆盖variable的值@@
 
+</pre>
+</div>
+<div title="c++ template" creator="YourName" modifier="Samuel" created="201210250253" modified="201210250258" changecount="5">
+<pre>*{{normal{@@color(blue):''用法1:规定template所支持的方法''@@
+&lt;code c++&gt;
+template&lt;typename T&gt; struct b{}
+template&lt;&gt; struct b&lt;double&gt;{}
+/*这样你在定义b&lt;int&gt;时，如果你使用b中的方法和变量时会显示不存在错误*/
+&lt;/code&gt;
+
+}}}
 </pre>
 </div>
 <div title="case" creator="Samuel" modifier="Samuel" created="201206290247" modified="201207160757" tags="_SHELL_ _SHELL_CONTROL_STRUCT_" changecount="39">
@@ -2318,11 +2409,12 @@ install(PROGRAMS files... DESTINATION &lt;dir&gt;
 :::#function在version 2.6以上支持
 </pre>
 </div>
-<div title="make command option" creator="samuel" modifier="samuel" created="201209190630" modified="201209270903" tags="_MAKE_COMMAND_OPTION_" changecount="6">
+<div title="make command option" creator="samuel" modifier="Samuel" created="201209190630" modified="201210240329" tags="_MAKE_COMMAND_OPTION_" changecount="8">
 <pre>*{{normal{@@color(blue):''命令参数''@@
 *''{{{--}}}just-print'' 或 ''-n'' : 只打印过程不执行
 *可以再命令行中改变所有makefile中变量的值
 *''-f'' : 指定makefile文件
+*''-C'' :执行子目录 ： make -C path target
 }}}</pre>
 </div>
 <div title="make learning" creator="Samuel" modifier="samuel" created="201209190320" modified="201209190805" tags="_MAKE_LEARNING_" changecount="53">
@@ -2421,7 +2513,19 @@ $(call function, para1, para2)
 }}}
 *@@color(blue):''内置函数''@@ </pre>
 </div>
-<div title="os" creator="Samuel" modifier="Samuel" created="201207030108" modified="201210110710" tags="_PYTHON_ _PYTHON_MODULE_ _OS_" changecount="29">
+<div title="models_python" creator="samuel" modifier="samuel" created="201211050057" changecount="1">
+<pre>&gt;[[sys]]
+&gt;[[types]]
+&gt;[[os]]
+&gt;[[subprocess]]
+&gt;[[ConfigParser]] : 导入配置文件的内容
+&gt;[[Random]] : 随机模块
+&gt;[[shelve]] : 模块永久性存储; 将文件当成字典来做
+&gt;[[re]] : 正则表达式
+&gt;[[thread]]: 多线程
+&gt;[[Python Debug]] : 调试模块</pre>
+</div>
+<div title="os" creator="Samuel" modifier="Samuel" created="201207030108" modified="201210220639" tags="_PYTHON_ _PYTHON_MODULE_ _OS_" changecount="32">
 <pre>*{{normal{@@color(blue):''os.system &amp; os.popen''@@
 @@bgcolor(green):''执行外部命令''@@}}}
 :{{normal{
@@ -2439,7 +2543,12 @@ $(call function, para1, para2)
 :列出当前路径下的所有文件
 *@@color(blue):'' os.path.isdir/isfile('file')''@@
 :判断文件是路径还是文件
+*@@color(blue):'' os.path.exists('file')''@@
+:判断路径是否存在
 </pre>
+</div>
+<div title="python todo" creator="samuel" modifier="samuel" created="201211050632" changecount="1">
+<pre>&gt;513 python核心编程</pre>
 </div>
 <div title="python 数字类型" creator="samuel" modifier="samuel" created="201210100744" modified="201210100802" changecount="8">
 <pre>@@bgcolor(green):五种数字类型：int , long ,  bool , float , complex@@
@@ -2771,11 +2880,11 @@ res = str.split('+')
 &lt;/code&gt;
 }}}</pre>
 </div>
-<div title="形态学的腐蚀和膨胀" creator="samuel" modifier="samuel" created="201209270115" modified="201209270119" changecount="7">
+<div title="形态学的腐蚀和膨胀" creator="samuel" modifier="Samuel" created="201209270115" modified="201211070848" changecount="9">
 <pre>*{{normal{@@color(blue):''灰度图像''@@
-* 腐蚀：若我们把重合区域中所有点灰度值的最大值赋给当前点，就是对灰度图的腐蚀操作 @@color(red):(可以分为垂直和水平两个方向来做)@@
+* 膨胀：若我们把重合区域中所有点灰度值的最大值赋给当前点，就是对灰度图的膨胀操作 @@color(red):(可以分为垂直和水平两个方向来做)@@
 &gt;即：(3, 7, 9, 12, 3, 6, 8)-&gt;(7, 9, 12, 12, 12, 8, 8)
-* 膨胀：若我们把重合区域中所有点灰度值的最小值赋给当前点，就是对灰度图的膨胀操作
+* 腐蚀：若我们把重合区域中所有点灰度值的最小值赋给当前点，就是对灰度图的腐蚀操作
 &gt;即：(3, 7, 9, 12, 3, 6, 8)-&gt;(3, 3, 7, 3, 3, 3, 6)
 
 }}}

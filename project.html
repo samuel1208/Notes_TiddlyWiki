@@ -507,7 +507,7 @@ Also see [[AdvancedOptions]]</pre>
 </div>
 <!--POST-SHADOWAREA-->
 <div id="storeArea">
-<div title="ASD" creator="samuel" modifier="YourName" created="201210080135" modified="201210180824" changecount="11">
+<div title="ASD" creator="samuel" modifier="samuel" created="201210080135" modified="201210261003" changecount="16">
 <pre>!Algorithm
 [[BOW]]
 [[SVM]]
@@ -521,13 +521,20 @@ boost ：
 [[Image data]]
 
 
+!URL objectdetection
+http://groups.inf.ed.ac.uk/calvin/objectness/
+http://www.cs.utexas.edu/~grauman/courses/fall2011/schedule.html
+
 
 </pre>
 </div>
-<div title="BOW" creator="samuel" modifier="samuel" created="201210080135" changecount="1">
+<div title="BOW" creator="samuel" modifier="samuel" created="201210080135" modified="201210261004" changecount="2">
 <pre>@@color(blue):''BOW''@@
 #改进 bow的图像特征是基于全局的（第三步）
-#bow-learning脚本中describe-images和build-vocabulary 需要加类名</pre>
+#bow-learning脚本中describe-images和build-vocabulary 需要加类名
+
+
+#目前获取object的时候类存没有复用</pre>
 </div>
 <div title="DefaultTiddlers" creator="YourName" modifier="samuel" created="201210120158" modified="201210120159" changecount="2">
 <pre></pre>
@@ -544,13 +551,14 @@ boost ：
 *Caltech 数据库
 &gt;http://vision.caltech.edu/Image_Datasets/Caltech101/Caltech101.html</pre>
 </div>
-<div title="MainMenu" creator="YourName" modifier="samuel" created="201210080130" modified="201210120651" changecount="10">
+<div title="MainMenu" creator="YourName" modifier="samuel" created="201210080130" modified="201211010243" changecount="14">
 <pre>!Project
 [[ASD]]
 [[SIM3D]]
+[[iTalkAvatar]]
 [[Project FAQ]]
 [[Memory Managing]]
-</pre>
+[[PicTracing]]</pre>
 </div>
 <div title="Memory Managing" creator="samuel" modifier="samuel" created="201210080138" changecount="1">
 <pre>*''~MM_MemMgrCreate(@@color(blue):''~MVoid''@@ *pMem, @@color(blue):''~MLong''@@ nMemSize)''
@@ -567,25 +575,64 @@ boost ：
 @@color(red):''Attention''@@
 当在''~MM_MemMgrCreate''产生的''Mhandle''再通过~MM_MemMgrCreate分配''subMhandle''时需要在''Mhandle''中分配一块内存，并将地址传给~MM_MemMgrCreate。 最后不用时须释放</pre>
 </div>
+<div title="PicTracing" creator="samuel" modifier="Samuel" created="201211010244" modified="201211090711" changecount="18">
+<pre>*{{normal{@@color(blue):''Datatype''@@
+#PPICTRACING.pPicTracing : bResultImageBuffer.是否在引擎中
+#BLOCKOFFSET？
+
+}}}
+*{{normal{@@color(blue):''question''@@
+#~APICTRACING_GetWholeSmallRatio：图像会比最小的大小大， 如果小的话会ratio会返回0， shiftbit是-1；？
+#
+
+}}}
+*{{normal{@@color(blue):''design''@@
+#width_down= width/ (2*scale) * 2*scale；width_downscale /= scale; 确保缩放后是2的倍数
+}}}
+
+*[[图像对齐 ]] @@color(red):''TODO''@@ : add to library
+
+pPicTracing-&gt;pScaled_Diffmask
+pPicTracing-&gt;pImageDiffMask
+TRegionLabel
+
+TODO:
+motion blur</pre>
+</div>
 <div title="Project FAQ" creator="samuel" modifier="samuel" created="201210080139" changecount="1">
 <pre>*''图像输入时，注意是否上下颠倒。''
 *''linux和windows下换行不一样''
 *最小char型数据为''-128''，但在写的时候应该写成''-127-1'',
 *矩阵转置的时候， 不是正方形时，不能在原矩阵上转置</pre>
 </div>
-<div title="SIM3D" creator="samuel" modifier="samuel" created="201210120652" modified="201210120818" changecount="4">
+<div title="SIM3D" creator="samuel" modifier="samuel" created="201210120652" modified="201210250232" changecount="8">
 <pre>*脚本编译的时候注意，svn的版本是否是英文版本。否则bc会出错
 *windows下将freeImage放到vc的收索路径中
 
 *@@color(blue):提交注意事项@@
 *使用release.sh之前，需要把customer下的changlog改好。如果是自动提交 (-n ${next_rev.sh})版本号是加1的，所有后面你要commit一下
-*当然也可以自己指定版本号</pre>
+*当然也可以自己指定版本号
+
+*{{normal{@@color(blue):gtao机器上的配置实用自己的cmake@@
+config_on_gtao() {
+	# To build the developer environment for I've not administrator privilege on gtao-compiler.
+	export PATH=/cygdrive/e/user/ytxie/bin/cmake-2.8/bin:/cygdrive/e/user/ytxie/bin:$PATH}
+}}}</pre>
 </div>
 <div title="SiteSubtitle" creator="samuel" modifier="samuel" created="201210080141" changecount="1">
 <pre>a reusable non-linear personal web notebook</pre>
 </div>
 <div title="SiteTitle" creator="samuel" modifier="samuel" created="201210080141" changecount="1">
 <pre>Project TiddlyWiki</pre>
+</div>
+<div title="iTalkAvatar" creator="samuel" modifier="samuel" created="201210240203" changecount="1">
+<pre>Type the text for 'iTalkAvatar'</pre>
+</div>
+<div title="图像对齐" creator="Samuel" modifier="Samuel" created="201211090253" modified="201211090711" changecount="4">
+<pre>*{{normal{@@color(blue):''光流法''@@
+*寻找角点(Shi和Tomasi提出的方法)
+
+}}}</pre>
 </div>
 </div>
 <!--POST-STOREAREA-->
