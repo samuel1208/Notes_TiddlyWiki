@@ -551,14 +551,16 @@ http://www.cs.utexas.edu/~grauman/courses/fall2011/schedule.html
 *Caltech 数据库
 &gt;http://vision.caltech.edu/Image_Datasets/Caltech101/Caltech101.html</pre>
 </div>
-<div title="MainMenu" creator="YourName" modifier="samuel" created="201210080130" modified="201211010243" changecount="14">
+<div title="MainMenu" creator="YourName" modifier="Samuel" created="201210080130" modified="201301060250" changecount="18">
 <pre>!Project
 [[ASD]]
 [[SIM3D]]
 [[iTalkAvatar]]
 [[Project FAQ]]
 [[Memory Managing]]
-[[PicTracing]]</pre>
+[[PicTracing]]
+[[PicAction]]
+[[TODO]]</pre>
 </div>
 <div title="Memory Managing" creator="samuel" modifier="samuel" created="201210080138" changecount="1">
 <pre>*''~MM_MemMgrCreate(@@color(blue):''~MVoid''@@ *pMem, @@color(blue):''~MLong''@@ nMemSize)''
@@ -574,6 +576,43 @@ http://www.cs.utexas.edu/~grauman/courses/fall2011/schedule.html
 *''最后释放整个大的内存即可''
 @@color(red):''Attention''@@
 当在''~MM_MemMgrCreate''产生的''Mhandle''再通过~MM_MemMgrCreate分配''subMhandle''时需要在''Mhandle''中分配一块内存，并将地址传给~MM_MemMgrCreate。 最后不用时须释放</pre>
+</div>
+<div title="PicAction" creator="Samuel" modifier="Samuel" created="201301060250" modified="201301290202" changecount="18">
+<pre>*[[PicAction get mask 流程]]
+
+*''说明''
+# 如果是preview模式则在~APICACTION_ActionImage中不粘贴，只是把mask和原图保存下来
+
+尝试1：PRE_DIFF使用前一张选中的作为参考图
+尝试2：使用局部偏移
+*使用变好的case有大物体4
+
+Q:
+1.~APICACTION_RectLargeDiffWithPre(rcObjectRect, pPicAction-&gt;rcObjectRectOrigin, 0, &amp;bIsTwoObject);中pPicAction-&gt;rcObjectRectOrigin,是什么。 什么时候赋值？我在APICACTION_JudgeObjectIsInScene中赋值了
+
+2.为什么在~APICACTION_JudgeObjectIsInScene里面设置hasmerged。
+
+5.APICACTION_MergeObjectRect中条件
+	if (ABS(i32OldWidth - i32NewWidth) &lt; ABS(i32OldHeight - i32NewHeight) || bHorizontal)可否用&amp;&amp;。 会把垂直方向merge掉
+
+6.垂直移动时。 宽度小于10%会被干掉 （限制）
+
+
+问题：
+1.手指在边上移动， 边缘会晃动导致mask分不开？
+</pre>
+</div>
+<div title="PicAction get mask 流程" creator="Samuel" modifier="Samuel" created="201301060250" modified="201301060315" changecount="9">
+<pre>~APICACTION_ActionMask：
+#{{normal{ 获取两图相减的mask（得到4个不同膨胀程度的mask ）
+pDiffMap1膨胀最多， pDiffMap3膨胀最少
+}}}
+#{{normal{~APICACTION_GetDiffMask判断使用哪个mask， 有几个有效的object mask） 
+先在pDiffMap1上面计算
+}}}
+#{{normal{~APICACTION_RemovedMaskNotObject
+剔除一些object mask(1.mask的大小剔除小mask；2.mask中当前幁和前一幁的相似性，剔除抖动的mask)
+}}}</pre>
 </div>
 <div title="PicTracing" creator="samuel" modifier="Samuel" created="201211010244" modified="201211090711" changecount="18">
 <pre>*{{normal{@@color(blue):''Datatype''@@
@@ -625,13 +664,34 @@ config_on_gtao() {
 <div title="SiteTitle" creator="samuel" modifier="samuel" created="201210080141" changecount="1">
 <pre>Project TiddlyWiki</pre>
 </div>
+<div title="TODO" creator="YourName" modifier="Samuel" created="201211120340" modified="201301180150" changecount="3">
+<pre></pre>
+</div>
 <div title="iTalkAvatar" creator="samuel" modifier="samuel" created="201210240203" changecount="1">
 <pre>Type the text for 'iTalkAvatar'</pre>
 </div>
-<div title="图像对齐" creator="Samuel" modifier="Samuel" created="201211090253" modified="201211090711" changecount="4">
-<pre>*{{normal{@@color(blue):''光流法''@@
-*寻找角点(Shi和Tomasi提出的方法)
-
+<div title="图像对齐" creator="Samuel" modifier="samuel" created="201211090253" modified="201212030149" changecount="40">
+<pre>@@bgcolor(green):(忽略了旋转)@@
+*{{normal{@@color(blue):''step一 : 计算全局的x和y方向的偏移''@@
+*{{normal{''光流法''(在小图上处理)
+#寻找角点(Shi和Tomasi提出的方法)
+#找到前一帧的角点P0在第二帧中的位置P1。将P1反向找到其在第一帧中位置P2。 将(~P2-P1)&lt;maxError(maxError=1) 的点保存下来
+#第一帧的角点P0减去第二帧的角点位置P1累加出x和y方向的偏移，然后取平均值得average_offset
+**排除偏移超过最大偏移的点：fabs(P1.x-P0.x)&lt;maxOffset &amp;&amp; fabs(P1.y-P0.y)&lt;maxOffset, maxOffset=30
+#如果使用的角点数&gt;(所有角点数的3分之1), 需要进行误差校正(由前2步可以知道使用的角点数)。
+**剔除最大误差点， 重新计算偏移值，再统计最大误差，使其x和y方向的最大误差&lt;1.5. (误差：p.x-average_offset.x)
+}}}
+}}}
+*{{normal{@@color(blue):''step二 : 计算局部的x和y方向的偏移''@@
+*{{normal{''方法一''
+#将图像分成很多方格(如64*64)
+#计算左、中、 右3列的每个块的(x,y)偏移。
+**先将cur图像的块加上全局的（x,y）偏移
+**统计当前像素的与周围的不同的个数：将当前像素和8领域的像素比较，超过一定的值，个数+1(类似于梯度，故在下一步将这个个数称为@@color(green):&quot;梯度&quot;@@)
+**比较pre和cur块在上一步统计得到的8领域的@@color(green):&quot;梯度&quot;@@。并统计不同的个数。在一定范围内滑动cur块，取最下的不同个数的偏移作为块的偏移
+#使用最小二乘法将左、中、右每一列的x和y偏移拟合成一条直线
+#通过插值求出每一个块的(x,y)偏移
+}}}
 }}}</pre>
 </div>
 </div>
