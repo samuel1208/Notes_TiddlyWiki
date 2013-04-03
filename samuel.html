@@ -640,7 +640,7 @@ dst[tId] = (src1[tId] + src2[tId] + src3[tId] + src4[tId])&gt;&gt;4;
 }}}
 }}}</pre>
 </div>
-<div title="Cascade Adaboost" creator="samuel" modifier="samuel" created="201304030554" modified="201304030735" changecount="49">
+<div title="Cascade Adaboost" creator="samuel" modifier="samuel" created="201304030554" modified="201304030739" changecount="52">
 <pre>''说明''
 #正样本集是固定的，负样本集每次是需要更新的
 #@@color(red):验证集需要另外指定吗？@@
@@ -664,7 +664,7 @@ dst[tId] = (src1[tId] + src2[tId] + src3[tId] + src4[tId])&gt;&gt;4;
 #\(n_i = n_i+1\)
 #基于\(P,N\)使用\(n_i\)维特征通过~AdaBoost得到一个分类器
 #使用当前的@@color(red):cascaded分类器@@在@@color(red):验证集@@上得到\(F_i,D_i\)
-#降低\(i\)th分类器的阈值，直到当前的@@color(red):cascaded分类器@@\(D_i&gt;d*D_{i-1}\), 同时需要更新\(F_i\)
+#降低@@color(red):\(i\)th分类器@@的阈值，直到当前的@@color(red):cascaded分类器@@\(D_i&gt;d*D_{i-1}\), 同时需要更新\(F_i\)
 }}}
 }}}
 #@@color(blue):''清空负样本集\(N\)''@@
