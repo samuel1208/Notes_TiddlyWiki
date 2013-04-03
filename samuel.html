@@ -640,7 +640,7 @@ dst[tId] = (src1[tId] + src2[tId] + src3[tId] + src4[tId])&gt;&gt;4;
 }}}
 }}}</pre>
 </div>
-<div title="Cascade Adaboost" creator="samuel" modifier="samuel" created="201304030554" modified="201304030739" changecount="52">
+<div title="Cascade Adaboost" creator="samuel" modifier="samuel" created="201304030554" modified="201304030757" changecount="54">
 <pre>''说明''
 #正样本集是固定的，负样本集每次是需要更新的
 #@@color(red):验证集需要另外指定吗？@@
@@ -661,7 +661,7 @@ dst[tId] = (src1[tId] + src2[tId] + src3[tId] + src4[tId])&gt;&gt;4;
 #\(i = i+1\); \(F_i = F_(i-1)\);
 #\(n_i = 0 --- \) 特征的维数 
 #{{normal{while \(F_i &gt; f*F_{i-1}\)
-#\(n_i = n_i+1\)
+#\(n_i = n_i+1\) @@color(red):此处的\(n_i\)应该是~AdaBoost的T吗（当每个弱分类器只用一个特征时）？@@
 #基于\(P,N\)使用\(n_i\)维特征通过~AdaBoost得到一个分类器
 #使用当前的@@color(red):cascaded分类器@@在@@color(red):验证集@@上得到\(F_i,D_i\)
 #降低@@color(red):\(i\)th分类器@@的阈值，直到当前的@@color(red):cascaded分类器@@\(D_i&gt;d*D_{i-1}\), 同时需要更新\(F_i\)
@@ -713,8 +713,9 @@ variable :/=  value
 <div title="DefaultTiddlers" creator="YourName" modifier="Samuel" created="201206180441" modified="201206180448" changecount="6">
 <pre></pre>
 </div>
-<div title="Discreate Adaboost" creator="samuel" modifier="samuel" created="201304030317" modified="201304030736" changecount="108">
+<div title="Discreate Adaboost" creator="samuel" modifier="samuel" created="201304030317" modified="201304030759" changecount="111">
 <pre>''说明''
+#@@color(red):~AdaBoost的弱分类器每次只用一个特征吗还是？@@
 ''Step''
 #{{normal{@@color(blue):''Input''@@ :
  \((x_1,y_1)... (x_n, y_n)  \hspace{8mm} y_i\in Y(1, 2, ...k)  \). 
@@ -725,7 +726,7 @@ w_i = 1/n    ...........  (n为样本的个数 )\\
 (Cascade \hspace{4mm} Adaboost二类中 wp_i = 1/2m, wn_i=1/2l,m,l分别为正负样本的个数 )
 \)
 }}}
-#{{normal{@@color(blue):''For t=0...T:''
+#{{normal{@@color(blue):''For t=0, 1...T:''
 @@@@color(red):（T如何选取，可以根据正检率和误检率中间跳出吗?每次都更新一下正检率和误检率是不是很影响性能）@@
 #{{normal{''归一化权重值''
 \(
