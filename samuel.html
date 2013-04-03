@@ -537,9 +537,10 @@ Also see [[AdvancedOptions]]</pre>
 <pre>*@@bgcolor(green):功能@@
 **命令替换符，在括号和引号里可以执行命令, 将其结果作为其他的输入</pre>
 </div>
-<div title="Adaboost" creator="Samuel" modifier="samuel" created="201303120911" modified="201304030317" changecount="4">
+<div title="Adaboost" creator="Samuel" modifier="samuel" created="201303120911" modified="201304030636" changecount="7">
 <pre>[[OpenCV Cascade AdaBoost]]
-[[Discreate AdaBoost]]</pre>
+[[Discreate Adaboost]]
+[[Cascade Adaboost]]</pre>
 </div>
 <div title="AdvancedOptions" creator="YourName" modifier="YourName" created="201206180447" modified="201206180447" changecount="2">
 <pre>&lt;&lt;options&gt;&gt;</pre>
@@ -639,6 +640,36 @@ dst[tId] = (src1[tId] + src2[tId] + src3[tId] + src4[tId])&gt;&gt;4;
 }}}
 }}}</pre>
 </div>
+<div title="Cascade Adaboost" creator="samuel" modifier="samuel" created="201304030554" modified="201304030735" changecount="49">
+<pre>''说明''
+#正样本集是固定的，负样本集每次是需要更新的
+#@@color(red):验证集需要另外指定吗？@@
+''Step''
+#{{normal{@@color(blue):''设置每一层的:''@@
+\(f --- \) 每一层的最大正样本误检率
+\(d---\)每一层的最小正样本检测率
+}}}
+#@@color(blue):''设置最终的正样本误检率\(F_{target}\)''@@
+#{{normal{@@color(blue):''设置正负样本集''@@
+\(P --- \) 正样本集
+\(N --- \)负样本集
+}}}
+#{{normal{@@color(blue):''初始化参数''@@
+\(F_0 = 1.0\) ;  \(D_0 = 1.0\) ; \(i = 0\);
+}}}
+#{{normal{@@color(blue):''while \(F_i &gt; F_{target}\)''@@
+#\(i = i+1\); \(F_i = F_(i-1)\);
+#\(n_i = 0 --- \) 特征的维数 
+#{{normal{while \(F_i &gt; f*F_{i-1}\)
+#\(n_i = n_i+1\)
+#基于\(P,N\)使用\(n_i\)维特征通过~AdaBoost得到一个分类器
+#使用当前的@@color(red):cascaded分类器@@在@@color(red):验证集@@上得到\(F_i,D_i\)
+#降低\(i\)th分类器的阈值，直到当前的@@color(red):cascaded分类器@@\(D_i&gt;d*D_{i-1}\), 同时需要更新\(F_i\)
+}}}
+}}}
+#@@color(blue):''清空负样本集\(N\)''@@
+#@@color(blue):''如果\(F_i&gt;F_{target}\),将检测错误的负样本放到\(N\)中''@@</pre>
+</div>
 <div title="Cmake" creator="Samuel" modifier="Samuel" created="201206180614" modified="201211270130" tags="_CMAKE_" changecount="145">
 <pre>*[[cmake FAQ]]
 
@@ -682,18 +713,20 @@ variable :/=  value
 <div title="DefaultTiddlers" creator="YourName" modifier="Samuel" created="201206180441" modified="201206180448" changecount="6">
 <pre></pre>
 </div>
-<div title="Discreate AdaBoost" creator="samuel" modifier="samuel" created="201304030317" modified="201304030544" changecount="98">
-<pre>*@@bgcolor(green):~AdaBoost.M1 == Discrete ~AdaBoost步骤@@
+<div title="Discreate Adaboost" creator="samuel" modifier="samuel" created="201304030317" modified="201304030736" changecount="108">
+<pre>''说明''
+''Step''
 #{{normal{@@color(blue):''Input''@@ :
  \((x_1,y_1)... (x_n, y_n)  \hspace{8mm} y_i\in Y(1, 2, ...k)  \). 
 }}}
 #{{normal{@@color(blue):''初始化权重值w(也是概率分布D)''@@
 \( 
 w_i = 1/n    ...........  (n为样本的个数 )\\
-(cascadeadaboost二类中 wp_i = 1/2m, wn_i=1/2l,m,l分别为正负样本的个数 )
+(Cascade \hspace{4mm} Adaboost二类中 wp_i = 1/2m, wn_i=1/2l,m,l分别为正负样本的个数 )
 \)
 }}}
-#{{normal{@@color(blue):''For t=0...T:''@@@@color(red):（T如何选取，可以根据正检率和误检率中间跳出吗?）@@
+#{{normal{@@color(blue):''For t=0...T:''
+@@@@color(red):（T如何选取，可以根据正检率和误检率中间跳出吗?每次都更新一下正检率和误检率是不是很影响性能）@@
 #{{normal{''归一化权重值''
 \(
 \LARGE w_{t,i} = \frac{w_{t,i}}{\sum\limits_{j=1}^nw_{t,j}}
@@ -706,11 +739,11 @@ w_i = 1/n    ...........  (n为样本的个数 )\\
 \)
 }}}
 #{{normal{''更新权重\(w\)''
-@@color(green):减小分对的权重, 分错的不变@@
+@@color(green):减小分对的权重,  分类错误的样本可以除以\beta_t变大或不变@@
 \(
 \Large w_{t+1,i} =w_{t,i}*\begin{cases}
 \beta_t  \hspace{16mm}if\hspace{4mm}  h_t(x_i)=y_i\\
-1\hspace{16mm} otherwise
+1 or \beta_t^{-1}\hspace{16mm} otherwise
 \end{cases} \\
 \beta_t = {err}_t / (1-{err}_t)
 \)
@@ -2441,7 +2474,7 @@ http://www.cnblogs.com/xiaotie/archive/2009/12/08/1619046.html
 图像分割算法：
 1、watershed、 graph cut 、 meanshift</pre>
 </div>
-<div title="Training&amp;detection" creator="YourName" modifier="samuel" created="201207240627" modified="201304030316" tags="_TRAINING_ _DETECTION_" changecount="9">
+<div title="Training&amp;detection" creator="YourName" modifier="samuel" created="201207240627" modified="201304030547" tags="_TRAINING_ _DETECTION_" changecount="10">
 <pre>[[SVM]]
 [[K-means]]
 [[Meanshift]]
