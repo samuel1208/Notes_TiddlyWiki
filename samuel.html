@@ -537,9 +537,9 @@ Also see [[AdvancedOptions]]</pre>
 <pre>*@@bgcolor(green):功能@@
 **命令替换符，在括号和引号里可以执行命令, 将其结果作为其他的输入</pre>
 </div>
-<div title="Adaboost" creator="Samuel" modifier="Samuel" created="201303120911" modified="201303120911" changecount="2">
+<div title="Adaboost" creator="Samuel" modifier="samuel" created="201303120911" modified="201304030317" changecount="4">
 <pre>[[OpenCV Cascade AdaBoost]]
-[[AdaBoost]]</pre>
+[[Discreate AdaBoost]]</pre>
 </div>
 <div title="AdvancedOptions" creator="YourName" modifier="YourName" created="201206180447" modified="201206180447" changecount="2">
 <pre>&lt;&lt;options&gt;&gt;</pre>
@@ -681,6 +681,47 @@ variable :/=  value
 </div>
 <div title="DefaultTiddlers" creator="YourName" modifier="Samuel" created="201206180441" modified="201206180448" changecount="6">
 <pre></pre>
+</div>
+<div title="Discreate AdaBoost" creator="samuel" modifier="samuel" created="201304030317" modified="201304030544" changecount="98">
+<pre>*@@bgcolor(green):~AdaBoost.M1 == Discrete ~AdaBoost步骤@@
+#{{normal{@@color(blue):''Input''@@ :
+ \((x_1,y_1)... (x_n, y_n)  \hspace{8mm} y_i\in Y(1, 2, ...k)  \). 
+}}}
+#{{normal{@@color(blue):''初始化权重值w(也是概率分布D)''@@
+\( 
+w_i = 1/n    ...........  (n为样本的个数 )\\
+(cascadeadaboost二类中 wp_i = 1/2m, wn_i=1/2l,m,l分别为正负样本的个数 )
+\)
+}}}
+#{{normal{@@color(blue):''For t=0...T:''@@@@color(red):（T如何选取，可以根据正检率和误检率中间跳出吗?）@@
+#{{normal{''归一化权重值''
+\(
+\LARGE w_{t,i} = \frac{w_{t,i}}{\sum\limits_{j=1}^nw_{t,j}}
+\)
+}}}
+#{{normal{''对不同的特征训练若干弱分类器\(h_j\),寻找最小的误差值\({err}_t\)的弱分类器作为\(h_t\)''
+@@color(green):\({err}_t\)必须小于0.5,大于0.5需要退出循环。如果大于0.5 则下一步\(\beta_t\)就会大于1，无法减小分对的权重@@
+\(
+\Large  {err}_j = \sum\limits_i^nw_i|h_j(x_i)-y_i|
+\)
+}}}
+#{{normal{''更新权重\(w\)''
+@@color(green):减小分对的权重, 分错的不变@@
+\(
+\Large w_{t+1,i} =w_{t,i}*\begin{cases}
+\beta_t  \hspace{16mm}if\hspace{4mm}  h_t(x_i)=y_i\\
+1\hspace{16mm} otherwise
+\end{cases} \\
+\beta_t = {err}_t / (1-{err}_t)
+\)
+}}}
+}}}
+#{{normal{@@color(blue):''最终的强分类器''@@
+\(
+\Large h_{final}(x) = max\sum\limits_{t:h_t(x)==y}log(1/\beta_t)
+\)
+@@color(green):寻找使(h(x)=y的情况下,log(1/B)之和)最大者即是输出分类y。 误差越小log(1/B)越大,二类情况下只要大于所有和的一半即可@@
+}}}</pre>
 </div>
 <div title="Emacs" creator="Samuel" modifier="samuel" created="201207100654" modified="201208140817" tags="_EMACS_" changecount="6">
 <pre>[[Emacs GDB]]
@@ -1077,9 +1118,10 @@ main函数返回值必须为void
 #k的大小对结果影响比较大
 }}}</pre>
 </div>
-<div title="LATEX" creator="Samuel" modifier="Samuel" created="201211260252" modified="201301170818" changecount="73">
-<pre>*{{normal{''换行''
+<div title="LATEX" creator="Samuel" modifier="samuel" created="201211260252" modified="201304030527" changecount="78">
+<pre>*{{normal{''换行与空格''
 \\或\newline
+\hspace{8mm}
 }}}
 *{{normal{''字体大小''
 |!点数(pt) |!中文字号|!控制命令|
@@ -2399,7 +2441,7 @@ http://www.cnblogs.com/xiaotie/archive/2009/12/08/1619046.html
 图像分割算法：
 1、watershed、 graph cut 、 meanshift</pre>
 </div>
-<div title="Training&amp;detection" creator="YourName" modifier="Samuel" created="201207240627" modified="201303120910" tags="_TRAINING_ _DETECTION_" changecount="8">
+<div title="Training&amp;detection" creator="YourName" modifier="samuel" created="201207240627" modified="201304030316" tags="_TRAINING_ _DETECTION_" changecount="9">
 <pre>[[SVM]]
 [[K-means]]
 [[Meanshift]]
