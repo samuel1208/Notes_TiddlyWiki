@@ -640,13 +640,16 @@ dst[tId] = (src1[tId] + src2[tId] + src3[tId] + src4[tId])&gt;&gt;4;
 }}}
 }}}</pre>
 </div>
-<div title="Cascade Adaboost" creator="samuel" modifier="samuel" created="201304030554" modified="201304030757" changecount="54">
+<div title="Cascade Adaboost" creator="samuel" modifier="Samuel" created="201304030554" modified="201304110619" changecount="66">
 <pre>''说明''
 #正样本集是固定的，负样本集每次是需要更新的
 #@@color(red):验证集需要另外指定吗？@@
+#@@color(red):cascade 可以用于多类吗？@@
+#@@color(red):''有一层判断不是就不是了吗，还是需要多层的阈值相加判断（real adaboost是这样）''@@
+#@@color(red):''为什么每一层没有负样本的检测率''@@
 ''Step''
 #{{normal{@@color(blue):''设置每一层的:''@@
-\(f --- \) 每一层的最大正样本误检率
+\(f --- \) 每一层的最大正样本误检率 @@color(red):如何统计@@
 \(d---\)每一层的最小正样本检测率
 }}}
 #@@color(blue):''设置最终的正样本误检率\(F_{target}\)''@@
@@ -661,14 +664,14 @@ dst[tId] = (src1[tId] + src2[tId] + src3[tId] + src4[tId])&gt;&gt;4;
 #\(i = i+1\); \(F_i = F_(i-1)\);
 #\(n_i = 0 --- \) 特征的维数 
 #{{normal{while \(F_i &gt; f*F_{i-1}\)
-#\(n_i = n_i+1\) @@color(red):此处的\(n_i\)应该是~AdaBoost的T吗（当每个弱分类器只用一个特征时）？@@
+#\(n_i = n_i+1\) @@color(red):此处的\(n_i\)应该是~AdaBoost的T吗， 每次加一，每次只是算下一个弱分类器@@
 #基于\(P,N\)使用\(n_i\)维特征通过~AdaBoost得到一个分类器
 #使用当前的@@color(red):cascaded分类器@@在@@color(red):验证集@@上得到\(F_i,D_i\)
 #降低@@color(red):\(i\)th分类器@@的阈值，直到当前的@@color(red):cascaded分类器@@\(D_i&gt;d*D_{i-1}\), 同时需要更新\(F_i\)
 }}}
 }}}
 #@@color(blue):''清空负样本集\(N\)''@@
-#@@color(blue):''如果\(F_i&gt;F_{target}\),将检测错误的负样本放到\(N\)中''@@</pre>
+#@@color(blue):''如果\(F_i&gt;F_{target}\),将当前cascade检测器应用到负样本集上，将检测错误的负样本放到\(N\)中''@@@@color(red):（上面用于训练的样本需要检测一下加入吗）@@</pre>
 </div>
 <div title="Cmake" creator="Samuel" modifier="Samuel" created="201206180614" modified="201211270130" tags="_CMAKE_" changecount="145">
 <pre>*[[cmake FAQ]]
@@ -713,9 +716,10 @@ variable :/=  value
 <div title="DefaultTiddlers" creator="YourName" modifier="Samuel" created="201206180441" modified="201206180448" changecount="6">
 <pre></pre>
 </div>
-<div title="Discreate Adaboost" creator="samuel" modifier="samuel" created="201304030317" modified="201304030759" changecount="111">
+<div title="Discreate Adaboost" creator="samuel" modifier="Samuel" created="201304030317" modified="201304110145" changecount="120">
 <pre>''说明''
-#@@color(red):~AdaBoost的弱分类器每次只用一个特征吗还是？@@
+#Discreate ~AdaBoost的弱分类器可以参考@@color(red):''Robust ~Real-Time Face Detection''@@
+#@@color(red):(重新分配权重，后其不影响前面分对的吗)@@
 ''Step''
 #{{normal{@@color(blue):''Input''@@ :
  \((x_1,y_1)... (x_n, y_n)  \hspace{8mm} y_i\in Y(1, 2, ...k)  \). 
@@ -983,7 +987,7 @@ b.在 StyleSheet 或 StyleSheetLaouts 中加入[[MyStyle]]</pre>
 [[PCA]]
 [[最小二乘法直线拟合]]</pre>
 </div>
-<div title="Java" creator="Samuel" modifier="Samuel" created="201210170117" modified="201302190240" changecount="14">
+<div title="Java" creator="Samuel" modifier="Samuel" created="201210170117" modified="201304070617" changecount="15">
 <pre>[[Java Datatype]]
 [[Java Method]]
 [[Java Class]]
@@ -1203,10 +1207,10 @@ gamma+(1-gamma)*exp(-lambda/(mi1-mi2)^m ) \\
  \(y\)
 }}}</pre>
 </div>
-<div title="Linux" creator="Samuel" modifier="Samuel" created="201207160840" modified="201212050334" tags="_LINUX_COMMAND_" changecount="6">
+<div title="Linux" creator="Samuel" modifier="Samuel" created="201207160840" modified="201304080128" tags="_LINUX_COMMAND_" changecount="9">
 <pre>[[Linux FAQ]]
 [[Linux 命令]]
-
+[[Linux 技巧 ]]
 </pre>
 </div>
 <div title="Linux FAQ" creator="Samuel" modifier="Samuel" created="201212050335" modified="201212140320" changecount="22">
@@ -1233,7 +1237,7 @@ refer to : https://bugs.freedesktop.org/show_bug.cgi?id=24226
 }}}
 }}}</pre>
 </div>
-<div title="Linux 命令" creator="Samuel" modifier="Samuel" created="201212050334" changecount="1">
+<div title="Linux 命令" creator="Samuel" modifier="Samuel" created="201212050334" modified="201304080128" changecount="4">
 <pre>&gt;[[shift]]   : 移动shell脚本传入的参数位置
 &gt;[[$()与``]] :命令替换符， 在其中执行命令并作为输入
 &gt;[[’ ‘与“ ”]]  : 单引号防止字符扩展
@@ -1245,6 +1249,11 @@ refer to : https://bugs.freedesktop.org/show_bug.cgi?id=24226
 &gt;[[ln]] : 建立链接
 &gt;[[xargs]]:将前一输入转换为后面命令的输入参数。多用于管道
 &gt;[[find]] : 查找文件和文件夹</pre>
+</div>
+<div title="Linux 技巧" creator="Samuel" modifier="Samuel" created="201304080129" changecount="1">
+<pre>*{{normal{获取文件的绝对路径
+find $(pwd)/ -type f
+}}}</pre>
 </div>
 <div title="MainMenu" creator="YourName" modifier="samuel" created="201206180446" modified="201303280243" changecount="82">
 <pre>!Tools
