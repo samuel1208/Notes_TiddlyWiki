@@ -2142,7 +2142,7 @@ class test:
 &gt; ''randint(a,b)'' : 返回[a,b]之间的整数。randint(0,1)返回0或1模拟50%的概率
 &gt; ''uniform(a,b)'' : 返回[a,b)之间的浮点数</pre>
 </div>
-<div title="Real AdaBoost" creator="Samuel" modifier="Samuel" created="201304170103" modified="201304170156" changecount="35">
+<div title="Real AdaBoost" creator="Samuel" modifier="samuel" created="201304170103" modified="201304170224" changecount="38">
 <pre>''说明''
 
 ''Step 二类''
@@ -2174,7 +2174,7 @@ w_i = 1/n    ...........  (n为样本的个数 )
 \(
 \large   x \in X_j, h(x) =\frac{1}{2}ln(\frac{W_{+1}^j+\epsilon}{W_{-1}^j+\epsilon}) \hspace{8mm}  \epsilon 为一个小整数。防止除0
 \)
-@@color(red):判决函数前面的\(\frac{1}{2}\)的意义@@
+@@color(red):判决函数前面的\(\frac{1}{2}\)的意义, 减小对权重的影响吗@@
 
 }}}
 #{{normal{计算归一化因子
