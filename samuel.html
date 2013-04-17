@@ -537,10 +537,14 @@ Also see [[AdvancedOptions]]</pre>
 <pre>*@@bgcolor(green):功能@@
 **命令替换符，在括号和引号里可以执行命令, 将其结果作为其他的输入</pre>
 </div>
-<div title="Adaboost" creator="Samuel" modifier="Samuel" created="201303120911" modified="201304170101" changecount="8">
+<div title="Adaboost" creator="Samuel" modifier="samuel" created="201303120911" modified="201304170231" changecount="9">
 <pre>[[Real AdaBoost]]
 [[Discreate Adaboost]]
-[[Cascade Adaboost]]</pre>
+[[Cascade Adaboost]]
+
+*{{normal{问题
+adaboost用于多类的若分类器设计方法
+}}}</pre>
 </div>
 <div title="AdvancedOptions" creator="YourName" modifier="YourName" created="201206180447" modified="201206180447" changecount="2">
 <pre>&lt;&lt;options&gt;&gt;</pre>
@@ -2142,7 +2146,7 @@ class test:
 &gt; ''randint(a,b)'' : 返回[a,b]之间的整数。randint(0,1)返回0或1模拟50%的概率
 &gt; ''uniform(a,b)'' : 返回[a,b)之间的浮点数</pre>
 </div>
-<div title="Real AdaBoost" creator="Samuel" modifier="samuel" created="201304170103" modified="201304170224" changecount="38">
+<div title="Real AdaBoost" creator="Samuel" modifier="samuel" created="201304170103" modified="201304170236" changecount="40">
 <pre>''说明''
 
 ''Step 二类''
@@ -2193,6 +2197,7 @@ Z=2\sum\limits_j\sqrt{W_{+1}^jW_{-1}^j}
 \(
 \Large  D_{t+1}(i) = D_t(i)exp[-y_ih_t(x_j)]
 \)
+@@color(red):real adaboost的权重更新根据样本的分错的程度来更新权重的(discreet，是使用一样的因子去更新)，是不是会过拟合@@
 }}}
 #归一化权重，可参考''discreet adaboost''
 }}}
