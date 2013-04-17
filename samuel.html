@@ -537,8 +537,8 @@ Also see [[AdvancedOptions]]</pre>
 <pre>*@@bgcolor(green):功能@@
 **命令替换符，在括号和引号里可以执行命令, 将其结果作为其他的输入</pre>
 </div>
-<div title="Adaboost" creator="Samuel" modifier="samuel" created="201303120911" modified="201304030636" changecount="7">
-<pre>[[OpenCV Cascade AdaBoost]]
+<div title="Adaboost" creator="Samuel" modifier="Samuel" created="201303120911" modified="201304170101" changecount="8">
+<pre>[[Real AdaBoost]]
 [[Discreate Adaboost]]
 [[Cascade Adaboost]]</pre>
 </div>
@@ -614,7 +614,7 @@ void foo() const;
 }}}
 </pre>
 </div>
-<div title="C/C++" creator="Samuel" modifier="samuel" created="201210090257" modified="201303280327" changecount="20">
+<div title="C/C++" creator="Samuel" modifier="Samuel" created="201210090257" modified="201304161026" changecount="23">
 <pre>!C++
 [[#pragma]]
 [[c++ template]]
@@ -622,7 +622,9 @@ void foo() const;
 [[class 类型转换]]-@@color(red):''important''@@
 !C
 [[函数指针]]
-[[allignment  C/C++]]</pre>
+[[allignment  C/C++]]
+[[round函数]]
+[[FILE IO]]</pre>
 </div>
 <div title="C/C++ optimize" creator="Samuel" modifier="Samuel" created="201302050613" changecount="1">
 <pre>*{{normal{@@color(green):指令集@@
@@ -716,11 +718,11 @@ variable :/=  value
 <div title="DefaultTiddlers" creator="YourName" modifier="Samuel" created="201206180441" modified="201206180448" changecount="6">
 <pre></pre>
 </div>
-<div title="Discreate Adaboost" creator="samuel" modifier="Samuel" created="201304030317" modified="201304110145" changecount="120">
+<div title="Discreate Adaboost" creator="samuel" modifier="Samuel" created="201304030317" modified="201304170126" changecount="126">
 <pre>''说明''
 #Discreate ~AdaBoost的弱分类器可以参考@@color(red):''Robust ~Real-Time Face Detection''@@
 #@@color(red):(重新分配权重，后其不影响前面分对的吗)@@
-''Step''
+''Step - 多类''
 #{{normal{@@color(blue):''Input''@@ :
  \((x_1,y_1)... (x_n, y_n)  \hspace{8mm} y_i\in Y(1, 2, ...k)  \). 
 }}}
@@ -738,7 +740,7 @@ w_i = 1/n    ...........  (n为样本的个数 )\\
 \)
 }}}
 #{{normal{''对不同的特征训练若干弱分类器\(h_j\),寻找最小的误差值\({err}_t\)的弱分类器作为\(h_t\)''
-@@color(green):\({err}_t\)必须小于0.5,大于0.5需要退出循环。如果大于0.5 则下一步\(\beta_t\)就会大于1，无法减小分对的权重@@
+@@color(green):\({err}_t\)''(是所有的错误率，所以多类也是0.5)''必须小于0.5,大于0.5需要退出循环。如果大于0.5 则下一步\(\beta_t\)就会大于1，无法减小分对的权重@@
 \(
 \Large  {err}_j = \sum\limits_i^nw_i|h_j(x_i)-y_i|
 \)
@@ -877,6 +879,11 @@ M=Alt (或先按一下 ESC 键然后放开，再输入 &lt;chr&gt;)''@@
 </div>
 <div title="FFT" creator="YourName" modifier="Samuel" created="201208200746" modified="201208200747" changecount="2">
 <pre>Type the text for 'FFT'</pre>
+</div>
+<div title="FILE IO" creator="Samuel" modifier="Samuel" created="201304161027" modified="201304161027" changecount="4">
+<pre>*{{normal{@@color(blue): ''fgets'' @@
+会把\n也读进来
+}}}</pre>
 </div>
 <div title="Feature Extraction" creator="Samuel" modifier="Samuel" created="201207160245" modified="201303201031" tags="_IMAGE_ALGORITHM_ _FEATURE_" changecount="18">
 <pre>[[HOG (Histogram of oriented gradient)]]
@@ -2135,6 +2142,71 @@ class test:
 &gt; ''randint(a,b)'' : 返回[a,b]之间的整数。randint(0,1)返回0或1模拟50%的概率
 &gt; ''uniform(a,b)'' : 返回[a,b)之间的浮点数</pre>
 </div>
+<div title="Real AdaBoost" creator="Samuel" modifier="Samuel" created="201304170103" modified="201304170156" changecount="35">
+<pre>''说明''
+
+''Step 二类''
+#{{normal{@@color(blue):''Input''@@ :
+ \((x_1,y_1)... (x_n, y_n)  \hspace{8mm} y_i\in Y(1, -1)  \). 
+
+}}}
+#{{normal{@@color(blue):''初始化权重值w(也是概率分布D)''@@
+\( 
+w_i = 1/n    ...........  (n为样本的个数 )
+\)
+@@color(green):(正负样本数不等可以参考Cascade \hspace{4mm} Adaboost二类中 wp_i = 1/2m, wn_i=1/2l,m,l分别为正负样本的个数 )@@
+
+}}}
+#{{normal{@@color(blue):''For t=0, 1...T:''
+@@@@color(red):（T如何选取，可以根据正检率和误检率中间跳出吗?每次都更新一下正检率和误检率是不是很影响性能）@@
+#{{normal{''在每个特征维上''
+#{{normal{将样本特征分为n个空间
+
+}}}
+#{{normal{在每个空间中计算正负样本的权重和
+
+\(
+\Large  {W}^j_l = P(x_i \in X_j, y_i=l) = \sum\limits_{i}D_t(i)  \hspace{8mm} l=±1  
+\)
+}}}
+#{{normal{其空间上的判决函数为\(h\)
+
+\(
+\large   x \in X_j, h(x) =\frac{1}{2}ln(\frac{W_{+1}^j+\epsilon}{W_{-1}^j+\epsilon}) \hspace{8mm}  \epsilon 为一个小整数。防止除0
+\)
+@@color(red):判决函数前面的\(\frac{1}{2}\)的意义@@
+
+}}}
+#{{normal{计算归一化因子
+
+\(
+Z=2\sum\limits_j\sqrt{W_{+1}^jW_{-1}^j}
+\)
+@@color(red):系数2有什么用, 只用于选取最小值吗？还是有其他用处@@
+}}}
+}}}
+#{{normal{''挑选最小的\(Z_t\)的分类函数作为这一层的\(h_t\)''
+
+}}}
+#{{normal{''更新权重''
+#{{normal{
+\(
+\Large  D_{t+1}(i) = D_t(i)exp[-y_ih_t(x_j)]
+\)
+}}}
+#归一化权重，可参考''discreet adaboost''
+}}}
+}}}
+#{{normal{@@color(blue):''最终分类器''@@
+\(
+H(x) = sign[\sum\limits_{t=1}^Th_t(x)-b]  \hspace{8mm} b是个阈值默认为0    
+\)
+或者写成自信度函数
+\(
+Conf_H(x) = |\sum\limits_{t=1}^Th_t(x)-b|
+\)
+}}}</pre>
+</div>
 <div title="SVM" creator="Samuel" modifier="Samuel" created="201207240628" modified="201302230616" tags="_TRAINING_ _DETECTION_ _SVM_" changecount="31">
 <pre>SVM的基本思想就是通过用内积函数定义的非线性变换将输入空间变换到一个高维空间，然后再在这个空间求最优分类面的分类方法
 @@bgcolor(green):''Refer to the libSVM''@@
@@ -3323,6 +3395,14 @@ $(call function, para1, para2)
 :''-r/R'' : 同时删除该目录下的所有目录层
 :''-v'' : 详细显示进行的步骤
 </pre>
+</div>
+<div title="round函数" creator="YourName" modifier="Samuel" created="201304150335" modified="201304150415" changecount="4">
+<pre>*{{normal{@@color(blue):''double floor(double x)''@@
+返回不大于指定表达式的最大整数
+}}}
+*{{normal{@@color(blue):''double ceil(double x)''@@
+返回不小于指定表达式的最小整数
+}}}</pre>
 </div>
 <div title="set" creator="YourName" modifier="Samuel" created="201206270330" modified="201207200211" tags="_CMAKE_ _CMAKE_COMMAND_" changecount="68">
 <pre>*@@color(blue):''set''@@(&lt;variable&gt; &lt;value&gt; [ [CACHE  &lt;type&gt; &lt;docstring&gt; [FORCE] | ~PARENT_SCOPE ])
