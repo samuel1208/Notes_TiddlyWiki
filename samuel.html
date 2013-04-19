@@ -2212,11 +2212,17 @@ Conf_H(x) = |\sum\limits_{t=1}^Th_t(x)-b|
 \)
 }}}</pre>
 </div>
-<div title="SVM" creator="Samuel" modifier="Samuel" created="201207240628" modified="201302230616" tags="_TRAINING_ _DETECTION_ _SVM_" changecount="31">
+<div title="SVM" creator="Samuel" modifier="samuel" created="201207240628" modified="201304170830" tags="_TRAINING_ _DETECTION_ _SVM_" changecount="35">
 <pre>SVM的基本思想就是通过用内积函数定义的非线性变换将输入空间变换到一个高维空间，然后再在这个空间求最优分类面的分类方法
 @@bgcolor(green):''Refer to the libSVM''@@
+{{normal{@@color(blue):''libsvm说明''@@
+*在归一化前统计原来特征非0个数时，将没有保存的那一位当着0，如果保存了就算是0也会当着非0统计？@@color(red):(为什么不check特征值是否为0)@@
+*在rbf核中归一化到[-10],和[-1,1]效果一样。 @@color(red):(为什么)@@
+}}}
+
+{{normal{@@color(blue):''step''@@
 *@@color(blue):''归一化样本''@@
-:归一化feature数据，默认y方向归一化到[-1,1]，即每一列求最大值和最小值(有n列个最大值和最小值)。如果归一化后的非0值大于归一化前。最好使用[-1,0]。
+:归一化feature数据，默认y方向归一化到[-1,1]，即每一列求最大值和最小值(有n列个最大值和最小值)。如果归一化后的非0值大于归一化前。最好使用[-1,0]@@color(red):(为什么)@@。
 *@@color(blue):''训练样本''@@
 **{{normal{''数据结构''
 &lt;code c++&gt;
@@ -2261,6 +2267,7 @@ case 1（回归方法和~ONE_CLASS只有2类）
 case 2（C_SVC, NU_SVC）
      
 svm_group_classes ： 将样本整理排列起来， 即同类的放在一起
+}}}
 }}}</pre>
 </div>
 <div title="Shell" creator="Samuel" modifier="Samuel" created="201206290240" modified="201207160841" tags="_SCRIPT_LANGUAGE_ _SHELL_" changecount="63">
@@ -3782,7 +3789,7 @@ $$
  |r|&lt;=1, 如果|r|-&gt;0 想x，y无线性关系 拟合无效
 </pre>
 </div>
-<div title="格式" creator="Samuel" modifier="Samuel" created="201206180454" modified="201302280919" tags="TiddlyWilki" changecount="123">
+<div title="格式" creator="Samuel" modifier="samuel" created="201206180454" modified="201304170727" tags="TiddlyWilki" changecount="124">
 <pre>#使用#添加数字标题
 {{{
 #number1
