@@ -2212,12 +2212,13 @@ Conf_H(x) = |\sum\limits_{t=1}^Th_t(x)-b|
 \)
 }}}</pre>
 </div>
-<div title="SVM" creator="Samuel" modifier="samuel" created="201207240628" modified="201304170830" tags="_TRAINING_ _DETECTION_ _SVM_" changecount="35">
+<div title="SVM" creator="Samuel" modifier="Samuel" created="201207240628" modified="201304260334" tags="_TRAINING_ _DETECTION_ _SVM_" changecount="37">
 <pre>SVM的基本思想就是通过用内积函数定义的非线性变换将输入空间变换到一个高维空间，然后再在这个空间求最优分类面的分类方法
 @@bgcolor(green):''Refer to the libSVM''@@
 {{normal{@@color(blue):''libsvm说明''@@
 *在归一化前统计原来特征非0个数时，将没有保存的那一位当着0，如果保存了就算是0也会当着非0统计？@@color(red):(为什么不check特征值是否为0)@@
 *在rbf核中归一化到[-10],和[-1,1]效果一样。 @@color(red):(为什么)@@
+*0数据不保存， 做点乘的时候增加判断是不是更慢
 }}}
 
 {{normal{@@color(blue):''step''@@
