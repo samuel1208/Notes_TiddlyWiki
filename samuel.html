@@ -555,7 +555,7 @@ Also see [[AdvancedOptions]]</pre>
 <div title="AdvancedOptions" creator="YourName" modifier="YourName" created="201206180447" modified="201206180447" changecount="2">
 <pre>&lt;&lt;options&gt;&gt;</pre>
 </div>
-<div title="Basic Math Function -- octave" creator="Samuel" modifier="Samuel" created="201403140558" modified="201403140632" changecount="25">
+<div title="Basic Math Function -- octave/matlab" creator="Samuel" modifier="samuel" created="201403140558" modified="201403160213" changecount="26">
 <pre>{{normal{@@color(blue):''Attention''@@:
 1.三角函数是使用的弧度制。
 2.自然对数是用log, 而不是ln来表示的。
@@ -1493,7 +1493,7 @@ cat /etc/hosts
 find $(pwd)/ -type f
 }}}</pre>
 </div>
-<div title="MainMenu" creator="YourName" modifier="Samuel" created="201206180446" modified="201403140549" changecount="93">
+<div title="MainMenu" creator="YourName" modifier="samuel" created="201206180446" modified="201403160211" changecount="94">
 <pre>!Tools
 [[Git]]
 [[Linux]]
@@ -1504,7 +1504,7 @@ find $(pwd)/ -type f
 [[TiddlyWiki Turior]]
 !Languages
 [[Python]]
-[[octave]]
+[[octave/matlab]]
 [[Shell]]
 [[OpenCL]]
 [[OpenGL]]
@@ -3752,6 +3752,23 @@ $(call function, para1, para2)
 
 </pre>
 </div>
+<div title="matrix -- octave/matlab" creator="samuel" modifier="samuel" created="201403160214" modified="201403160232" changecount="7">
+<pre>{{normal{@@color(blue):''pinv''@@
+求矩阵的逆
+}}}
+{{normal{@@color(blue):''[val, index] = max''@@
+#max(M):对矩阵而言默认是求列的最大值
+#max(M, [], 1) : 求列的最大值
+#max(M,[], 2) : 求行最大值
+#max(M(:)) : 求所有的最大值
+}}}
+{{normal{@@color(blue):''eye(dim)''@@
+返回一个identity matrix
+}}}
+{{normal{@@color(blue):''magic(dim)''@@
+dim最小为3， 返回一个各个方向上的和相等的一个矩阵
+}}}</pre>
+</div>
 <div title="message" creator="Samuel" modifier="Samuel" created="201211270515" modified="201211270527" changecount="6">
 <pre>*@@color(blue):''message''@@ ([STATUS|WARNING|~AUTHOR_WARNING|~FATAL_ERROR|~SEND_ERROR]      &quot;message to display&quot; ...)
 **@@bgcolor(green):功能@@
@@ -3828,8 +3845,10 @@ numpy.minimum''
 }}}
 </pre>
 </div>
-<div title="octave" creator="Samuel" modifier="Samuel" created="201403140557" changecount="1">
-<pre>[[Basic Math Function -- octave]]</pre>
+<div title="octave/matlab" creator="Samuel" modifier="samuel" created="201403140557" modified="201403160239" changecount="5">
+<pre>[[Basic Math Function -- octave/matlab]]
+[[matrix -- octave/matlab]]
+[[plot -- octave/matlab]]</pre>
 </div>
 <div title="openBR" creator="Samuel" modifier="Samuel" created="201311050809" modified="201311050945" changecount="4">
 <pre>*{{normal{@@color(blue):''Gender Estimation,  Age Estimation''@@
@@ -3908,6 +3927,46 @@ Face Detection with the Modified Census Transform最后一层使用的snow分类
 搜索策略
 }}}
 </pre>
+</div>
+<div title="plot -- octave/matlab" creator="samuel" modifier="samuel" created="201403160242" modified="201403160310" changecount="15">
+<pre>{{normal{@@color(blue):''函数''@@
+#{{normal{@@color(green):''plot(x)''@@
+当x 为一向量时，以x 元素的值为纵坐标，x 的序号为横坐标值绘制曲线。
+当x 为一实矩阵时，则以其序号为横坐标，按列绘制每列元素值相对于其序号的曲线
+当x 为m× n 矩阵时，就由n 条曲线。}}}
+#{{normal{@@color(green):''plot(x,y)''@@
+ 以x 元素为横坐标值，y 元素为纵坐标值绘制曲线}}}
+#{{normal{@@color(green):''plot(x,y1,x,y2,…)''@@
+ 以公共的x 元素为横坐标值，以y1,y2,… 元素为纵坐标值绘}}}}}}
+{{normal{@@color(blue):''figure(num)''@@
+#将图像画到指定的界面里面
+#{{normal{@@color(green):''subplot''@@ : 将一个figure划分成不同的区域
+:suplot (1,2,1):将区域分成水平方向2等分，且在第一个区域上画图}}}
+}}}
+{{normal{@@color(blue):''曲线属性''@@
+y 黄- 实线. 点&lt; 小于号
+m 紫： 点线o 圆s 正方形
+c 青-. 点划线x 叉号d 菱形
+r 红- - 虚线+ 加号h 六角星
+g 绿* 星号p 五角星
+b 蓝v 向下三角形
+w 白^ 向上三角形
+k 黑&gt; 大于号
+如：plot（a ， ‘r’）
+}}}
+{{normal{@@color(blue):''曲线标题''@@
+xlabel(&quot;name&quot;)
+ylabel(&quot;name&quot;)
+title('name') 
+legend('name') : 图像中增加字符串
+}}}
+{{normal{@@color(blue):''hold on''@@
+将2条曲线画到同一个坐标系中，如:
+plot(a); hold on; plot(b)
+}}}
+{{normal{@@color(blue):''imagesc''@@
+
+}}}</pre>
 </div>
 <div title="python 成员函数" creator="Samuel" modifier="Samuel" created="201308210615" modified="201310081011" changecount="28">
 <pre>*{{normal{@@color(blue):''实例函数''@@
