@@ -537,18 +537,20 @@ Also see [[AdvancedOptions]]</pre>
 <pre>*@@bgcolor(green):功能@@
 **命令替换符，在括号和引号里可以执行命令, 将其结果作为其他的输入</pre>
 </div>
-<div title="Adaboost" creator="Samuel" modifier="Samuel" created="201303120911" modified="201305230207" tags="__adaboost__" changecount="22">
+<div title="Adaboost" creator="Samuel" modifier="Samuel" created="201303120911" modified="201403240823" tags="__adaboost__" changecount="34">
 <pre>*{{normal{@@color(red):Question@@
-#@@color(red):adaboost用于多类的弱分类器设计方法@@
-#@@color(red):adaboost中更新每一层的权重可以用所有层的弱分类器吗@@
-#@@color(red):adaboost中更新完每一层的权重以后可以省掉归一化吗@@
-
+#@@color(red):''Q'' - adaboost用于多类的弱分类器设计方法@@
+#@@color(red):''Q'' - adaboost中更新每一层的权重可以用所有层的弱分类器吗?@@  不可以，那就多次叠加了
 }}}
 *{{normal{
 [[Real AdaBoost]]
 [[Discreate Adaboost]]
 [[Cascade Adaboost]]
 }}}
+*{{normal{
+[[opencv desicion tree in adaboost]]
+}}}
+
 
 </pre>
 </div>
@@ -720,19 +722,14 @@ dst[tId] = (src1[tId] + src2[tId] + src3[tId] + src4[tId])&gt;&gt;4;
 }}}
 }}}</pre>
 </div>
-<div title="Cascade Adaboost" creator="samuel" modifier="Samuel" created="201304030554" modified="201304110619" changecount="66">
+<div title="Cascade Adaboost" creator="samuel" modifier="Samuel" created="201304030554" modified="201403240559" changecount="73">
 <pre>''说明''
-#正样本集是固定的，负样本集每次是需要更新的
-#@@color(red):验证集需要另外指定吗？@@
-#@@color(red):cascade 可以用于多类吗？@@
-#@@color(red):''有一层判断不是就不是了吗，还是需要多层的阈值相加判断（real adaboost是这样）''@@
-#@@color(red):''为什么每一层没有负样本的检测率''@@
+#正样本集是固定的@@color(red):(也可以更新)@@，负样本集每次是需要更新的
 ''Step''
 #{{normal{@@color(blue):''设置每一层的:''@@
-\(f --- \) 每一层的最大正样本误检率 @@color(red):如何统计@@
+\(f --- \) 每一层的最大正样本误检率 
 \(d---\)每一层的最小正样本检测率
 }}}
-#@@color(blue):''设置最终的正样本误检率\(F_{target}\)''@@
 #{{normal{@@color(blue):''设置正负样本集''@@
 \(P --- \) 正样本集
 \(N --- \)负样本集
@@ -813,6 +810,9 @@ http://hi.baidu.com/xiziyang9/item/91933538d965ed3f2f0f816f</pre>
 </div>
 <div title="DefaultTiddlers" creator="YourName" modifier="Samuel" created="201206180441" modified="201206180448" changecount="6">
 <pre></pre>
+</div>
+<div title="Desicion Tree" creator="Samuel" modifier="Samuel" created="201403240810" modified="201403240811" changecount="3">
+<pre>[[Gini Index Split Criterion]]</pre>
 </div>
 <div title="Discreate Adaboost" creator="samuel" modifier="Samuel" created="201304030317" modified="201304170126" changecount="126">
 <pre>''说明''
@@ -1022,6 +1022,39 @@ sudo dpkg-reconfigure locales  安装中文包
 * [[DefaultTiddlers]]: Contains the names of the tiddlers that you want to appear when the TiddlyWiki is opened
 You'll also need to enter your username for signing your edits: &lt;&lt;option txtUserName&gt;&gt;</pre>
 </div>
+<div title="Gini Index Split Criterion" creator="Samuel" modifier="Samuel" created="201403240812" modified="201403240847" changecount="56">
+<pre>*{{normal{@@color(blue):''定义''@@
+若样本集合包含n类样本， 则在集合D上的Gini index为
+\(
+Gini(D) = 1 - \sum_{j=1}^{n}p_j^2    \hspace{8mm}  (p_j 为属于类别j的样本在D中出现的概率)  \\
+若集合被分割为两个节点，则Gini index为 \\
+Gini(D) = \frac{N_l}{N}Gini(D_l) + \frac{N_r}{N}Gini(D_r)  \hspace{8mm}  (N为总样本数，N_(l,r)为左右节点的总样本数)
+\)
+@@color(red):分割应选取Gini index最小地方@@
+
+}}}
+*{{normal{@@color(blue):''以opencv中的2类的gini index stump细节进行说明''@@
+@@color(green):''target function -  MIN(Gini(D))''@@
+P 为节点中所有正样本权重的和, N为节点中所有负样本权重的和
+:\(
+MIN :T =  \frac{P_l+N_l}{1}Gini(D_l) + \frac{P_r+N_r}{1}Gini(D_r) \\
+T = \frac{P_l+N_l}{1}(1-(\frac{P_l}{P_l+N_l})^2-(\frac{N_l}{P_l+N_l})^2) + \frac{P_r+N_r}{1}(1-(\frac{P_r}{P_r+N_r})^2-(\frac{N_r}{P_r+N_r})^2) \\
+T = \frac{P_l+N_l}{1} + \frac{P_r+N_r}{1} - (\frac{P_l^2+N_l^2}{P_l+N_l} + \frac{P_r^2+N_r^2}{P_r+N_r}) \\
+由于\frac{P_l+N_l}{1} + \frac{P_r+N_r}{1} = 1
+\)
+@@color(green):''target function可以改为''@@
+:\(MAX : T = \frac{P_l^2+N_l^2}{P_l+N_l}+ \frac{P_r^2+N_r^2}{P_r+N_r}  \\
+设W_l = P_l+N_l ,W_r = P_r+N_r\\
+则可以写成\\
+T = (P_l^2+N_l^2)*W_r+ (P_r^2+N_r^2)*W_l \\
+当右节点有一个正样本(设其权重为\Delta w)更新到左节点以后。\\
+T = ((P_l+\Delta w)^2+N_l^2)*(W_r-\Delta w)+ ((P_r-\Delta w)^2+N_r^2)*(W_l+\Delta w)  \\ 
+=((P_l^2+2*P_i*\Delta w+\Delta w^2)+N_l^2)*(W_r-\Delta w)+ ((P_r^2-2*P_r*\Delta w+\Delta w^2)+N_r^2)*(W_l+\Delta w) 
+\)
+
+}}}
+</pre>
+</div>
 <div title="Git" creator="Samuel" modifier="Samuel" created="201206200611" modified="201312200629" tags="_GIT_" changecount="128">
 <pre>*@@color(blue):''Initializing''@@
 **''git init :''
@@ -1051,6 +1084,39 @@ You'll also need to enter your username for signing your edits: &lt;&lt;option t
 *''git checkout  &lt;tag_name&gt;''
 *''git show &lt;tag_name&gt;''
 </pre>
+</div>
+<div title="Gradient Descent" creator="Samuel" modifier="Samuel" created="201403180214" modified="201403180310" changecount="59">
+<pre>*{{normal{@@color(blue):''Goal'':@@
+$$minimize J(\theta_0, \theta_1..., \theta_n)$$
+}}}
+*{{normal{@@color(blue):''Solution'':@@
+@@color(green):repeat until convergence@@{
+:\(
+\theta_0 = \theta_0 - \alpha\frac{\partial}{\partial\theta_0}J(\theta_0, \theta_1..., \theta_n)   \\
+\theta_1 = \theta_1 - \alpha\frac{\partial}{\partial\theta_1}J(\theta_0, \theta_1..., \theta_n)   \\
+... \\
+\theta_n = \theta_n - \alpha\frac{\partial}{\partial\theta_n}J(\theta_0, \theta_1..., \theta_n)   \\
+\)
+}
+{{normal{@@color(red):''Attention''@@: 
+#\(\theta_0, \theta_1..., \theta_n要同时更新. 即计算\theta_1时，使用的是未更新的\theta_0\)
+#\(\alpha\)的取值太小，收敛速度比较慢。太大则会发散
+#\(\alpha\)定了以后，下降的步长会越来越小， 因为梯度是越来越小的
+}}}
+}}}
+*{{normal{@@color(blue):''Tip'':@@
+#{{normal{''对于suqared error函数有''
+:\(J(\theta_0, \theta_1..., \theta_n)＝\frac{1}{2m}\sum\limits_{i=1}^{m}{(h_{\theta}(x^{i})-y^i)^2} \\
+\frac{\partial}{\partial\theta_n}J(\theta_0, \theta_1..., \theta_n) = \frac{1}{m}\sum\limits_{i=1}^{m}{(h_{\theta}(x^{i})-y^i)*x_n^i}  \\
+m - 训练样本的个数 \\
+n  - 为特征的维数(包含第一个为1的特征)    \\
+\)
+}}}
+#{{normal{''特征归一化可以加快收敛的速度''
+# (x - mean)/(max-min)
+# (x - mean)/std  @@color(red):std为标准差@@
+}}}
+}}}</pre>
 </div>
 <div title="HOG (Histogram of oriented gradient)" creator="Samuel" modifier="Samuel" created="201207160247" modified="201305230205" tags="_IMAGE_ALGORITHM_ _FEATURE_ _HOG_" changecount="141">
 <pre>{{normal{@@bgcolor(green):说明@@
@@ -1365,7 +1431,7 @@ main函数返回值必须为void
 #k的大小对结果影响比较大
 }}}</pre>
 </div>
-<div title="LATEX" creator="Samuel" modifier="Samuel" created="201211260252" modified="201305060337" changecount="105">
+<div title="LATEX" creator="Samuel" modifier="Samuel" created="201211260252" modified="201403180217" changecount="108">
 <pre>refer to http://mohu.org/info/symbols/symbols.htm 
 *{{normal{''换行与空格''
 \\或\newline
@@ -1409,6 +1475,29 @@ gamma+(1-gamma)*exp(-lambda/(mi1-mi2)^m ) \\
 }}}
 *{{normal{''右对齐''
 {{{\(y\)}}} \(y\)
+}}}</pre>
+</div>
+<div title="Linear  regression" creator="Samuel" modifier="Samuel" created="201403180156" modified="201403180310" changecount="52">
+<pre>*{{normal{@@color(blue):''Hypothesis(假设函数)''@@：
+:\(
+h(X)＝\theta_{0}*x_0+\theta_{1}*x_1 + ... + \theta_{n}*x_n \\
+x0是1， 所以在实际使用中，特征的第一位一般要人为的加1
+\)
+
+}}}
+*{{normal{@@color(blue):''Cost Function'': @@采用squared error(平方误差)
+:\(
+J(\theta_0, \theta_1..., \theta_n)＝\frac{1}{2m}\sum\limits_{i=1}^{m}{(h_{\theta}(x^{i})-y^i)^2} \\
+m为训练样本的个数
+\)
+
+}}}
+*{{normal{@@color(blue):''Goal''@@:
+:\(minimize J(\theta_0, \theta_1..., \theta_n)\)
+
+}}}
+*{{normal{@@color(blue):''Solution'':@@
+ ''J''是@@color(red):convex function(即凸包函数没有局部最小值)@@可以用[[Gradient Descent]](梯度下降)或[[Normal Equation]]的方法求解
 }}}</pre>
 </div>
 <div title="Linux" creator="Samuel" modifier="Samuel" created="201207160840" modified="201310290256" tags="_LINUX_COMMAND_" changecount="13">
@@ -1493,7 +1582,12 @@ cat /etc/hosts
 find $(pwd)/ -type f
 }}}</pre>
 </div>
-<div title="MainMenu" creator="YourName" modifier="samuel" created="201206180446" modified="201403160211" changecount="94">
+<div title="Machine Learnning--Andrew Ng" creator="Samuel" modifier="Samuel" created="201403180055" modified="201403180254" changecount="40">
+<pre>*[[Linear  regression]]
+*[[Gradient Descent]]
+*[[Normal Equation]]</pre>
+</div>
+<div title="MainMenu" creator="YourName" modifier="Samuel" created="201206180446" modified="201403180046" changecount="95">
 <pre>!Tools
 [[Git]]
 [[Linux]]
@@ -1517,6 +1611,7 @@ find $(pwd)/ -type f
 !Math
 [[sort]]
 !Computing Vision
+[[Online Learnning]]
 [[terminology-术语]]
 [[Feature Extraction]]
 [[Img processing]]
@@ -1681,6 +1776,39 @@ config.formatters.push({
 });
 //}}}</pre>
 </div>
+<div title="Normal Equation" creator="Samuel" modifier="Samuel" created="201403180254" modified="201403180326" changecount="31">
+<pre>*{{normal{@@color(blue):''Hypothesis(假设函数):''@@
+:\(h(X)＝\theta_{0}*x_0+\theta_{1}*x_1 + ... + \theta_{n}*x_n \\
+x0是1， 所以在实际使用中，特征的第一位一般要人为的加1
+\)
+
+}}}
+*{{normal{@@color(blue):''Goal:''@@
+:\(求解\theta_{0}, \theta_{1} ... \theta_{n}\)
+
+}}}
+*{{normal{@@color(blue):''Solution:''@@
+:\(
+ \theta = (X^TX)^{-1}X^TY \\
+ X-为特征向量 \\
+ Y-为训练样本的ground truth
+\)
+
+}}}
+*{{normal{@@color(blue):''Prove:''@@
+:\(
+假设下式成立\\
+ X * \theta  = Y \\
+则 \\
+ X^T * X * \theta = X^T * Y \\
+ (X^T * X)^{-1}* (X^T * X) * \theta = (X^T * X)^{-1} *X^T * Y \\
+ (X^T * X)^{-1}* (X^T * X) = E \\
+ E* \theta = (X^T * X)^{-1} *X^T * Y \\
+即\\
+ \theta = (X^T * X)^{-1} *X^T * Y \\
+\)
+}}}</pre>
+</div>
 <div title="Object C" creator="Samuel" modifier="Samuel" created="201209180324" modified="201209210754" changecount="10">
 <pre>[[Object C FAQ]]
 [[Object C : Class]]
@@ -1765,6 +1893,9 @@ object c中使用@@color(blue):@interface@@， 而不是@@color(blue):@class@@�
 </div>
 <div title="Object C FAQ" creator="Samuel" modifier="Samuel" created="201209180325" modified="201209210754" changecount="9">
 <pre></pre>
+</div>
+<div title="Online Learnning" creator="Samuel" modifier="Samuel" created="201403180049" modified="201403180050" changecount="5">
+<pre>[[Machine Learnning--Andrew Ng]]</pre>
 </div>
 <div title="OpenCL" creator="YourName" modifier="Samuel" created="201208280252" modified="201302050613" tags="__OPENCL__ __LANGUAGE__" changecount="11">
 <pre>[[OpenCL Learning]]
@@ -2439,7 +2570,7 @@ if __name__ == &quot;__main__&quot;:
 &gt; ''randint(a,b)'' : 返回[a,b]之间的整数。randint(0,1)返回0或1模拟50%的概率
 &gt; ''uniform(a,b)'' : 返回[a,b)之间的浮点数</pre>
 </div>
-<div title="Real AdaBoost" creator="Samuel" modifier="samuel" created="201304170103" modified="201304170236" changecount="40">
+<div title="Real AdaBoost" creator="Samuel" modifier="Samuel" created="201304170103" modified="201403240556" changecount="45">
 <pre>''说明''
 
 ''Step 二类''
@@ -2451,11 +2582,10 @@ if __name__ == &quot;__main__&quot;:
 \( 
 w_i = 1/n    ...........  (n为样本的个数 )
 \)
-@@color(green):(正负样本数不等可以参考Cascade \hspace{4mm} Adaboost二类中 wp_i = 1/2m, wn_i=1/2l,m,l分别为正负样本的个数 )@@
+@@color(green):(正负样本数不等可以参考 Adaboost二类中 wp_i = 1/2m, wn_i=1/2l,m,l分别为正负样本的个数 )@@
 
 }}}
-#{{normal{@@color(blue):''For t=0, 1...T:''
-@@@@color(red):（T如何选取，可以根据正检率和误检率中间跳出吗?每次都更新一下正检率和误检率是不是很影响性能）@@
+#{{normal{''For t=0, 1...T:''
 #{{normal{''在每个特征维上''
 #{{normal{将样本特征分为n个空间
 
@@ -2471,7 +2601,7 @@ w_i = 1/n    ...........  (n为样本的个数 )
 \(
 \large   x \in X_j, h(x) =\frac{1}{2}ln(\frac{W_{+1}^j+\epsilon}{W_{-1}^j+\epsilon}) \hspace{8mm}  \epsilon 为一个小整数。防止除0
 \)
-@@color(red):判决函数前面的\(\frac{1}{2}\)的意义, 减小对权重的影响吗@@
+@@color(red):判决函数前面的\(\frac{1}{2}\)是公式上的意义@@
 
 }}}
 #{{normal{计算归一化因子
@@ -2479,7 +2609,7 @@ w_i = 1/n    ...........  (n为样本的个数 )
 \(
 Z=2\sum\limits_j\sqrt{W_{+1}^jW_{-1}^j}
 \)
-@@color(red):系数2有什么用, 只用于选取最小值吗？还是有其他用处@@
+@@color(red):系数2是公式形式上的需要，没有实际意义@@
 }}}
 }}}
 #{{normal{''挑选最小的\(Z_t\)的分类函数作为这一层的\(h_t\)''
@@ -2490,7 +2620,6 @@ Z=2\sum\limits_j\sqrt{W_{+1}^jW_{-1}^j}
 \(
 \Large  D_{t+1}(i) = D_t(i)exp[-y_ih_t(x_j)]
 \)
-@@color(red):real adaboost的权重更新根据样本的分错的程度来更新权重的(discreet，是使用一样的因子去更新)，是不是会过拟合@@
 }}}
 #归一化权重，可参考''discreet adaboost''
 }}}
@@ -2859,13 +2988,14 @@ http://s2013.siggraph.org/submitters/technical-papers
 
 </pre>
 </div>
-<div title="Training&amp;detection" creator="YourName" modifier="Samuel" created="201207240627" modified="201310090219" tags="_TRAINING_ _DETECTION_" changecount="12">
+<div title="Training&amp;detection" creator="YourName" modifier="Samuel" created="201207240627" modified="201403240809" tags="_TRAINING_ _DETECTION_" changecount="13">
 <pre>[[SVM]]
 [[K-means]]
 [[Meanshift]]
 [[Adaboost]]
 [[logistic regression]]
-[[Deep Learning]]</pre>
+[[Deep Learning]]
+[[Desicion Tree]]</pre>
 </div>
 <div title="Video-Retrieval" creator="Samuel" modifier="Samuel" created="201312140921" modified="201312140922" changecount="3">
 <pre>{{normal{@@color(blue):''Video_VH''@@
@@ -3862,6 +3992,43 @@ numpy.minimum''
 
 }}}</pre>
 </div>
+<div title="opencv desicion tree in adaboost" creator="Samuel" modifier="Samuel" created="201403240600" modified="201403240943" changecount="134">
+<pre>*{{normal{@@color(red):''说明''@@
+#opencv中discrete和real使用的@@color(red):分类树@@，gentle使用是@@color(red):回归树@@
+}}}
+*{{normal{@@color(blue):''Discrete''@@
+#基于某一维特征，将所有的样本都放到右边树,则在右边树正样本权重和P=0.5, 负样本权重和N=0.5
+#{{normal{以样本的特征为阈值@@color(red):(如果两个特征的值太接近，不要在此处分分割，跳到下一个特征)@@，
+ 一个一个将右边的样本往左边移， 直到左边树的{{{|P-N|}}}的绝对值达到最大}}}
+#再在所有的不同的特征上重复step1和step2，找到全局最大的{{{|P-N|}}}
+:@@color(red):说明 - @@叶子节点的值为0(当负样本比正阳本多的时候)，否则为0
+
+:....... / ..................  \ ...........{{{-------&gt;}}} ...... / ..................... \ ......
+:P(0)|N(0) ... P(0.5)|N(0.5)   {{{------&gt;}}}   P(x)|N(y) ... P(0.5-x)|N(0.5-y)    {{{-----&gt;}}} {{{max(abs(P-N))}}}
+}}}
+
+*{{normal{@@color(blue):''Real''@@ 
+#基于某一维特征，将所有的样本都放到右边树,则在右边树P=0.5, N=0.5
+#{{normal{以样本的特征为阈值@@color(red):(如果两个特征的值太接近，不要在此处分分割，跳到下一个特征)@@，
+ 一个一个将右边的样本往左边移， 直到整个树的Gini Index最小[[Gini Index Split Criterion]]
+#再在所有的不同的特征上重复step1和step2，找到全局最小的Gini Index
+:@@color(red):说明 - @@叶子节点的值为0.5*log(P/N)
+
+:....... / ..................  \ ...........{{{-------&gt;}}} ...... / ..................... \ ......
+:P(0)|N(0) ... P(0.5)|N(0.5)   {{{------&gt;}}}   P(x)|N(y) ... P(0.5-x)|N(0.5-y)    
+}}}
+
+*{{normal{@@color(blue):''Gentle''@@ 
+#基于某一维特征，将所有的样本都放到右边树,则在右边树P=0.5, N=0.5
+#{{normal{以样本的特征为阈值@@color(red):(如果两个特征的值太接近，不要在此处分分割，跳到下一个特征)@@，
+ 一个一个将右边的样本往左边移， 直到整个树的Gini Index最小[[Gini Index Split Criterion]]
+#再在所有的不同的特征上重复step1和step2，找到全局最小的Gini Index
+:@@color(red):说明 - @@叶子节点的值为0.5*log(p/N)
+
+:....... / ..................  \ ...........{{{-------&gt;}}} ...... / ..................... \ ......
+:P(0)|N(0) ... P(0.5)|N(0.5)   {{{------&gt;}}}   P(x)|N(y) ... P(0.5-x)|N(0.5-y)    
+}}}</pre>
+</div>
 <div title="org mode" creator="Samuel" modifier="Samuel" created="201308070213" modified="201308070230" changecount="15">
 <pre>{{normal{@@color(blue):''标题''@@
 {{{* 一级标题 ** 二级标题 ***三级标题}}}
@@ -4553,7 +4720,7 @@ http://ostermiller.org/dilate_and_erode.html 可以只用一个buffer
 
 }}}</pre>
 </div>
-<div title="最小二乘法直线拟合" creator="Samuel" modifier="Samuel" created="201301170728" modified="201301170838" changecount="29">
+<div title="最小二乘法直线拟合" creator="Samuel" modifier="Samuel" created="201301170728" modified="201403180055" changecount="30">
 <pre>@@bgcolor(green):又名最小平方法，即平方和最小@@
 曲线拟合中最基本和最常用的是直线拟合。设x和y之间的函数关系为：
               $$     y＝a+bx$$
