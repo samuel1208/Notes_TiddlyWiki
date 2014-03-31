@@ -537,10 +537,12 @@ Also see [[AdvancedOptions]]</pre>
 <pre>*@@bgcolor(green):功能@@
 **命令替换符，在括号和引号里可以执行命令, 将其结果作为其他的输入</pre>
 </div>
-<div title="Adaboost" creator="Samuel" modifier="Samuel" created="201303120911" modified="201403240823" tags="__adaboost__" changecount="34">
+<div title="Adaboost" creator="Samuel" modifier="Samuel" created="201303120911" modified="201403310108" tags="__adaboost__" changecount="35">
 <pre>*{{normal{@@color(red):Question@@
 #@@color(red):''Q'' - adaboost用于多类的弱分类器设计方法@@
-#@@color(red):''Q'' - adaboost中更新每一层的权重可以用所有层的弱分类器吗?@@  不可以，那就多次叠加了
+#{{normal{@@color(red):''Q'' - adaboost中更新每一层的权重可以用所有层的弱分类器吗?@@  
+不可以，那就多次叠加了
+}}}
 }}}
 *{{normal{
 [[Real AdaBoost]]
@@ -1022,7 +1024,7 @@ sudo dpkg-reconfigure locales  安装中文包
 * [[DefaultTiddlers]]: Contains the names of the tiddlers that you want to appear when the TiddlyWiki is opened
 You'll also need to enter your username for signing your edits: &lt;&lt;option txtUserName&gt;&gt;</pre>
 </div>
-<div title="Gini Index Split Criterion" creator="Samuel" modifier="Samuel" created="201403240812" modified="201403240847" changecount="56">
+<div title="Gini Index Split Criterion" creator="Samuel" modifier="Samuel" created="201403240812" modified="201403270149" changecount="59">
 <pre>*{{normal{@@color(blue):''定义''@@
 若样本集合包含n类样本， 则在集合D上的Gini index为
 \(
@@ -1046,10 +1048,10 @@ T = \frac{P_l+N_l}{1} + \frac{P_r+N_r}{1} - (\frac{P_l^2+N_l^2}{P_l+N_l} + \frac
 :\(MAX : T = \frac{P_l^2+N_l^2}{P_l+N_l}+ \frac{P_r^2+N_r^2}{P_r+N_r}  \\
 设W_l = P_l+N_l ,W_r = P_r+N_r\\
 则可以写成\\
-T = (P_l^2+N_l^2)*W_r+ (P_r^2+N_r^2)*W_l \\
+T = \frac{(P_l^2+N_l^2)*W_r+ (P_r^2+N_r^2)*W_l}{W_r*W_l} \\
 当右节点有一个正样本(设其权重为\Delta w)更新到左节点以后。\\
-T = ((P_l+\Delta w)^2+N_l^2)*(W_r-\Delta w)+ ((P_r-\Delta w)^2+N_r^2)*(W_l+\Delta w)  \\ 
-=((P_l^2+2*P_i*\Delta w+\Delta w^2)+N_l^2)*(W_r-\Delta w)+ ((P_r^2-2*P_r*\Delta w+\Delta w^2)+N_r^2)*(W_l+\Delta w) 
+T = \frac{((P_l+\Delta w)^2+N_l^2)*(W_r-\Delta w)+ ((P_r-\Delta w)^2+N_r^2)*(W_l+\Delta w)}{W_r*W_l} \\ 
+=\frac{((P_l^2+2*P_i*\Delta w+\Delta w^2)+N_l^2)*(W_r-\Delta w)+ ((P_r^2-2*P_r*\Delta w+\Delta w^2)+N_r^2)*(W_l+\Delta w) }{W_r*W_l} 
 \)
 
 }}}
@@ -1085,9 +1087,9 @@ T = ((P_l+\Delta w)^2+N_l^2)*(W_r-\Delta w)+ ((P_r-\Delta w)^2+N_r^2)*(W_l+\Delt
 *''git show &lt;tag_name&gt;''
 </pre>
 </div>
-<div title="Gradient Descent" creator="Samuel" modifier="Samuel" created="201403180214" modified="201403180310" changecount="59">
+<div title="Gradient Descent" creator="Samuel" modifier="Samuel" created="201403180214" modified="201403310219" changecount="64">
 <pre>*{{normal{@@color(blue):''Goal'':@@
-$$minimize J(\theta_0, \theta_1..., \theta_n)$$
+\(minimize J(\theta_0, \theta_1..., \theta_n)\)
 }}}
 *{{normal{@@color(blue):''Solution'':@@
 @@color(green):repeat until convergence@@{
@@ -1102,6 +1104,7 @@ $$minimize J(\theta_0, \theta_1..., \theta_n)$$
 #\(\theta_0, \theta_1..., \theta_n要同时更新. 即计算\theta_1时，使用的是未更新的\theta_0\)
 #\(\alpha\)的取值太小，收敛速度比较慢。太大则会发散
 #\(\alpha\)定了以后，下降的步长会越来越小， 因为梯度是越来越小的
+#@@color(red):可以使用matlab的fminunc函数， 其他的语言也会有相对应的包, 详细见lecture-6 of machine learning@@
 }}}
 }}}
 *{{normal{@@color(blue):''Tip'':@@
@@ -1431,7 +1434,7 @@ main函数返回值必须为void
 #k的大小对结果影响比较大
 }}}</pre>
 </div>
-<div title="LATEX" creator="Samuel" modifier="Samuel" created="201211260252" modified="201403180217" changecount="108">
+<div title="LATEX" creator="Samuel" modifier="Samuel" created="201211260252" modified="201403310229" changecount="111">
 <pre>refer to http://mohu.org/info/symbols/symbols.htm 
 *{{normal{''换行与空格''
 \\或\newline
@@ -1477,17 +1480,17 @@ gamma+(1-gamma)*exp(-lambda/(mi1-mi2)^m ) \\
 {{{\(y\)}}} \(y\)
 }}}</pre>
 </div>
-<div title="Linear  regression" creator="Samuel" modifier="Samuel" created="201403180156" modified="201403180310" changecount="52">
+<div title="Linear  Regression" creator="Samuel" modifier="Samuel" created="201403180156" modified="201403310129" changecount="65">
 <pre>*{{normal{@@color(blue):''Hypothesis(假设函数)''@@：
 :\(
-h(X)＝\theta_{0}*x_0+\theta_{1}*x_1 + ... + \theta_{n}*x_n \\
+h_\theta(X)＝\theta_{0}*x_0+\theta_{1}*x_1 + ... + \theta_{n}*x_n \\
 x0是1， 所以在实际使用中，特征的第一位一般要人为的加1
 \)
 
 }}}
 *{{normal{@@color(blue):''Cost Function'': @@采用squared error(平方误差)
 :\(
-J(\theta_0, \theta_1..., \theta_n)＝\frac{1}{2m}\sum\limits_{i=1}^{m}{(h_{\theta}(x^{i})-y^i)^2} \\
+J(\theta_0, \theta_1..., \theta_n)＝\frac{1}{m}\sum\limits_{i=1}^{m}{\frac{1}{2}(h_{\theta}(X^{i})-y^i)^2} \\
 m为训练样本的个数
 \)
 
@@ -1582,10 +1585,59 @@ cat /etc/hosts
 find $(pwd)/ -type f
 }}}</pre>
 </div>
-<div title="Machine Learnning--Andrew Ng" creator="Samuel" modifier="Samuel" created="201403180055" modified="201403180254" changecount="40">
-<pre>*[[Linear  regression]]
+<div title="Logistic Regression" creator="Samuel" modifier="Samuel" created="201306030452" modified="201403310156" changecount="69">
+<pre>*{{normal{@@color(blue):''Hypothesis(假设函数)''@@：
+:\(
+h_\theta(X)＝\frac{1}{1+e^{-(\theta_{0}*x_0+\theta_{1}*x_1 + ... + \theta_{n}*x_n)}}\\
+x0是1， 所以在实际使用中，特征的第一位一般要人为的加1
+\)
+
+}}}
+*{{normal{@@color(blue):''Cost Function'': @@
+*{{normal{@@color(green):如果采用squared error(平方误差)的话, 下式是no-convex函数:@@
+:\(
+J(\theta_0, \theta_1..., \theta_n)＝\frac{1}{m}\sum\limits_{i=1}^{m}{\frac{1}{2}(h_{\theta}(X^{i})-y^i)^2} \\
+m为训练样本的个数 \\
+设: \\
+cost(h_{\theta}(X), y) = \frac{1}{2}(h_{\theta}(X)-y)^2\\ 
+则: \\ 
+J(\theta_0, \theta_1..., \theta_n)＝\frac{1}{m}\sum\limits_{i=1}^{m}cost(h_{\theta}(X^i), y^i) 
+\)
+}}}
+*{{normal{@@color(green):所以逻辑回归的cost function 采用下式, 其为convex的:@@
+:\(
+cost(h_{\theta}(X), y) =\begin{cases} 
+-log(h_{\theta}(X)) \hspace{17mm} if  \hspace{4mm} y=1 \\ 
+-log(1-h_{\theta}(X)) \hspace{8mm} if  \hspace{4mm} y=0 \\ 
+\end{cases}\\
+
+J(\theta_0, \theta_1..., \theta_n)＝\frac{1}{m}\sum\limits_{i=1}^{m}cost(h_{\theta}(X^i), y^i) \\
+\hspace{30mm}= -\frac{1}{m}\sum\limits_{i=1}^{m}y^ilog(h_{\theta}(X^i)+(1-y^i)log(1-h_{\theta}(X^i)
+
+\)
+}}}
+
+}}}
+*{{normal{@@color(blue):''Goal''@@:
+:\(minimize J(\theta_0, \theta_1..., \theta_n)\)
+
+}}}
+*{{normal{@@color(blue):''Solution'':@@
+ ''J''是@@color(red):convex function(即凸包函数没有局部最小值)@@可以用[[Gradient Descent]](梯度下降)或[[Normal Equation]]的方法求解
+}}}
+
+*{{normal{@@color(blue):''其他求解方法''@@
+refer to @@color(green):A comparison of numerical optimizers for logistic regression@@
+* [[Iterative Scaling]]
+
+}}}</pre>
+</div>
+<div title="Machine Learnning--Andrew Ng" creator="Samuel" modifier="Samuel" created="201403180055" modified="201403310220" changecount="45">
+<pre>*[[Linear  Regression]]
+*[[Logistic Regression]]
 *[[Gradient Descent]]
-*[[Normal Equation]]</pre>
+*[[Normal Equation]]
+*[[Regularization]]</pre>
 </div>
 <div title="MainMenu" creator="YourName" modifier="Samuel" created="201206180446" modified="201403180046" changecount="95">
 <pre>!Tools
@@ -2634,6 +2686,42 @@ Conf_H(x) = |\sum\limits_{t=1}^Th_t(x)-b|
 \)
 }}}</pre>
 </div>
+<div title="Regularization" creator="Samuel" modifier="Samuel" created="201403310154" modified="201403310233" changecount="59">
+<pre>*{{normal{@@color(blue):''说明''@@
+为了防止过拟合，引入的惩罚因子, 如下式:
+\(
+J(\theta_0, \theta_1..., \theta_n)＝\frac{1}{m}(\sum\limits_{i=1}^{m}cost(h_{\theta}(X^i), y^i) + \frac{\lambda}{2}\sum\limits_{i=1}^{n}\theta_i^2)\\
+m -- 训练样本的个数 \\
+n  -- 所求参数的个数 \\\)
+@@color(green):''Tip'':  一般惩罚因子第一个不算， 即\theta_0不计算在内，所以i是(1-n)而不是(0-n)@@ 
+}}}
+*{{normal{@@color(blue):''求解细节''@@
+#{{normal{''当使用[[Gradient Descent]]时，其为''
+repeat until convergence:
+:\(
+\theta_0 = \theta_0 - \alpha\frac{\partial}{\partial\theta_0}J(\theta_0, \theta_1..., \theta_n)   \\
+\theta_1 = \theta_1 - \alpha\frac{\partial}{\partial\theta_1}J(\theta_0, \theta_1..., \theta_n) - \frac{\lambda}{m}\theta_1  \\
+... \\
+\theta_n = \theta_n - \alpha\frac{\partial}{\partial\theta_n}J(\theta_0, \theta_1..., \theta_n) - \frac{\lambda}{m}\theta_n  \\
+\)
+
+}}}
+#{{normal{''当使用[[Normal Equation]]时，其为''
+:\(
+\theta = (X^TX + \lambda
+\left( \begin{array}{title}
+0 &amp; &amp; &amp; &amp;\\
+&amp; 1&amp;  &amp;&amp;\\
+&amp; &amp; .&amp;&amp;\\
+&amp; &amp; &amp;.&amp;\\
+&amp; &amp; &amp;&amp;1\\
+\end{array} \right)
+)^{-1} X^TY
+\)
+
+}}}
+</pre>
+</div>
 <div title="SVM" creator="Samuel" modifier="Samuel" created="201207240628" modified="201305230207" tags="_TRAINING_ _DETECTION_ _SVM_" changecount="46">
 <pre>{{normal{@@color(red):Question@@
 #{{normal{@@color(red):为什么\(wx+b=r\)的方程可以简化为\(wx+b=1\)@@
@@ -2988,12 +3076,12 @@ http://s2013.siggraph.org/submitters/technical-papers
 
 </pre>
 </div>
-<div title="Training&amp;detection" creator="YourName" modifier="Samuel" created="201207240627" modified="201403240809" tags="_TRAINING_ _DETECTION_" changecount="13">
+<div title="Training&amp;detection" creator="YourName" modifier="Samuel" created="201207240627" modified="201403310152" tags="_TRAINING_ _DETECTION_" changecount="15">
 <pre>[[SVM]]
 [[K-means]]
 [[Meanshift]]
 [[Adaboost]]
-[[logistic regression]]
+[[Logistic Regression]]
 [[Deep Learning]]
 [[Desicion Tree]]</pre>
 </div>
@@ -3684,13 +3772,6 @@ install(PROGRAMS files... DESTINATION &lt;dir&gt;
 }}}
 </pre>
 </div>
-<div title="logistic regression" creator="Samuel" modifier="Samuel" created="201306030452" modified="201310090220" changecount="6">
-<pre>*{{normal{求解方法
-refer to @@color(green):A comparison of numerical optimizers for logistic regression@@
-* [[Iterative Scaling]]
-
-}}}</pre>
-</div>
 <div title="macro、function" creator="Samuel" modifier="Samuel" created="201206270720" modified="201211270151" tags="_CMAKE_ _CMAKE_COMMAND_" changecount="42">
 <pre>*@@color(blue):''macro''@@(&lt;name&gt; [arg1 [arg2...]])  @@color(blue):''endmacro''@@(&lt;name&gt;)
 *@@color(blue):''function''@@(&lt;name&gt; [arg1 [arg2...]])  @@color(blue):''function''@@(&lt;name&gt;)
@@ -3992,7 +4073,7 @@ numpy.minimum''
 
 }}}</pre>
 </div>
-<div title="opencv desicion tree in adaboost" creator="Samuel" modifier="Samuel" created="201403240600" modified="201403240943" changecount="134">
+<div title="opencv desicion tree in adaboost" creator="Samuel" modifier="Samuel" created="201403240600" modified="201403310105" changecount="159">
 <pre>*{{normal{@@color(red):''说明''@@
 #opencv中discrete和real使用的@@color(red):分类树@@，gentle使用是@@color(red):回归树@@
 }}}
@@ -4001,7 +4082,7 @@ numpy.minimum''
 #{{normal{以样本的特征为阈值@@color(red):(如果两个特征的值太接近，不要在此处分分割，跳到下一个特征)@@，
  一个一个将右边的样本往左边移， 直到左边树的{{{|P-N|}}}的绝对值达到最大}}}
 #再在所有的不同的特征上重复step1和step2，找到全局最大的{{{|P-N|}}}
-:@@color(red):说明 - @@叶子节点的值为0(当负样本比正阳本多的时候)，否则为0
+@@color(green):''Attention'' - @@叶子节点的值为0(当负样本比正阳本多的时候)，否则为1
 
 :....... / ..................  \ ...........{{{-------&gt;}}} ...... / ..................... \ ......
 :P(0)|N(0) ... P(0.5)|N(0.5)   {{{------&gt;}}}   P(x)|N(y) ... P(0.5-x)|N(0.5-y)    {{{-----&gt;}}} {{{max(abs(P-N))}}}
@@ -4011,22 +4092,26 @@ numpy.minimum''
 #基于某一维特征，将所有的样本都放到右边树,则在右边树P=0.5, N=0.5
 #{{normal{以样本的特征为阈值@@color(red):(如果两个特征的值太接近，不要在此处分分割，跳到下一个特征)@@，
  一个一个将右边的样本往左边移， 直到整个树的Gini Index最小[[Gini Index Split Criterion]]
+}}}
 #再在所有的不同的特征上重复step1和step2，找到全局最小的Gini Index
-:@@color(red):说明 - @@叶子节点的值为0.5*log(P/N)
-
-:....... / ..................  \ ...........{{{-------&gt;}}} ...... / ..................... \ ......
-:P(0)|N(0) ... P(0.5)|N(0.5)   {{{------&gt;}}}   P(x)|N(y) ... P(0.5-x)|N(0.5-y)    
+@@color(green):''Attention''  - @@叶子节点的值为0.5*log(P/N)
 }}}
 
 *{{normal{@@color(blue):''Gentle''@@ 
 #基于某一维特征，将所有的样本都放到右边树,则在右边树P=0.5, N=0.5
 #{{normal{以样本的特征为阈值@@color(red):(如果两个特征的值太接近，不要在此处分分割，跳到下一个特征)@@，
- 一个一个将右边的样本往左边移， 直到整个树的Gini Index最小[[Gini Index Split Criterion]]
-#再在所有的不同的特征上重复step1和step2，找到全局最小的Gini Index
-:@@color(red):说明 - @@叶子节点的值为0.5*log(p/N)
+ 一个一个将右边的样本往左边移， 直到整个树的均方误差最小
+}}}
+#再在所有的不同的特征上重复step1和step2，找到全局最小的均方误差
+@@color(green):''Attention''  - @@叶子节点的值为{{{(P-N)/(P+N)}}}
 
-:....... / ..................  \ ...........{{{-------&gt;}}} ...... / ..................... \ ......
-:P(0)|N(0) ... P(0.5)|N(0.5)   {{{------&gt;}}}   P(x)|N(y) ... P(0.5-x)|N(0.5-y)    
+{{normal{@@color(green):''opencv中使用的均方误差''@@
+\(
+MIN : \frac{(P+N)^2 - (P-N)^2}{P+N}
+= \frac{-4PN}{P+N} \\
+MAX : \frac{PN}{P+N} = \frac{P_lN_l}{P_l+N_l} + \frac{P_rN_r}{P_r+N_r}
+\)
+}}}
 }}}</pre>
 </div>
 <div title="org mode" creator="Samuel" modifier="Samuel" created="201308070213" modified="201308070230" changecount="15">
