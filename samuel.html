@@ -1087,7 +1087,7 @@ T = \frac{((P_l+\Delta w)^2+N_l^2)*(W_r-\Delta w)+ ((P_r-\Delta w)^2+N_r^2)*(W_l
 *''git show &lt;tag_name&gt;''
 </pre>
 </div>
-<div title="Gradient Descent" creator="Samuel" modifier="Samuel" created="201403180214" modified="201403310219" changecount="64">
+<div title="Gradient Descent" creator="Samuel" modifier="samuel" created="201403180214" modified="201404071327" changecount="65">
 <pre>*{{normal{@@color(blue):''Goal'':@@
 \(minimize J(\theta_0, \theta_1..., \theta_n)\)
 }}}
@@ -1585,10 +1585,12 @@ cat /etc/hosts
 find $(pwd)/ -type f
 }}}</pre>
 </div>
-<div title="Logistic Regression" creator="Samuel" modifier="Samuel" created="201306030452" modified="201403310156" changecount="69">
+<div title="Logistic Regression" creator="Samuel" modifier="samuel" created="201306030452" modified="201404071403" changecount="105">
 <pre>*{{normal{@@color(blue):''Hypothesis(假设函数)''@@：
 :\(
 h_\theta(X)＝\frac{1}{1+e^{-(\theta_{0}*x_0+\theta_{1}*x_1 + ... + \theta_{n}*x_n)}}\\
+z= (\theta_{0}*x_0+\theta_{1}*x_1 + ... + \theta_{n}*x_n)\\
+sigmoid(z) = \frac{1}{1+e^{-z}} \\
 x0是1， 所以在实际使用中，特征的第一位一般要人为的加1
 \)
 
@@ -1607,12 +1609,21 @@ J(\theta_0, \theta_1..., \theta_n)＝\frac{1}{m}\sum\limits_{i=1}^{m}cost(h_{\th
 *{{normal{@@color(green):所以逻辑回归的cost function 采用下式, 其为convex的:@@
 :\(
 cost(h_{\theta}(X), y) =\begin{cases} 
--log(h_{\theta}(X)) \hspace{17mm} if  \hspace{4mm} y=1 \\ 
--log(1-h_{\theta}(X)) \hspace{8mm} if  \hspace{4mm} y=0 \\ 
+-ln(h_{\theta}(X)) \hspace{17mm} if  \hspace{4mm} y=1 \\ 
+-ln(1-h_{\theta}(X)) \hspace{8mm} if  \hspace{4mm} y=0 \\ 
 \end{cases}\\
 
 J(\theta_0, \theta_1..., \theta_n)＝\frac{1}{m}\sum\limits_{i=1}^{m}cost(h_{\theta}(X^i), y^i) \\
-\hspace{30mm}= -\frac{1}{m}\sum\limits_{i=1}^{m}y^ilog(h_{\theta}(X^i)+(1-y^i)log(1-h_{\theta}(X^i)
+\hspace{15mm}= -\frac{1}{m}\sum\limits_{i=1}^{m}y^iln(h_{\theta}(X^i)+(1-y^i)ln(1-h_{\theta}(X^i) \\
+\\
+基础导数\\
+\frac{\partial}{\partial x}ln(f(x)) = \frac{1}{f(x)}f(x)^{'} \\
+\frac{\partial}{\partial \theta_n}sigmoid(z) = sigmoid(z)(1-sigmoid(z))*\frac{\partial}{\partial\theta_n}z\\
+\frac{\partial}{\partial\theta_n}J(\theta) = \frac{1}{m}\sum\limits_{i=1}^{m} -(y\frac{sigmoid(z_i)^{'} }{sigmoid(z_i)}+ (1-y)\frac{-sigmoid(z_i)^{'}}{1-sigmoid(z_i)})\\
+\hspace{8mm}=\frac{1}{m}\sum\limits_{i=1}^{m}-(\frac{y*sigmoid(z_i)^{'} *(1-sigmoid(z_i)) - (1-y)*sigmoid(z_i)^{'}*sigmoid(z_i)}{(1-sigmoid(z_i))*sigmoid(z_i)})\\
+\hspace{8mm}=\frac{1}{m}\sum\limits_{i=1}^{m}-(y *(1-sigmoid(z_i)) - (1-y)*sigmoid(z_i))*\frac{\partial}{\partial\theta}z_i\\
+\hspace{8mm}=\frac{1}{m}\sum\limits_{i=1}^{m}(sigmoid(z_i)-y)*\frac{\partial}{\partial\theta_n}z_i\\
+\hspace{8mm}=\frac{1}{m}\sum\limits_{i=1}^{m}{(h_{\theta}(x^{i})-y^i)*x_n^i} 
 
 \)
 }}}
@@ -1752,7 +1763,7 @@ int[][] manhattan(int[][] image){
 <div title="MarkupPostBody" creator="YourName" modifier="YourName" created="201206180442" changecount="1">
 <pre></pre>
 </div>
-<div title="MathJaxPlugin" creator="Samuel" modifier="Samuel" created="201207180919" modified="201207180934" tags="systemConfig" changecount="7">
+<div title="MathJaxPlugin" creator="Samuel" modifier="Samuel" created="201207180919" modified="201207180934" tags="systemConfig systemConfigForce" changecount="8">
 <pre>/***
 |''Name:''|MathJaxPlugin|
 |''Description:''|Enable LaTeX formulas for TiddlyWiki|
