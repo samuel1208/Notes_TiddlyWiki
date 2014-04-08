@@ -1434,7 +1434,54 @@ main函数返回值必须为void
 #k的大小对结果影响比较大
 }}}</pre>
 </div>
-<div title="LATEX" creator="Samuel" modifier="Samuel" created="201211260252" modified="201403310229" changecount="111">
+<div title="L1 regularization" creator="Samuel" modifier="Samuel" created="201404030927" changecount="1">
+<pre>*{{normal{@@color(blue):''说明''@@
+为了防止过拟合，加入惩罚因子\(\lambda|w|\)， 就是曼哈顿距离 
+
+}}}</pre>
+</div>
+<div title="L2 Regularization" creator="Samuel" modifier="Samuel" created="201403310154" modified="201404030926" changecount="78">
+<pre>*{{normal{@@color(blue):''说明''@@
+为了防止过拟合，加入惩罚因子\(\lambda|w|^2\)， 就是欧几里德距离 
+
+}}}
+*{{normal{@@color(blue):''以均方误差为例''@@
+*{{normal{@@color(green):''cost function''@@
+\(
+J(\theta_0, \theta_1..., \theta_n)＝\frac{1}{m}(\sum\limits_{i=1}^{m}cost(h_{\theta}(X^i), y^i) + \frac{\lambda}{2}\sum\limits_{i=1}^{n}\theta_i^2)\\
+m -- 训练样本的个数 \\
+n  -- 所求参数的个数 \\\)
+@@color(red):''Tip'':  一般惩罚因子第一个不算， 即\theta_0不计算在内，所以i是(1-n)而不是(0-n)@@ 
+}}}
+*{{normal{@@color(green):''求解细节''@@
+#{{normal{''当使用[[Gradient Descent]]时，其为''
+repeat until convergence:
+:\(
+\theta_0 = \theta_0 - \alpha\frac{\partial}{\partial\theta_0}J(\theta_0, \theta_1..., \theta_n)   \\
+\theta_1 = \theta_1 - \alpha\frac{\partial}{\partial\theta_1}J(\theta_0, \theta_1..., \theta_n) - \frac{\lambda}{m}\theta_1  \\
+... \\
+\theta_n = \theta_n - \alpha\frac{\partial}{\partial\theta_n}J(\theta_0, \theta_1..., \theta_n) - \frac{\lambda}{m}\theta_n  \\
+\)
+
+}}}
+#{{normal{''当使用[[Normal Equation]]时，其为''
+:\(
+\theta = (X^TX + \lambda
+\left( \begin{array}{title}
+0 &amp; &amp; &amp; &amp;\\
+&amp; 1&amp;  &amp;&amp;\\
+&amp; &amp; .&amp;&amp;\\
+&amp; &amp; &amp;.&amp;\\
+&amp; &amp; &amp;&amp;1\\
+\end{array} \right)
+)^{-1} X^TY
+\)
+
+}}}
+}}}
+</pre>
+</div>
+<div title="LATEX" creator="Samuel" modifier="Samuel" created="201211260252" modified="201403310235" changecount="112">
 <pre>refer to http://mohu.org/info/symbols/symbols.htm 
 *{{normal{''换行与空格''
 \\或\newline
@@ -2686,41 +2733,9 @@ Conf_H(x) = |\sum\limits_{t=1}^Th_t(x)-b|
 \)
 }}}</pre>
 </div>
-<div title="Regularization" creator="Samuel" modifier="Samuel" created="201403310154" modified="201403310233" changecount="59">
-<pre>*{{normal{@@color(blue):''说明''@@
-为了防止过拟合，引入的惩罚因子, 如下式:
-\(
-J(\theta_0, \theta_1..., \theta_n)＝\frac{1}{m}(\sum\limits_{i=1}^{m}cost(h_{\theta}(X^i), y^i) + \frac{\lambda}{2}\sum\limits_{i=1}^{n}\theta_i^2)\\
-m -- 训练样本的个数 \\
-n  -- 所求参数的个数 \\\)
-@@color(green):''Tip'':  一般惩罚因子第一个不算， 即\theta_0不计算在内，所以i是(1-n)而不是(0-n)@@ 
-}}}
-*{{normal{@@color(blue):''求解细节''@@
-#{{normal{''当使用[[Gradient Descent]]时，其为''
-repeat until convergence:
-:\(
-\theta_0 = \theta_0 - \alpha\frac{\partial}{\partial\theta_0}J(\theta_0, \theta_1..., \theta_n)   \\
-\theta_1 = \theta_1 - \alpha\frac{\partial}{\partial\theta_1}J(\theta_0, \theta_1..., \theta_n) - \frac{\lambda}{m}\theta_1  \\
-... \\
-\theta_n = \theta_n - \alpha\frac{\partial}{\partial\theta_n}J(\theta_0, \theta_1..., \theta_n) - \frac{\lambda}{m}\theta_n  \\
-\)
-
-}}}
-#{{normal{''当使用[[Normal Equation]]时，其为''
-:\(
-\theta = (X^TX + \lambda
-\left( \begin{array}{title}
-0 &amp; &amp; &amp; &amp;\\
-&amp; 1&amp;  &amp;&amp;\\
-&amp; &amp; .&amp;&amp;\\
-&amp; &amp; &amp;.&amp;\\
-&amp; &amp; &amp;&amp;1\\
-\end{array} \right)
-)^{-1} X^TY
-\)
-
-}}}
-</pre>
+<div title="Regularization" creator="Samuel" modifier="Samuel" created="201404030918" modified="201404030918" changecount="2">
+<pre>[[L1 regularization]]
+[[L2 Regularization]]</pre>
 </div>
 <div title="SVM" creator="Samuel" modifier="Samuel" created="201207240628" modified="201305230207" tags="_TRAINING_ _DETECTION_ _SVM_" changecount="46">
 <pre>{{normal{@@color(red):Question@@
@@ -3076,14 +3091,15 @@ http://s2013.siggraph.org/submitters/technical-papers
 
 </pre>
 </div>
-<div title="Training&amp;detection" creator="YourName" modifier="Samuel" created="201207240627" modified="201403310152" tags="_TRAINING_ _DETECTION_" changecount="15">
+<div title="Training&amp;detection" creator="YourName" modifier="Samuel" created="201207240627" modified="201404030917" tags="_TRAINING_ _DETECTION_" changecount="17">
 <pre>[[SVM]]
 [[K-means]]
 [[Meanshift]]
 [[Adaboost]]
 [[Logistic Regression]]
 [[Deep Learning]]
-[[Desicion Tree]]</pre>
+[[Desicion Tree]]
+[[Regularization]]</pre>
 </div>
 <div title="Video-Retrieval" creator="Samuel" modifier="Samuel" created="201312140921" modified="201312140922" changecount="3">
 <pre>{{normal{@@color(blue):''Video_VH''@@
