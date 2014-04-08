@@ -1632,7 +1632,7 @@ cat /etc/hosts
 find $(pwd)/ -type f
 }}}</pre>
 </div>
-<div title="Logistic Regression" creator="Samuel" modifier="samuel" created="201306030452" modified="201404071403" changecount="105">
+<div title="Logistic Regression" creator="Samuel" modifier="Samuel" created="201306030452" modified="201404080224" changecount="112">
 <pre>*{{normal{@@color(blue):''Hypothesis(假设函数)''@@：
 :\(
 h_\theta(X)＝\frac{1}{1+e^{-(\theta_{0}*x_0+\theta_{1}*x_1 + ... + \theta_{n}*x_n)}}\\
@@ -1662,17 +1662,22 @@ cost(h_{\theta}(X), y) =\begin{cases}
 
 J(\theta_0, \theta_1..., \theta_n)＝\frac{1}{m}\sum\limits_{i=1}^{m}cost(h_{\theta}(X^i), y^i) \\
 \hspace{15mm}= -\frac{1}{m}\sum\limits_{i=1}^{m}y^iln(h_{\theta}(X^i)+(1-y^i)ln(1-h_{\theta}(X^i) \\
-\\
-基础导数\\
-\frac{\partial}{\partial x}ln(f(x)) = \frac{1}{f(x)}f(x)^{'} \\
-\frac{\partial}{\partial \theta_n}sigmoid(z) = sigmoid(z)(1-sigmoid(z))*\frac{\partial}{\partial\theta_n}z\\
-\frac{\partial}{\partial\theta_n}J(\theta) = \frac{1}{m}\sum\limits_{i=1}^{m} -(y\frac{sigmoid(z_i)^{'} }{sigmoid(z_i)}+ (1-y)\frac{-sigmoid(z_i)^{'}}{1-sigmoid(z_i)})\\
-\hspace{8mm}=\frac{1}{m}\sum\limits_{i=1}^{m}-(\frac{y*sigmoid(z_i)^{'} *(1-sigmoid(z_i)) - (1-y)*sigmoid(z_i)^{'}*sigmoid(z_i)}{(1-sigmoid(z_i))*sigmoid(z_i)})\\
-\hspace{8mm}=\frac{1}{m}\sum\limits_{i=1}^{m}-(y *(1-sigmoid(z_i)) - (1-y)*sigmoid(z_i))*\frac{\partial}{\partial\theta}z_i\\
-\hspace{8mm}=\frac{1}{m}\sum\limits_{i=1}^{m}(sigmoid(z_i)-y)*\frac{\partial}{\partial\theta_n}z_i\\
-\hspace{8mm}=\frac{1}{m}\sum\limits_{i=1}^{m}{(h_{\theta}(x^{i})-y^i)*x_n^i} 
-
 \)
+*{{normal{''导数推导''
+由于
+\(
+\frac{\partial ln(f(x)}{\partial x} = \frac{1}{f(x)}f(x)^{'} \\
+\frac{\partial sigmoid(z)}{\partial \theta_n} = sigmoid(z)(1-sigmoid(z))*\frac{\partial z}{\partial\theta_n}\\
+\)
+所以
+\(
+\frac{\partial J(\theta) }{\partial\theta_n}= \frac{1}{m}\sum\limits_{i=1}^{m} -(y\frac{sigmoid(z_i)^{'} }{sigmoid(z_i)}+ (1-y)\frac{-sigmoid(z_i)^{'}}{1-sigmoid(z_i)})\\
+\hspace{8mm}=\frac{1}{m}\sum\limits_{i=1}^{m}-(\frac{y*sigmoid(z_i)^{'} *(1-sigmoid(z_i)) - (1-y)*sigmoid(z_i)^{'}*sigmoid(z_i)}{(1-sigmoid(z_i))*sigmoid(z_i)})\\
+\hspace{8mm}=\frac{1}{m}\sum\limits_{i=1}^{m}-(y *(1-sigmoid(z_i)) - (1-y)*sigmoid(z_i))*\frac{\partial z_i}{\partial\theta}\\
+\hspace{8mm}=\frac{1}{m}\sum\limits_{i=1}^{m}(sigmoid(z_i)-y)*\frac{\partial z_i}{\partial\theta_n}\\
+\hspace{8mm}=\frac{1}{m}\sum\limits_{i=1}^{m}{(h_{\theta}(x^{i})-y^i)*x_n^i} 
+\)
+
 }}}
 
 }}}
@@ -1690,12 +1695,15 @@ refer to @@color(green):A comparison of numerical optimizers for logistic regres
 
 }}}</pre>
 </div>
-<div title="Machine Learnning--Andrew Ng" creator="Samuel" modifier="Samuel" created="201403180055" modified="201403310220" changecount="45">
+<div title="Machine Learnning--Andrew Ng" creator="Samuel" modifier="Samuel" created="201403180055" modified="201404080056" changecount="47">
 <pre>*[[Linear  Regression]]
 *[[Logistic Regression]]
+*[[SoftMax Regression]]
+*[[ANN]]
 *[[Gradient Descent]]
 *[[Normal Equation]]
-*[[Regularization]]</pre>
+*[[Regularization]]
+</pre>
 </div>
 <div title="MainMenu" creator="YourName" modifier="Samuel" created="201206180446" modified="201403180046" changecount="95">
 <pre>!Tools
@@ -2839,6 +2847,44 @@ svm_group_classes ： 将样本整理排列起来， 即同类的放在一起
 </div>
 <div title="SiteUrl" creator="YourName" modifier="YourName" created="201206180439" modified="201206180439" changecount="2">
 <pre></pre>
+</div>
+<div title="SoftMax Regression" creator="Samuel" modifier="Samuel" created="201404080141" modified="201404080506" changecount="48">
+<pre>*{{normal{@@color(blue):''Hypothesis(假设函数)''@@：
+:\(
+h_i＝\frac{e^{z_i}}{\sum\limits_{j\in group}{e^{z_j}}}\\
+z= (\theta_{0}*x_0+\theta_{1}*x_1 + ... + \theta_{n}*x_n)\\
+x0是1， 所以在实际使用中，特征的第一位一般要人为的加1
+\)
+
+}}}
+*{{normal{@@color(blue):''Cost Function'': @@
+*{{normal{@@color(green):softmax回归的cost function 采用下式(Cross-entropy交叉熵):@@
+:\(
+J(h_{\theta}(X), y) =-  \sum\limits_{m=1}^{M}\sum\limits_{j\in group}{y_j^m*ln(h_j)^m} \\
+\)
+*{{normal{''导数推导''
+由于
+\(
+\frac{\partial ln(f(x)}{\partial x} = \frac{1}{f(x)}f(x)^{'} \\
+\frac{\partial h_i}{\partial z_i} = h_i(1-h_i) (可自行推导)\\
+\)
+所以 : @@color(green):(i,表示的是第i个类)@@
+\(
+\frac{\partial J}{\partial \theta_n^i} = - \sum\limits_{m=1}^{M}\sum\limits_{j\in group}{\frac{\partial J }{\partial h_i}\frac{\partial h_i }{\partial z_i}\frac{\partial z_i }{\partial \theta_n}} \\
+=\sum\limits_{m=1}^{M}(y_i/h_i^m)*(h_i^m*(1-h_i^m))*x_n^m \\
+=\sum\limits_{m=1}^{M}y_i(h_i^m-1)x_n^m\\
+由于一般y_i =1,所以可以写成(h_i^m-y_i)x_n^m
+\)
+}}}
+
+}}}
+*{{normal{@@color(blue):''Goal''@@:
+:\(minimize J(\theta_0, \theta_1..., \theta_n)\)
+
+}}}
+
+
+}}}</pre>
 </div>
 <div title="StyleSheet" creator="YourName" modifier="Samuel" created="201206180441" modified="201207020341" changecount="3">
 <pre>[[StyleSheetSyntaxHighlighter]]</pre>
