@@ -537,6 +537,14 @@ Also see [[AdvancedOptions]]</pre>
 <pre>*@@bgcolor(green):功能@@
 **命令替换符，在括号和引号里可以执行命令, 将其结果作为其他的输入</pre>
 </div>
+<div title="ANN" creator="Samuel" modifier="Samuel" created="201404140040" modified="201404140044" changecount="7">
+<pre>*{{normal{@@color(blue):''权重更新技巧''@@
+\(
+epsilon_{init} = \frac{\sqrt{6}}{\sqrt{L_{out}+L_{in}}} \\
+W = rand(L_{out}, 1+L_{in})*2*epsilon_{init} - epsilon_{init}
+\)
+}}}</pre>
+</div>
 <div title="Adaboost" creator="Samuel" modifier="Samuel" created="201303120911" modified="201403310108" tags="__adaboost__" changecount="35">
 <pre>*{{normal{@@color(red):Question@@
 #@@color(red):''Q'' - adaboost用于多类的弱分类器设计方法@@
@@ -1087,7 +1095,7 @@ T = \frac{((P_l+\Delta w)^2+N_l^2)*(W_r-\Delta w)+ ((P_r-\Delta w)^2+N_r^2)*(W_l
 *''git show &lt;tag_name&gt;''
 </pre>
 </div>
-<div title="Gradient Descent" creator="Samuel" modifier="samuel" created="201403180214" modified="201404071327" changecount="65">
+<div title="Gradient Descent" creator="Samuel" modifier="Samuel" created="201403180214" modified="201404290802" changecount="68">
 <pre>*{{normal{@@color(blue):''Goal'':@@
 \(minimize J(\theta_0, \theta_1..., \theta_n)\)
 }}}
@@ -1117,7 +1125,9 @@ n  - 为特征的维数(包含第一个为1的特征)    \\
 }}}
 #{{normal{''特征归一化可以加快收敛的速度''
 # (x - mean)/(max-min)
-# (x - mean)/std  @@color(red):std为标准差@@
+#{{normal{ (x - mean)/std  @@color(red):std为标准差@@
+作用是使其数据的均值为0， 方差变为1。可以用高斯分布来证明
+}}}
 }}}
 }}}</pre>
 </div>
@@ -1192,7 +1202,7 @@ b.在 StyleSheet 或 StyleSheetLaouts 中加入[[MyStyle]]</pre>
 
 </pre>
 </div>
-<div title="Img processing" creator="samuel" modifier="Samuel" created="201209270110" modified="201311050805" changecount="23">
+<div title="Img processing" creator="samuel" modifier="Samuel" created="201209270110" modified="201404290547" changecount="24">
 <pre>[[Img format convertion]]
 [[Manhattan Distance]]
 [[形态学的腐蚀和膨胀]]
@@ -1202,7 +1212,6 @@ b.在 StyleSheet 或 StyleSheetLaouts 中加入[[MyStyle]]</pre>
 [[梯度]]
 [[coherent enhancing diffusion]]
 [[watershed]]
-[[PCA]]
 [[最小二乘法直线拟合]]
 [[图像增强 retinex]]
 [[FFT]]</pre>
@@ -1423,15 +1432,52 @@ main函数返回值必须为void
 }}}
 </pre>
 </div>
-<div title="K-means" creator="samuel" modifier="samuel" created="201209270617" modified="201209270723" changecount="6">
-<pre>*{{normal{@@color(blue):''算法''@@
-#从N个文档@@color(green):''随机选''@@取K个文档作为质心可以@@color(red):(可以多跑几边，取最小值)@@
-#对剩余的每个文档测量其到每个质心的距离，并把它归到最近的质心的类
-#重新计算已经得到的各个类的质心@@color(red):(每个类的平均值)@@
-#迭代2～3步直至新的质心与原质心相等或小于指定阀值，算法结束
+<div title="K-Means Clustering" creator="Samuel" modifier="Samuel" created="201404290153" modified="201404290528" changecount="84">
+<pre>*{{normal{@@color(blue):''~K-Means的目标函数''@@
+\(J(c^{(1)}, ..., c^{(M)}, u_1, ..., u_K)＝\frac{1}{M}\sum\limits_{i=1}^{m}{|x^{(i)} - u_{c^{(i)}}|^2} \\
+u_k 是聚类中心点的位置 \\ 
+c^{(m)} 是第m个样本其归属类的索引（1-K）
+\)
+''其目标函数每次迭代完必须是下降的，否则代码有bug'', 如下图是@@color(red):''错误''@@的
+[img[错误的图形|./img/K-means_objective_function.jpg]]
+
 }}}
-*{{normal{@@color(blue):''缺点''@@
-#k的大小对结果影响比较大
+*{{normal{@@color(blue):''步骤''@@
+#{{normal{''随机选择K个聚类中心点（\(u_1,..u_k ...u_K\)）(cluster centroids)''
+一般做法是从训练样本中随机抽取K个样本作为聚类中心点
+}}}
+#{{normal{''找到每个训练样本其最近的聚类中心点\(u_k\)，并将其归属到第\(k\)类''
+最近点通过\(\min_k|x-u_k|^2\) 计算
+}}}
+#''将每个类中的样本求均值， 将其均值点当成新的聚类中心点''
+#''repeat 2,3 until convergence''
+
+}}}
+*{{normal{@@color(blue):''补充''@@
+#{{normal{''避开局部最小(Local optimal)''
+@@color(green):~K-means的结果严重依赖与初始化的聚类中心点@@
+#{{normal{类比较少的情况， 如2-10个类
+随机多次初始点进行多次训练选取最小的J作为最终的解决方案
+}}}
+#{{normal{类比较多的情况， 如100个类
+随机多次训练就不合适了，@@color(red):''TODO: 解决方案''@@
+}}}
+}}}
+#{{normal{''在上面的第2，3步中， 可能有的类中没有样本， 这样就没法计算平均位置''
+@@color(green):做法1@@：传统做法，将这个类删除，这样就只有K-1个类了
+@@color(green):做法2@@：重新进行初始化，再开始训练
+}}}
+#{{normal{''\(J_K &gt; J_{K+N}\)''
+类多的J肯定比类少的J要小， 否则类多的一定是收敛到了local optimal
+}}}
+#{{normal{''类个数K的确定''
+#{{normal{elbow method, 通过拐点来寻找，通常情况下@@color(red):工作得不是很好@@,因为其图形多数情况下，更像右边没有拐点
+@@color(red):''更好的方法??''@@
+[img[错误的图形|./img/K-means_elbow_method.jpg]]
+}}}
+#{{normal{ 根据需要来设定类的个数
+}}}
+}}}
 }}}</pre>
 </div>
 <div title="L1 regularization" creator="Samuel" modifier="Samuel" created="201404030927" changecount="1">
@@ -1527,8 +1573,81 @@ gamma+(1-gamma)*exp(-lambda/(mi1-mi2)^m ) \\
 {{{\(y\)}}} \(y\)
 }}}</pre>
 </div>
-<div title="Linear  Regression" creator="Samuel" modifier="Samuel" created="201403180156" modified="201403310129" changecount="65">
-<pre>*{{normal{@@color(blue):''Hypothesis(假设函数)''@@：
+<div title="LIBSVM" creator="Samuel" modifier="Samuel" created="201207240628" modified="201404220936" tags="_TRAINING_ _DETECTION_ _SVM_" changecount="47">
+<pre>{{normal{@@color(red):Question@@
+#{{normal{@@color(red):为什么\(wx+b=r\)的方程可以简化为\(wx+b=1\)@@
+A:事实上满足\(wx+b=r\)条件的有很多做，让其等于1，其实就意味着在1条件下的唯一的\(w\)
+}}}
+}}}
+*为什么是wx+b
+http://blog.csdn.net/sgs1018/article/details/8742410
+}}}
+
+SVM的基本思想就是通过用内积函数定义的非线性变换将输入空间变换到一个高维空间，然后再在这个空间求最优分类面的分类方法
+@@bgcolor(green):''Refer to the libSVM''@@
+{{normal{@@color(blue):''libsvm说明''@@
+*在归一化前统计原来特征非0个数时，将没有保存的那一位当着0，如果保存了就算是0也会当着非0统计？@@color(red):(为什么不check特征值是否为0)@@
+*在rbf核中归一化到[-10],和[-1,1]效果一样。 @@color(red):(为什么)@@
+*0数据不保存， 做点乘的时候增加判断是不是更慢
+}}}
+
+{{normal{@@color(blue):''step''@@
+*@@color(blue):''归一化样本''@@
+:归一化feature数据，默认y方向归一化到[-1,1]，即每一列求最大值和最小值(有n列个最大值和最小值)。如果归一化后的非0值大于归一化前。最好使用[-1,0]@@color(red):(为什么)@@。
+*@@color(blue):''训练样本''@@
+**{{normal{''数据结构''
+&lt;code c++&gt;
+struct svm_problem
+{
+	int l;                            //样本的总数
+	double *y;                        //样本所属的类别，如-1、1
+	struct svm_node **x;              //特征数据， x存放所有node的指针
+}；
+
+enum { C_SVC, NU_SVC, ONE_CLASS, EPSILON_SVR, NU_SVR };/* svm_type */
+//EPSILON_SVR, NU_SVR 回归方法
+
+
+enum { LINEAR, POLY, RBF, SIGMOID }; /* kernel_type */
+
+struct svm_parameter
+{
+	int svm_type; 
+	int kernel_type; 
+	int degree;	/* for poly */
+	double gamma;	/* for poly/rbf/sigmoid */
+	double coef0;	/* for poly/sigmoid */
+
+	/* these are for training only */
+	double cache_size; /* in MB */
+	double eps;	/* stopping criteria */
+	double C;	/* for C_SVC, EPSILON_SVR and NU_SVR */
+	int nr_weight;		/* for C_SVC */
+	int *weight_label;	/* for C_SVC */
+	double* weight;		/* for C_SVC */
+	double nu;	/* for NU_SVC, ONE_CLASS, and NU_SVR */
+	double p;	/* for EPSILON_SVR */
+	int shrinking;	/* use the shrinking heuristics */
+	int probability; /* do probability estimates */
+};
+&lt;/code&gt;
+}}}
+**{{normal{''训练过程''
+
+case 1（回归方法和~ONE_CLASS只有2类）
+case 2（C_SVC, NU_SVC）
+     
+svm_group_classes ： 将样本整理排列起来， 即同类的放在一起
+}}}
+}}}</pre>
+</div>
+<div title="Linear  Regression" creator="Samuel" modifier="Samuel" created="201403180156" modified="201404290253" changecount="74">
+<pre>*{{normal{@@color(red):''Tip''@@
+''@@color(green):多项式回归@@其实和线性回归一样， 其只是增加了特征的维数， 所以也就是增加了学习参数的维数而已, 
+对学习参数进行求导其实和线性回归一样的， 因为对于squared error而言都是@@color(green):W的二次方程@@''
+
+}}}
+*{{normal{@@color(blue):''Hypothesis(假设函数)''@@：
 :\(
 h_\theta(X)＝\theta_{0}*x_0+\theta_{1}*x_1 + ... + \theta_{n}*x_n \\
 x0是1， 所以在实际使用中，特征的第一位一般要人为的加1
@@ -1632,7 +1751,7 @@ cat /etc/hosts
 find $(pwd)/ -type f
 }}}</pre>
 </div>
-<div title="Logistic Regression" creator="Samuel" modifier="Samuel" created="201306030452" modified="201404080224" changecount="112">
+<div title="Logistic Regression" creator="Samuel" modifier="Samuel" created="201306030452" modified="201404220942" changecount="116">
 <pre>*{{normal{@@color(blue):''Hypothesis(假设函数)''@@：
 :\(
 h_\theta(X)＝\frac{1}{1+e^{-(\theta_{0}*x_0+\theta_{1}*x_1 + ... + \theta_{n}*x_n)}}\\
@@ -1695,7 +1814,28 @@ refer to @@color(green):A comparison of numerical optimizers for logistic regres
 
 }}}</pre>
 </div>
-<div title="Machine Learnning--Andrew Ng" creator="Samuel" modifier="Samuel" created="201403180055" modified="201404080056" changecount="47">
+<div title="Machine Learning Tips" creator="Samuel" modifier="Samuel" created="201404160112" modified="201404160734" changecount="29">
+<pre>*{{normal{@@color(blue):''训练的改进''@@
+*{{normal{@@color(red):当模型underfit的时候， 增加训练样本不会有太大的帮助@@
+例如用线性函数去模拟二次函数的数据。就算样本增多，其最后的模型还是线性方程，无法改善
+}}}
+*{{normal{@@color(red):当验证集和训练集的错误曲线之间的gap比较大时，模型肯定过拟合了@@
+gap大到什么程度呢？
+}}}
+}}}
+*{{normal{@@color(blue):''错误率的统计''@@
+@@color(green):当待测试的正负样本数量一样才有意义吧？@@
+||!ground_truth 1|!ground_truth 0|
+|!predict 1| True Pos | False Pos |
+|!predict 0| False Neg | True Neg |
+\(
+precision = \frac{True Pos}{True Pos + False Pos} \\ 
+recall = \frac{True Pos}{True Pos + False Neg}  \\
+F1_{score} (or F_{score}) = 2*\frac{precision*recall}{precision+recall}
+\)
+}}}</pre>
+</div>
+<div title="Machine Learnning--Andrew Ng" creator="Samuel" modifier="Samuel" created="201403180055" modified="201404290548" changecount="53">
 <pre>*[[Linear  Regression]]
 *[[Logistic Regression]]
 *[[SoftMax Regression]]
@@ -1703,7 +1843,10 @@ refer to @@color(green):A comparison of numerical optimizers for logistic regres
 *[[Gradient Descent]]
 *[[Normal Equation]]
 *[[Regularization]]
-</pre>
+*[[Supported Vector Machine]]
+*[[K-Means Clustering]]
+*[[Principal Component Analysis]]
+*[[Machine Learning Tips]]</pre>
 </div>
 <div title="MainMenu" creator="YourName" modifier="Samuel" created="201206180446" modified="201403180046" changecount="95">
 <pre>!Tools
@@ -2012,8 +2155,9 @@ object c中使用@@color(blue):@interface@@， 而不是@@color(blue):@class@@�
 <div title="Object C FAQ" creator="Samuel" modifier="Samuel" created="201209180325" modified="201209210754" changecount="9">
 <pre></pre>
 </div>
-<div title="Online Learnning" creator="Samuel" modifier="Samuel" created="201403180049" modified="201403180050" changecount="5">
-<pre>[[Machine Learnning--Andrew Ng]]</pre>
+<div title="Online Learnning" creator="Samuel" modifier="Samuel" created="201403180049" modified="201404140249" changecount="6">
+<pre>[[Machine Learnning--Andrew Ng]]
+[[Unsupervised Feature Learning &amp; Deep Learning]]</pre>
 </div>
 <div title="OpenCL" creator="YourName" modifier="Samuel" created="201208280252" modified="201302050613" tags="__OPENCL__ __LANGUAGE__" changecount="11">
 <pre>[[OpenCL Learning]]
@@ -2249,20 +2393,6 @@ Also see [[AdvancedOptions]]</pre>
 
 </pre>
 </div>
-<div title="PCA" creator="Samuel" modifier="Samuel" created="201301170637" modified="201311080904" changecount="8">
-<pre>#对于一个训练集，M个sample(i=1,2,3,...,20)，特征Xi是N维[Xi1,Xi2,Xi3,...Xij,...,XiN](j=1,2,..,N)，那么它可以建立一个N*M的样本矩阵Mat
-#{{normal{紧接着我们开始求这个样本的协方差矩阵，得到一个N*N的协方差矩阵@@color(red):(如果维数太多， 可以求M*M的协方差矩阵，即奇异值分解SVD，在得到N*N的)@@，计算过程如下:
-#先求解出Xi的平均Xav=(∑xi)/M;
-#对每一个Xi,计算~Xi-Xav,即Mi(第 i 行)变为 ~Mi-Xav,记为C;
-#则容易得到协方差矩阵Z为C*C'( ' 表示转置 ) 。
-}}}
-#然后求出这个协方差矩阵Z(N*N)的特征值和特征向量，一般情况下应该有N个特征值和特征向量，现在根据特征值的大小，取出较大的特征值以及其所对应的特征向量，（假设提取的特征值为较大的5个特征值），那么这5个特征向量就会构成一个N*5的矩阵V，这个矩阵就是我们要求的特征矩阵。
-#用Mn'去乘以V，得到一个base矩阵（*），大小为Nx5。
-#任取一个样本1xN,乘上这个N*5的特征矩阵，就得到了一个1*5的新的样本，显然每个sample的维数下降了，然后再用这个1x5向量去比较相似性。
-
-PS:上述3）过程中特征值的选取在不确定具体要降到多少维的情况下，一般还可以根据n个特征值之和大于总和的90%进行选取。上面的（*）处base矩阵的求解不唯一，也可以自行修正
-</pre>
-</div>
 <div title="PageTemplate" creator="Samuel" modifier="Samuel" created="201207180832" changecount="1">
 <pre>&lt;!--{{{--&gt;
 &lt;div class='header' macro='gradient vert [[ColorPalette::PrimaryLight]] [[ColorPalette::PrimaryMid]]'&gt;
@@ -2288,6 +2418,20 @@ PS:上述3）过程中特征值的选取在不确定具体要降到多少维的�
 </div>
 <div title="PluginManager" creator="Samuel" modifier="Samuel" created="201207020527" modified="201207020528" changecount="3">
 <pre>&lt;&lt;plugins&gt;&gt;</pre>
+</div>
+<div title="Principal Component Analysis" creator="Samuel" modifier="Samuel" created="201301170637" modified="201404290549" tags="__PCA__" changecount="9">
+<pre>#对于一个训练集，M个sample(i=1,2,3,...,20)，特征Xi是N维[Xi1,Xi2,Xi3,...Xij,...,XiN](j=1,2,..,N)，那么它可以建立一个N*M的样本矩阵Mat
+#{{normal{紧接着我们开始求这个样本的协方差矩阵，得到一个N*N的协方差矩阵@@color(red):(如果维数太多， 可以求M*M的协方差矩阵，即奇异值分解SVD，在得到N*N的)@@，计算过程如下:
+#先求解出Xi的平均Xav=(∑xi)/M;
+#对每一个Xi,计算~Xi-Xav,即Mi(第 i 行)变为 ~Mi-Xav,记为C;
+#则容易得到协方差矩阵Z为C*C'( ' 表示转置 ) 。
+}}}
+#然后求出这个协方差矩阵Z(N*N)的特征值和特征向量，一般情况下应该有N个特征值和特征向量，现在根据特征值的大小，取出较大的特征值以及其所对应的特征向量，（假设提取的特征值为较大的5个特征值），那么这5个特征向量就会构成一个N*5的矩阵V，这个矩阵就是我们要求的特征矩阵。
+#用Mn'去乘以V，得到一个base矩阵（*），大小为Nx5。
+#任取一个样本1xN,乘上这个N*5的特征矩阵，就得到了一个1*5的新的样本，显然每个sample的维数下降了，然后再用这个1x5向量去比较相似性。
+
+PS:上述3）过程中特征值的选取在不确定具体要降到多少维的情况下，一般还可以根据n个特征值之和大于总和的90%进行选取。上面的（*）处base矩阵的求解不唯一，也可以自行修正
+</pre>
 </div>
 <div title="Python" creator="Samuel" modifier="Samuel" created="201206290703" modified="201403030806" tags="_SCRIPT_LANGUAGE_ _PYTHON_" changecount="40">
 <pre>@@color(green):''类似于Java，Python实际上是字节编译的，其结果就是可以生成一种近似机器语言的中间形式''@@
@@ -2756,74 +2900,6 @@ Conf_H(x) = |\sum\limits_{t=1}^Th_t(x)-b|
 <pre>[[L1 regularization]]
 [[L2 Regularization]]</pre>
 </div>
-<div title="SVM" creator="Samuel" modifier="Samuel" created="201207240628" modified="201305230207" tags="_TRAINING_ _DETECTION_ _SVM_" changecount="46">
-<pre>{{normal{@@color(red):Question@@
-#{{normal{@@color(red):为什么\(wx+b=r\)的方程可以简化为\(wx+b=1\)@@
-A:事实上满足\(wx+b=r\)条件的有很多做，让其等于1，其实就意味着在1条件下的唯一的\(w\)
-}}}
-}}}
-*为什么是wx+b
-http://blog.csdn.net/sgs1018/article/details/8742410
-}}}
-
-SVM的基本思想就是通过用内积函数定义的非线性变换将输入空间变换到一个高维空间，然后再在这个空间求最优分类面的分类方法
-@@bgcolor(green):''Refer to the libSVM''@@
-{{normal{@@color(blue):''libsvm说明''@@
-*在归一化前统计原来特征非0个数时，将没有保存的那一位当着0，如果保存了就算是0也会当着非0统计？@@color(red):(为什么不check特征值是否为0)@@
-*在rbf核中归一化到[-10],和[-1,1]效果一样。 @@color(red):(为什么)@@
-*0数据不保存， 做点乘的时候增加判断是不是更慢
-}}}
-
-{{normal{@@color(blue):''step''@@
-*@@color(blue):''归一化样本''@@
-:归一化feature数据，默认y方向归一化到[-1,1]，即每一列求最大值和最小值(有n列个最大值和最小值)。如果归一化后的非0值大于归一化前。最好使用[-1,0]@@color(red):(为什么)@@。
-*@@color(blue):''训练样本''@@
-**{{normal{''数据结构''
-&lt;code c++&gt;
-struct svm_problem
-{
-	int l;                            //样本的总数
-	double *y;                        //样本所属的类别，如-1、1
-	struct svm_node **x;              //特征数据， x存放所有node的指针
-}；
-
-enum { C_SVC, NU_SVC, ONE_CLASS, EPSILON_SVR, NU_SVR };/* svm_type */
-//EPSILON_SVR, NU_SVR 回归方法
-
-
-enum { LINEAR, POLY, RBF, SIGMOID }; /* kernel_type */
-
-struct svm_parameter
-{
-	int svm_type; 
-	int kernel_type; 
-	int degree;	/* for poly */
-	double gamma;	/* for poly/rbf/sigmoid */
-	double coef0;	/* for poly/sigmoid */
-
-	/* these are for training only */
-	double cache_size; /* in MB */
-	double eps;	/* stopping criteria */
-	double C;	/* for C_SVC, EPSILON_SVR and NU_SVR */
-	int nr_weight;		/* for C_SVC */
-	int *weight_label;	/* for C_SVC */
-	double* weight;		/* for C_SVC */
-	double nu;	/* for NU_SVC, ONE_CLASS, and NU_SVR */
-	double p;	/* for EPSILON_SVR */
-	int shrinking;	/* use the shrinking heuristics */
-	int probability; /* do probability estimates */
-};
-&lt;/code&gt;
-}}}
-**{{normal{''训练过程''
-
-case 1（回归方法和~ONE_CLASS只有2类）
-case 2（C_SVC, NU_SVC）
-     
-svm_group_classes ： 将样本整理排列起来， 即同类的放在一起
-}}}
-}}}</pre>
-</div>
 <div title="Shell" creator="Samuel" modifier="Samuel" created="201206290240" modified="201207160841" tags="_SCRIPT_LANGUAGE_ _SHELL_" changecount="63">
 <pre>*@@color(blue):''Shell 变量''@@
 &gt;$0 : shell脚本的名字
@@ -3083,6 +3159,36 @@ StyleSheet for ~SyntaxHighlighter
 
 /*}}}*/</pre>
 </div>
+<div title="Supported Vector Machine" creator="Samuel" modifier="Samuel" created="201404220937" modified="201404290307" changecount="54">
+<pre>*{{normal{@@color(blue):''SVM的Cost Function''@@
+*{{normal{@@color(green):logistic regressition@@
+\(
+J(\theta)＝-\frac{1}{m}\sum\limits_{i=1}^{m}y^iln(h_{\theta}(X^i)+(1-y^i)ln(1-h_{\theta}(X^i) + \frac{\lambda}{2m}\sum\limits_{j=1}^{n}\theta_j^2 
+\)
+}}}
+*{{normal{@@color(green):svm@@
+\(
+J(\theta)＝C\sum\limits_{i=1}^{m}y^iCost_1(z)+(1-y^i)Cost_0(z) + \frac{1}{2}\sum\limits_{j=1}^{n}\theta_j^2 \\
+\)
+[img[文字说明|./img/svm_kernel.png]]
+*''linear kernel''@@color(red):(即没有核函数)@@
+:\(z=\theta^Tx \)
+*''kernel'' @@color(red):(以gaussian kernel 为例)@@
+:\(
+z=\theta^Tf \\ 
+f_1 = similiarty(x,l_1) = exp(-\frac{(x-l_1)^T(x-l_1)}{2\sigma^2})\\
+f_2 = similiarty(x,l_2) \\
+... \\
+f_n = similiarty(x,l_n) \\
+其中n为训练样本的个数， l就是所有训练样本的x
+\)
+}}}
+}}} 
+*{{normal{@@color(blue):''SVM中支持向量''@@
+当不使用kernel的时候，不需要支撑向量， 只有在使用了kernel的时候才会用到支撑向量
+}}}
+*[[LIBSVM]]</pre>
+</div>
 <div title="SyntaxHighlighterPlugin" creator="Samuel" modifier="Samuel" created="201207020529" modified="201207020539" tags="systemConfig" changecount="3">
 <pre>/***
 !Metadata:
@@ -3148,15 +3254,23 @@ http://s2013.siggraph.org/submitters/technical-papers
 
 </pre>
 </div>
-<div title="Training&amp;detection" creator="YourName" modifier="Samuel" created="201207240627" modified="201404030917" tags="_TRAINING_ _DETECTION_" changecount="17">
-<pre>[[SVM]]
-[[K-means]]
+<div title="Training&amp;detection" creator="YourName" modifier="Samuel" created="201207240627" modified="201404290549" tags="_TRAINING_ _DETECTION_" changecount="24">
+<pre>[[Supported Vector Machine]]
+[[K-Means Clustering]]
 [[Meanshift]]
 [[Adaboost]]
 [[Logistic Regression]]
 [[Deep Learning]]
 [[Desicion Tree]]
-[[Regularization]]</pre>
+[[Regularization]]
+[[ANN]]
+[[Principal Component Analysis]]</pre>
+</div>
+<div title="Unsupervised Feature Learning &amp; Deep Learning" creator="Samuel" modifier="Samuel" created="201404140250" modified="201404140251" changecount="3">
+<pre>*{{normal{@@color(blue):''website''@@
+http://ufldl.stanford.edu/
+http://deeplearning.stanford.edu/wiki/index.php/UFLDL_Tutorial
+}}}</pre>
 </div>
 <div title="Video-Retrieval" creator="Samuel" modifier="Samuel" created="201312140921" modified="201312140922" changecount="3">
 <pre>{{normal{@@color(blue):''Video_VH''@@
@@ -4036,21 +4150,27 @@ $(call function, para1, para2)
 
 </pre>
 </div>
-<div title="matrix -- octave/matlab" creator="samuel" modifier="samuel" created="201403160214" modified="201403160232" changecount="7">
-<pre>{{normal{@@color(blue):''pinv''@@
+<div title="matrix -- octave/matlab" creator="samuel" modifier="Samuel" created="201403160214" modified="201404180322" changecount="13">
+<pre>*{{normal{@@color(blue):''pinv''@@
 求矩阵的逆
 }}}
-{{normal{@@color(blue):''[val, index] = max''@@
+*{{normal{@@color(blue):''[val, index] = max''@@
 #max(M):对矩阵而言默认是求列的最大值
 #max(M, [], 1) : 求列的最大值
 #max(M,[], 2) : 求行最大值
 #max(M(:)) : 求所有的最大值
 }}}
-{{normal{@@color(blue):''eye(dim)''@@
+*{{normal{@@color(blue):''eye(dim)''@@
 返回一个identity matrix
 }}}
-{{normal{@@color(blue):''magic(dim)''@@
+*{{normal{@@color(blue):''magic(dim)''@@
 dim最小为3， 返回一个各个方向上的和相等的一个矩阵
+}}}
+*{{normal{@@color(blue):''cat(dim, mat1, mat2)''@@
+在dim维上进行矩阵合并
+}}}
+*{{normal{@@color(blue):''squeeze(mat2)''@@
+删除维数为1的维数, 尝试squeeze(rand(1,1,2))
 }}}</pre>
 </div>
 <div title="message" creator="Samuel" modifier="Samuel" created="201211270515" modified="201211270527" changecount="6">
@@ -5063,7 +5183,7 @@ for(int i=1; i&lt;L; i++)
 [[直方图反向映射]]
 [[直方图匹配]]</pre>
 </div>
-<div title="表格" creator="Samuel" modifier="Samuel" created="201206180540" modified="201403140601" tags="TiddlyWilki" changecount="29">
+<div title="表格" creator="Samuel" modifier="Samuel" created="201206180540" modified="201404160539" tags="TiddlyWilki" changecount="30">
 <pre>*表格使用竖线插入表格, 并用 ''@@!@@'' 号点亮标题， @@其中文字两边的空格表示对齐方式@@
 |!First column|!Second column|!Third column|
 |left | centre | right|
