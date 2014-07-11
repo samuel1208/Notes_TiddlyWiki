@@ -537,14 +537,6 @@ Also see [[AdvancedOptions]]</pre>
 <pre>*@@bgcolor(green):功能@@
 **命令替换符，在括号和引号里可以执行命令, 将其结果作为其他的输入</pre>
 </div>
-<div title="ANN" creator="Samuel" modifier="Samuel" created="201404140040" modified="201404140044" changecount="7">
-<pre>*{{normal{@@color(blue):''权重更新技巧''@@
-\(
-epsilon_{init} = \frac{\sqrt{6}}{\sqrt{L_{out}+L_{in}}} \\
-W = rand(L_{out}, 1+L_{in})*2*epsilon_{init} - epsilon_{init}
-\)
-}}}</pre>
-</div>
 <div title="Adaboost" creator="Samuel" modifier="Samuel" created="201303120911" modified="201403310108" tags="__adaboost__" changecount="35">
 <pre>*{{normal{@@color(red):Question@@
 #@@color(red):''Q'' - adaboost用于多类的弱分类器设计方法@@
@@ -786,6 +778,20 @@ TertiaryDark: #666
 Error: #f88
 </pre>
 </div>
+<div title="Computer Vision" creator="samuel" modifier="Samuel" created="201209270110" modified="201406250233" changecount="26">
+<pre>[[Img format convertion]]
+[[Manhattan Distance]]
+[[形态学的腐蚀和膨胀]]
+[[直方图处理]]
+[[协方差-方差-标准差]]
+[[寻找角点]]
+[[梯度]]
+[[coherent enhancing diffusion]]
+[[watershed]]
+[[最小二乘法直线拟合]]
+[[图像增强 retinex]]
+[[FFT]]</pre>
+</div>
 <div title="ConfigParser" creator="samuel" modifier="Samuel" created="201208130603" modified="201308220200" tags="_PYTHON_ _PYTHON_MODULE_ _CONFIGPARSER_" changecount="24">
 <pre>@@bgcolor(green): The ~ConfigParser module has been renamed to configparser in Python 3.0@@
 *{{normal{@@color(blue):''配置文件格式''@@
@@ -811,6 +817,9 @@ class config(cp.ConfigParser):
 &lt;/code&gt;
 }}}
 }}}</pre>
+</div>
+<div title="Data Preprocessing" creator="Samuel" modifier="Samuel" created="201406250545" changecount="1">
+<pre>[[Whiten]]</pre>
 </div>
 <div title="Deep Learning" creator="Samuel" modifier="Samuel" created="201310090219" modified="201310090245" changecount="4">
 <pre>http://blog.csdn.net/zouxy09/article/details/11910527
@@ -1025,6 +1034,20 @@ sudo dpkg-reconfigure locales  安装中文包
 
 </pre>
 </div>
+<div title="Feature Normalization" creator="Samuel" modifier="Samuel" created="201404290852" modified="201404290854" changecount="5">
+<pre>*''(x - mean)/(max-min) : ''归一化到[-1，1]
+*{{normal{'' (x - mean)/std  (@@color(red):std为标准差@@)'' : 作用是使其数据的均值为0， 方差变为1。
+{{normal{@@color(green):''证明:''@@
+\(初始值 E[x] = u, V[x] = E[(x-u)^2] = \sigma^2 \\ 
+E[\frac{x-u}{\sigma}] = \frac{E[x]-E[u]}{\sigma} = \frac{u-u}{\sigma} = 0 \\
+V[\frac{x-u}{\sigma}] = E[(\frac{x-u}{\sigma})^2] - E[\frac{x-u}{\sigma}] \\
+\hspace{16mm} = E[(\frac{x-u}{\sigma})^2]  \\
+\hspace{16mm} = \frac{E[(x-u)^2]}{\sigma^2} \\
+\hspace{16mm} = 1
+\)
+}}}
+}}}</pre>
+</div>
 <div title="GettingStarted" creator="Samuel" modifier="Samuel" created="201206270532" modified="201206270533" changecount="3">
 <pre>To get started with this blank [[TiddlyWiki]], you'll need to modify the following tiddlers:
 * [[SiteTitle]] &amp; [[SiteSubtitle]]: The title and subtitle of the site, as shown above (after saving, they will also appear in the browser title bar)
@@ -1095,7 +1118,7 @@ T = \frac{((P_l+\Delta w)^2+N_l^2)*(W_r-\Delta w)+ ((P_r-\Delta w)^2+N_r^2)*(W_l
 *''git show &lt;tag_name&gt;''
 </pre>
 </div>
-<div title="Gradient Descent" creator="Samuel" modifier="Samuel" created="201403180214" modified="201404290802" changecount="68">
+<div title="Gradient Descent" creator="Samuel" modifier="Samuel" created="201403180214" modified="201406230303" changecount="118">
 <pre>*{{normal{@@color(blue):''Goal'':@@
 \(minimize J(\theta_0, \theta_1..., \theta_n)\)
 }}}
@@ -1118,17 +1141,23 @@ T = \frac{((P_l+\Delta w)^2+N_l^2)*(W_r-\Delta w)+ ((P_r-\Delta w)^2+N_r^2)*(W_l
 *{{normal{@@color(blue):''Tip'':@@
 #{{normal{''对于suqared error函数有''
 :\(J(\theta_0, \theta_1..., \theta_n)＝\frac{1}{2m}\sum\limits_{i=1}^{m}{(h_{\theta}(x^{i})-y^i)^2} \\
-\frac{\partial}{\partial\theta_n}J(\theta_0, \theta_1..., \theta_n) = \frac{1}{m}\sum\limits_{i=1}^{m}{(h_{\theta}(x^{i})-y^i)*x_n^i}  \\
+\frac{\partial}{\partial\theta_n}J(\theta_0, \theta_1..., \theta_n) = \frac{1}{m}\sum\limits_{i=1}^{m}{(h_{\theta}(x^{i})-y^i)*h_{\theta}^{'}(x^i)}  \\
 m - 训练样本的个数 \\
 n  - 为特征的维数(包含第一个为1的特征)    \\
 \)
 }}}
-#{{normal{''特征归一化可以加快收敛的速度''
-# (x - mean)/(max-min)
-#{{normal{ (x - mean)/std  @@color(red):std为标准差@@
-作用是使其数据的均值为0， 方差变为1。可以用高斯分布来证明
+#''[[Feature Normalization]]可以加快收敛的速度''
 }}}
+*{{normal{@@color(blue):''与newton method的比较''@@
+#{{normal{newton method需要除以一个Hessian矩阵（即二阶偏导），即乘以其逆
+\(
+\theta = \theta - H^{-1}\frac{\partial}{\partial\theta}J(\theta)   
+\)
 }}}
+#newton method不需要学习率参数\(\alpha\)
+#newton method收敛更快
+#newton method当特征维数较大时， 其Hessian可能不存在逆
+#梯度下降方法比较简单 
 }}}</pre>
 </div>
 <div title="HOG (Histogram of oriented gradient)" creator="Samuel" modifier="Samuel" created="201207160247" modified="201305230205" tags="_IMAGE_ALGORITHM_ _FEATURE_ _HOG_" changecount="141">
@@ -1201,20 +1230,6 @@ b.在 StyleSheet 或 StyleSheetLaouts 中加入[[MyStyle]]</pre>
 
 
 </pre>
-</div>
-<div title="Img processing" creator="samuel" modifier="Samuel" created="201209270110" modified="201404290547" changecount="24">
-<pre>[[Img format convertion]]
-[[Manhattan Distance]]
-[[形态学的腐蚀和膨胀]]
-[[直方图处理]]
-[[协方差-方差-标准差]]
-[[寻找角点]]
-[[梯度]]
-[[coherent enhancing diffusion]]
-[[watershed]]
-[[最小二乘法直线拟合]]
-[[图像增强 retinex]]
-[[FFT]]</pre>
 </div>
 <div title="Iterative Scaling" creator="Samuel" modifier="Samuel" created="201306030457" modified="201306030524" changecount="16">
 <pre>matlab
@@ -1432,7 +1447,7 @@ main函数返回值必须为void
 }}}
 </pre>
 </div>
-<div title="K-Means Clustering" creator="Samuel" modifier="Samuel" created="201404290153" modified="201404290528" changecount="84">
+<div title="K-Means Clustering" creator="Samuel" modifier="Samuel" created="201404290153" modified="201404290915" changecount="85">
 <pre>*{{normal{@@color(blue):''~K-Means的目标函数''@@
 \(J(c^{(1)}, ..., c^{(M)}, u_1, ..., u_K)＝\frac{1}{M}\sum\limits_{i=1}^{m}{|x^{(i)} - u_{c^{(i)}}|^2} \\
 u_k 是聚类中心点的位置 \\ 
@@ -1527,7 +1542,7 @@ repeat until convergence:
 }}}
 </pre>
 </div>
-<div title="LATEX" creator="Samuel" modifier="Samuel" created="201211260252" modified="201403310235" changecount="112">
+<div title="LATEX" creator="Samuel" modifier="Samuel" created="201211260252" modified="201407020903" changecount="115">
 <pre>refer to http://mohu.org/info/symbols/symbols.htm 
 *{{normal{''换行与空格''
 \\或\newline
@@ -1572,6 +1587,9 @@ gamma+(1-gamma)*exp(-lambda/(mi1-mi2)^m ) \\
 *{{normal{''右对齐''
 {{{\(y\)}}} \(y\)
 }}}</pre>
+</div>
+<div title="LEVAN" creator="Samuel" modifier="Samuel" created="201405260522" changecount="1">
+<pre>http://levan.cs.washington.edu/?state=show_about</pre>
 </div>
 <div title="LIBSVM" creator="Samuel" modifier="Samuel" created="201207240628" modified="201404220936" tags="_TRAINING_ _DETECTION_ _SVM_" changecount="47">
 <pre>{{normal{@@color(red):Question@@
@@ -1640,6 +1658,10 @@ case 2（C_SVC, NU_SVC）
 svm_group_classes ： 将样本整理排列起来， 即同类的放在一起
 }}}
 }}}</pre>
+</div>
+<div title="LUA" creator="Samuel" modifier="Samuel" created="201407100748" modified="201407100750" changecount="2">
+<pre>[[Lua 解释器]]
+[[Lua Build-in Function]]</pre>
 </div>
 <div title="Linear  Regression" creator="Samuel" modifier="Samuel" created="201403180156" modified="201404290253" changecount="74">
 <pre>*{{normal{@@color(red):''Tip''@@
@@ -1725,7 +1747,7 @@ sudo apt-key adv --keyserver keyserver.ubuntu.com --recv-keys 6D975C4791E7EE5E 5
 
 }}}</pre>
 </div>
-<div title="Linux 命令" creator="Samuel" modifier="Samuel" created="201212050334" modified="201309040757" changecount="7">
+<div title="Linux 命令" creator="Samuel" modifier="Samuel" created="201212050334" modified="201407010114" changecount="10">
 <pre>&gt;[[shift]]   : 移动shell脚本传入的参数位置
 &gt;[[$()与``]] :命令替换符， 在其中执行命令并作为输入
 &gt;[[’ ‘与“ ”]]  : 单引号防止字符扩展
@@ -1740,18 +1762,21 @@ sudo apt-key adv --keyserver keyserver.ubuntu.com --recv-keys 6D975C4791E7EE5E 5
 &gt;[[ssh]] : 链接远程 
 &gt;[[dd]] : 获取指定大小文件类容到新文件 </pre>
 </div>
-<div title="Linux 技巧" creator="Samuel" modifier="Samuel" created="201304080129" modified="201310290255" changecount="4">
-<pre>*{{normal{获取文件的绝对路径
-find $(pwd)/ -type f
+<div title="Linux 技巧" creator="Samuel" modifier="Samuel" created="201304080129" modified="201407010115" changecount="10">
+<pre>*{{normal{@@color(blue):''获取文件的绝对路径''@@
+''find'' $(pwd)/ -type f
 }}}
-*{{normal{在/etc/hosts 中加如IP地址和名字映射
+*{{normal{@@color(blue):''在/etc/hosts 中加如IP地址和名字映射''@@
 127.0.1.1	samuel-mint
 这样就不用记住常用的地址， 将其放到文件的前面通过编辑器打开查看。 如：
-cat /etc/hosts
-find $(pwd)/ -type f
+''cat'' /etc/hosts
+''find'' $(pwd)/ -type f
+}}}
+*{{normal{@@color(blue):''解决linux下文件中的中文乱码问题''@@
+''iconv'' {{{-f GB18030 -t UTF-8 --output out.txt in.txt}}} 
 }}}</pre>
 </div>
-<div title="Logistic Regression" creator="Samuel" modifier="Samuel" created="201306030452" modified="201404220942" changecount="116">
+<div title="Logistic Regression" creator="Samuel" modifier="Samuel" created="201306030452" modified="201407010441" changecount="118">
 <pre>*{{normal{@@color(blue):''Hypothesis(假设函数)''@@：
 :\(
 h_\theta(X)＝\frac{1}{1+e^{-(\theta_{0}*x_0+\theta_{1}*x_1 + ... + \theta_{n}*x_n)}}\\
@@ -1814,7 +1839,17 @@ refer to @@color(green):A comparison of numerical optimizers for logistic regres
 
 }}}</pre>
 </div>
-<div title="Machine Learning Tips" creator="Samuel" modifier="Samuel" created="201404160112" modified="201404160734" changecount="29">
+<div title="Lua Build-in Function" creator="Samuel" modifier="Samuel" created="201407100751" modified="201407100752" changecount="3">
+<pre>*{{normal{@@color(blue):''dofile''(&quot;filename&quot;)@@
+加载filename中的函数，然后就可以在解释器中调用了
+}}}</pre>
+</div>
+<div title="Lua 解释器" creator="Samuel" modifier="Samuel" created="201407100749" modified="201407100750" changecount="3">
+<pre>*{{normal{''lua  -i filename''
+运行filename中代码块，然后打开lua解释器
+}}}</pre>
+</div>
+<div title="Machine Learning Miscellaneous" creator="Samuel" modifier="Samuel" created="201404160112" modified="201404290854" changecount="30">
 <pre>*{{normal{@@color(blue):''训练的改进''@@
 *{{normal{@@color(red):当模型underfit的时候， 增加训练样本不会有太大的帮助@@
 例如用线性函数去模拟二次函数的数据。就算样本增多，其最后的模型还是线性方程，无法改善
@@ -1835,20 +1870,29 @@ F1_{score} (or F_{score}) = 2*\frac{precision*recall}{precision+recall}
 \)
 }}}</pre>
 </div>
-<div title="Machine Learnning--Andrew Ng" creator="Samuel" modifier="Samuel" created="201403180055" modified="201404290548" changecount="53">
+<div title="Machine Learnning" creator="Samuel" modifier="Samuel" created="201403180049" modified="201406250544" changecount="11">
+<pre>[[Machine Learnning--Andrew Ng]]
+[[Neural Network--Geoffrey Hinton]]
+[[Unsupervised Feature Learning &amp; Deep Learning]]
+[[LEVAN]]
+[[Data Preprocessing]]</pre>
+</div>
+<div title="Machine Learnning--Andrew Ng" creator="Samuel" modifier="Samuel" created="201403180055" modified="201406250105" changecount="58">
 <pre>*[[Linear  Regression]]
 *[[Logistic Regression]]
 *[[SoftMax Regression]]
-*[[ANN]]
 *[[Gradient Descent]]
 *[[Normal Equation]]
 *[[Regularization]]
 *[[Supported Vector Machine]]
 *[[K-Means Clustering]]
 *[[Principal Component Analysis]]
-*[[Machine Learning Tips]]</pre>
+*[[Feature Normalization]]
+*[[Machine Learning Miscellaneous]]
+*[[Matrix Frobenius]]
+</pre>
 </div>
-<div title="MainMenu" creator="YourName" modifier="Samuel" created="201206180446" modified="201403180046" changecount="95">
+<div title="MainMenu" creator="YourName" modifier="Samuel" created="201206180446" modified="201407100747" changecount="100">
 <pre>!Tools
 [[Git]]
 [[Linux]]
@@ -1858,6 +1902,7 @@ F1_{score} (or F_{score}) = 2*\frac{precision*recall}{precision+recall}
 [[markdown]]
 [[TiddlyWiki Turior]]
 !Languages
+[[LUA]]
 [[Python]]
 [[octave/matlab]]
 [[Shell]]
@@ -1871,14 +1916,14 @@ F1_{score} (or F_{score}) = 2*\frac{precision*recall}{precision+recall}
 [[Make]]
 !Math
 [[sort]]
-!Computing Vision
-[[Online Learnning]]
-[[terminology-术语]]
+!Algorithm
+[[Machine Learnning]]
 [[Feature Extraction]]
-[[Img processing]]
+[[Computer Vision]]
 [[Training&amp;detection]]
 [[Face-outline]]
 [[Face-recognition]]
+[[terminology-术语]]
 ! Project
 [[Video-Retrieval]]
 ! Miscellaneous 
@@ -2037,6 +2082,23 @@ config.formatters.push({
 });
 //}}}</pre>
 </div>
+<div title="Matrix Frobenius" creator="Samuel" modifier="Samuel" created="201406190123" modified="201406190126" changecount="4">
+<pre>*@@color(blue):''法则''@@
+[img[文字说明|./img/矩阵的Frobenius范数及其求导法则.gif]]
+*@@color(blue):''例题''@@
+[img[文字说明|./img/矩阵的Frobenius范数例题gif]]</pre>
+</div>
+<div title="Neural Network Training Tricks" creator="Samuel" modifier="Samuel" created="201406270746" modified="201407020738" changecount="104">
+<pre>&gt;[[动量(Neural Network)]]
+&gt;[[学习率(Neural Network)]]
+&gt;[[权重(Neural Network)]]
+&gt;[[训练样本处理(Neural Network)]]
+&gt;[[隐层激活函数的选择(Neural Network)]]
+</pre>
+</div>
+<div title="Neural Network--Geoffrey Hinton" creator="Samuel" modifier="Samuel" created="201406250104" modified="201407030154" changecount="37">
+<pre>[[Neural Network Training Tricks]]</pre>
+</div>
 <div title="Normal Equation" creator="Samuel" modifier="Samuel" created="201403180254" modified="201403180326" changecount="31">
 <pre>*{{normal{@@color(blue):''Hypothesis(假设函数):''@@
 :\(h(X)＝\theta_{0}*x_0+\theta_{1}*x_1 + ... + \theta_{n}*x_n \\
@@ -2154,10 +2216,6 @@ object c中使用@@color(blue):@interface@@， 而不是@@color(blue):@class@@�
 </div>
 <div title="Object C FAQ" creator="Samuel" modifier="Samuel" created="201209180325" modified="201209210754" changecount="9">
 <pre></pre>
-</div>
-<div title="Online Learnning" creator="Samuel" modifier="Samuel" created="201403180049" modified="201404140249" changecount="6">
-<pre>[[Machine Learnning--Andrew Ng]]
-[[Unsupervised Feature Learning &amp; Deep Learning]]</pre>
 </div>
 <div title="OpenCL" creator="YourName" modifier="Samuel" created="201208280252" modified="201302050613" tags="__OPENCL__ __LANGUAGE__" changecount="11">
 <pre>[[OpenCL Learning]]
@@ -2419,18 +2477,57 @@ Also see [[AdvancedOptions]]</pre>
 <div title="PluginManager" creator="Samuel" modifier="Samuel" created="201207020527" modified="201207020528" changecount="3">
 <pre>&lt;&lt;plugins&gt;&gt;</pre>
 </div>
-<div title="Principal Component Analysis" creator="Samuel" modifier="Samuel" created="201301170637" modified="201404290549" tags="__PCA__" changecount="9">
-<pre>#对于一个训练集，M个sample(i=1,2,3,...,20)，特征Xi是N维[Xi1,Xi2,Xi3,...Xij,...,XiN](j=1,2,..,N)，那么它可以建立一个N*M的样本矩阵Mat
-#{{normal{紧接着我们开始求这个样本的协方差矩阵，得到一个N*N的协方差矩阵@@color(red):(如果维数太多， 可以求M*M的协方差矩阵，即奇异值分解SVD，在得到N*N的)@@，计算过程如下:
-#先求解出Xi的平均Xav=(∑xi)/M;
-#对每一个Xi,计算~Xi-Xav,即Mi(第 i 行)变为 ~Mi-Xav,记为C;
-#则容易得到协方差矩阵Z为C*C'( ' 表示转置 ) 。
+<div title="Principal Component Analysis" creator="Samuel" modifier="Samuel" created="201301170637" modified="201405200234" tags="__PCA__" changecount="74">
+<pre>*{{normal{@@color(blue):''目标方程''@@
+#{{normal{''以2D-&gt;1D为例， 寻找一个方向向量\(\vec u\),使得数据投影到方向向量上的距离和最短''
+如果是3D-&gt;2D, 则是寻找2个方向向量 \(\vec u_1, \vec u_2\), 因为两个向量可以组成一个平面, 如下图
+[img[错误的图形|./img/pca_projection.png]]
 }}}
-#然后求出这个协方差矩阵Z(N*N)的特征值和特征向量，一般情况下应该有N个特征值和特征向量，现在根据特征值的大小，取出较大的特征值以及其所对应的特征向量，（假设提取的特征值为较大的5个特征值），那么这5个特征向量就会构成一个N*5的矩阵V，这个矩阵就是我们要求的特征矩阵。
-#用Mn'去乘以V，得到一个base矩阵（*），大小为Nx5。
-#任取一个样本1xN,乘上这个N*5的特征矩阵，就得到了一个1*5的新的样本，显然每个sample的维数下降了，然后再用这个1x5向量去比较相似性。
+#{{normal{''其和线性回归的区别''
+如下图，线性回归是寻找其垂直方向上的距离和最短，而PCA是寻找其垂直投影到向量上的距离最短
+[img[错误的图形|./img/pca_linear-regression.png]]
+}}}
+}}}
+*{{normal{@@color(blue):''实现步骤''@@
+#{{normal{''求其协方差矩阵，公式见@@color(green):bishop 1.2.2 (p20)@@''
+#{{normal{计算特征的均值\(\vec {mean}\)
+:\(mean_j = \frac{1}{m}\sum_{i=1}^{m}x_j^{(i)} \\
+m 样本的个数 \\
+j 特征的维数
+\)
+}}}
+#\(\vec X = \vec X - \vec {mean}\) @@color(green):(如果特征的量纲不再一个级别，可以除以标准差进行归一化, 也可以不进行归一化，不会改变特征值， 一般图像处理中不进行归一化)@@
+#{{normal{协方差矩阵\(\sum = \frac{1}{m}\vec X * {\vec X}^T\) 
+#@@color(red):m(样本数)&lt;n(特征数)时, \(\sum\) 不可逆， 一般m&gt;10n@@
+#@@color(red):当特征线性依赖时 \(\sum\) 不可逆， 如\(x_i = w_1*x_j+w_2*x_n\)@@
+}}}
+}}}
+#{{normal{''[U,S,V] = \(svd(\sum ) \)''
+U = \([\vec u_1,..., \vec u_n]\)
+S为特征值
+@@color(red):''V'' : ??@@
+}}}
+#{{normal{''进行降维''
+#{{normal{K的选取
+#\(
+\frac{\frac{1}{m}\sum_{i=1}^{m}||x^{(i)}-x^{(i)}_{approx}||^2}{\frac{1}{m}\sum_{i=1}^m||x^{(i)}||^2}  \le 0.01\\
+\le 0.01 means  99% of variance is retained \\ 
+x_{approx}为重建后的特征
+\)
+#通过svd求解得到的S \(\frac{\sum_{i=1}^Ks_i}{\sum_{i=1}^ms_i} \geq 0.99\)
+}}}
+}}}
+#{{normal{''降维后重建''
+\(X_{approx} = U^T*(U*X)  U为通过svd求解的U的前K列向量\)
+@@color(red):因为U是正交矩阵\(U^T = U^{-1}\), 因为是协方差矩阵是对角矩阵(bishop p699)@@
+}}}
+}}}
+*{{normal{@@color(blue):''PCA的用途''@@
+#用来降维进行训练算法的加速
+#用来显示数据的主要分布
+#@@color(red):''不要用PCA进行降维预防过拟合''@@
+}}}
 
-PS:上述3）过程中特征值的选取在不确定具体要降到多少维的情况下，一般还可以根据n个特征值之和大于总和的90%进行选取。上面的（*）处base矩阵的求解不唯一，也可以自行修正
 </pre>
 </div>
 <div title="Python" creator="Samuel" modifier="Samuel" created="201206290703" modified="201403030806" tags="_SCRIPT_LANGUAGE_ _PYTHON_" changecount="40">
@@ -2581,7 +2678,7 @@ from: 0-文件开头@@color(red):(或不提供)@@  1-文件当前位置2-文件�
 : 使用''socket.connect()''@@color(green):(使用connect以后，客户机只和connect的地址交互)@@以后使用''socket.getpeername()''
 </pre>
 </div>
-<div title="Python Miscellaneous" creator="samuel" modifier="Samuel" created="201209130328" modified="201310160153" changecount="35">
+<div title="Python Miscellaneous" creator="samuel" modifier="Samuel" created="201209130328" modified="201407010628" changecount="36">
 <pre>*@@color(blue):''运算符''@@
 &gt;** :平方
 &gt;{{{//}}} : 浮点除法（四舍五入），from __future__ import division ： / 将使用真正的浮点除法，不会管是否整数
@@ -2594,7 +2691,8 @@ from: 0-文件开头@@color(red):(或不提供)@@  1-文件当前位置2-文件�
 &gt;python中long可以表示非常大的数据，@@color(red):与你的类存有关@@，只要在数字后面加上大写L
 *@@color(blue):''print语句会自动加一个回车符''@@
 &gt;print语句后加逗号取消换行
-</pre>
+*@@color(blue):''支持中文''@@
+&gt;# -*- coding: utf-8 -*-</pre>
 </div>
 <div title="Python Tkinter" creator="Samuel" modifier="Samuel" created="201308190544" changecount="1">
 <pre>安装tcl/tk 或者安装python-tk</pre>
@@ -3159,7 +3257,7 @@ StyleSheet for ~SyntaxHighlighter
 
 /*}}}*/</pre>
 </div>
-<div title="Supported Vector Machine" creator="Samuel" modifier="Samuel" created="201404220937" modified="201404290307" changecount="54">
+<div title="Supported Vector Machine" creator="Samuel" modifier="Samuel" created="201404220937" modified="201406270708" changecount="63">
 <pre>*{{normal{@@color(blue):''SVM的Cost Function''@@
 *{{normal{@@color(green):logistic regressition@@
 \(
@@ -3173,7 +3271,7 @@ J(\theta)＝C\sum\limits_{i=1}^{m}y^iCost_1(z)+(1-y^i)Cost_0(z) + \frac{1}{2}\su
 [img[文字说明|./img/svm_kernel.png]]
 *''linear kernel''@@color(red):(即没有核函数)@@
 :\(z=\theta^Tx \)
-*''kernel'' @@color(red):(以gaussian kernel 为例)@@
+*''kernel'' @@color(red):(以gaussian kernel 为例) @@
 :\(
 z=\theta^Tf \\ 
 f_1 = similiarty(x,l_1) = exp(-\frac{(x-l_1)^T(x-l_1)}{2\sigma^2})\\
@@ -3237,7 +3335,7 @@ var dp={sh:{Toolbar:{},Utils:{},RegexLib:{},Brushes:{},Strings:{AboutDialog:&quo
 [[Howto hide the left MainMenu]]
 [[LATEX]]</pre>
 </div>
-<div title="Todo" creator="Samuel" modifier="Samuel" created="201207240627" modified="201401130935" changecount="44">
+<div title="Todo" creator="Samuel" modifier="Samuel" created="201207240627" modified="201405190101" changecount="46">
 <pre>#{{normal{看一下特征选择的文章
 Learning Discriminant Features forMulti-View Face and Eye Detection
 }}}
@@ -3250,6 +3348,12 @@ http://luks.fe.uni-lj.si/sl/osebje/vitomir/face_tools/INFace/
 
 http://s2013.siggraph.org/submitters/technical-papers
 *[[paper plan]]
+
+*{{normal{ source code
+*{{normal{ face
+http://libccv.org/doc/doc-bbf/
+}}}
+}}}
 
 
 </pre>
@@ -3287,6 +3391,37 @@ http://deeplearning.stanford.edu/wiki/index.php/UFLDL_Tutorial
 &lt;div class='viewer' macro='view text wikified'&gt;&lt;/div&gt;
 &lt;div class='tagClear'&gt;&lt;/div&gt;
 &lt;!--}}}--&gt;</pre>
+</div>
+<div title="Whiten" creator="Samuel" modifier="Samuel" created="201406250546" modified="201406250559" changecount="17">
+<pre>*{{normal{@@color(blue):'' PCA Whiten''@@ 
+*{{normal{''步骤:''
+#计算数据的协方差矩阵\(M\)，并计算协方差矩阵的特征向量矩阵\(U\)和特征值向量\(\lambda\)
+#将数据进行PCA投影，即\(X_{rot} = U^T X_{ori}\)
+#使投影后的数据拥有单位方差，即\(X_{PCAWhiten, i} = \frac{X_{rot, i}}{\sqrt{\lambda_i + \epsilon}}\). (\(\epsilon\)起到一个低通滤波的功能)
+#''[Optional]''在第2步的数据投射时，可以进行降维操作
+}}}
+*{{normal{''如何选择\(\epsilon\)：''
+#{{nomral{估计的方法：
+*当数据\(x_{rot}\)在\([-1,1]\)时， \(\epsilon\simeq10^{-5}\)
+*当数据\(x_{rot}\)在\([0,255]\)时， \(\epsilon\simeq0.1\)
+}}}
+#{{normal{分析的方法：
+ 将\(\lambda\)按大小画出下图，其\(\episilon\)大于大多数比较小的特征值，即最好消除途中的Long tail
+[img[文字说明|./img/ZCA_Eigenvalues_Plot.png]]
+}}}
+}}}
+}}}
+
+*{{normal{@@color(blue):'' ZCA Whiten''@@ 
+*{{normal{''步骤:'' 
+将PCA whiten后的数据反投射到原始的数据空间，即\(X_{ZCAWhiten} = UX_{PCAWhiten}\)
+}}}
+*{{normal{''Tips：''
+* \(U\)是正交矩阵，即\(U^TU=UU^T=I\)
+* 进行ZCA Whiten的时候， 在PCA Whiten步骤中不做降维操作
+}}}
+
+  </pre>
 </div>
 <div title="WindowTitle" creator="YourName" modifier="YourName" created="201206180441" changecount="1">
 <pre>&lt;&lt;tiddler SiteTitle&gt;&gt; - &lt;&lt;tiddler SiteSubtitle&gt;&gt;</pre>
@@ -3372,8 +3507,9 @@ void fastFree(void* ptr)
 
 </pre>
 </div>
-<div title="book_list" creator="Samuel" modifier="Samuel" created="201403030755" changecount="1">
-<pre>数学指南：实用数学手册</pre>
+<div title="book_list" creator="Samuel" modifier="Samuel" created="201403030755" modified="201405190101" changecount="3">
+<pre>数学指南：实用数学手册
+</pre>
 </div>
 <div title="c++ single instance" creator="Samuel" modifier="Samuel" created="201306190851" modified="201307160422" changecount="9">
 <pre>&lt;code c&gt;
@@ -4355,7 +4491,7 @@ MAX : \frac{PN}{P+N} = \frac{P_lN_l}{P_l+N_l} + \frac{P_rN_r}{P_r+N_r}
 :获取文件大小
 </pre>
 </div>
-<div title="paper plan" creator="Samuel" modifier="Samuel" created="201311290318" modified="201401130935" changecount="4">
+<div title="paper plan" creator="Samuel" modifier="Samuel" created="201311290318" modified="201406100113" changecount="5">
 <pre>*{{normal{@@color(blue):目标识别使用部分识别的方法@@
 #Pictorial Structures for Object Recognition
 #Object Detection with Discriminatively Trained Part Based Models
@@ -4370,6 +4506,12 @@ boost
 real 和 gental adaboost
 Face Detection with the Modified Census Transform最后一层使用的snow分类器
 搜索策略
+}}}
+
+#{{normal{@@color(blue):CNN相关@@
+检测框
+人脸识别
+outline
 }}}
 </pre>
 </div>
@@ -4835,6 +4977,25 @@ tag[1:4:2] 为2  4。@@color(green):''2为步长， 上面的默认步长为1''@
 
 </pre>
 </div>
+<div title="动量(Neural Network)" creator="Samuel" modifier="Samuel" created="201407020122" modified="201407020546" changecount="6">
+<pre>*{{normal{@@color(blue):''传统的方法''@@
+\(
+v(t) = \alpha v(t-1)  - \epsilon \frac{\partial E}{\partial w}(t)  \hspace{8mm}  \alpha微小于1(如 0.9， 0.99) \\
+\Delta w(t) = v(t) = \alpha \Delta w(t-1)  - \epsilon \frac{\partial E}{\partial w}(t)
+\)
+\(\alpha\)最好一开始设小一点(如0.5)， 后面慢慢增大到一个值(0.9or0.99)
+}}}
+*{{normal{@@color(blue):''Ilya Sutskever(Based on Nesterov Accelerated Gradient)''@@
+Please refer to &quot;On the importance of initialization and momentum in deep learning&quot;
+先加上前面的累积更新，然后再计算梯度进行修正（不是和前面一样加在一起）
+\(
+w(t) =w(t-1) + \alpha  v(t-1) \\
+\Delta w(t) = - \epsilon \frac{\partial E}{\partial w}(t) \\ 
+w(t) =w(t) + \Delta w(t)\\
+v(t) = \alpha v(t-1) + \Delta w(t)
+\)
+}}}</pre>
+</div>
 <div title="协方差-方差-标准差" creator="samuel" modifier="samuel" created="201209270548" modified="201209270605" changecount="11">
 <pre>*@@color(blue):''方差''@@
 &gt;''D(X)=E[ (X - E(X)) (X - E(X)) ]''是各个数据与''平均数''之差的平方的平均数。 用来衡量一个样本中，样本值的偏离程度
@@ -4959,6 +5120,28 @@ res = str.split('+')
 &lt;/code&gt;
 }}}</pre>
 </div>
+<div title="学习率(Neural Network)" creator="Samuel" modifier="Samuel" created="201407020124" modified="201407020716" changecount="13">
+<pre>*{{normal{@@color(blue):''采用动态的学习率''@@
+ 如越来越小，这样在最后收敛时就不会振荡（特别是mini-batch）
+}}}
+*{{normal{@@color(blue):''每个样本采用不同的学习率''@@
+#根据每个神经元的输入个数，其学习比率较其他的神经元也要相应的小一些。类似于[[权重初始化(Neural Network)]]第2条
+#{{normal{根据前后的梯度变化动态的更新
+*{{normal{@@color(red):''方法''@@
+\(\Delta w_{ij} = - \epsilon g_{ij} \frac{\partial{E}}{\partial{w_{ij}}} \)
+\(if \hspace{8mm}（i，j)的梯度前后没有发生了正负号的变化\) (也可以使用当前的梯度符号和[[动量(Neural Network)]]中的前一次v的符号)
+\(
+then \hspace{8mm} g_{ij}(t) = g_{ij}(t-1)+0.05 \\
+else   \hspace{8mm} g_{ij}(t) = g_{ij}(t-1)*0.95   \\
+\)
+}}}
+*{{normal{@@color(red):''Attention:''@@
+#g最好在合适的范围内，如[0.1, 10] or [0.01,100]。
+#此方法适合full-patch或者big mini-patch。 因为梯度的正负号可能是由于采样造成的
+}}}
+}}}
+}}}</pre>
+</div>
 <div title="寻找角点" creator="Samuel" modifier="Samuel" created="201211160324" modified="201211160324" changecount="3">
 <pre>*{{normal{@@color(blue):''Harris''@@
 
@@ -5030,6 +5213,69 @@ r = \frac{(\sum x_i-X \sum(y_i-Y)}{\sqrt{\sum(x_i-X)^2}\sqrt{\sum(y_i-Y)^2}} \\
 $$
  |r|&lt;=1, 如果|r|-&gt;0 想x，y无线性关系 拟合无效
 </pre>
+</div>
+<div title="权重(Neural Network)" creator="Samuel" modifier="Samuel" created="201407020127" modified="201407040924" changecount="59">
+<pre>{{normal{@@color(blue):''权重初始化''@@
+*{{normal{''打破对称性''
+任何两个神经元拥有相同的参数， 其训练过程中，更新将完全一样， 因此神经元不一样其权重初始值也需不一样
+}}}
+*{{normal{''权重的大小''
+如果一个神经元的输入比较多，其初始化值一般要比较小。最好就是和输入的个数的平方根成比例。如下面的方式
+:\(
+epsilon_{init} = \frac{\sqrt{6}}{\sqrt{L_{out}+L_{in}}} \\
+W = rand(L_{out}, 1+L_{in})*2*epsilon_{init} - epsilon_{init}
+\)
+}}}
+}}}
+{{normal{@@color(blue):''权重更新''@@
+*{{normal{''RPROP'' : resilient propagation - 'A Direct Adaptive Method for Faster Backpropagation Learning: The RPROP Algorithm'
+*{{normal{''算法''
+只用偏导数的方向，使用一个更新值变量\(\Delta_{ij}\)进行权重更新
+#{{normal{更新值的计算
+\(
+\Delta_{ij}^{(t)} = \begin{cases} 
+\eta^+ * \Delta_{ij}^{(t-1)}  \hspace{8mm} if \frac{\partial{E^{(t-1)}}}{\partial{w_{ij}}} * \frac{\partial{E^{(t)}}}{\partial{w_{ij}}}  &gt; 0\\
+\eta^- * \Delta_{ij}^{(t-1)}   \hspace{8mm} if \frac{\partial{E^{(t-1)}}}{\partial{w_{ij}}} * \frac{\partial{E^{(t)}}}{\partial{w_{ij}}}  &lt; 0   \\
+\Delta_{ij}^{(t-1)}    \hspace{8mm} else
+\end{cases}  \\
+\hspace{8mm}其中 0 &lt; \eta^-  &lt; 1 &lt; \eta^+  \\
+(文章中建议\eta^- =0.5， \eta^+ = 1.2, \Delta_0 = 0.1, 且\Delta \in  [1e^{-6}, 50])
+
+\)
+}}}
+#{{normal{权重值的计算
+\(
+\Delta w_{ij}^{(t)} = \begin{cases} 
+- \Delta_{ij}^{(t)}  \hspace{8mm} if \frac{\partial{E^{(t)}}}{\partial{w_{ij}}}  &gt; 0\\
++\Delta_{ij}^{(t)}  \hspace{8mm} if \frac{\partial{E^{(t)}}}{\partial{w_{ij}}}  &lt; 0   \\
+0   \hspace{8mm} else
+\end{cases}  \\
+\hspace{8mm} w_{ij}^{(t+1)} = w_{ij}^{(t)} + \Delta w_{ij}^{(t)} 
+\)
+当前后两次梯度方向发生变化时，权重选择前一次的权重相反值，回到前两次的状态
+\(
+\Delta w_{ij}^{(t)} = -\Delta w_{ij}^{(t-1)}    \hspace{8mm} if \frac{\partial{E^{(t-1)}}}{\partial{w_{ij}}} * \frac{\partial{E^{(t)}}}{\partial{w_{ij}}}  &lt; 0   \\
+为了防止\Delta再次被惩罚，设置 \frac{\partial{E^{(t-1)}}}{\partial{w_{ij}}}=0
+\)  
+}}}
+}}}
+*{{normal{@@color(red):''Attention:''@@
+*只适合full-patch方法, 不太适合mini-patch，因为mini-patch太多的话， 一次mini-patch结束，\(\Delta\)发生多次的更新。 导致值更新太频繁。
+}}}
+}}}
+*{{normal{''RMSPROP'' -- RPROP为mini-patch的改进版@@color(green):''(hinton比较喜欢)''@@
+*{{normal{步骤
+\(
+MeanSquare(w_{ij}, t) = 0.9  MeanSquare(w_{ij}, t-1) + 0.1  (\frac{\partial{E}}{\partial{w_{ij}}}^{(t)})^2 \\
+\Delta w_{ij}^{(t)} = \frac{\partial{E}}{\partial{w_{ij}}}^{(t)} / MeanSquare(w_{ij}, t)  \\ 
+w_{ij}^{(t)} = w_{ij}^{(t-1)} - \Delta w_{ij}^{(t)}
+\)
+}}}
+*{{normal{@@color(red):''Attention''@@
+当使用RMSPROP时，学习率要小一点，如0.001左右
+}}}
+}}}
+}}}</pre>
 </div>
 <div title="格式" creator="Samuel" modifier="samuel" created="201206180454" modified="201304170727" tags="TiddlyWilki" changecount="124">
 <pre>#使用#添加数字标题
@@ -5197,6 +5443,23 @@ for(int i=1; i&lt;L; i++)
 *@@&quot;~&quot;@@使用合并垂直单元格
 | First column|dd|Third column|
 |~| centre | right|</pre>
+</div>
+<div title="训练样本处理(Neural Network)" creator="Samuel" modifier="Samuel" created="201407020129" modified="201407020129" changecount="2">
+<pre>*{{normal{@@color(blue):''使整个训练样本的均值为0 ''@@
+即每个训练样本的每个维度上的值减去整个训练集的平均值，好处是使得错误表面接近园，而不是扁长的椭圆。 如下图：
+[img[文字说明|./img/Ann_input_have_mean_0.png]]
+}}}
+*{{normal{@@color(blue):''归一化样本，使样本的每一个维度上的值的方差为单位方差''@@
+作用与使整个训练样本的均值为0的效果一样如下图：
+[img[文字说明|./img/ANN_input_scale.png]]
+}}}
+*[[Whiten]]</pre>
+</div>
+<div title="隐层激活函数的选择(Neural Network)" creator="Samuel" modifier="Samuel" created="201407020131" modified="201407020131" changecount="2">
+<pre>*{{normal{@@color(blue):''htan与sigmoid（\(htan(x) = 2sigmoid(x) -1\)）''@@
+*函数htan的输出在[-1，1]，因此其输出的值均值为0(@@color(red):前提:htan的输入是在0周围分布的@@).符合[[训练样本处理(Neural Network)]]第1条，此时htan比sigmoid好
+*sigmoid比htan好的地方:当某个值的输出为0以后， 小于这个值的输出也为0，@@color(red):tanh怎么做到呢??@@
+}}}</pre>
 </div>
 <div title="集合" creator="samuel" modifier="samuel" created="201209060217" changecount="1">
 <pre>*@@bgcolor(green):说明@@
