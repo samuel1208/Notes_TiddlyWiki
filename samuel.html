@@ -1659,12 +1659,13 @@ svm_group_classes ： 将样本整理排列起来， 即同类的放在一起
 }}}
 }}}</pre>
 </div>
-<div title="LUA" creator="Samuel" modifier="Samuel" created="201407100748" modified="201407131239" changecount="5">
+<div title="LUA" creator="Samuel" modifier="Samuel" created="201407100748" modified="201407131418" changecount="6">
 <pre>[[Lua Build-in Function]]
 [[Lua Type]]
 [[Lua Operator]]
 [[Lua 控制结构]]
-[[Lua Miscellaneous]]</pre>
+[[Lua Miscellaneous]]
+[[Lua Function]]</pre>
 </div>
 <div title="Linear  Regression" creator="Samuel" modifier="Samuel" created="201403180156" modified="201404290253" changecount="74">
 <pre>*{{normal{@@color(red):''Tip''@@
@@ -1845,6 +1846,34 @@ refer to @@color(green):A comparison of numerical optimizers for logistic regres
 <div title="Lua Build-in Function" creator="Samuel" modifier="Samuel" created="201407100751" modified="201407100752" changecount="3">
 <pre>*{{normal{@@color(blue):''dofile''(&quot;filename&quot;)@@
 加载filename中的函数，然后就可以在解释器中调用了
+}}}</pre>
+</div>
+<div title="Lua Function" creator="Samuel" modifier="Samuel" created="201407131419" modified="201407131426" changecount="5">
+<pre>*{{normal{@@color(blue):''定义''@@
+&lt;code lua&gt;
+function  foo(para)
+...
+end
+&lt;/code&gt;
+}}}
+*{{normal{@@color(blue):''调用''@@
+#{{normal{当函数只有一个参数，且参数是字符串或table对象时，可以不需要括号
+&lt;code lua&gt;
+print &quot;hello world&quot;-- ok
+print 10  -- wrong
+&lt;/code&gt;
+}}}
+#{{normal{参数个数可以不匹配
+&lt;code lua&gt;
+-- 定义
+function  foo(a, b)
+print(a, b)
+end
+--调用
+foo(10)  ---&gt; 10, nil   第二个参数值为nil
+foo(10,10,10)  ---&gt; 10, 10  第三个数值被忽略
+&lt;/code&gt;
+}}}
 }}}</pre>
 </div>
 <div title="Lua Miscellaneous" creator="Samuel" modifier="Samuel" created="201407131238" changecount="1">
