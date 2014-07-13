@@ -1848,7 +1848,7 @@ refer to @@color(green):A comparison of numerical optimizers for logistic regres
 加载filename中的函数，然后就可以在解释器中调用了
 }}}</pre>
 </div>
-<div title="Lua Function" creator="Samuel" modifier="Samuel" created="201407131419" modified="201407131426" changecount="5">
+<div title="Lua Function" creator="Samuel" modifier="Samuel" created="201407131419" modified="201407131430" changecount="7">
 <pre>*{{normal{@@color(blue):''定义''@@
 &lt;code lua&gt;
 function  foo(para)
@@ -1870,6 +1870,7 @@ function  foo(a, b)
 print(a, b)
 end
 --调用
+foo()  ---&gt; nil, nil   第一、二个参数值为nil
 foo(10)  ---&gt; 10, nil   第二个参数值为nil
 foo(10,10,10)  ---&gt; 10, 10  第三个数值被忽略
 &lt;/code&gt;
