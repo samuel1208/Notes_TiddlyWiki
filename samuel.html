@@ -1659,13 +1659,15 @@ svm_group_classes ： 将样本整理排列起来， 即同类的放在一起
 }}}
 }}}</pre>
 </div>
-<div title="LUA" creator="Samuel" modifier="Samuel" created="201407100748" modified="201407131418" changecount="6">
+<div title="LUA" creator="Samuel" modifier="Samuel" created="201407100748" modified="201407140530" changecount="8">
 <pre>[[Lua Build-in Function]]
 [[Lua Type]]
 [[Lua Operator]]
 [[Lua 控制结构]]
 [[Lua Miscellaneous]]
-[[Lua Function]]</pre>
+[[Lua Function]]
+[[Lua Variable]]
+[[Lua Closures]]</pre>
 </div>
 <div title="Linear  Regression" creator="Samuel" modifier="Samuel" created="201403180156" modified="201404290253" changecount="74">
 <pre>*{{normal{@@color(red):''Tip''@@
@@ -1848,33 +1850,153 @@ refer to @@color(green):A comparison of numerical optimizers for logistic regres
 加载filename中的函数，然后就可以在解释器中调用了
 }}}</pre>
 </div>
-<div title="Lua Function" creator="Samuel" modifier="Samuel" created="201407131419" modified="201407131430" changecount="7">
-<pre>*{{normal{@@color(blue):''定义''@@
+<div title="Lua Closures" creator="Samuel" modifier="Samuel" created="201407140532" modified="201407140535" changecount="8">
+<pre>*一个closure就是函数加上所有他能正确访问的non-local变量
+*{{normal{closure提供了sandbox功能，如
 &lt;code lua&gt;
-function  foo(para)
-...
+-- Case 1
+do
+    local oldSin = math.sin
+    local k = math.pi/180 
+    math.sin = function (x)  -- oldSin并不会因为 do-end函数块结束而消失
+                   return oldSin(x*k)
+               end
 end
+-- Case 2
+do
+    local oldOpen = io.open   -- oldOpen, access_OK并不会因为 do-end函数块结束而消失
+    local access_OK = function (filename, mode)
+                          &lt;check access&gt;
+                      end
+    io.open = function (filename, mode)
+                 if access_OK(filename, mode) then
+                     return oldOpen(filename, mode)
+                 else
+                     return nil, &quot;access denied&quot;
+                 end
+              end
+end
+
 &lt;/code&gt;
-}}}
-*{{normal{@@color(blue):''调用''@@
-#{{normal{当函数只有一个参数，且参数是字符串或table对象时，可以不需要括号
+}}}</pre>
+</div>
+<div title="Lua Function" creator="Samuel" modifier="Samuel" created="201407131419" modified="201407140821" changecount="35">
+<pre>*[[Lua Function Definition]]
+*[[Lua Function Call]]
+*{{normal{@@color(blue):''返回''@@
+&lt;code lua&gt;
+--定义
+function foo0 () end
+function foo2 () return &quot;a&quot;, &quot;b&quot; end
+--case 1 ：当函数调用不是列表里面最后一个元素时(或仅有一个参数)，只会返回一个值
+x,y = foo2(), 20        ----&gt;  x=&quot;a&quot;, y=20 而不是a，b
+print(foo2())           ----&gt;  a, b
+print(foo2(), 1)        ----&gt;  a, 1
+print(foo2() .. &quot;x&quot;)    ----&gt;  ax
+t = {foo2()}            ----&gt;  t = {&quot;a&quot;, &quot;b&quot;}
+t = {foo0(), foo2(), 4} ----&gt; t[1] = nil, t[2] = &quot;a&quot;, t[3] = 4
+&lt;/code&gt;
+}}}</pre>
+</div>
+<div title="Lua Function Call" creator="Samuel" modifier="Samuel" created="201407140821" modified="201407140826" changecount="5">
+<pre>#{{normal{当函数只有一个参数，且参数是字符串或table对象时，可以不需要括号
 &lt;code lua&gt;
 print &quot;hello world&quot;-- ok
 print 10  -- wrong
 &lt;/code&gt;
 }}}
-#{{normal{参数个数可以不匹配
+#{{normal{参数个数可以不匹配(与返回值一样)
 &lt;code lua&gt;
 -- 定义
-function  foo(a, b)
-print(a, b)
-end
+function  foo(a, b)   print(a, b)  end
 --调用
 foo()  ---&gt; nil, nil   第一、二个参数值为nil
 foo(10)  ---&gt; 10, nil   第二个参数值为nil
 foo(10,10,10)  ---&gt; 10, 10  第三个数值被忽略
 &lt;/code&gt;
 }}}
+#{{normal{tail call
+&lt;code lua&gt;
+function f (x) return g(x) end 
+-- 函数g返回以后将直接返回不会返回f
+--这样在递归中，将不会造成栈溢出， 因为不需要保存f的信息
+
+-- 以下不属于tail call
+1.function f (x)  g(x) end
+2.return g(x) + 1    -- must do the addition
+3.return x or g(x)   -- must adjust to 1 result
+4.return (g(x))      -- must adjust to 1 result   
+&lt;/code&gt;
+}}}</pre>
+</div>
+<div title="Lua Function Definition" creator="Samuel" modifier="Samuel" created="201407140733" modified="201407140804" changecount="7">
+<pre>#{{normal{''一般的函数定义''
+&lt;code lua&gt;
+-- case1
+function  foo(para)  body end
+-- case2
+foo = function  (para)  body end
+-- case3   返回函数的导数函数
+function derivative (f, delta)
+    delta = delta or 1e-4
+    return function (x)
+                  return (f(x + delta) - f(x))/delta
+              end
+end
+&lt;/code&gt;
+}}}
+#{{normal{''可变参数函数定义''
+&lt;code lua&gt;
+function  foo(...)
+    local a, b = ...   -- 将所有参数付给a,b 不够的为nil，多余的舍弃
+end
+&lt;/code&gt;
+}}}
+#{{normal{''带名字的参数''
+Lua本身不支持，可以通过Table实现
+&lt;code lua&gt;
+function rename(table_arg) something end
+rename{old=&quot;temp.lua&quot;, new=&quot;temp1.lua&quot;} -- 调用时此处可以不用小括号
+&lt;/code&gt;
+}}}
+#{{normal{''内嵌函数''
+@@color(red):函数内的局部变量对子函数是可见的@@
+&lt;code lua&gt;
+function foo1()
+    i = 10
+    return function () return i+10 end  -- 此函数返回函数， 其i 在嵌套函数中是可见的
+&lt;/code&gt;
+}}}
+#{{normal{''local函数''
+@@color(red):限制函数的作用域， 且Lua中一般将local的声明与实现分开@@
+&lt;code lua&gt;
+-- Right but no good
+local function foo1()  &lt;body&gt; end
+-- Good
+local foo1;  function foo1()  &lt;body&gt; end
+local foo1;  foo1=function ()  &lt;body&gt; end
+---------------------------------------------------
+-- Case 1 递归
+local fact
+fact = function (n)
+  if n == 0 then return 1
+  else return n*fact(n-1)  -- 如果声明是实现在一起时， 
+  end                      -- 其local的fact还没有定义完， 其寻找全局的fact函数
+end
+---------------------------------------------------
+-- Case 2 函数的相互调用
+local f, g  --此处必须预先定义
+function g ()
+  &lt;some code&gt;
+  f()
+  &lt;some code&gt; 
+end 
+function f () 
+  &lt;some code&gt;
+  g()
+  &lt;some code&gt; 
+end 
+&lt;/code&gt;
 }}}</pre>
 </div>
 <div title="Lua Miscellaneous" creator="Samuel" modifier="Samuel" created="201407131238" changecount="1">
@@ -1971,7 +2093,7 @@ invalid
 }}}
 }}}</pre>
 </div>
-<div title="Lua Table" creator="Samuel" modifier="Samuel" created="201407131240" modified="201407131240" changecount="2">
+<div title="Lua Table" creator="Samuel" modifier="Samuel" created="201407131240" modified="201407140049" changecount="4">
 <pre>*{{normal{@@color(blue):''key访问''@@
 &lt;code lua&gt;
 &gt; a={}
@@ -1997,6 +2119,13 @@ print(a[1])    ---&gt;    sun  index从1开始
 &lt;/code&gt;
 }}}
 #真正体现table长度，应在table中用一个变量来统计个数， 或者遍历table，统计其个数
+}}}
+*{{normal{@@color(blue):''table.pack''@@
+可以将nil放到table中, 并且有个n里面保存了table元素的个数
+&lt;code lua&gt;
+a = table.pack{1,2,nil}
+a.n == 3
+&lt;/code&gt;
 }}}</pre>
 </div>
 <div title="Lua Type" creator="Samuel" modifier="Samuel" created="201407131239" changecount="1">
@@ -2022,6 +2151,40 @@ Lua中唯一的数据结构化机制， see more detail in [[Lua Table]]
 *{{normal{@@color(blue): ''thread''@@
 }}}
 *{{normal{@@color(blue): ''function''@@
+}}}</pre>
+</div>
+<div title="Lua Variable" creator="Samuel" modifier="Samuel" created="201407140457" modified="201407140530" changecount="20">
+<pre>*{{normal{@@color(blue):''global''@@
+没有加local申明的都是global（除了函数的参数）
+}}}
+*{{normal{@@color(blue):''local''@@
+#函数参数也是local的
+#在函数里面最好都用local，如：
+&lt;code lua&gt;
+function foo()  i=10 end   |    function foo() local i=10 end  
+foo()                      |    print i   -----&gt; nil
+print i   -----&gt; 10        |
+&lt;/code&gt;
+}}}
+*{{normal{@@color(blue):''upvalue'' or ''non-local''@@
+一个函数使用了一个非全局变量，且这个变量并不是由此函数定义的
+&lt;code lua&gt;
+function foo ()
+    local i = 0
+    return function ()
+        i = i + 1    -- 此处就是一个upvalue  
+        return i     -- 注意：此处，foo返回以后，i就不存在了。 因此Lua中使用Closure来管理
+    end              
+end
+-- anonymous function
+c1 = foo()
+print(c1()) --&gt; 1
+print(c1()) --&gt; 2
+c2 = foo()    -- c1与c2代表了不同的封闭区域， 其每一个都有自己的局部变量
+print(c2()) --&gt; 1
+print(c1()) --&gt; 3
+print(c2()) --&gt; 2
+&lt;/code&gt;
 }}}</pre>
 </div>
 <div title="Lua 控制结构" creator="Samuel" modifier="Samuel" created="201407131241" modified="201407131336" changecount="23">
@@ -2934,8 +3097,10 @@ from: 0-文件开头@@color(red):(或不提供)@@  1-文件当前位置2-文件�
 : 使用''socket.connect()''@@color(green):(使用connect以后，客户机只和connect的地址交互)@@以后使用''socket.getpeername()''
 </pre>
 </div>
-<div title="Python Miscellaneous" creator="samuel" modifier="Samuel" created="201209130328" modified="201407010628" changecount="36">
-<pre>*@@color(blue):''运算符''@@
+<div title="Python Miscellaneous" creator="samuel" modifier="Samuel" created="201209130328" modified="201407140733" changecount="38">
+<pre>*@@color(blue):''xrange''@@
+&gt;循环中应该使用xrange，这样每次只生成一个数， 而不是直接生成所有的列表
+*@@color(blue):''运算符''@@
 &gt;** :平方
 &gt;{{{//}}} : 浮点除法（四舍五入），from __future__ import division ： / 将使用真正的浮点除法，不会管是否整数
 &gt;不支持++， -- .。++和-- 等价于 -（-） 没有效果还是原值
@@ -3086,10 +3251,10 @@ if __name__ == &quot;__main__&quot;:
 }}}
 </pre>
 </div>
-<div title="Python控制结构" creator="Samuel" modifier="Samuel" created="201206290847" modified="201308230117" tags="_PYTHON_" changecount="62">
+<div title="Python控制结构" creator="Samuel" modifier="Samuel" created="201206290847" modified="201407140731" tags="_PYTHON_" changecount="65">
 <pre>@@bgcolor(green):''python中没有switch-case, 可以用if-elif 或 字典来实现''@@
 *@@color(blue):''控制结构可以用在list的赋值中''@@
-&gt;sqdEvens = [x ** 2 for x in range(8) if x&gt;2 ]
+&gt;sqdEvens = [x ** 2 for x in range(8) if x&gt;2 ]. 
 *@@color(blue):''while &amp; for''@@
 *{{normal{
 &lt;code python&gt;
