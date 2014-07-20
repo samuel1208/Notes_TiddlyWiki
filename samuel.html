@@ -1659,7 +1659,7 @@ svm_group_classes ： 将样本整理排列起来， 即同类的放在一起
 }}}
 }}}</pre>
 </div>
-<div title="LUA" creator="Samuel" modifier="Samuel" created="201407100748" modified="201407140530" changecount="8">
+<div title="LUA" creator="Samuel" modifier="Samuel" created="201407100748" modified="201407190804" changecount="10">
 <pre>[[Lua Build-in Function]]
 [[Lua Type]]
 [[Lua Operator]]
@@ -1667,7 +1667,8 @@ svm_group_classes ： 将样本整理排列起来， 即同类的放在一起
 [[Lua Miscellaneous]]
 [[Lua Function]]
 [[Lua Variable]]
-[[Lua Closures]]</pre>
+[[Lua Closures]]
+[[Torch]]</pre>
 </div>
 <div title="Linear  Regression" creator="Samuel" modifier="Samuel" created="201403180156" modified="201404290253" changecount="74">
 <pre>*{{normal{@@color(red):''Tip''@@
@@ -3778,6 +3779,307 @@ http://libccv.org/doc/doc-bbf/
 
 
 </pre>
+</div>
+<div title="Torch" creator="Samuel" modifier="Samuel" created="201407190804" modified="201407200106" changecount="7">
+<pre>[[Torch Storage]]
+[[Torch File]]
+[[Torch Serialization]]
+[[Torch Tensor]]</pre>
+</div>
+<div title="Torch File" creator="Samuel" modifier="Samuel" created="201407191138" modified="201407200133" changecount="63">
+<pre>{{normal{@@color(blue):''基本函数''@@
+&lt;code lua&gt;
+-- 1. 读取
+  -- 读取一个数值。TYPE可以是Byte, Char, Short, Int, Long, Float, Double, Bool
+    [number] readTYPE()   
+  -- 读取n个数值并返回一个新的TYPEStorage          
+    [TYPEStorage]readTYPE(n)    
+  -- 读取TYPEStorage大小的元素到TYPEStorage中并返回实际读取到的元素个数
+    [number] readTYPE(TYPEStorage) 
+
+-- 2. 写入
+  -- 写一个数据到文件中，参数会根据TYPE进行转换,无返回值
+    writeTYPE(number)
+  -- 将TYPEStorage中的数据写入到文件，并返回写入元素的个数
+    [numbe] writeTYPE(TYPEStorage)
+
+-- 3. 格式
+    ascii()  --文本格式为默认格式
+    binary() -- 二进制格式
+
+-- 4. 文件位置操作
+    seek(position)  -- 跳到文件position(in Byte)的位置，1为开头(不是0，lua的风格)
+    seekEnd()
+    [number] position() -- 返回文件的当前位置(in Byte)
+
+-- 5. 文件操作错误查询
+    pedantic() [default] -- 错误发生时，将会终止程序
+    quiet() -- 选择这个模式后，错误发生以后将会发送flag
+    hasError() -- 查询quiet模式下是否有错误发生
+    clearError -- 清除错误标志位。于hasError结合在一起使用
+
+-- 6. 文件标志查询
+    isReadable()
+    isWriteable()
+    isReferenced()
+    isAutoSpacing()
+    isQuiet()
+
+-- 7. 高级选项
+  -- 在文本模式下，写一个元素时会增加一个回车，写storage到文件中时每个元素之间会增加一个空格。读取时也是按这个格式
+    autoSpacing() [default]  -- 默认是打开的
+    noAutoSpacing()   -- 关闭此模式
+    synchronize()    -- 确保将数据写入文件而不是在缓存中
+
+-- 8. Serialization
+  -- 1. 操作object，lua中table、number、string、以及lua的function都是serializable
+    readObject()
+    writeObject()
+    referenced(ref)
+    -- 说明：
+    --  ref默认为true，当为true时，向文件中写同一个对象多次时，只会写一次，
+    --  其他只是写这个对象的引用到文件中， 这样可以节省空间与性能。 举例:
+    --  当写同一个对象到文件中时，但每次对象中的内容会发生变化，
+    --  则需要调用referenced(false)
+    
+  -- 2. 操作string
+    -- format='*I'从文件中读取一行数据，format=‘*a’读取余下的所有数据
+    [string] readString(format) 
+    [number] writeString(str)  -- 写字符串到文件中，并返回写入的字符个数
+
+-- 9. 关闭
+    close()
+&lt;/code&gt;
+}}}
+{{normal{@@color(blue):''~DiskFile''@@
+&lt;code lua&gt;
+-- quiet默认为false，ascii是平台无关的，当使用binary模式时，需要注意大小端
+    torch.DiskFile(fileName, [mode], [quiet])
+
+-- 大小端控制函数
+    bigEndianEncoding()            -- 强制使用大端
+    [boolean] isBigEndianCPU()     -- 查看CPU是否使用大端
+    littleEndianEncoding()         -- 强制使用小端
+    [boolean] isLittleEndianCPU()  -- 查看CPU是否使用小端
+    nativeEndianEncoding()         -- 强制使用机器本身的大小端方式
+&lt;/code&gt;
+}}}
+{{normal{@@color(blue):''~MemoryFile''@@
+&lt;code lua&gt;
+--  返回内存文件对象
+    torch.MemoryFile([mode])
+--  在storage对象上创建文件对象，且storage必须是char型的，storage最后一个元素必须是NULL即0
+    torch.MemoryFile(storage, mode)
+    [CharStorage] self:storage() -- 返回storage对象 
+&lt;/code&gt;
+}}}
+{{normal{@@color(blue):''~PipeFile''@@
+@@color(red):TODO 使用？@@
+&lt;code lua&gt;
+-- 不能同时读写
+torch.PipeFile(filename, [mode], [quiet])
+&lt;/code&gt;
+}}}
+</pre>
+</div>
+<div title="Torch Serialization" creator="Samuel" modifier="Samuel" created="201407191339" modified="201407191441" changecount="16">
+<pre>*{{normal{@@color(blue):''基于文件''@@
+@@color(red):于file：readobject的区别@@
+&lt;code lua&gt;
+-- 1. 将object保存到文件中。format = ‘ascii’ or ‘binary‘，默认为'binary'
+    torch.save(filename, object [, format]) 
+
+-- 2. 从文件中读取object
+    [object] torch.load(filename [, format])
+&lt;/code&gt;
+}}}
+*{{normal{@@color(blue):''基于字符串''@@
+&lt;code lua&gt;
+-- 1. 将object保存到字符串中。format = ‘ascii’ or ‘binary’，默认为'binary'
+    [str] torch.serialize(object [, format])
+
+-- 2. 从字符串中获取object
+    [object] torch.deserialize(str [, format])
+&lt;/code&gt;
+}}}</pre>
+</div>
+<div title="Torch Storage" creator="Samuel" modifier="Samuel" created="201407190805" modified="201407191023" changecount="37">
+<pre>用来访问C的数组与指针。@@color(red):与Tensor的区别？ 只能是一维的吗@@
+{{normal{@@color(blue):''类型''@@
+#{{{ByteStorage, CharStorage, ShortStorage, IntStorage, LongStorage, FloatStorage, DoubleStorage}}}
+#{{{ByteStorage}}}为unsigned char
+}}}
+{{normal{@@color(blue):''创建''@@
+&lt;code lua&gt;
+-- Case1：torch.TYPEStorage([size]) 创建， 且没有初始化
+x = torch.IntStorage(10)    
+
+-- Case2：torch.TYPEStorage(table) 创建与table个数相同storage， 且用table里面的元素初始化
+y = torch.DoubleStorage({1,2,3,4,5})
+
+-- Case3：torch.TYPEStorage(filename [, shared])将文件map到memory
+-- $ echo &quot;Hello World&quot; &gt; hello.txt
+x = torch.CharStorage('hello.txt', true)
+-- 将share设为true以后，x里面的改变会实时的保存到文件中否则只在lua中有效
+&gt; = x:string()
+&gt; Hello World
+&gt; = x:fill(42):string()
+&gt; _______________
+$ cat hello.txt
+$ _______________
+
+-- 获取元素个数 ：  #self 等价于 self:size()
+y = torch.DoubleStorage({1,2,3,4,5})
+#y == y:size()
+&lt;/code&gt;
+}}}
+{{normal{@@color(blue):''访问''@@
+&lt;code lua&gt;
+-- self[index]
+y = torch.DoubleStorage({1,2,3,4,5})
+print(y[2]) 
+&lt;/code&gt;
+}}}
+{{normal{@@color(blue):''fill''@@
+&lt;code lua&gt;
+-- 将所有的元素赋一个同样的值
+x = torch.IntStorage(10):fill(1)    -- 创建并全部初始化为1
+x:fill(2)   --等价于   x.fill(x, 2)
+&lt;/code&gt;
+}}}
+{{normal{@@color(blue):''copy''@@
+&lt;code lua&gt;
+-- 两个storage之间的元素个数必须匹配
+x = torch.IntStorage(10):fill(1)
+y = torch.DoubleStorage(10):copy(x)    -- right
+y = torch.DoubleStorage(12):copy(x)    -- wrong 元素个数不匹配
+&lt;/code&gt;
+}}}
+{{normal{@@color(blue):''resize''@@
+@@color(red):TODO: 内存会重新分配吗@@
+&lt;code lua&gt;
+-- 改变storage 大小
+x = torch.DoubleStorage(10):fill(1)
+y = torch.DoubleStorage():resize(x:size()):copy(x) 
+&lt;/code&gt;
+}}}
+{{normal{@@color(blue):''string''@@
+@@color(red):只能用在char于byte的storage上@@
+&lt;code lua&gt;
+-- 将storage里面的元素转换成字符
+x = torch.CharStorage(1):fill(49)
+print(x:string())   -&gt;  字符'1'
+-- 重新分配storage的大小，并将其初始化为字符串里面的元素
+x = torch.CharStorage(1):fill(49)
+x::string(&quot;blah blah&quot;) 
+&lt;/code&gt;
+}}}</pre>
+</div>
+<div title="Torch Tensor" creator="Samuel" modifier="Samuel" created="201407200246" modified="201407200527" changecount="34">
+<pre>&lt;code lua&gt;
+-- 1. 构建
+    -- a. 3D-tensor 4x5x6
+        z = torch.Tensor(4,5,6)
+    -- b. 指定大小和步长
+        torch.Tensor(sizes, [strides]) -- sizes, strides是LongStorage的
+        s = torch.LongStorage(3)
+        s[1] = 4; s[2] = 5; s[3] = 6;
+        x = torch.Tensor(s)
+    -- c.通过Storage创建
+        torch.Tensor(storage, [storageOffset, sizes, [strides]])        
+        torch.Tensor(storage, [storageOffset, sz1 [, st1 ... [, sz4 [, st4]]]])
+    -- d. 通过Tensor创建
+        x = torch.Tensor(2,5):fill(3.14)
+        y = torch.Tensor(x)  --此时y与x指向同一个对象，与y=x一样
+    -- e. 通过table创建，并使用table里面的元素来初始化
+       torch.Tensor({{1,2,3,4}, {5,6,7,8}})
+    -- Tensor是在storage里面的，可以通过storage函数返回storage对象
+        x:storage()
+
+-- 2. 获取维度及其大小
+    z = torch.Tensor(4,5,6)
+    z:dim()            -- 等价于  z:nDimension()
+    z:size()           -- 返回一个LongStorage，里面包含每个维度的大小
+    z:size(1)          -- 返回第一维的大小
+    z:stride()         -- 返回一个LongStorage，里面包含每个维度的步长
+    z:stride(1)        -- 返回第一维的步长
+    z:storageOffset()  -- 返回在storage里面的偏移      
+    z:nElement()       -- =4*5*6
+
+-- 3. 访问
+    x = torch.Tensor(7,7,7)
+    -- 1. 方式1
+        print(x[3][4][5])      
+    -- 2. 方式2（比较慢）
+        print(x:storage()[x:storageOffset()+(3-1)*x:stride(1)+(4-1)*x:stride(2)+(5-1)*x:stride(3)])
+
+-- 4. 操作
+    x = torch.Tensor(2,2)
+    x:zero()
+    x:fill(3.14)
+    y = x:clone()  -- 等价于  y = torch.Tensor(x:size()):copy(x) 
+    y = x:contiguous():fill(2) -- 当x是连续的，y于x指向同一个对象，否则clone一个给y
+    [boolean] isContiguous() -- 判断是否连续
+
+-- 5. 类型
+    -- 当调用torch.setdefaulttensortype('torch.FloatTensor')以后，
+    -- 后面创建的Tensor默认为float
+        ByteTensor -- contains unsigned chars
+        CharTensor -- contains signed chars
+        ShortTensor -- contains shorts
+        IntTensor -- contains ints
+        FloatTensor -- contains floats
+        DoubleTensor -- contains doubles
+    -- type函数
+        x = torch.Tensor(3):fill(3.14)
+        print(x:type())  -- torch.DoubleTensor
+        y = x:type('torch.IntTensor') -- 当类型发生变化时，将生成一个新的Tensor给y
+        y = x:typeAs(x)
+    -- 转换函数
+        byte(), char(), short(), int(), long(), float(), double()
+
+-- 6. 为Tensor设置已经存在的Tensor或者Storage
+    y = torch.Storage(10)
+    x = torch.Tensor()
+    x:set(y, 1, 10)
+    z = torch.Tensor():set(y)
+    [self] set(storage, [storageOffset, sizes, [strides]])
+    [self] set(storage, [storageOffset, sz1 [, st1 ... [, sz4 [, st4]]]])
+
+-- 7. Resize --重新分配内存
+    [self] resizeAs(tensor)
+    [self] resize(sizes) -- sizes 为Longtorage
+    [self] resize(sz1 [,sz2 [,sz3 [,sz4]]]]) 
+
+-- 8. 在sub-tensor上操作
+    -- [Tensor] narrow(dim, index, size) sub tensor于原tensor指向同一块内存
+        x = torch.Tensor(5, 6):zero()
+        y = x:narrow(1, 2, 3) 
+    -- [Tensor] sub(dim1s, dim1e ... [, dim4s [, dim4e]]) sub tensor于原tensor指向同一块内存
+    -- dimns. dimne 表示取第n维的dimns-dimne
+    -- Slice
+        [Tensor] [{ dim1,dim2,... }] or [{ {dim1s,dim1e}, {dim2s,dim2e} }]
+        [Tensor] select(dim, index) 获取第dim维的index上的元素
+    -- index 返回Tensor时发生内存的重新分配
+        [Tensor] index(dim, index) -- index可以是table元素，且无序如{3,2}
+        tensorA:indexCopy(dim, index, tensorB)  -- 将TensorB中的元素copy到A中
+        [Tensor] indexFill(dim, index, val) 
+
+-- 9. 在Tensor上使用函数
+    apply()
+    map()
+    map2()
+-- 10. 其他
+    [Tensor] expand(sizes)
+    [Tensor] expandAs(tensor)
+    [Tensor] repeatTensor(sizes)
+    [Tensor] squeeze([dim])
+    [result] view(result, tensor, sizes)
+    [result] viewAs(result, tensor, template)
+    [Tensor] transpose(dim1, dim2)
+    [Tensor] t()
+    [Tensor] unfold(dim, size, step)
+&lt;/code&gt;</pre>
 </div>
 <div title="Training&amp;detection" creator="YourName" modifier="Samuel" created="201207240627" modified="201404290549" tags="_TRAINING_ _DETECTION_" changecount="24">
 <pre>[[Supported Vector Machine]]
