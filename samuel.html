@@ -1659,15 +1659,16 @@ svm_group_classes ： 将样本整理排列起来， 即同类的放在一起
 }}}
 }}}</pre>
 </div>
-<div title="LUA" creator="Samuel" modifier="Samuel" created="201407100748" modified="201407140530" changecount="8">
-<pre>[[Lua Build-in Function]]
-[[Lua Type]]
+<div title="LUA" creator="Samuel" modifier="Samuel" created="201407100748" modified="201407150117" changecount="11">
+<pre>[[Lua Type]]
 [[Lua Operator]]
 [[Lua 控制结构]]
 [[Lua Miscellaneous]]
 [[Lua Function]]
 [[Lua Variable]]
-[[Lua Closures]]</pre>
+[[Lua Closures]]
+[[Lua Exception]]
+[[Lua Load]]</pre>
 </div>
 <div title="Linear  Regression" creator="Samuel" modifier="Samuel" created="201403180156" modified="201404290253" changecount="74">
 <pre>*{{normal{@@color(red):''Tip''@@
@@ -1845,10 +1846,8 @@ refer to @@color(green):A comparison of numerical optimizers for logistic regres
 
 }}}</pre>
 </div>
-<div title="Lua Build-in Function" creator="Samuel" modifier="Samuel" created="201407100751" modified="201407100752" changecount="3">
-<pre>*{{normal{@@color(blue):''dofile''(&quot;filename&quot;)@@
-加载filename中的函数，然后就可以在解释器中调用了
-}}}</pre>
+<div title="Lua Build-in Function" creator="Samuel" modifier="Samuel" created="201407100751" modified="201407150117" changecount="4">
+<pre></pre>
 </div>
 <div title="Lua Closures" creator="Samuel" modifier="Samuel" created="201407140532" modified="201407140535" changecount="8">
 <pre>*一个closure就是函数加上所有他能正确访问的non-local变量
@@ -1878,6 +1877,37 @@ do
 end
 
 &lt;/code&gt;
+}}}</pre>
+</div>
+<div title="Lua Exception" creator="Samuel" modifier="Samuel" created="201407150145" modified="201407150225" changecount="13">
+<pre>*{{normal{@@color(blue):''error''(message [, level])@@
+功能：终止正在执行的函数，并返回message的内容作为错误信息
+&gt;Level参数指示获得错误的位置,
+&gt;Level=1[默认]：为调用error位置(文件+行号)
+&gt;Level=2：指出哪个调用error的函数的函数
+&gt;Level=0:不添加错误位置信息
+}}}
+*{{normal{@@color(blue):''pcall''@@
+&lt;code lua&gt;
+--case1 
+  function foo() error(&quot;foo&quot;) end
+  local ok, msg = pcall(foo) -- 注意不需要()
+  -- ok 为执行是否成功
+  -- msk 为出错的信息
+--case2 : 匿名函数
+  local ok, msg = pcall(function error(&quot;foo&quot;) end) -- 注意不需要()
+
+--case3 : Error code
+  local ok, msg = pcall(function error({code=121}) end) -- 注意不需要()
+  print(msg.code)   -- &gt; 121  其实msg就是error里面返回的变量（table，str，num等）
+&lt;/code&gt;
+}}}
+*{{normal{@@color(blue):''xpcall''@@
+xpcall(function, err_handle_func)
+}}}
+*{{normal{@@color(blue):''debug''@@
+&gt;traceback()
+&gt;debug()
 }}}</pre>
 </div>
 <div title="Lua Function" creator="Samuel" modifier="Samuel" created="201407131419" modified="201407140821" changecount="35">
@@ -1999,6 +2029,54 @@ end
 &lt;/code&gt;
 }}}</pre>
 </div>
+<div title="Lua Load" creator="Samuel" modifier="Samuel" created="201407150118" modified="201407150144" changecount="18">
+<pre>*{{normal{@@color(blue):''loadfile''(file_path)@@
+加载file_path文件中的函数,如果文件中内容为
+&lt;code lua&gt;
+---   xxx.lua 文件中的代码
+  function foo()
+    print('foo')
+  end
+
+---   调用
+  f=loadfile('xxx.lua')  
+  -- 上面的语句等价于 f=function () function foo() print('foo') end end
+  f()  -- 注意此处必须先调用f(), 否则foo()是未定义的
+  -- 等价于上面两行loadfile('xxx.lua') ()
+  foo()   ----&gt; foo
+&lt;/code&gt;
+}}}
+*{{normal{@@color(blue):''dofile''(file_path)@@
+加载filename中的函数，然后就可以在解释器中调用了。相当于以下代码
+&lt;code lua&gt;
+function dofile (file_path)
+  local f = assert(loadfile(file_path))
+  return f()
+end
+&lt;/code&gt;
+}}}
+*{{normal{@@color(blue):''load''(str)@@
+加载字符串中的代码， 同loadfile一样，如下：
+&lt;code lua&gt;
+  f=load('[[function foo() print('foo') end]]') ; 
+  f()  -- 注意此处必须先调用f(), 同loadfile
+  -- 等价于上面两行 load('[[function foo() print('foo') end]]')()
+  foo()   ----&gt; foo 
+&lt;/code&gt;
+}}}
+*{{normal{@@color(blue):''将代码编译成lua代码''@@
+@@color(red):TODO@@ : 如luac -o prog.lc prog.lua
+}}}
+*{{normal{@@color(blue):''调用C代码''@@
+@@color(red):TODO@@
+local path = &quot;/usr/local/lib/lua/5.1/socket.so&quot;
+local f = package.loadlib(path, &quot;luaopen_socket&quot;)
+}}}
+
+
+
+</pre>
+</div>
 <div title="Lua Miscellaneous" creator="Samuel" modifier="Samuel" created="201407131238" changecount="1">
 <pre>*{{normal{@@color(blue):''注释代码''@@
 {{{--}}} : 注释一行代码
@@ -2060,10 +2138,22 @@ x=x or v  等价于 if not x then x=v end
 }}}
 }}}</pre>
 </div>
-<div title="Lua String" creator="Samuel" modifier="Samuel" created="201407131240" changecount="1">
+<div title="Lua String" creator="Samuel" modifier="Samuel" created="201407131240" modified="201407150439" changecount="13">
 <pre>*{{normal{@@color(blue):''生成字符''@@
 #{{{' '  &quot; &quot; }}}: 单引号和双引号对是一样的
 #{{{[[ ]]}}} : 里面的字符可以回车
+}}}
+*{{normal{''immutable''
+Lua 中字符串是不可有更改的。有的时候要小心，如下
+&lt;code lua&gt;
+--   method_1                                        method_2
+local buff = &quot;&quot;                                local t = {}    
+for line in io.lines() do                      for line in io.lines() do
+buff = buff .. line .. &quot;\n&quot;     -&gt;               t[#t + 1] = line .. &quot;\n&quot;
+end                                            end
+                                               local s = table.concat(t)
+-- 方法1将非常耗时， 因为每次都会发生内存的重新分配与拷贝
+&lt;/code&gt;
 }}}
 *{{normal{@@color(blue):''#'' @@: 返回字符串的长度
 &lt;code lua&gt;
