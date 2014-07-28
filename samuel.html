@@ -1659,7 +1659,7 @@ svm_group_classes ： 将样本整理排列起来， 即同类的放在一起
 }}}
 }}}</pre>
 </div>
-<div title="LUA" creator="Samuel" modifier="Samuel" created="201407100748" modified="201407210126" changecount="13">
+<div title="LUA" creator="Samuel" modifier="Samuel" created="201407100748" modified="201407250309" changecount="14">
 <pre>[[Lua Type]]
 [[Lua Operator]]
 [[Lua 控制结构]]
@@ -1668,8 +1668,7 @@ svm_group_classes ： 将样本整理排列起来， 即同类的放在一起
 [[Lua Variable]]
 [[Lua Closures]]
 [[Lua Exception]]
-[[Lua Load]]
-[[Torch]]</pre>
+[[Lua Load]]</pre>
 </div>
 <div title="Linear  Regression" creator="Samuel" modifier="Samuel" created="201403180156" modified="201404290253" changecount="74">
 <pre>*{{normal{@@color(red):''Tip''@@
@@ -2402,7 +2401,7 @@ F1_{score} (or F_{score}) = 2*\frac{precision*recall}{precision+recall}
 *[[Matrix Frobenius]]
 </pre>
 </div>
-<div title="MainMenu" creator="YourName" modifier="Samuel" created="201206180446" modified="201407100747" changecount="100">
+<div title="MainMenu" creator="YourName" modifier="Samuel" created="201206180446" modified="201407250308" changecount="101">
 <pre>!Tools
 [[Git]]
 [[Linux]]
@@ -2414,6 +2413,7 @@ F1_{score} (or F_{score}) = 2*\frac{precision*recall}{precision+recall}
 !Languages
 [[LUA]]
 [[Python]]
+[[Torch]]
 [[octave/matlab]]
 [[Shell]]
 [[OpenCL]]
@@ -3870,11 +3870,12 @@ http://libccv.org/doc/doc-bbf/
 
 </pre>
 </div>
-<div title="Torch" creator="Samuel" modifier="Samuel" created="201407190804" modified="201407200106" changecount="7">
+<div title="Torch" creator="Samuel" modifier="Samuel" created="201407190804" modified="201407250309" changecount="8">
 <pre>[[Torch Storage]]
 [[Torch File]]
 [[Torch Serialization]]
-[[Torch Tensor]]</pre>
+[[Torch Tensor]]
+[[Torch_NN]]</pre>
 </div>
 <div title="Torch File" creator="Samuel" modifier="Samuel" created="201407191138" modified="201407200133" changecount="63">
 <pre>{{normal{@@color(blue):''基本函数''@@
@@ -4065,7 +4066,7 @@ x::string(&quot;blah blah&quot;)
 &lt;/code&gt;
 }}}</pre>
 </div>
-<div title="Torch Tensor" creator="Samuel" modifier="Samuel" created="201407200246" modified="201407200527" changecount="34">
+<div title="Torch Tensor" creator="Samuel" modifier="Samuel" created="201407200246" modified="201407210919" changecount="36">
 <pre>&lt;code lua&gt;
 -- 1. 构建
     -- a. 3D-tensor 4x5x6
@@ -4136,7 +4137,7 @@ x::string(&quot;blah blah&quot;)
     [self] set(storage, [storageOffset, sizes, [strides]])
     [self] set(storage, [storageOffset, sz1 [, st1 ... [, sz4 [, st4]]]])
 
--- 7. Resize --重新分配内存
+-- 7. Resize --当大小变大时重新分配内存， 且会应用用本省的Tensor上
     [self] resizeAs(tensor)
     [self] resize(sizes) -- sizes 为Longtorage
     [self] resize(sz1 [,sz2 [,sz3 [,sz4]]]]) 
@@ -4170,6 +4171,100 @@ x::string(&quot;blah blah&quot;)
     [Tensor] t()
     [Tensor] unfold(dim, size, step)
 &lt;/code&gt;</pre>
+</div>
+<div title="Torch_NN" creator="Samuel" modifier="Samuel" created="201407250312" modified="201407280951" changecount="5">
+<pre>[[Torch_NN_Framework]]
+[[Torch_NN_Active_Func]]
+[[Torch_NN_Loss_Func]]
+[[Torch_NN_Normalize_Func]]
+[[Torch_NN_Other_Func]]</pre>
+</div>
+<div title="Torch_NN_Active_Func" creator="Samuel" modifier="Samuel" created="201407250314" modified="201407250540" changecount="54">
+<pre>*{{normal{@@color(blue):''{{{nn.Exp}}}''@@
+*{{normal{''function''
+\(f(x) = exp(x)\)
+}}}
+*{{normal{''gradient''
+}}}
+}}}
+*{{normal{@@color(blue):''{{{nn.SoftMax}}}''@@
+*{{normal{''function''
+\(
+ f_i(x) = \frac{exp(x_i-shift)}{\sum_j exp(x_j-shift)}  \hspace{8mm} shift = \max_i (x_i)
+\)
+减去shift避免，exp的值太大越界。
+}}}
+*{{normal{''gradient''
+}}}
+}}}
+*{{normal{@@color(blue):''{{{nn.LogSoftMax}}}''@@
+*{{normal{''function''
+\(
+f_i(x) = log(\frac{exp(x_i)}{a}), \hspace{8mm} a = \sum_j{ exp(x_j)}
+\)
+}}}
+*{{normal{''gradient''
+}}}
+}}}</pre>
+</div>
+<div title="Torch_NN_Framework" creator="Samuel" modifier="Samuel" created="201407280317" modified="201407280328" changecount="12">
+<pre>[[torch nn.Module]]
+[[torch nn.Sequential]]</pre>
+</div>
+<div title="Torch_NN_Loss_Func" creator="Samuel" modifier="Samuel" created="201407250540" modified="201407250609" changecount="24">
+<pre>@@bgcolor(green): y-检测值， t-实际值@@
+{{normal{@@color(blue):''{{{nn.MSECriterion}}}''@@
+*{{normal{''function''
+\(
+l(y^n,t^n)=\frac{1}{2}\sum_i{(y^n_i−t^n_i)^2}
+\)
+}}}
+*{{normal{''gradient''
+}}}
+}}}
+{{normal{@@color(blue):''{{{nn.ClassNLLCriterion}}}''@@
+*{{normal{''function''
+\(
+l(y^n, t^n)=-\sum_i{y^n_i} 
+\)
+与{{{nn.LogSoftMax}}}组合在一起就是softmax regression了
+}}}
+*{{normal{''gradient''
+}}}
+}}}</pre>
+</div>
+<div title="Torch_NN_Normalize_Func" creator="Samuel" modifier="Samuel" created="201407280831" modified="201407280857" changecount="51">
+<pre>*{{normal{@@color(blue):''~SpatialSubtractiveNormalization''@@
+*{{normal{''公式''
+\(
+v_{ijk} = x_{ijk} - \sum_{ipq}{w_{pq}*x_{i,j+p,k+q}}  \\
+\hspace{8mm}where: i -- inputmap  \\ 
+\hspace{25mm}         j -- 水平方向的索引  \\
+\hspace{25mm}         k-- 垂直方向的索引  \\
+\hspace{24mm}         \sum_{ipq}{w_{pq}} = 1
+\)
+}}}
+*{{normal{''init(nInputPlane, kernel) ''
+&gt;nInputPlane默认为1
+&gt;kernel默认为9x9的kernel，且每个值是相等的
+
+}}}
+}}}
+#{{normal{@@color(blue):''~SpatialDivisiveNormalization''@@
+}}}
+#{{normal{@@color(blue):''~SpatialContrastiveNormalization.lua''@@
+}}}</pre>
+</div>
+<div title="Torch_NN_Other_Func" creator="Samuel" modifier="Samuel" created="201407280951" modified="201407281010" changecount="14">
+<pre>*{{normal{@@color(blue):''nn.~SpatialZeroPadding''@@
+*''父类为nn.Module''，将图像向内或向外扩展， 当向外扩展是多余的
+*{{normal{''init(pad_left, pad_right, pad_top, pad_bottom)''
+pad_right, pad_top, pad_bottom为可选参数，不提供则其等于pad_left, 其值是可以小于0的。当小于0时，则输出将变小
+}}}
+*{{normal{''功能''
+pad_right, pad_top, pad_bottom为可选参数，不提供则其等于pad_left
+}}}
+}}}</pre>
 </div>
 <div title="Training&amp;detection" creator="YourName" modifier="Samuel" created="201207240627" modified="201404290549" tags="_TRAINING_ _DETECTION_" changecount="24">
 <pre>[[Supported Vector Machine]]
@@ -5674,6 +5769,26 @@ RMS - 标准差 :  方差的平方根 </pre>
 <div title="thread" creator="samuel" modifier="samuel" created="201209130713" tags="_PYTHON_ _PYTHON_MODULE_ _THREAD_" changecount="1">
 <pre>*@@color(blue):''守护线程''@@
 &gt;在调用threading.thread.start()之前设置threading.thread.setDaemon(True)默认为False</pre>
+</div>
+<div title="torch nn.Module" creator="Samuel" modifier="Samuel" created="201407280326" modified="201407280617" changecount="6">
+<pre>*{{normal{@@color(blue):''说明''@@
+框架的基类，公共接口：
+}}}
+*{{normal{@@color(blue):''Func''@@
+}}}</pre>
+</div>
+<div title="torch nn.Sequential" creator="Samuel" modifier="Samuel" created="201407280328" modified="201407280505" changecount="19">
+<pre>*{{normal{@@color(blue):''说明''@@
+父类为[[torch nn.Module]], 类中维护了@@color(blue):self.modules@@的@@color(blue):table@@变量 , 添加的每一个@@color(blue):module@@都放到了@@color(blue):self.modules@@中
+}}}
+*{{normal{@@color(blue):''Func''@@
+*{{normal{''Sequential:add(module)''
+增加module到self.modules中
+}}}
+*{{normal{''Sequential:insert(module, index)''
+插入module到self.modules中，1&lt;= index &lt;=#self.modules（index为可选参数，不提供则在末尾插入，即与add功能相似）
+}}}
+}}}</pre>
 </div>
 <div title="tr" creator="YourName" modifier="Samuel" created="201207020157" modified="201207030551" tags="_SHELL_ _SHELL_COMMAND_" changecount="14">
 <pre>@@bgcolor(green):''不接受指定的文件参数，而只是对标准输入进行翻译''@@
