@@ -3870,7 +3870,7 @@ http://libccv.org/doc/doc-bbf/
 
 </pre>
 </div>
-<div title="Torch" creator="Samuel" modifier="Samuel" created="201407190804" modified="201407250309" changecount="8">
+<div title="Torch" creator="Samuel" modifier="Samuel" created="201407190804" modified="201408110632" changecount="9">
 <pre>[[Torch Storage]]
 [[Torch File]]
 [[Torch Serialization]]
@@ -4172,12 +4172,13 @@ x::string(&quot;blah blah&quot;)
     [Tensor] unfold(dim, size, step)
 &lt;/code&gt;</pre>
 </div>
-<div title="Torch_NN" creator="Samuel" modifier="Samuel" created="201407250312" modified="201407280951" changecount="5">
+<div title="Torch_NN" creator="Samuel" modifier="Samuel" created="201407250312" modified="201408110519" changecount="7">
 <pre>[[Torch_NN_Framework]]
 [[Torch_NN_Active_Func]]
 [[Torch_NN_Loss_Func]]
 [[Torch_NN_Normalize_Func]]
-[[Torch_NN_Other_Func]]</pre>
+[[Torch_NN_Layer_Func]]
+[[Torch_NN_Convolution_Func]]</pre>
 </div>
 <div title="Torch_NN_Active_Func" creator="Samuel" modifier="Samuel" created="201407250314" modified="201407250540" changecount="54">
 <pre>*{{normal{@@color(blue):''{{{nn.Exp}}}''@@
@@ -4207,9 +4208,31 @@ f_i(x) = log(\frac{exp(x_i)}{a}), \hspace{8mm} a = \sum_j{ exp(x_j)}
 }}}
 }}}</pre>
 </div>
+<div title="Torch_NN_Convolution_Func" creator="Samuel" modifier="Samuel" created="201408110519" modified="201408110632" changecount="8">
+<pre>*{{normal{@@color(blue):''nn.~SpatialConvolution''@@
+*{{normal{''init(nInputPlane, nOutputPlane, kW, kH, dW, dH)''
+dw, dH ：步长默认为1
+}}}
+*{{normal{''类成员变量''
+weight : 存放了多个滤波核
+bias    : 每个滤波核对应一个偏置， 做纯卷积时需要将其设为0
+gradWeight
+gradBias
+}}}
+}}}</pre>
+</div>
 <div title="Torch_NN_Framework" creator="Samuel" modifier="Samuel" created="201407280317" modified="201407280328" changecount="12">
 <pre>[[torch nn.Module]]
 [[torch nn.Sequential]]</pre>
+</div>
+<div title="Torch_NN_Layer_Func" creator="Samuel" modifier="Samuel" created="201407280951" modified="201408110537" changecount="23">
+<pre>*{{normal{@@color(blue):''nn.~SpatialZeroPadding''@@
+*''父类为nn.Module''，将图像向内或向外扩展， 当向外扩展时多余补0
+*{{normal{''init(pad_left, pad_right, pad_top, pad_bottom)''
+pad_right, pad_top, pad_bottom为可选参数，不提供则其等于pad_left, 其值是可以小于0的。当小于0时，则输出将变小
+}}}
+*''支持mini-batch''
+}}}</pre>
 </div>
 <div title="Torch_NN_Loss_Func" creator="Samuel" modifier="Samuel" created="201407250540" modified="201407250609" changecount="24">
 <pre>@@bgcolor(green): y-检测值， t-实际值@@
@@ -4233,11 +4256,11 @@ l(y^n, t^n)=-\sum_i{y^n_i}
 }}}
 }}}</pre>
 </div>
-<div title="Torch_NN_Normalize_Func" creator="Samuel" modifier="Samuel" created="201407280831" modified="201407280857" changecount="51">
+<div title="Torch_NN_Normalize_Func" creator="Samuel" modifier="Samuel" created="201407280831" modified="201408110815" changecount="84">
 <pre>*{{normal{@@color(blue):''~SpatialSubtractiveNormalization''@@
 *{{normal{''公式''
 \(
-v_{ijk} = x_{ijk} - \sum_{ipq}{w_{pq}*x_{i,j+p,k+q}}  \\
+y_{ijk} = x_{ijk} - \sum_{ipq}{w_{pq}*x_{i,j+p,k+q}}  \\
 \hspace{8mm}where: i -- inputmap  \\ 
 \hspace{25mm}         j -- 水平方向的索引  \\
 \hspace{25mm}         k-- 垂直方向的索引  \\
@@ -4245,25 +4268,37 @@ v_{ijk} = x_{ijk} - \sum_{ipq}{w_{pq}*x_{i,j+p,k+q}}  \\
 \)
 }}}
 *{{normal{''init(nInputPlane, kernel) ''
-&gt;nInputPlane默认为1
-&gt;kernel默认为9x9的kernel，且每个值是相等的
+&gt;nInputPlane：默认为1
+&gt;kernel：默认为9x9值为1的kernel。''如果kernel为1维''则先y方向，再x方向进行滤波
+}}}
+*{{normal{''Attention''
+coef :用来消除边缘效应，滤波时超出边界的值取0， 因此边缘附近的值减去的值要相应的小一点
+}}}
+}}}
+*{{normal{@@color(blue):''~SpatialDivisiveNormalization''@@
 
+*{{normal{''公式''
+\(
+\sigma_jk = \sqrt{\sum_{ipq}{w_{pq}*x_{i,j+p,k+q}^2}} \\
+y_{ijk} = \frac{x_{ijk}}{max(threshold, \sigma_jk)}  \\
+\hspace{8mm}where: i -- inputmap  \\ 
+\hspace{25mm}         j -- 水平方向的索引  \\
+\hspace{25mm}         k-- 垂直方向的索引  \\
+\hspace{24mm}         \sum_{ipq}{w_{pq}} = 1
+\)
+}}}
+*{{normal{''init(nInputPlane, kernel) ''
+&gt;nInputPlane：默认为1
+&gt;kernel：默认为9x9值为1的kernel。''如果kernel为1维''则先y方向，再x方向进行滤波
+&gt;threshold : 当\(\sigma\)值小于threshold时，取threval
+&gt;thresval：当\(\sigma\)值小于threshold时，该取的值
+}}}
+*{{normal{''Attention''
+coef : 与''~SpatialSubtractiveNormalization''中的作用相同
 }}}
 }}}
-#{{normal{@@color(blue):''~SpatialDivisiveNormalization''@@
-}}}
-#{{normal{@@color(blue):''~SpatialContrastiveNormalization.lua''@@
-}}}</pre>
-</div>
-<div title="Torch_NN_Other_Func" creator="Samuel" modifier="Samuel" created="201407280951" modified="201407281010" changecount="14">
-<pre>*{{normal{@@color(blue):''nn.~SpatialZeroPadding''@@
-*''父类为nn.Module''，将图像向内或向外扩展， 当向外扩展是多余的
-*{{normal{''init(pad_left, pad_right, pad_top, pad_bottom)''
-pad_right, pad_top, pad_bottom为可选参数，不提供则其等于pad_left, 其值是可以小于0的。当小于0时，则输出将变小
-}}}
-*{{normal{''功能''
-pad_right, pad_top, pad_bottom为可选参数，不提供则其等于pad_left
-}}}
+*{{normal{@@color(blue):''~SpatialContrastiveNormalization''@@
+先进行''~SpatialSubtractiveNormalization''操作，再进行''~SpatialDivisiveNormalization''
 }}}</pre>
 </div>
 <div title="Training&amp;detection" creator="YourName" modifier="Samuel" created="201207240627" modified="201404290549" tags="_TRAINING_ _DETECTION_" changecount="24">
