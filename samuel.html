@@ -4180,7 +4180,7 @@ x::string(&quot;blah blah&quot;)
 [[Torch_NN_Layer_Func]]
 [[Torch_NN_Convolution_Func]]</pre>
 </div>
-<div title="Torch_NN_Active_Func" creator="Samuel" modifier="Samuel" created="201407250314" modified="201407250540" changecount="54">
+<div title="Torch_NN_Active_Func" creator="Samuel" modifier="Samuel" created="201407250314" modified="201408140723" changecount="65">
 <pre>*{{normal{@@color(blue):''{{{nn.Exp}}}''@@
 *{{normal{''function''
 \(f(x) = exp(x)\)
@@ -4201,7 +4201,8 @@ x::string(&quot;blah blah&quot;)
 *{{normal{@@color(blue):''{{{nn.LogSoftMax}}}''@@
 *{{normal{''function''
 \(
-f_i(x) = log(\frac{exp(x_i)}{a}), \hspace{8mm} a = \sum_j{ exp(x_j)}
+f_i(x) = ln(\frac{exp(x_i-shift)}{\sum_j{ exp(x_j-shift)}}) \\
+\hspace{10mm}=x_i-shift - ln(\sum_j{ exp(x_j-shift)})
 \)
 }}}
 *{{normal{''gradient''
