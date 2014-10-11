@@ -2609,7 +2609,7 @@ config.formatters.push({
 <div title="Neural Network--Geoffrey Hinton" creator="Samuel" modifier="Samuel" created="201406250104" modified="201407030154" changecount="37">
 <pre>[[Neural Network Training Tricks]]</pre>
 </div>
-<div title="Normal Equation" creator="Samuel" modifier="Samuel" created="201403180254" modified="201403180326" changecount="31">
+<div title="Normal Equation" creator="Samuel" modifier="Samuel" created="201403180254" modified="201410110518" changecount="33">
 <pre>*{{normal{@@color(blue):''Hypothesis(假设函数):''@@
 :\(h(X)＝\theta_{0}*x_0+\theta_{1}*x_1 + ... + \theta_{n}*x_n \\
 x0是1， 所以在实际使用中，特征的第一位一般要人为的加1
@@ -2629,7 +2629,7 @@ x0是1， 所以在实际使用中，特征的第一位一般要人为的加1
 
 }}}
 *{{normal{@@color(blue):''Prove:''@@
-:\(
+#\(
 假设下式成立\\
  X * \theta  = Y \\
 则 \\
@@ -2640,6 +2640,7 @@ x0是1， 所以在实际使用中，特征的第一位一般要人为的加1
 即\\
  \theta = (X^T * X)^{-1} *X^T * Y \\
 \)
+#基于squared error通过其导数为0进行证明
 }}}</pre>
 </div>
 <div title="Object C" creator="Samuel" modifier="Samuel" created="201209180324" modified="201209210754" changecount="10">
