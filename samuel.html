@@ -589,14 +589,16 @@ Also see [[AdvancedOptions]]</pre>
 |@@color(blue):''fix''@@|向0方向近似|
 |@@color(blue):''rem''@@|求余数|</pre>
 </div>
-<div title="Branches and merging" creator="Samuel" modifier="Samuel" created="201207190811" modified="201402130655" tags="_GIT_" changecount="7">
+<div title="Branches and merging" creator="Samuel" modifier="Samuel" created="201207190811" modified="201410280507" tags="_GIT_" changecount="9">
 <pre>*''git branch'' 
 :列出所有本地的分支， 带*表示当前活动的分支
 :-a 列出所有本地和远程的分支
+:git branch -m oldname newname 修改分支名
 :后接branch-nameA       通过本地创建branch-nameA分支
 :-d  branch-nameA  删除分支branch-nameA          
 :-rd  origin/branch-nameA  删除本地运程分支              
 :git push origin {{{--delete}}} &lt;branchName&gt;将删除应用到远层
+:git push origin :name删除远层name分支
 *''git checkout'' 
 :branch-nameA  :   切换到branch-nameA 分支
 :-b branch-nameA  [master/origin/.] 
