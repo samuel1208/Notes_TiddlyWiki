@@ -5845,7 +5845,7 @@ RMS - 标准差 :  方差的平方根 </pre>
 <pre>@@bgcolor(green):元素类型的一些操作@@
 *判断类型：type(x) is types.~IntType # 判断是否int 类型</pre>
 </div>
-<div title="valgrind" creator="Samuel" modifier="Samuel" created="201307040244" modified="201308020612" changecount="43">
+<div title="valgrind" creator="Samuel" modifier="Samuel" created="201307040244" modified="201411280906" changecount="48">
 <pre>*{{normal{@@color(blue):''[usage]'':@@
 ''valgrind''  [options_for_valgrind]  ''testbed''  options_for_testbed
 {{{valgrind --leak-check=full --show-reachable=yes --track-origins=yes --vgdb=yes --vgdb-error=0}}}
@@ -5865,6 +5865,12 @@ RMS - 标准差 :  方差的平方根 </pre>
 }}}
 }}}
 
+*{{normal{ 内存检测
+* {{{valgrind --tool=massif  --ignore-fn='sak::ui::readBMPFile(char const*, __tag_TS_OFFSCREEN*, int)'  ./main}}}
+
+* ms_print massif.out.1234
+
+}}}
 </pre>
 </div>
 <div title="watershed" creator="Samuel" modifier="Samuel" created="201212120700" modified="201212120730" changecount="6">
