@@ -1020,9 +1020,6 @@ sudo dpkg-reconfigure locales  安装中文包
 会把\n也读进来
 }}}</pre>
 </div>
-<div title="Face-recognition" creator="Samuel" modifier="Samuel" created="201311050808" changecount="1">
-<pre>*[[openBR]]</pre>
-</div>
 <div title="Feature Extraction" creator="Samuel" modifier="Samuel" created="201207160245" modified="201412150922" tags="_IMAGE_ALGORITHM_ _FEATURE_" changecount="20">
 <pre>[[HOG (Histogram of oriented gradient)]]
 [[Haar]]
@@ -1098,48 +1095,6 @@ T = \frac{((P_l+\Delta w)^2+N_l^2)*(W_r-\Delta w)+ ((P_r-\Delta w)^2+N_r^2)*(W_l
 *''git checkout  &lt;tag_name&gt;''
 *''git show &lt;tag_name&gt;''
 </pre>
-</div>
-<div title="Gradient Descent" creator="Samuel" modifier="Samuel" created="201403180214" modified="201406230303" changecount="118">
-<pre>*{{normal{@@color(blue):''Goal'':@@
-\(minimize J(\theta_0, \theta_1..., \theta_n)\)
-}}}
-*{{normal{@@color(blue):''Solution'':@@
-@@color(green):repeat until convergence@@{
-:\(
-\theta_0 = \theta_0 - \alpha\frac{\partial}{\partial\theta_0}J(\theta_0, \theta_1..., \theta_n)   \\
-\theta_1 = \theta_1 - \alpha\frac{\partial}{\partial\theta_1}J(\theta_0, \theta_1..., \theta_n)   \\
-... \\
-\theta_n = \theta_n - \alpha\frac{\partial}{\partial\theta_n}J(\theta_0, \theta_1..., \theta_n)   \\
-\)
-}
-{{normal{@@color(red):''Attention''@@: 
-#\(\theta_0, \theta_1..., \theta_n要同时更新. 即计算\theta_1时，使用的是未更新的\theta_0\)
-#\(\alpha\)的取值太小，收敛速度比较慢。太大则会发散
-#\(\alpha\)定了以后，下降的步长会越来越小， 因为梯度是越来越小的
-#@@color(red):可以使用matlab的fminunc函数， 其他的语言也会有相对应的包, 详细见lecture-6 of machine learning@@
-}}}
-}}}
-*{{normal{@@color(blue):''Tip'':@@
-#{{normal{''对于suqared error函数有''
-:\(J(\theta_0, \theta_1..., \theta_n)＝\frac{1}{2m}\sum\limits_{i=1}^{m}{(h_{\theta}(x^{i})-y^i)^2} \\
-\frac{\partial}{\partial\theta_n}J(\theta_0, \theta_1..., \theta_n) = \frac{1}{m}\sum\limits_{i=1}^{m}{(h_{\theta}(x^{i})-y^i)*h_{\theta}^{'}(x^i)}  \\
-m - 训练样本的个数 \\
-n  - 为特征的维数(包含第一个为1的特征)    \\
-\)
-}}}
-#''[[Feature Normalization]]可以加快收敛的速度''
-}}}
-*{{normal{@@color(blue):''与newton method的比较''@@
-#{{normal{newton method需要除以一个Hessian矩阵（即二阶偏导），即乘以其逆
-\(
-\theta = \theta - H^{-1}\frac{\partial}{\partial\theta}J(\theta)   
-\)
-}}}
-#newton method不需要学习率参数\(\alpha\)
-#newton method收敛更快
-#newton method当特征维数较大时， 其Hessian可能不存在逆
-#梯度下降方法比较简单 
-}}}</pre>
 </div>
 <div title="HOG (Histogram of oriented gradient)" creator="Samuel" modifier="Samuel" created="201207160247" modified="201305230205" tags="_IMAGE_ALGORITHM_ _FEATURE_ _HOG_" changecount="141">
 <pre>{{normal{@@bgcolor(green):说明@@
@@ -1475,53 +1430,6 @@ c^{(m)} 是第m个样本其归属类的索引（1-K）
 }}}
 }}}
 }}}</pre>
-</div>
-<div title="L1 regularization" creator="Samuel" modifier="Samuel" created="201404030927" changecount="1">
-<pre>*{{normal{@@color(blue):''说明''@@
-为了防止过拟合，加入惩罚因子\(\lambda|w|\)， 就是曼哈顿距离 
-
-}}}</pre>
-</div>
-<div title="L2 Regularization" creator="Samuel" modifier="Samuel" created="201403310154" modified="201404030926" changecount="78">
-<pre>*{{normal{@@color(blue):''说明''@@
-为了防止过拟合，加入惩罚因子\(\lambda|w|^2\)， 就是欧几里德距离 
-
-}}}
-*{{normal{@@color(blue):''以均方误差为例''@@
-*{{normal{@@color(green):''cost function''@@
-\(
-J(\theta_0, \theta_1..., \theta_n)＝\frac{1}{m}(\sum\limits_{i=1}^{m}cost(h_{\theta}(X^i), y^i) + \frac{\lambda}{2}\sum\limits_{i=1}^{n}\theta_i^2)\\
-m -- 训练样本的个数 \\
-n  -- 所求参数的个数 \\\)
-@@color(red):''Tip'':  一般惩罚因子第一个不算， 即\theta_0不计算在内，所以i是(1-n)而不是(0-n)@@ 
-}}}
-*{{normal{@@color(green):''求解细节''@@
-#{{normal{''当使用[[Gradient Descent]]时，其为''
-repeat until convergence:
-:\(
-\theta_0 = \theta_0 - \alpha\frac{\partial}{\partial\theta_0}J(\theta_0, \theta_1..., \theta_n)   \\
-\theta_1 = \theta_1 - \alpha\frac{\partial}{\partial\theta_1}J(\theta_0, \theta_1..., \theta_n) - \frac{\lambda}{m}\theta_1  \\
-... \\
-\theta_n = \theta_n - \alpha\frac{\partial}{\partial\theta_n}J(\theta_0, \theta_1..., \theta_n) - \frac{\lambda}{m}\theta_n  \\
-\)
-
-}}}
-#{{normal{''当使用[[Normal Equation]]时，其为''
-:\(
-\theta = (X^TX + \lambda
-\left( \begin{array}{title}
-0 &amp; &amp; &amp; &amp;\\
-&amp; 1&amp;  &amp;&amp;\\
-&amp; &amp; .&amp;&amp;\\
-&amp; &amp; &amp;.&amp;\\
-&amp; &amp; &amp;&amp;1\\
-\end{array} \right)
-)^{-1} X^TY
-\)
-
-}}}
-}}}
-</pre>
 </div>
 <div title="LATEX" creator="Samuel" modifier="Samuel" created="201211260252" modified="201407020903" changecount="115">
 <pre>refer to http://mohu.org/info/symbols/symbols.htm 
@@ -2274,18 +2182,15 @@ F1_{score} (or F_{score}) = 2*\frac{precision*recall}{precision+recall}
 [[Neural Network--Geoffrey Hinton]]
 [[LEVAN]]</pre>
 </div>
-<div title="Machine Learnning--Andrew Ng" creator="Samuel" modifier="Samuel" created="201403180055" modified="201412150916" changecount="60">
-<pre>*[[Gradient Descent]]
-*[[Normal Equation]]
-*[[Regularization]]
-*[[Supported Vector Machine]]
+<div title="Machine Learnning--Andrew Ng" creator="Samuel" modifier="Samuel" created="201403180055" modified="201412171004" changecount="63">
+<pre>*[[Supported Vector Machine]]
 *[[K-Means Clustering]]
 *[[Principal Component Analysis]]
 *[[Machine Learning Miscellaneous]]
 *[[Matrix Frobenius]]
 </pre>
 </div>
-<div title="MainMenu" creator="YourName" modifier="Samuel" created="201206180446" modified="201407250308" changecount="101">
+<div title="MainMenu" creator="YourName" modifier="Samuel" created="201206180446" modified="201412171007" changecount="103">
 <pre>!Tools
 [[Git]]
 [[Linux]]
@@ -2315,8 +2220,6 @@ F1_{score} (or F_{score}) = 2*\frac{precision*recall}{precision+recall}
 [[Feature Extraction]]
 [[Computer Vision]]
 [[Training&amp;detection]]
-[[Face-outline]]
-[[Face-recognition]]
 [[terminology-术语]]
 ! Project
 [[Video-Retrieval]]
@@ -2492,40 +2395,6 @@ config.formatters.push({
 </div>
 <div title="Neural Network--Geoffrey Hinton" creator="Samuel" modifier="Samuel" created="201406250104" modified="201407030154" changecount="37">
 <pre>[[Neural Network Training Tricks]]</pre>
-</div>
-<div title="Normal Equation" creator="Samuel" modifier="Samuel" created="201403180254" modified="201410110518" changecount="33">
-<pre>*{{normal{@@color(blue):''Hypothesis(假设函数):''@@
-:\(h(X)＝\theta_{0}*x_0+\theta_{1}*x_1 + ... + \theta_{n}*x_n \\
-x0是1， 所以在实际使用中，特征的第一位一般要人为的加1
-\)
-
-}}}
-*{{normal{@@color(blue):''Goal:''@@
-:\(求解\theta_{0}, \theta_{1} ... \theta_{n}\)
-
-}}}
-*{{normal{@@color(blue):''Solution:''@@
-:\(
- \theta = (X^TX)^{-1}X^TY \\
- X-为特征向量 \\
- Y-为训练样本的ground truth
-\)
-
-}}}
-*{{normal{@@color(blue):''Prove:''@@
-#\(
-假设下式成立\\
- X * \theta  = Y \\
-则 \\
- X^T * X * \theta = X^T * Y \\
- (X^T * X)^{-1}* (X^T * X) * \theta = (X^T * X)^{-1} *X^T * Y \\
- (X^T * X)^{-1}* (X^T * X) = E \\
- E* \theta = (X^T * X)^{-1} *X^T * Y \\
-即\\
- \theta = (X^T * X)^{-1} *X^T * Y \\
-\)
-#基于squared error通过其导数为0进行证明
-}}}</pre>
 </div>
 <div title="Object C" creator="Samuel" modifier="Samuel" created="201209180324" modified="201209210754" changecount="10">
 <pre>[[Object C FAQ]]
@@ -3391,10 +3260,6 @@ Conf_H(x) = |\sum\limits_{t=1}^Th_t(x)-b|
 \)
 }}}</pre>
 </div>
-<div title="Regularization" creator="Samuel" modifier="Samuel" created="201404030918" modified="201404030918" changecount="2">
-<pre>[[L1 regularization]]
-[[L2 Regularization]]</pre>
-</div>
 <div title="Shell" creator="Samuel" modifier="Samuel" created="201206290240" modified="201207160841" tags="_SCRIPT_LANGUAGE_ _SHELL_" changecount="63">
 <pre>*@@color(blue):''Shell 变量''@@
 &gt;$0 : shell脚本的名字
@@ -4027,7 +3892,7 @@ x::string(&quot;blah blah&quot;)
 [[Torch_NN_Layer_Func]]
 [[Torch_NN_Convolution_Func]]</pre>
 </div>
-<div title="Torch_NN_Active_Func" creator="Samuel" modifier="Samuel" created="201407250314" modified="201408140723" changecount="65">
+<div title="Torch_NN_Active_Func" creator="Samuel" modifier="Samuel" created="201407250314" modified="201412161041" changecount="67">
 <pre>*{{normal{@@color(blue):''{{{nn.Exp}}}''@@
 *{{normal{''function''
 \(f(x) = exp(x)\)
@@ -4149,16 +4014,12 @@ coef : 与''~SpatialSubtractiveNormalization''中的作用相同
 先进行''~SpatialSubtractiveNormalization''操作，再进行''~SpatialDivisiveNormalization''
 }}}</pre>
 </div>
-<div title="Training&amp;detection" creator="YourName" modifier="Samuel" created="201207240627" modified="201404290549" tags="_TRAINING_ _DETECTION_" changecount="24">
+<div title="Training&amp;detection" creator="YourName" modifier="Samuel" created="201207240627" modified="201412171007" tags="_TRAINING_ _DETECTION_" changecount="26">
 <pre>[[Supported Vector Machine]]
 [[K-Means Clustering]]
-[[Meanshift]]
 [[Adaboost]]
-[[Logistic Regression]]
 [[Deep Learning]]
 [[Desicion Tree]]
-[[Regularization]]
-[[ANN]]
 [[Principal Component Analysis]]</pre>
 </div>
 <div title="Video-Retrieval" creator="Samuel" modifier="Samuel" created="201312140921" modified="201312140922" changecount="3">
@@ -5143,18 +5004,6 @@ numpy.minimum''
 <pre>[[Basic Math Function -- octave/matlab]]
 [[matrix -- octave/matlab]]
 [[plot -- octave/matlab]]</pre>
-</div>
-<div title="openBR" creator="Samuel" modifier="Samuel" created="201311050809" modified="201412150923" changecount="5">
-<pre>*{{normal{@@color(blue):''Gender Estimation,  Age Estimation''@@
-采用的是分类的方法，而不是模板匹配
-}}}
-*{{normal{@@color(blue):''face recognition''@@
-*检测
-人脸使用opencv 眼睛使用ASEF eye detector
-*归一化
-*特征LBP ， SIFT
-
-}}}</pre>
 </div>
 <div title="opencv desicion tree in adaboost" creator="Samuel" modifier="Samuel" created="201403240600" modified="201403310105" changecount="159">
 <pre>*{{normal{@@color(red):''说明''@@
