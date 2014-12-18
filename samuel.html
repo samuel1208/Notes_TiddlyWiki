@@ -1383,54 +1383,6 @@ main函数返回值必须为void
 }}}
 </pre>
 </div>
-<div title="K-Means Clustering" creator="Samuel" modifier="Samuel" created="201404290153" modified="201404290915" changecount="85">
-<pre>*{{normal{@@color(blue):''~K-Means的目标函数''@@
-\(J(c^{(1)}, ..., c^{(M)}, u_1, ..., u_K)＝\frac{1}{M}\sum\limits_{i=1}^{m}{|x^{(i)} - u_{c^{(i)}}|^2} \\
-u_k 是聚类中心点的位置 \\ 
-c^{(m)} 是第m个样本其归属类的索引（1-K）
-\)
-''其目标函数每次迭代完必须是下降的，否则代码有bug'', 如下图是@@color(red):''错误''@@的
-[img[错误的图形|./img/K-means_objective_function.jpg]]
-
-}}}
-*{{normal{@@color(blue):''步骤''@@
-#{{normal{''随机选择K个聚类中心点（\(u_1,..u_k ...u_K\)）(cluster centroids)''
-一般做法是从训练样本中随机抽取K个样本作为聚类中心点
-}}}
-#{{normal{''找到每个训练样本其最近的聚类中心点\(u_k\)，并将其归属到第\(k\)类''
-最近点通过\(\min_k|x-u_k|^2\) 计算
-}}}
-#''将每个类中的样本求均值， 将其均值点当成新的聚类中心点''
-#''repeat 2,3 until convergence''
-
-}}}
-*{{normal{@@color(blue):''补充''@@
-#{{normal{''避开局部最小(Local optimal)''
-@@color(green):~K-means的结果严重依赖与初始化的聚类中心点@@
-#{{normal{类比较少的情况， 如2-10个类
-随机多次初始点进行多次训练选取最小的J作为最终的解决方案
-}}}
-#{{normal{类比较多的情况， 如100个类
-随机多次训练就不合适了，@@color(red):''TODO: 解决方案''@@
-}}}
-}}}
-#{{normal{''在上面的第2，3步中， 可能有的类中没有样本， 这样就没法计算平均位置''
-@@color(green):做法1@@：传统做法，将这个类删除，这样就只有K-1个类了
-@@color(green):做法2@@：重新进行初始化，再开始训练
-}}}
-#{{normal{''\(J_K &gt; J_{K+N}\)''
-类多的J肯定比类少的J要小， 否则类多的一定是收敛到了local optimal
-}}}
-#{{normal{''类个数K的确定''
-#{{normal{elbow method, 通过拐点来寻找，通常情况下@@color(red):工作得不是很好@@,因为其图形多数情况下，更像右边没有拐点
-@@color(red):''更好的方法??''@@
-[img[错误的图形|./img/K-means_elbow_method.jpg]]
-}}}
-#{{normal{ 根据需要来设定类的个数
-}}}
-}}}
-}}}</pre>
-</div>
 <div title="LATEX" creator="Samuel" modifier="Samuel" created="201211260252" modified="201407020903" changecount="115">
 <pre>refer to http://mohu.org/info/symbols/symbols.htm 
 *{{normal{''换行与空格''
@@ -2182,9 +2134,8 @@ F1_{score} (or F_{score}) = 2*\frac{precision*recall}{precision+recall}
 [[Neural Network--Geoffrey Hinton]]
 [[LEVAN]]</pre>
 </div>
-<div title="Machine Learnning--Andrew Ng" creator="Samuel" modifier="Samuel" created="201403180055" modified="201412171004" changecount="63">
+<div title="Machine Learnning--Andrew Ng" creator="Samuel" modifier="Samuel" created="201403180055" modified="201412180842" changecount="64">
 <pre>*[[Supported Vector Machine]]
-*[[K-Means Clustering]]
 *[[Principal Component Analysis]]
 *[[Machine Learning Miscellaneous]]
 *[[Matrix Frobenius]]
