@@ -1020,9 +1020,8 @@ sudo dpkg-reconfigure locales  安装中文包
 会把\n也读进来
 }}}</pre>
 </div>
-<div title="Feature Extraction" creator="Samuel" modifier="Samuel" created="201207160245" modified="201412150922" tags="_IMAGE_ALGORITHM_ _FEATURE_" changecount="20">
+<div title="Feature Extraction" creator="Samuel" modifier="Samuel" created="201207160245" modified="201412250823" tags="_IMAGE_ALGORITHM_ _FEATURE_" changecount="21">
 <pre>[[HOG (Histogram of oriented gradient)]]
-[[Haar]]
 
 </pre>
 </div>
@@ -2134,9 +2133,8 @@ F1_{score} (or F_{score}) = 2*\frac{precision*recall}{precision+recall}
 [[Neural Network--Geoffrey Hinton]]
 [[LEVAN]]</pre>
 </div>
-<div title="Machine Learnning--Andrew Ng" creator="Samuel" modifier="Samuel" created="201403180055" modified="201412180842" changecount="64">
+<div title="Machine Learnning--Andrew Ng" creator="Samuel" modifier="Samuel" created="201403180055" modified="201412250821" changecount="65">
 <pre>*[[Supported Vector Machine]]
-*[[Principal Component Analysis]]
 *[[Machine Learning Miscellaneous]]
 *[[Matrix Frobenius]]
 </pre>
@@ -2691,59 +2689,6 @@ Also see [[AdvancedOptions]]</pre>
 </div>
 <div title="PluginManager" creator="Samuel" modifier="Samuel" created="201207020527" modified="201207020528" changecount="3">
 <pre>&lt;&lt;plugins&gt;&gt;</pre>
-</div>
-<div title="Principal Component Analysis" creator="Samuel" modifier="Samuel" created="201301170637" modified="201405200234" tags="__PCA__" changecount="74">
-<pre>*{{normal{@@color(blue):''目标方程''@@
-#{{normal{''以2D-&gt;1D为例， 寻找一个方向向量\(\vec u\),使得数据投影到方向向量上的距离和最短''
-如果是3D-&gt;2D, 则是寻找2个方向向量 \(\vec u_1, \vec u_2\), 因为两个向量可以组成一个平面, 如下图
-[img[错误的图形|./img/pca_projection.png]]
-}}}
-#{{normal{''其和线性回归的区别''
-如下图，线性回归是寻找其垂直方向上的距离和最短，而PCA是寻找其垂直投影到向量上的距离最短
-[img[错误的图形|./img/pca_linear-regression.png]]
-}}}
-}}}
-*{{normal{@@color(blue):''实现步骤''@@
-#{{normal{''求其协方差矩阵，公式见@@color(green):bishop 1.2.2 (p20)@@''
-#{{normal{计算特征的均值\(\vec {mean}\)
-:\(mean_j = \frac{1}{m}\sum_{i=1}^{m}x_j^{(i)} \\
-m 样本的个数 \\
-j 特征的维数
-\)
-}}}
-#\(\vec X = \vec X - \vec {mean}\) @@color(green):(如果特征的量纲不再一个级别，可以除以标准差进行归一化, 也可以不进行归一化，不会改变特征值， 一般图像处理中不进行归一化)@@
-#{{normal{协方差矩阵\(\sum = \frac{1}{m}\vec X * {\vec X}^T\) 
-#@@color(red):m(样本数)&lt;n(特征数)时, \(\sum\) 不可逆， 一般m&gt;10n@@
-#@@color(red):当特征线性依赖时 \(\sum\) 不可逆， 如\(x_i = w_1*x_j+w_2*x_n\)@@
-}}}
-}}}
-#{{normal{''[U,S,V] = \(svd(\sum ) \)''
-U = \([\vec u_1,..., \vec u_n]\)
-S为特征值
-@@color(red):''V'' : ??@@
-}}}
-#{{normal{''进行降维''
-#{{normal{K的选取
-#\(
-\frac{\frac{1}{m}\sum_{i=1}^{m}||x^{(i)}-x^{(i)}_{approx}||^2}{\frac{1}{m}\sum_{i=1}^m||x^{(i)}||^2}  \le 0.01\\
-\le 0.01 means  99% of variance is retained \\ 
-x_{approx}为重建后的特征
-\)
-#通过svd求解得到的S \(\frac{\sum_{i=1}^Ks_i}{\sum_{i=1}^ms_i} \geq 0.99\)
-}}}
-}}}
-#{{normal{''降维后重建''
-\(X_{approx} = U^T*(U*X)  U为通过svd求解的U的前K列向量\)
-@@color(red):因为U是正交矩阵\(U^T = U^{-1}\), 因为是协方差矩阵是对角矩阵(bishop p699)@@
-}}}
-}}}
-*{{normal{@@color(blue):''PCA的用途''@@
-#用来降维进行训练算法的加速
-#用来显示数据的主要分布
-#@@color(red):''不要用PCA进行降维预防过拟合''@@
-}}}
-
-</pre>
 </div>
 <div title="Python" creator="Samuel" modifier="Samuel" created="201206290703" modified="201403030806" tags="_SCRIPT_LANGUAGE_ _PYTHON_" changecount="40">
 <pre>@@color(green):''类似于Java，Python实际上是字节编译的，其结果就是可以生成一种近似机器语言的中间形式''@@
