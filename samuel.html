@@ -786,17 +786,15 @@ TertiaryDark: #666
 Error: #f88
 </pre>
 </div>
-<div title="Computer Vision" creator="samuel" modifier="Samuel" created="201209270110" modified="201406250233" changecount="26">
+<div title="Computer Vision" creator="samuel" modifier="Samuel" created="201209270110" modified="201502110340" changecount="28">
 <pre>[[Img format convertion]]
 [[Manhattan Distance]]
 [[形态学的腐蚀和膨胀]]
 [[直方图处理]]
-[[协方差-方差-标准差]]
 [[寻找角点]]
 [[梯度]]
 [[coherent enhancing diffusion]]
 [[watershed]]
-[[最小二乘法直线拟合]]
 [[图像增强 retinex]]
 [[FFT]]</pre>
 </div>
@@ -963,7 +961,7 @@ M=Alt (或先按一下 ESC 键然后放开，再输入 &lt;chr&gt;)''@@
 ''C-x C-c '' :  退出Emacs（退出之前提醒存盘）}}}
 </pre>
 </div>
-<div title="Emacs GDB" creator="Samuel" modifier="Samuel" created="201207100655" modified="201501230221" tags="_EMACS_ _EMACS_GDB_" changecount="30">
+<div title="Emacs GDB" creator="Samuel" modifier="Samuel" created="201207100655" modified="201501300814" tags="_EMACS_ _EMACS_GDB_" changecount="34">
 <pre>*{{normal{@@color(blue):''FAQ''@@
 #在编译的时候使用优化-o选项时， 其执行步骤会回跳
 
@@ -992,7 +990,7 @@ M=Alt (或先按一下 ESC 键然后放开，再输入 &lt;chr&gt;)''@@
 &gt;''disable   breakpoints    number''  :是断点无效
 &gt;''delete    breakpoints    number''   : 删除断点
 *@@color(blue):''查看信息''@@
-&gt;''print(p)   exression''  :    表达式可以是变量val，函数调用f(a,b)  
+&gt;''print(p)[/x /d /o]  exression''([[detail|http://www.delorie.com/gnu/docs/gdb/gdb_55.html]])   :    表达式可以是变量val，函数调用f(a,b)  
 &gt;''backtrace(bt)'' : 显示到当前的函数调用记录
 &gt;''gud-watch'' : 增加到查看列表
 &gt;''gud-tooltip-mode'' :光标放在变量上时，会显示变量值
@@ -1020,6 +1018,25 @@ M=Alt (或先按一下 ESC 键然后放开，再输入 &lt;chr&gt;)''@@
 sudo dpkg-reconfigure locales  安装中文包
 }}}
 </pre>
+</div>
+<div title="FFmpeg" creator="Samuel" modifier="Samuel" created="201502161000" modified="201503040306" changecount="23">
+<pre>* {{normal{''视频缩放(以下所有操作同样适合图像)''
+&lt;code sh&gt;
+#1.按指定大小缩放
+ffmpeg -i input.avi -vf scale=320:240 output.avi
+#2.一边指定大小，另一边等比例缩放
+ffmpeg -i input.avi -vf scale=320:-1 output.avi
+#3.通过iw、ih访问输入图像的宽高
+ffmpeg -i input.avi -vf scale=iw*2:ih output.avi
+#4.支持条件语句
+ffmpeg -i input.jpg -vf scale=&quot;'if(gt(a,4/3),320,-1)':'if(gt(a,4/3),-1,240)'&quot; output_320x240_boxed.png
+&lt;/code&gt;
+}}}
+* {{normal{''视频中提取图像''
+&lt;code sh&gt;
+ffmpeg -i tmp.avi  -r 25 -f image2 ./tmp/img-%3d.jpg
+&lt;/code&gt;
+}}}</pre>
 </div>
 <div title="FILE IO" creator="Samuel" modifier="Samuel" created="201304161027" modified="201304161027" changecount="4">
 <pre>*{{normal{@@color(blue): ''fgets'' @@
@@ -1519,13 +1536,23 @@ svm_group_classes ： 将样本整理排列起来， 即同类的放在一起
 [[Lua Exception]]
 [[Lua Load]]</pre>
 </div>
-<div title="Linux" creator="Samuel" modifier="Samuel" created="201207160840" modified="201501070117" tags="_LINUX_COMMAND_" changecount="19">
+<div title="Linux" creator="Samuel" modifier="Samuel" created="201207160840" modified="201502161000" tags="_LINUX_COMMAND_" changecount="20">
 <pre>[[Linux FAQ]]
 [[Linux 命令]]
 </pre>
 </div>
-<div title="Linux FAQ" creator="Samuel" modifier="Samuel" created="201212050335" modified="201501111309" changecount="49">
-<pre>*{{normal{@@color(blue):''无法su到root''@@
+<div title="Linux FAQ" creator="Samuel" modifier="Samuel" created="201212050335" modified="201503040219" changecount="53">
+<pre>*{{normal{@@color(blue):''ubuntu添加mainmenu''@@
+# 安装alacarte
+# 在~/.local/share/applications/下添加''.desktop''文件
+}}}
+*{{normal{@@color(blue):''usb挂载''@@
+使用dmesg可以查看到usb的分区名
+sudo mount  /dev/s**  /mnt/my_usb
+sudo umount  /dev/s**  /mnt/my_usb
+挂载成功可以使用lsblk查看
+}}}
+*{{normal{@@color(blue):''无法su到root''@@
 使用passwd重新设置以下密码即可
 }}}
 *{{normal{@@color(blue):''解决linux下文件中的中文乱码问题''@@
@@ -2159,10 +2186,11 @@ F1_{score} (or F_{score}) = 2*\frac{precision*recall}{precision+recall}
 *[[Matrix Frobenius]]
 </pre>
 </div>
-<div title="MainMenu" creator="YourName" modifier="Samuel" created="201206180446" modified="201501160115" changecount="110">
+<div title="MainMenu" creator="YourName" modifier="Samuel" created="201206180446" modified="201502160959" changecount="111">
 <pre>!Tools
 [[Linux]]
 [[Git]]
+[[FFmpeg]]
 !Editor
 [[Emacs]]
 [[org mode]]
@@ -3170,9 +3198,8 @@ Conf_H(x) = |\sum\limits_{t=1}^Th_t(x)-b|
 
 </pre>
 </div>
-<div title="SiteSubtitle" creator="YourName" modifier="YourName" created="201206180437" modified="201206180439" changecount="3">
-<pre>Learning notes
-</pre>
+<div title="SiteSubtitle" creator="YourName" modifier="Samuel" created="201206180437" modified="201501270749" changecount="5">
+<pre>Learning notes</pre>
 </div>
 <div title="SiteTitle" creator="YourName" modifier="YourName" created="201206180437" modified="201206180443" changecount="2">
 <pre>Samuel's</pre>
@@ -4469,7 +4496,7 @@ for op, arg in options:
 &lt;/code&gt;
 }}}</pre>
 </div>
-<div title="gmock" creator="Samuel" modifier="Samuel" created="201501070201" modified="201501070202" changecount="5">
+<div title="gmock" creator="Samuel" modifier="Samuel" created="201501070201" modified="201502161004" changecount="6">
 <pre>到官网下载包，解压。其包含了gtest。假设目录叫GMOCK。
 &lt;code sh&gt;
 cd GMOCK/make &amp;&amp; make
@@ -5553,16 +5580,6 @@ v(t) = \alpha v(t-1) + \Delta w(t)
 \)
 }}}</pre>
 </div>
-<div title="协方差-方差-标准差" creator="samuel" modifier="samuel" created="201209270548" modified="201209270605" changecount="11">
-<pre>*@@color(blue):''方差''@@
-&gt;''D(X)=E[ (X - E(X)) (X - E(X)) ]''是各个数据与''平均数''之差的平方的平均数。 用来衡量一个样本中，样本值的偏离程度
-*@@color(blue):''标准差''@@
-&gt;标准差是方差平方根
-*@@color(blue):''协方差''@@
-&gt;''COV(X，Y)=E[ (X - E(X)) (Y - E(Y)) ]'' : 方差是协方差的特例
-*@@color(blue):''相关系数''@@
-&gt;协方差/[根号D（X）*根号D（Y）]</pre>
-</div>
 <div title="图像增强 retinex" creator="Samuel" modifier="Samuel" created="201310080626" modified="201310080649" changecount="5">
 <pre>SSR  : single scale retinex 
 MSR  : multi scale retinex 
@@ -5737,39 +5754,6 @@ http://ostermiller.org/dilate_and_erode.html 可以只用一个buffer
 
 
 }}}</pre>
-</div>
-<div title="最小二乘法直线拟合" creator="Samuel" modifier="Samuel" created="201301170728" modified="201403180055" changecount="30">
-<pre>@@bgcolor(green):又名最小平方法，即平方和最小@@
-曲线拟合中最基本和最常用的是直线拟合。设x和y之间的函数关系为：
-              $$     y＝a+bx$$
-式中有两个待定参数，a代表截距，b代表斜率。对于等精度测量所得到的N组数据（xi，yi），i＝1，2……，N，xi值被认为是准确的，所有的误差只联系着yi。
-用最小二乘法估计参数时，要求观测值yi的偏差的加权平方和为最小。对于等精度观测值的直线拟合来说，可使下式的值最小：
-$$ \sum\limits_{i=1}^N[y_i-(a+bx_i)^2] $$ 
-上式分别对a、b求偏导得：
-$$
-\frac{\partial}{\partial a}\sum\limits_{i=1}^N[y_i-(a+bx_i))^2] = -2\sum\limits_{i=1}^N[y_i-(a+bx_i)] = 0  \\
-\frac{\partial}{\partial b}\sum\limits_{i=1}^N[y_i-(a+bx_i))^2] = -2\sum\limits_{i=1}^N[y_i-(a+bx_i)]x_i = 0
-$$    
-整理后得到方程组
-$$
-\begin{cases} 
-aN + b\sum x_i = \sum y_i \\
-a\sum x_i + b\sum x_i^2 = \sum x_iy_i
-\end{cases}
-$$
-解上述方程组便可求得直线参数a和b的最佳估计值。
-$$
-a=\frac{\sum (x_i^2) (\sum y_i) - (\sum x_i)(\sum x_iy_i)}{N(\sum x_i^2)- (\sum x_i)^2} \\
-b=\frac{(\sum x_iy_i)  - (\sum x_i)(\sum y_i)}{N(\sum x_i^2)- (\sum x_i)^2} \\
-$$
-相关系数r:
-最小二乘法处理数据除给出a、b外，常常还给出相关系数r,  r定义为
-$$
-r = \frac{(\sum x_i-X \sum(y_i-Y)}{\sqrt{\sum(x_i-X)^2}\sqrt{\sum(y_i-Y)^2}} \\
-其中X,Y为均值
-$$
- |r|&lt;=1, 如果|r|-&gt;0 想x，y无线性关系 拟合无效
-</pre>
 </div>
 <div title="权重(Neural Network)" creator="Samuel" modifier="Samuel" created="201407020127" modified="201407040924" changecount="59">
 <pre>{{normal{@@color(blue):''权重初始化''@@
