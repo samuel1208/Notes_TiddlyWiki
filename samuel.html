@@ -559,7 +559,7 @@ Also see [[AdvancedOptions]]</pre>
 <div title="AdvancedOptions" creator="YourName" modifier="YourName" created="201206180447" modified="201206180447" changecount="2">
 <pre>&lt;&lt;options&gt;&gt;</pre>
 </div>
-<div title="Basic Math Function -- octave/matlab" creator="Samuel" modifier="samuel" created="201403140558" modified="201403160213" changecount="26">
+<div title="Basic Math Function -- octave/matlab" creator="Samuel" modifier="Samuel" created="201403140558" modified="201503050350" changecount="27">
 <pre>{{normal{@@color(blue):''Attention''@@:
 1.三角函数是使用的弧度制。
 2.自然对数是用log, 而不是ln来表示的。
@@ -715,6 +715,284 @@ void foo() const;
 [[allignment  C/C++]]
 [[round函数]]
 [[FILE IO]]</pre>
+</div>
+<div title="C/C++ Extention for Python" creator="Samuel" modifier="Samuel" created="201503131028" modified="201503131036" changecount="11">
+<pre>*{{normal{@@color(blue):''build''@@
+&lt;code py&gt;
+#####################
+### python setup.py build
+#####################
+#!/usr/bin/env python
+
+from distutils.core import setup, Extension
+
+setup(name=&quot;Function to python example&quot;, 
+      ext_modules=[Extension(&quot;F2P&quot;, sources=['f2p.cpp'])])
+setup(name=&quot;Class to python example&quot;, 
+      ext_modules=[Extension(&quot;C2P&quot;, sources=['c2p.cpp'])])
+&lt;/code&gt;
+}}}
+*{{normal{@@color(blue): ''C function to python''@@
+&lt;code c&gt;
+/*
+f2c.cpp
+*/
+#include &lt;stdio.h&gt;
+#include &lt;stdlib.h&gt;
+#include &lt;string.h&gt;
+/*
+  C function API
+*/
+static int print_int(int n1, int n2)
+{
+    printf(&quot;print int : %d\n&quot;, n1+n2);
+    return n1+n2;
+}
+
+static char* print_str(char *str)
+{
+    printf(&quot;print str : %s\n&quot;, str);
+    return str;
+}
+
+static int test()
+{
+    print_int(11, 22);
+    print_str(&quot;test&quot;);
+    return 0;
+}
+
+/*
+  Add to python
+ */
+#include &quot;Python.h&quot;
+static PyObject *
+py_print_int(PyObject *self, PyObject *args)
+{
+    int n1, n2;
+    // Parse para by order
+    if (!PyArg_ParseTuple(args, &quot;ii&quot;, &amp;n1, &amp;n2))
+        return NULL;
+    return (PyObject*)Py_BuildValue(&quot;i&quot;, print_int(n1, n2));
+}
+
+static PyObject *
+py_print_str(PyObject *self, PyObject *args)
+{
+    char *ori_str;
+    // Parse para by order
+    if (!PyArg_ParseTuple(args, &quot;s&quot;, &amp;ori_str))
+        return NULL;
+    return (PyObject*)Py_BuildValue(&quot;s&quot;, print_str(ori_str));
+}
+
+static PyObject *
+py_test(PyObject *self, PyObject *args)
+{
+    test();
+    return (PyObject*)Py_BuildValue(&quot;&quot;);
+}
+
+static PyMethodDef
+F2PMethods[] =
+    {
+        { &quot;print_int&quot;, py_print_int, METH_VARARGS },
+        { &quot;print_str&quot;, py_print_str, METH_VARARGS },
+        { &quot;test&quot;,      py_test,      METH_NOARGS },
+        { NULL, NULL },
+    };
+
+#ifndef PyMODINIT_FUNC 
+#define PyMODINIT_FUNC void
+#endif
+PyMODINIT_FUNC initF2P()
+{
+    Py_InitModule3(&quot;F2P&quot;, F2PMethods, 
+                   &quot;C function to python tutorial&quot;);
+    /*
+      &quot;F2P&quot; : The module name when used by import in python
+      &quot;F2PMethods&quot; : The methods supported in the module
+    */
+}
+&lt;/code&gt;
+}}}
+*{{normal{@@color(blue): ''Class to python''@@
+&lt;code c&gt;
+#include &lt;Python.h&gt;
+#include &lt;stdio.h&gt;
+#include &lt;structmember.h&gt;
+
+typedef struct {
+    PyObject_HEAD
+    PyObject *name;  
+    int num;
+    /* Type-specific fields go here. */
+}C2P_Object;
+
+static void
+C2P_dealloc(C2P_Object* self)
+{
+    printf(&quot;Dealloc of C2P\n&quot;);
+    Py_XDECREF(self-&gt;name);
+    self-&gt;ob_type-&gt;tp_free((PyObject*)self);
+}
+
+static PyObject *
+C2P_new(PyTypeObject *type, PyObject *args, PyObject *kwds)
+{
+    printf(&quot;New of C2P\n&quot;);
+    C2P_Object *self;
+
+    self = (C2P_Object *)type-&gt;tp_alloc(type, 0);
+    if (self != NULL) 
+    {
+        self-&gt;name = PyString_FromString(&quot;C2P&quot;);
+        if (self-&gt;name == NULL)
+        {
+            Py_DECREF(self);
+            return NULL;
+        }
+        
+        self-&gt;num = 0;
+    }
+
+    return (PyObject *)self;
+}
+
+
+static int
+C2P_init(C2P_Object *self, PyObject *args, PyObject *kwds)
+{
+    printf(&quot;Init of C2P\n&quot;);
+    PyObject *name=NULL, *tmp;
+
+    static char *kwlist[] = {&quot;name&quot;, &quot;num&quot;, NULL};
+
+    if(!PyArg_ParseTupleAndKeywords(args, kwds, &quot;|Oi&quot;,
+                                    kwlist,
+                                    &amp;name,
+                                    &amp;self-&gt;num))
+        return -1;
+
+    if (name) {
+        tmp = self-&gt;name;
+        Py_INCREF(name);
+        self-&gt;name = name;
+        Py_XDECREF(tmp);
+    }
+    return 0;
+}
+
+static PyObject *
+C2P_set_int(C2P_Object* self, PyObject *args)
+{
+    int num;
+    if (!PyArg_ParseTuple(args, &quot;i&quot;, &amp;num))
+        return NULL;
+    self-&gt;num = num;
+    return (PyObject*)Py_BuildValue(&quot;i&quot;, num);
+}
+
+static PyObject *
+C2P_print_int(C2P_Object* self, PyObject *args)
+{
+    printf(&quot;print int : %d\n&quot;, self-&gt;num);
+    return (PyObject*)Py_BuildValue(&quot;i&quot;, self-&gt;num);
+}
+
+static PyMemberDef C2P_members[] = {
+    {&quot;name&quot;, T_OBJECT_EX, offsetof(C2P_Object, name), 0,
+     &quot;python  object member&quot;},
+    {&quot;num&quot;, T_INT, offsetof(C2P_Object, num), 0,
+     &quot;int member&quot;},
+    {NULL}  /* Sentinel */
+};
+
+static PyMethodDef C2P_methods[] = {
+    {&quot;print_int&quot;, (PyCFunction)C2P_print_int, METH_NOARGS,
+     &quot;print the int value&quot;},
+    {&quot;set_int&quot;, (PyCFunction)C2P_set_int, METH_VARARGS,
+     &quot;print the int value&quot;},
+    {NULL}  /* Sentinel */
+};
+
+
+static PyTypeObject C2P_Type = {
+    PyObject_HEAD_INIT(NULL)
+    0,                         /*ob_size*/
+    &quot;C2P.C2P&quot;,                 /*tp_name*/
+    sizeof(C2P_Object),        /*tp_basicsize*/
+    0,                         /*tp_itemsize*/
+    (destructor)C2P_dealloc,   /*tp_dealloc*/
+    0,                         /*tp_print*/
+    0,                         /*tp_getattr*/
+    0,                         /*tp_setattr*/
+    0,                         /*tp_compare*/
+    0,                         /*tp_repr*/
+    0,                         /*tp_as_number*/
+    0,                         /*tp_as_sequence*/
+    0,                         /*tp_as_mapping*/
+    0,                         /*tp_hash */
+    0,                         /*tp_call*/
+    0,                         /*tp_str*/
+    0,                         /*tp_getattro*/
+    0,                         /*tp_setattro*/
+    0,                         /*tp_as_buffer*/
+    Py_TPFLAGS_DEFAULT | Py_TPFLAGS_BASETYPE, /*tp_flags*/
+    &quot;Class to Python&quot;,         /* tp_doc */
+    0,		                   /* tp_traverse */
+    0,		                   /* tp_clear */
+    0,		                   /* tp_richcompare */
+    0,		                   /* tp_weaklistoffset */
+    0,		                   /* tp_iter */
+    0,		                   /* tp_iternext */
+    C2P_methods,               /* tp_methods */
+    C2P_members,               /* tp_members */
+    0,                         /* tp_getset */
+    0,                         /* tp_base */
+    0,                         /* tp_dict */
+    0,                         /* tp_descr_get */
+    0,                         /* tp_descr_set */
+    0,                         /* tp_dictoffset */
+    (initproc)C2P_init,      /* tp_init */
+    0,                         /* tp_alloc */
+    C2P_new,                 /* tp_new */
+};
+
+static PyMethodDef module_methods[] = {
+    {NULL}  /* Sentinel */
+};
+
+
+#ifndef PyMODINIT_FUNC 
+#define PyMODINIT_FUNC void
+#endif
+PyMODINIT_FUNC
+initC2P() 
+{
+    PyObject* m;
+
+    C2P_Type.tp_new = PyType_GenericNew;
+    if (PyType_Ready(&amp;C2P_Type) &lt; 0)
+        return;
+
+    /**********************************************/
+    m = Py_InitModule3(&quot;C2P&quot;, module_methods,
+                       &quot;module functions&quot;);
+    // &quot;C2P&quot; : The module name when used by import in python
+    if (m==NULL)
+        return ;
+
+    /**********************************************/
+    Py_INCREF(&amp;C2P_Type);    
+    PyModule_AddObject(m, &quot;C2P&quot;, 
+                       (PyObject *)&amp;C2P_Type);
+    
+    // &quot;C2P&quot; : The Class name in the module
+    /**********************************************/    
+}
+&lt;/code&gt;
+}}}</pre>
 </div>
 <div title="C/C++ optimize" creator="Samuel" modifier="Samuel" created="201302050613" changecount="1">
 <pre>*{{normal{@@color(green):指令集@@
@@ -1047,13 +1325,6 @@ ffmpeg -i tmp.avi  -r 25 -f image2 ./tmp/img-%3d.jpg
 <pre>[[HOG (Histogram of oriented gradient)]]
 
 </pre>
-</div>
-<div title="GettingStarted" creator="Samuel" modifier="Samuel" created="201206270532" modified="201206270533" changecount="3">
-<pre>To get started with this blank [[TiddlyWiki]], you'll need to modify the following tiddlers:
-* [[SiteTitle]] &amp; [[SiteSubtitle]]: The title and subtitle of the site, as shown above (after saving, they will also appear in the browser title bar)
-* [[MainMenu]]: The menu (usually on the left)
-* [[DefaultTiddlers]]: Contains the names of the tiddlers that you want to appear when the TiddlyWiki is opened
-You'll also need to enter your username for signing your edits: &lt;&lt;option txtUserName&gt;&gt;</pre>
 </div>
 <div title="Gini Index Split Criterion" creator="Samuel" modifier="Samuel" created="201403240812" modified="201403270149" changecount="59">
 <pre>*{{normal{@@color(blue):''定义''@@
@@ -1525,7 +1796,7 @@ svm_group_classes ： 将样本整理排列起来， 即同类的放在一起
 }}}
 }}}</pre>
 </div>
-<div title="LUA" creator="Samuel" modifier="Samuel" created="201407100748" modified="201407250309" changecount="14">
+<div title="LUA" creator="Samuel" modifier="Samuel" created="201407100748" modified="201503050345" changecount="15">
 <pre>[[Lua Type]]
 [[Lua Operator]]
 [[Lua 控制结构]]
@@ -1534,7 +1805,8 @@ svm_group_classes ： 将样本整理排列起来， 即同类的放在一起
 [[Lua Variable]]
 [[Lua Closures]]
 [[Lua Exception]]
-[[Lua Load]]</pre>
+[[Lua Load]]
+[[Lua 解释器]]</pre>
 </div>
 <div title="Linux" creator="Samuel" modifier="Samuel" created="201207160840" modified="201502161000" tags="_LINUX_COMMAND_" changecount="20">
 <pre>[[Linux FAQ]]
@@ -1588,8 +1860,9 @@ refer to : https://bugs.freedesktop.org/show_bug.cgi?id=24226
 
 </pre>
 </div>
-<div title="Linux 命令" creator="Samuel" modifier="Samuel" created="201212050334" modified="201501070122" changecount="14">
-<pre>&gt;[[find]] : 查找文件和文件夹
+<div title="Linux 命令" creator="Samuel" modifier="Samuel" created="201212050334" modified="201503090530" changecount="15">
+<pre>&gt;[[chmod]] : 修改文件属性
+&gt;[[find]] : 查找文件和文件夹
 &gt;[[grep]]: 文本搜索
 &gt;[[shift]]   : 移动shell脚本传入的参数位置
 &gt;[[$()与``]] :命令替换符， 在其中执行命令并作为输入
@@ -1641,9 +1914,6 @@ refer to : https://bugs.freedesktop.org/show_bug.cgi?id=24226
 *'' git gui blame''
 :查看每次的修改（包含用户信息）
 </pre>
-</div>
-<div title="Lua Build-in Function" creator="Samuel" modifier="Samuel" created="201407100751" modified="201407150117" changecount="4">
-<pre></pre>
 </div>
 <div title="Lua Closures" creator="Samuel" modifier="Samuel" created="201407140532" modified="201407140535" changecount="8">
 <pre>*一个closure就是函数加上所有他能正确访问的non-local变量
@@ -2149,7 +2419,7 @@ end
 &lt;/code&gt;
 }}}</pre>
 </div>
-<div title="Lua 解释器" creator="Samuel" modifier="Samuel" created="201407100749" modified="201407100750" changecount="3">
+<div title="Lua 解释器" creator="Samuel" modifier="Samuel" created="201407100749" modified="201503050345" changecount="4">
 <pre>*{{normal{''lua  -i filename''
 运行filename中代码块，然后打开lua解释器
 }}}</pre>
@@ -2576,9 +2846,6 @@ object c中使用@@color(blue):@interface@@， 而不是@@color(blue):@class@@�
 <div title="OpenCV" creator="samuel" modifier="samuel" created="201303280242" modified="201303280242" changecount="2">
 <pre>*[[opencv内存分配]]</pre>
 </div>
-<div title="OpenCV Cascade AdaBoost" creator="Samuel" modifier="Samuel" created="201303120911" changecount="1">
-<pre></pre>
-</div>
 <div title="OpenGL" creator="YourName" modifier="Samuel" created="201210240147" modified="201212070130" changecount="22">
 <pre>*临时修改一些状态时，需使用push和pop操作，这比直接修改效率更高
 *在渲染多边形的顶点不在一个平面上的时候，应该使用三角形来代替。三角形始终在一个平面上
@@ -2685,7 +2952,7 @@ Also see [[AdvancedOptions]]</pre>
 <div title="PluginManager" creator="Samuel" modifier="Samuel" created="201207020527" modified="201207020528" changecount="3">
 <pre>&lt;&lt;plugins&gt;&gt;</pre>
 </div>
-<div title="Python" creator="Samuel" modifier="Samuel" created="201206290703" modified="201403030806" tags="_SCRIPT_LANGUAGE_ _PYTHON_" changecount="40">
+<div title="Python" creator="Samuel" modifier="Samuel" created="201206290703" modified="201503131027" tags="_SCRIPT_LANGUAGE_ _PYTHON_" changecount="43">
 <pre>@@color(green):''类似于Java，Python实际上是字节编译的，其结果就是可以生成一种近似机器语言的中间形式''@@
 &gt;[[Python pdb]]
 &gt;[[Python FAQ]]
@@ -2701,9 +2968,8 @@ Also see [[AdvancedOptions]]</pre>
 &gt;[[Python Internet]]
 &gt;[[Python Exception]]
 &gt;[[Python Miscellaneous]]
-&gt;[[Python todo]]
 &gt;[[Python equivalent function of MATLAB]]
-&gt;[[python ThirdParty]]
+&gt;[[C/C++ Extention for Python ]]
 
 </pre>
 </div>
@@ -2880,9 +3146,6 @@ python -m pdb test.py paras
 #@@color(green):''cl(ear) {{{[[filename:]lineno | function[, condition]]}}}''@@ : 删除断点， 执行到了以后就无效
 }}}</pre>
 </div>
-<div title="Python todo" creator="samuel" modifier="Samuel" created="201211050632" modified="201403030806" changecount="2">
-<pre>&gt;513 python核心编程</pre>
-</div>
 <div title="Python函数" creator="Samuel" modifier="Samuel" created="201206290716" modified="201310080958" changecount="52">
 <pre>*@@color(red):''Python不支持函数或方法的重载''@@
 &gt;后定义的函数或方法@@color(red):会覆盖@@前面的定义的同名函数或方法
@@ -2987,7 +3250,7 @@ if __name__ == &quot;__main__&quot;:
 }}}
 </pre>
 </div>
-<div title="Python控制结构" creator="Samuel" modifier="Samuel" created="201206290847" modified="201407140731" tags="_PYTHON_" changecount="65">
+<div title="Python控制结构" creator="Samuel" modifier="Samuel" created="201206290847" modified="201503050342" tags="_PYTHON_" changecount="66">
 <pre>@@bgcolor(green):''python中没有switch-case, 可以用if-elif 或 字典来实现''@@
 *@@color(blue):''控制结构可以用在list的赋值中''@@
 &gt;sqdEvens = [x ** 2 for x in range(8) if x&gt;2 ]. 
@@ -4094,6 +4357,9 @@ esac
 }}}
  </pre>
 </div>
+<div title="chmod" creator="Samuel" modifier="Samuel" created="201503090530" changecount="1">
+<pre>Type the text for 'chmod'</pre>
+</div>
 <div title="class 类型转换" creator="Samuel" modifier="samuel" created="201302250750" modified="201303280325" changecount="32">
 <pre>!@@bgcolor(red):''隐式转换''@@
 *{{normal{@@color(blue):''隐式类类型转换''@@
@@ -4856,6 +5122,55 @@ $(call function, para1, para2)
 
 </pre>
 </div>
+<div title="matlab 函数" creator="Samuel" modifier="Samuel" created="201503050350" modified="201503050645" changecount="6">
+<pre>{{normal{@@color(blue):''定义''@@
+&lt;code Matlab&gt;
+function [res1, res2] =name(para1, para2)
+    % do something
+end
+&lt;/code&gt;
+}}}</pre>
+</div>
+<div title="matlab 数据结构" creator="Samuel" modifier="Samuel" created="201503050646" modified="201503050649" changecount="6">
+<pre>*{{normal{@@color(blue):''struct''@@
+其实就是字典
+&lt;code matlab&gt;
+% 1. 基于struct 函数
+s = sturct('key1',val1,'key2',val2,…);
+
+% 2. 直接使用
+s.key1 = val1;
+s.key2 = val2;
+&lt;/code&gt;
+}}}</pre>
+</div>
+<div title="matlab控制结构" creator="Samuel" modifier="Samuel" created="201503050340" modified="201503050351" changecount="18">
+<pre>{{normal{@@color(blue):''While''@@
+&lt;code Matlab&gt;
+while condition
+    % do something
+end
+&lt;/code&gt;
+}}}
+{{normal{@@color(blue):''for''@@
+&lt;code Matlab&gt;
+for i = 1:10
+    % do something
+end
+&lt;/code&gt;
+}}}
+{{normal{@@color(blue):''if .. else''@@
+&lt;code Matlab&gt;
+if condition1
+    % do something
+elseif condition2
+    % do something
+else
+    % do something
+end
+&lt;/code&gt;
+}}}</pre>
+</div>
 <div title="matrix -- octave/matlab" creator="samuel" modifier="Samuel" created="201403160214" modified="201404180322" changecount="13">
 <pre>*{{normal{@@color(blue):''pinv''@@
 求矩阵的逆
@@ -4955,10 +5270,13 @@ numpy.minimum''
 }}}
 </pre>
 </div>
-<div title="octave/matlab" creator="Samuel" modifier="samuel" created="201403140557" modified="201403160239" changecount="5">
+<div title="octave/matlab" creator="Samuel" modifier="Samuel" created="201403140557" modified="201503050645" changecount="13">
 <pre>[[Basic Math Function -- octave/matlab]]
 [[matrix -- octave/matlab]]
-[[plot -- octave/matlab]]</pre>
+[[plot -- octave/matlab]]
+[[matlab控制结构]]
+[[matlab 函数]]
+[[matlab 数据结构]]</pre>
 </div>
 <div title="opencv desicion tree in adaboost" creator="Samuel" modifier="Samuel" created="201403240600" modified="201403310105" changecount="159">
 <pre>*{{normal{@@color(red):''说明''@@
