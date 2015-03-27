@@ -1297,7 +1297,7 @@ sudo dpkg-reconfigure locales  安装中文包
 }}}
 </pre>
 </div>
-<div title="FFmpeg" creator="Samuel" modifier="Samuel" created="201502161000" modified="201503040306" changecount="23">
+<div title="FFmpeg" creator="Samuel" modifier="Samuel" created="201502161000" modified="201503270907" changecount="28">
 <pre>* {{normal{''视频缩放(以下所有操作同样适合图像)''
 &lt;code sh&gt;
 #1.按指定大小缩放
@@ -1308,13 +1308,30 @@ ffmpeg -i input.avi -vf scale=320:-1 output.avi
 ffmpeg -i input.avi -vf scale=iw*2:ih output.avi
 #4.支持条件语句
 ffmpeg -i input.jpg -vf scale=&quot;'if(gt(a,4/3),320,-1)':'if(gt(a,4/3),-1,240)'&quot; output_320x240_boxed.png
+#5.无损转换格式
+ffmpeg -i input.avi  -vcodec copy -acodec copy output.mp4
 &lt;/code&gt;
 }}}
 * {{normal{''视频中提取图像''
 &lt;code sh&gt;
 ffmpeg -i tmp.avi  -r 25 -f image2 ./tmp/img-%3d.jpg
 &lt;/code&gt;
-}}}</pre>
+}}}
+* {{normal{''从图像中生成视频''
+&lt;code sh&gt;
+ffmpeg -i ./img/img-%d.jpg -vcodec mpeg4 test.avi
+&lt;/code&gt;
+}}}
+* {{normal{''旋转视频''
+&lt;code sh&gt;
+ffmpeg -i in.mov -vf &quot;transpose=1&quot; out.mov
+#0 = 90CounterCLockwise and Vertical Flip (default)
+#1 = 90Clockwise
+#2 = 90CounterClockwise
+#3 = 90Clockwise and Vertical Flip
+&lt;/code&gt;
+}}}
+</pre>
 </div>
 <div title="FILE IO" creator="Samuel" modifier="Samuel" created="201304161027" modified="201304161027" changecount="4">
 <pre>*{{normal{@@color(blue): ''fgets'' @@
@@ -4773,12 +4790,20 @@ sudo cp -r include/gmock /usr/local/include
 sudo cp -r gtest/include/gtest /usr/local/include
 &lt;/code&gt;</pre>
 </div>
-<div title="gprof" creator="Samuel" modifier="Samuel" created="201308020614" modified="201308140531" changecount="37">
-<pre>{{normal{@@color(blue):''编译''@@
-#编译选项加上''{{{-pg}}}''
-#如果自己手动使用@@color(green):''ld''@@编译 需要指定''/lib/gcrt0.o''而不是''/lib/crt0.o''. 以及使用''{{{-lc_p}}}''库而不是标准的c library''{{{-lc}}}''
+<div title="gprof" creator="Samuel" modifier="Samuel" created="201308020614" modified="201503240225" changecount="49">
+<pre>{{normal{@@color(blue):''Support on make''@@
+#编译和链接选项都要加上加上''{{{-pg}}}''
+#如果自己手动使用@@color(green):''ld''@@进行链接, 需要指定''/lib/gcrt0.o''而不是''/lib/crt0.o''. 以及使用''{{{-lc_p}}}''库而不是标准的c library''{{{-lc}}}''
 #如果有些模块没有使用''{{{-pg}}}''编译，则这些模块没有信息，但是其他的还有
-#@@color(red):是否需要''-g''调试选项呢？ @@如果想执行一行一行的profiling，需要加入“-g”编译参数。
+#@@color(red):是否需要''-g''调试选项呢？ @@如果想执行一行一行的profiling(''即统计每行代码的性能'')，需要加入“-g”编译参数。
+}}}
+{{normal{@@color(blue):''Support on cmake''@@
+&lt;code cmake&gt;
+SET(CMAKE_C_FLAGS &quot;${CMAKE_CXX_FLAGS} -pg&quot;)
+SET(CMAKE_CXX_FLAGS &quot;${CMAKE_CXX_FLAGS} -pg&quot;)
+SET(CMAKE_EXE_LINKER_FLAGS &quot;${CMAKE_EXE_LINKER_FLAGS} -pg&quot;)
+SET(CMAKE_SHARED_LINKER_FLAGS ${CMAKE_SHARED_LINKER_FLAGS} -pg&quot;)
+&lt;/code&gt;
 }}}
 {{normal{@@color(blue):''gprof''@@
 *{{normal{''执行''
