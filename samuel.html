@@ -119,8 +119,6 @@ Error message and password prompt
 
 <li>’ ‘与“ ”</li>
 
-<li>#pragma</li>
-
 <li>$:/ControlPanel</li>
 
 <li>$:/core</li>
@@ -487,6 +485,8 @@ Error message and password prompt
 
 <li>plot -- octave/matlab</li>
 
+<li>pragma</li>
+
 <li>Programming</li>
 
 <li>Python</li>
@@ -514,8 +514,6 @@ Error message and password prompt
 <li>Python File IO</li>
 
 <li>Python Internet</li>
-
-<li>Python Miscellaneous</li>
 
 <li>Python pdb</li>
 
@@ -652,32 +650,6 @@ Error message and password prompt
 <div changecount="6" created="20120629060100000" creator="Samuel" modified="20120629060300000" modifier="Samuel" tags="_SHELL_ _SHELL_COMMAND_" title="’ ‘与“ ”" type="text/x-tiddlywiki">
 <pre>*@@color(green):'string'@@ 被单引号用括住的内容，将被视为单一字串。在引号内的代表变数的$符号，没有作用，也就是说，他被视为一般符号处理，防止任何变量替换。
 *@@color(green):&quot;string&quot;@@ 被双引号用括住的内容，将被视为单一字串。它防止通配符扩展，但允许变量扩展。这点与单引数的处理方式不同。</pre>
-</div>
-<div changecount="47" created="20121009025900000" creator="Samuel" modified="20121226074900000" modifier="Samuel" title="#pragma" type="text/x-tiddlywiki">
-<pre>*{{normal{@@color(blue):''#pragma message(&quot;hello&quot;)''@@
-编译时输出信息
-}}}
-*{{normal{@@color(blue):''#pragma warning ''@@
-&lt;code c&gt;
-#pragma   warning( disable: 4507  34; once : 4385; error : 164   )   
- /* is equal to   */
-#pragma   warning(disable:4507   34)    //不显示4507和34号警告信息 
-#pragma   warning(once:4385)            //4385号警告信息仅报告一次   
-#pragma   warning(error:164)            //把164号警告信息作为一个错误
-#pragma   warning( push )               //保存所有警告信息的现有的警告状态
-#pragma   warning( push,n)              //保存所有警告信息的现有的警告状态，并且把全局警告等级设定为n(1,2,3,4四个级别)。  
-#pragma   warning( pop )                //向栈中弹出最后一个警告信息，在入栈和出栈之间所作的一切改动取消
-&lt;/code&gt;
-}}}
-*{{normal{@@color(blue):''#pragma comment''@@
-*''#pragma comment(lib,&quot;windows.lib&quot;)''
-}}}
-*{{normal{@@color(blue):''#符号''@@
-#变量引用 : #define  sample(a)  ##a=10
-#字符串化 :  #define  a(b) #b 将b变成字符
-}}}
-
-</pre>
 </div>
 <div created="20150403101544908" modified="20150403101544908" title="$:/ControlPanel">
 <pre>&lt;div class=&quot;tc-control-panel&quot;&gt;
@@ -5898,10 +5870,21 @@ Error message and password prompt
 <pre>MainMenu
 </pre>
 </div>
-<div status="complete" title="$:/Import">
-<pre>The following tiddlers were imported:
-
-# [[$:/plugins/tiddlywiki/katex]]</pre>
+<div plugin-type="import" status="pending" title="$:/Import" type="application/json">
+<pre>{
+    &quot;tiddlers&quot;: {
+        &quot;Python Build-in Function&quot;: {
+            &quot;text&quot;: &quot;*@@color(blue):''input 和 raw_input''@@\n&gt;raw_input:将所有输入当成原始输入，不会把数字变成int等\n*@@color(blue):''dir()''@@\n&gt; 显示属性\n*@@color(blue):''help()''@@\n&gt;显示帮助文档\n*@@color(blue):''eval()/ exec()''@@\n&gt;eval():计算表达式的值， 可以返回repr字符串的的本来对象\n&gt;exec(): 执行字符串中的命令\n*@@color(blue):''isinstance()''@@\n&gt;判断是否为某个对象的实例，如：isinstance(1, int)\n*@@color(blue):''cmp(var1, var2)''@@\n&gt;判断两个对象大小\n*@@color(blue):''coerce(var1, var2)''@@\n&gt;将2个数据转换为相同类型，遵循转换规则\n*@@color(blue):''int(), float()等''@@\n&gt;@@color(red):可以直接将字符串转换为数字@@\n*@@color(blue):''abs()''@@\n&gt;如果是复数则返回复数的模； 不用借助这个实现可以自己来写\n*@@color(blue):''divmod()''@@\n&gt;返回元组，保存除数和余数\n*@@color(blue):''round(flt, ndig=0)''@@\n&gt;接受一个浮点数 flt 并对其四舍五入，保存 ndig位小数\n*@@color(blue):''zip(var1, var2)''@@\n&gt;取var1和var2中的第一个元素组成一个元素，创建字典时也比较有用\n&quot;,
+            &quot;changecount&quot;: &quot;15&quot;,
+            &quot;created&quot;: &quot;20121011090600000&quot;,
+            &quot;creator&quot;: &quot;Samuel&quot;,
+            &quot;modified&quot;: &quot;20121015013100000&quot;,
+            &quot;modifier&quot;: &quot;samuel&quot;,
+            &quot;title&quot;: &quot;Python Build-in Function&quot;,
+            &quot;type&quot;: &quot;text/x-tiddlywiki&quot;
+        }
+    }
+}</pre>
 </div>
 <div title="$:/isEncrypted">
 <pre>no</pre>
@@ -6053,10 +6036,10 @@ Error message and password prompt
 <div modified="20150403100817644" title="$:/state/tab-1749438307">
 <pre>$:/core/ui/ControlPanel/Info</pre>
 </div>
-<div modified="20150405132701733" title="$:/state/tab-1844142075">
-<pre>Algorithm</pre>
+<div modified="20150416072745734" title="$:/state/tab-1844142075">
+<pre>Programming</pre>
 </div>
-<div list="Algorithm Training&amp;detection MainMenu [[Computer Vision]]" title="$:/StoryList">
+<div list="MainMenu Cmake [[cmake command]] if" title="$:/StoryList">
 <pre></pre>
 </div>
 <div plugin-type="info" title="$:/temp/info-plugin" type="application/json">
@@ -6073,8 +6056,8 @@ Error message and password prompt
     }
 }</pre>
 </div>
-<div created="20150327100313339" modified="20150405132707133" title="$:/temp/search">
-<pre>Algo</pre>
+<div created="20150327100313339" modified="20150416072825412" title="$:/temp/search">
+<pre>for</pre>
 </div>
 <div author="JeremyRuston" core-version="&gt;=5.0.0" dependents="$:/themes/tiddlywiki/vanilla" description="A clean theme that emphasises individual tiddlers" name="Snow White" plugin-type="theme" title="$:/themes/tiddlywiki/snowwhite" type="application/json" version="5.1.7">
 <pre>{
@@ -6188,11 +6171,11 @@ v(t) = \alpha v(t-1) + \Delta w(t)
 \)
 }}}</pre>
 </div>
-<div changecount="19" created="20121226074800000" creator="Samuel" modified="20130328024000000" modifier="samuel" title="函数指针" type="text/x-tiddlywiki">
-<pre>&lt;code c++&gt;
+<div changecount="19" created="20121226074800000" creator="Samuel" modified="20150409091701999" modifier="samuel" title="函数指针" type="text/vnd.tiddlywiki">
+<pre>```c
 int  (*f) (int a)   /* 声明一个函数指正变量 f */
 typedef  int  (*f) (int a)   /* 声明一个函数指正类型*/
-&lt;/code&gt;</pre>
+```</pre>
 </div>
 <div changecount="1" created="20120906021700000" creator="samuel" modifier="samuel" title="集合" type="text/x-tiddlywiki">
 <pre>*@@bgcolor(green):说明@@
@@ -6437,17 +6420,16 @@ else   \hspace{8mm} g_{ij}(t) = g_{ij}(t-1)*0.95   \\
 <div changecount="1" created="20130625062100000" creator="Samuel" modified="20150405130852595" modifier="Samuel" title="直方图处理" type="text/vnd.tiddlywiki">
 <pre>[[直方图均衡化(Histogram Equalization)]]</pre>
 </div>
-<div changecount="56" created="20120927011500000" creator="samuel" modified="20150405132452458" modifier="Samuel" title="直方图均衡化(Histogram Equalization)" type="text/vnd.tiddlywiki">
+<div changecount="56" created="20120927011500000" creator="samuel" modified="20150406020016198" modifier="Samuel" title="直方图均衡化(Histogram Equalization)" type="text/vnd.tiddlywiki">
 <pre>* ''step1'' : 直方图统计 &lt;div&gt;
 
-$$
-\displaystyle  p(l) =  \frac{n(l)}{N}      \hspace{4mm}  l \in (0,L-1)          
+$$ \displaystyle  p(l) =  \frac{n(l)}{N}$$    $$  l \in (0,L-1)   $$    
 
-n(l) : The number of pixel value = l      
+$$n(l):\text{The number of pixel value equal to l} $$ 
 
-N :  The number of total pixel    
-L :  The range of pixel value 
-$$
+$$N:\text{The number of total pixel}$$        
+
+$$L : \text{The range of pixel value} $$
 
 ```c
 for(int i=0; i&lt;height; i++)
@@ -6460,9 +6442,7 @@ for(int i=0; i&lt;L; i++)
 
 * ''step2'' : 累计归一化直方图(即对p(k)做一下scan算法) &lt;div&gt;
 
-$$
-s(k) = \sum\limits_{l=0}^k p(l)      ............. k \in (0,L-1) \\
-$$
+$$\displaystyle s(k) = \sum_{l=0}^k p(l) $$    $$ k \in (0,L-1) $$
 
 ```c
 s[0] = p[0];
@@ -6654,7 +6634,7 @@ res = str.split('+')
 <div changecount="2" created="20120618044700000" creator="YourName" modified="20120618044700000" modifier="YourName" title="AdvancedOptions" type="text/x-tiddlywiki">
 <pre>&lt;&lt;options&gt;&gt;</pre>
 </div>
-<div created="20150403102417463" modified="20150405132716356" tags="" title="Algorithm">
+<div created="20150403102417463" modified="20150413081127103" tags="" title="Algorithm">
 <pre>&gt;[[sort]]
 &gt;[[Machine Learnning]]
 &gt;[[Computer Vision]]
@@ -6761,20 +6741,30 @@ void fastFree(void* ptr)
 :git reset –soft：回退到某个版本，只回退了commit的信息，不会恢复到index file一级。如果还要提交，直接commit即可
 :git reset –hard：彻底回退到某个版本，本地的源码也会变为上一个版本的内容</pre>
 </div>
-<div changecount="29" created="20121009025700000" creator="Samuel" modified="20130821020700000" modifier="Samuel" title="C/C++" type="text/x-tiddlywiki">
-<pre>!C++
-[[#pragma]]
-[[C++ (im)mutable关键字]]
-[[c++ single instance]]
-[[c++ template]]
-[[C++ class]]
-[[C++内存管理]]
-[[class 类型转换]]-@@color(red):''important''@@
+<div changecount="29" created="20121009025700000" creator="Samuel" modified="20150409092452904" modifier="Samuel" title="C/C++" type="text/vnd.tiddlywiki">
+<pre>!C++ 
+*[[pragma]]
+
+*[[C++ (im)mutable关键字]]
+
+*[[c++ single instance]]
+
+*[[c++ template]]
+
+*[[C++ class]]
+
+*[[C++内存管理]]
+
+*[[class 类型转换]]
+
 !C
-[[函数指针]]
-[[allignment  C/C++]]
-[[round函数]]
-[[FILE IO]]</pre>
+*[[函数指针]]
+
+*[[allignment  C/C++]]
+
+*[[round函数]]
+
+*[[FILE IO]]</pre>
 </div>
 <div changecount="11" created="20150313102800000" creator="Samuel" modified="20150313103600000" modifier="Samuel" title="C/C++ Extention for Python" type="text/x-tiddlywiki">
 <pre>*{{normal{@@color(blue):''build''@@
@@ -7278,15 +7268,15 @@ operator  int() const {return 2;}
 }}}
 </pre>
 </div>
-<div changecount="148" created="20120618061400000" creator="Samuel" modified="20130619034100000" modifier="Samuel" tags="_CMAKE_" title="Cmake" type="text/x-tiddlywiki">
-<pre>*[[cmake FAQ]]
-*[[cmake optional parameters]]
-*[[cmake variable]]
-*[[cmake command]]
+<div changecount="148" created="20120618061400000" creator="Samuel" modified="20150416071641685" modifier="Samuel" tags="_CMAKE_" title="Cmake" type="text/vnd.tiddlywiki">
+<pre>&gt;[[cmake FAQ]]
+&gt;[[cmake optional parameters]]
+&gt;[[cmake variable]]
+&gt;[[cmake command]]
 
 </pre>
 </div>
-<div changecount="24" created="20120713013900000" creator="Samuel" modified="20130719085200000" modifier="Samuel" tags="_CMAKE_ _CMAKE_COMMAND_" title="cmake command" type="text/x-tiddlywiki">
+<div changecount="24" created="20120713013900000" creator="Samuel" modified="20150416071654951" modifier="Samuel" tags="_CMAKE_ _CMAKE_COMMAND_" title="cmake command" type="text/vnd.tiddlywiki">
 <pre>*[[add_custom_command]]
 *[[add_definitions]]
 *[[add_dependencies]]
@@ -7316,7 +7306,7 @@ set_target_properties (${target} PROPERTIES ~LINK_FLAGS &quot;/NODEFAULTLIB:LIBC
 }}}
 #''在执行cmake的命令时，定义的变量是存放到~CMakeCache.txt中的, 且变量的值是可以传递到add_subdirectory中的’‘</pre>
 </div>
-<div changecount="14" created="20130619034200000" creator="Samuel" modified="20130619041700000" modifier="Samuel" title="cmake optional parameters" type="text/x-tiddlywiki">
+<div changecount="14" created="20130619034200000" creator="Samuel" modified="20150416073206145" modifier="Samuel" title="cmake optional parameters" type="text/vnd.tiddlywiki">
 <pre>*{{normal{@@color(green):''{{{--build &lt;dir&gt;}}}''@@: Build a ~CMake-generated project binary tree.
 @@bgcolor(green):功能:@@
 :相当于执行make命令
@@ -7330,7 +7320,7 @@ set_target_properties (${target} PROPERTIES ~LINK_FLAGS &quot;/NODEFAULTLIB:LIBC
 }}}
 </pre>
 </div>
-<div changecount="22" created="20120627091600000" creator="Samuel" modified="20120919090200000" modifier="samuel" tags="_CMAKE_ _CMAKE_VARIABLE_" title="cmake variable" type="text/x-tiddlywiki">
+<div changecount="22" created="20120627091600000" creator="Samuel" modified="20150416073143967" modifier="samuel" tags="_CMAKE_ _CMAKE_VARIABLE_" title="cmake variable" type="text/vnd.tiddlywiki">
 <pre>**@@color(blue): ''~PROJECT_SOURCE_DIR &amp;  ~PROJECT_BINARY_DIR''@@
 ***~PROJECT_SOURCE_DIR'   离目前运行的~CMakeLists.txt的最近的project的那个~CMakeLists.txt所在的路径
 ***~PROJECT_BINARY_DIR   离目前运行的~CMakeLists.txt的最近的project进行out-of-source所建文件夹的那个路径
@@ -7543,7 +7533,7 @@ w_i = 1/n    ...........  (n为样本的个数 )\\
 @@color(green):寻找使(h(x)=y的情况下,log(1/B)之和)最大者即是输出分类y。 误差越小log(1/B)越大,二类情况下只要大于所有和的一半即可@@
 }}}</pre>
 </div>
-<div created="20150403101713577" modified="20150403102254184" tags="" title="Editor">
+<div created="20150403101713577" modified="20150413081104603" tags="" title="Editor">
 <pre>&gt;[[Emacs]]
 &gt;[[org mode]]
 &gt;[[markdown]]
@@ -8401,7 +8391,7 @@ main函数返回值必须为void
 }}}
 }}}</pre>
 </div>
-<div created="20150403101736855" modified="20150403102017793" tags="" title="Languages">
+<div created="20150403101736855" modified="20150413081202105" tags="" title="Languages">
 <pre>&gt;[[LUA]]
 &gt;[[Python]]
 &gt;[[Torch]]
@@ -9127,65 +9117,73 @@ invalid
 }}}
 }}}</pre>
 </div>
-<div changecount="4" created="20140713124000000" creator="Samuel" modified="20140714004900000" modifier="Samuel" title="Lua Table" type="text/x-tiddlywiki">
-<pre>*{{normal{@@color(blue):''key访问''@@
-&lt;code lua&gt;
-&gt; a={}
-a.x=10  等价于 a['x']=10
-&lt;/code&gt;
-}}}
-*{{normal{@@color(blue):''构造table''@@
-&lt;code lua&gt;
-&gt; a={sun, mon}
-print(a[1])    ---&gt;    sun  index从1开始
+<div changecount="4" created="20140713124000000" creator="Samuel" modified="20150407033021503" modifier="Samuel" title="Lua Table" type="text/vnd.tiddlywiki">
+<pre>*''key访问''&lt;div&gt;
+
+```lua
+a={}; a.x=10  等价于 a['x']=10
+```
+&lt;/div&gt;
+
+*''构造table''&lt;div&gt;
+
+```lua
+a={sun, mon}
+print(a[1])  ---&gt;   sun  index从1开始  
 这也是为什么Lua中用table创建list时大家约定从1开始
-&lt;/code&gt;
-}}}
-*{{normal{@@color(blue):''# ：长度运算符''@@
-#{{normal{范例
-&lt;code lua&gt;
+```
+&lt;/div&gt;
+
+* ''# ：长度运算符''  &lt;div&gt;
+
+# &lt;div&gt;    
+
+```lua
 -- case 1
-&gt;b={}; b[0]=10; b[1]=12; b[4]=12 ; =#b
-4 -- 返回最后的索引号，
+&gt;b={}; b[0]=10; b[1]=12; b[4]=12 ;
+#b 为4 -- 返回最后的索引号，
 -- case 2
-&gt;b={}; b.tag=12 ; =#b
-0
-&lt;/code&gt;
-}}}
+&gt;b={}; b.tag=12 ; 
+#b 为0
+```
+&lt;/div&gt;
+
 #真正体现table长度，应在table中用一个变量来统计个数， 或者遍历table，统计其个数
-}}}
-*{{normal{@@color(blue):''table.pack''@@
+&lt;/div&gt;
+
+* ''table.pack'' &lt;div&gt;
+
 可以将nil放到table中, 并且有个n里面保存了table元素的个数
-&lt;code lua&gt;
+
+```lua
 a = table.pack{1,2,nil}
 a.n == 3
-&lt;/code&gt;
-}}}</pre>
+```
+&lt;/div&gt;</pre>
 </div>
-<div changecount="1" created="20140713123900000" creator="Samuel" modifier="Samuel" title="Lua Type" type="text/x-tiddlywiki">
-<pre>*{{normal{@@color(blue): ''nil''@@
+<div changecount="1" created="20140713123900000" creator="Samuel" modified="20150407032344984" modifier="Samuel" title="Lua Type" type="text/vnd.tiddlywiki">
+<pre>* ''nil'' &lt;div&gt;
 可以用来删除一个变量
-}}}
-*{{normal{@@color(blue): ''boolean''@@
+&lt;/div&gt;
+
+*''boolean''&lt;div&gt;
 Lua在条件判断中0或者空字符串都是true， 只有boolean的false 和nil为false
-}}}
-*{{normal{@@color(blue): ''string''@@
+&lt;/div&gt;
+
+* ''string''&lt;div&gt;
 see more detail in [[Lua String]]
-}}}
-*{{normal{@@color(blue): ''number''@@
-#Lua数值为双精度的浮点，没有整型@@color(green):（小于\(2^{53}\)的整数都可以精确表达，没有精度的损失）@@
-#浮点计算是有误差的，如12.7-20+7.3 \(\neq\)  0(浮点数是没有精确表达的)
+&lt;/div&gt;
+
+* ''number''&lt;div&gt;
+
+#Lua数值为双精度的浮点，没有整型（小于$$2^{53}$$的整数都可以精确表达，没有精度的损失）
+#浮点计算是有误差的，如12.7-20+7.3 $$\neq$$  0(浮点数是没有精确表达的)
 #''tonumber(str) ''： 将字符串转换为数字
-}}}
-*{{normal{@@color(blue): ''userdata''@@
-}}}
-*{{normal{@@color(blue): ''table''@@
+&lt;/div&gt;
+
+*''table'' &lt;div&gt;
 Lua中唯一的数据结构化机制， see more detail in [[Lua Table]]
-}}}
-*{{normal{@@color(blue): ''thread''@@
-}}}
-*{{normal{@@color(blue): ''function''@@
-}}}</pre>
+&lt;/div&gt;</pre>
 </div>
 <div changecount="20" created="20140714045700000" creator="Samuel" modified="20140714053000000" modifier="Samuel" title="Lua Variable" type="text/x-tiddlywiki">
 <pre>*{{normal{@@color(blue):''global''@@
@@ -9253,23 +9251,39 @@ F1_{score} (or F_{score}) = 2*\frac{precision*recall}{precision+recall}
 *[[Matrix Frobenius]]
 </pre>
 </div>
-<div changecount="42" created="20120627072000000" creator="Samuel" modified="20121127015100000" modifier="Samuel" tags="_CMAKE_ _CMAKE_COMMAND_" title="macro、function" type="text/x-tiddlywiki">
-<pre>*@@color(blue):''macro''@@(&lt;name&gt; [arg1 [arg2...]])  @@color(blue):''endmacro''@@(&lt;name&gt;)
-*@@color(blue):''function''@@(&lt;name&gt; [arg1 [arg2...]])  @@color(blue):''function''@@(&lt;name&gt;)
-**@@bgcolor(green):功能@@
-***定义一个宏或函数，为后面所使用的命令
-**@@bgcolor(green):说明@@
-***${ARGN}:保存宏参数的list变量.@@color(red):当你在定义macro（function中不知如何）显式指定一个参数后，ARGN中将会将这个参数排除@@
-***${ARGC}:宏调用传入参数的个数
-***${~ARGV0}, ${~ARGV1}...： 第1个参数， 第2个参数...
-***如果传入的是list变量，macro只取第一个值，function可以取所有值
-***@@bgcolor(red):macro和function的区别：@@
-:::#function传入的是变量，而macro只是字符替换@@color(red):(需验证)@@
-:::#function中定义的是局部变量，而macro定义的是全局变量
-:::#function在version 2.6以上支持
+<div changecount="42" created="20120627072000000" creator="Samuel" modified="20150416072608348" modifier="Samuel" tags="_CMAKE_ _CMAKE_COMMAND_" title="macro、function" type="text/vnd.tiddlywiki">
+<pre>* ''形式''  &lt;div&gt;
+
+`macro/function(&lt;name&gt; [arg1 [arg2...]]) `  
+&lt;/div&gt;
+
+* ''功能'' &lt;div&gt;
+
+定义一个宏或函数，为后面所使用的命令
+&lt;/div&gt;
+
+* ''说明'' &lt;div&gt;
+
+1.  `${ARGN}` : 保存宏参数的list变量. @@color:red;当你在定义macro（function中不知如何）显式指定一个参数后，ARGN中将会将这个参数排除@@
+
+2. `${ARGC}` : 宏调用传入参数的个数
+
+3. `${ARGV0}, ${ARGV1}...`： 第1个参数， 第2个参数...
+
+4. 如果传入的是list变量，@@color:red;macro只取第一个值，function可以取所有值@@
+&lt;/div&gt;
+
+* ''macro和function的区别'' &lt;div&gt;
+
+1. function传入的是变量，而macro只是字符替换@@color:red;(需验证)@@
+
+2. function中定义的是局部变量，而macro定义的是全局变量
+
+3. function在version 2.6以上支持
+&lt;/div&gt;
 </pre>
 </div>
-<div changecount="111" created="20120618044600000" creator="YourName" modified="20150405132659805" modifier="Samuel" title="MainMenu" type="text/vnd.tiddlywiki">
+<div changecount="111" created="20120618044600000" creator="YourName" modified="20150413080943872" modifier="Samuel" title="MainMenu" type="text/vnd.tiddlywiki">
 <pre>&lt;&lt;tabs &quot;Tools Editor Programming Languages Algorithm&quot;  &quot;Tools&quot;&gt;&gt;
 
 
@@ -10135,15 +10149,56 @@ plot(a); hold on; plot(b)
 
 }}}</pre>
 </div>
-<div created="20150403102311659" modified="20150403102342937" tags="" title="Programming">
+<div changecount="47" created="20121009025900000" creator="Samuel" modified="20150409092404341" modifier="Samuel" title="pragma" type="text/vnd.tiddlywiki">
+<pre>* ''#pragma message(&quot;hello&quot;)'' &lt;div&gt;
+编译时输出信息
+&lt;/div&gt;
+
+* ''#pragma warning '' &lt;div&gt;
+
+```c
+#pragma warning(disable:4507  34; once:4385; error:164   )   
+ /* is equal to   */
+#pragma   warning(disable:4507   34)    //不显示4507和34号警告信息 
+#pragma   warning(once:4385)            //4385号警告信息仅报告一次   
+#pragma   warning(error:164)            //把164号警告信息作为一个错误
+#pragma   warning( push )               //保存所有警告信息的现有的警告状态
+#pragma   warning( push,n)              //保存所有警告信息的现有的警告状态，并且把全局警告等级设定为n(1,2,3,4四个级别)。  
+#pragma   warning( pop )                //向栈中弹出最后一个警告信息，在入栈和出栈之间所作的一切改动取消
+```
+&lt;/div&gt;
+
+* ''#pragma comment''
+* ''#pragma comment(lib,&quot;windows.lib&quot;)''
+
+*''#'' &lt;div&gt;
+
+*变量引用 &lt;div&gt;
+
+```c
+ #define  sample(a)  ##a=10
+```
+&lt;/div&gt;
+#字符串化 &lt;div&gt;
+
+```c
+#define  a(b) #b 将b变成字符
+```
+&lt;/div&gt;
+&lt;/div&gt;
+
+</pre>
+</div>
+<div created="20150403102311659" modified="20150413081012078" tags="" title="Programming">
 <pre>&gt;[[valgrind]]
 &gt;[[gprof]]
 &gt;[[Cmake]]
 &gt;[[Make]]
 &gt;[[gmock]]</pre>
 </div>
-<div changecount="43" created="20120629070300000" creator="Samuel" modified="20150313102700000" modifier="Samuel" tags="_SCRIPT_LANGUAGE_ _PYTHON_" title="Python" type="text/x-tiddlywiki">
-<pre>@@color(green):''类似于Java，Python实际上是字节编译的，其结果就是可以生成一种近似机器语言的中间形式''@@
+<div changecount="43" created="20120629070300000" creator="Samuel" modified="20150413072935192" modifier="Samuel" tags="_SCRIPT_LANGUAGE_ _PYTHON_" title="Python" type="text/vnd.tiddlywiki">
+<pre>类似于Java，Python实际上是字节编译的，其结果就是可以生成一种近似机器语言的中间形式
+
 &gt;[[Python pdb]]
 &gt;[[Python FAQ]]
 &gt;[[Python变量&amp;类型]]
@@ -10157,7 +10212,6 @@ plot(a); hold on; plot(b)
 &gt;[[Python Build-in Function]]
 &gt;[[Python Internet]]
 &gt;[[Python Exception]]
-&gt;[[Python Miscellaneous]]
 &gt;[[Python equivalent function of MATLAB]]
 &gt;[[C/C++ Extention for Python ]]
 
@@ -10262,32 +10316,67 @@ class foo (bases):
 #在多重继承中。新式类使用广度优先搜索，旧式类使用深度优先搜索
 </pre>
 </div>
-<div changecount="15" created="20121011090600000" creator="Samuel" modified="20121015013100000" modifier="samuel" title="Python Build-in Function" type="text/x-tiddlywiki">
-<pre>*@@color(blue):''input 和 raw_input''@@
-&gt;raw_input:将所有输入当成原始输入，不会把数字变成int等
-*@@color(blue):''dir()''@@
-&gt; 显示属性
-*@@color(blue):''help()''@@
-&gt;显示帮助文档
-*@@color(blue):''eval()/ exec()''@@
-&gt;eval():计算表达式的值， 可以返回repr字符串的的本来对象
-&gt;exec(): 执行字符串中的命令
-*@@color(blue):''isinstance()''@@
-&gt;判断是否为某个对象的实例，如：isinstance(1, int)
-*@@color(blue):''cmp(var1, var2)''@@
-&gt;判断两个对象大小
-*@@color(blue):''coerce(var1, var2)''@@
-&gt;将2个数据转换为相同类型，遵循转换规则
-*@@color(blue):''int(), float()等''@@
-&gt;@@color(red):可以直接将字符串转换为数字@@
-*@@color(blue):''abs()''@@
-&gt;如果是复数则返回复数的模； 不用借助这个实现可以自己来写
-*@@color(blue):''divmod()''@@
-&gt;返回元组，保存除数和余数
-*@@color(blue):''round(flt, ndig=0)''@@
-&gt;接受一个浮点数 flt 并对其四舍五入，保存 ndig位小数
-*@@color(blue):''zip(var1, var2)''@@
-&gt;取var1和var2中的第一个元素组成一个元素，创建字典时也比较有用
+<div changecount="15" created="20121011090600000" creator="Samuel" modified="20150413072642206" modifier="samuel" title="Python Build-in Function" type="text/vnd.tiddlywiki">
+<pre>*''input 和 raw_input'' &lt;div&gt;
+
+raw_input:将所有输入当成原始输入，不会把数字变成int等
+&lt;/div&gt;
+
+*''dir()'' &lt;div&gt;
+
+显示模块的属性
+&lt;/div&gt;
+
+* ''help()'' &lt;div&gt;
+
+显示帮助文档
+&lt;/div&gt;
+
+* ''eval/ exec'' &lt;div&gt;
+
+# `eval`:计算表达式的值， 可以返回repr字符串的的本来对象
+# `exec`: 执行字符串中的命令
+&lt;/div&gt;
+
+* ''isinstance()'' &lt;div&gt;
+
+判断是否为某个对象的实例，如：`isinstance(1, int)`
+&lt;/div&gt;
+
+* ''cmp(var1, var2)''  &lt;div&gt;
+
+判断两个对象大小
+&lt;/div&gt;
+
+* ''coerce(var1, var2)'' &lt;div&gt;
+
+将2个数据转换为相同类型，遵循转换规则
+&lt;/div&gt;
+
+* ''divmod()'' &lt;div&gt;
+
+返回元组，保存除数和余数
+&lt;/div&gt;
+
+* ''round(flt, ndig=0)'' &lt;div&gt;
+
+接受一个浮点数 flt 并对其四舍五入，保存 ndig位小数
+&lt;/div&gt;
+
+* ''zip(var1, var2)'' &lt;div&gt;
+
+取var1和var2中的第一个元素组成一个元素，创建字典时也比较有用
+&lt;/div&gt;
+
+*''xrange''&lt;div&gt;
+
+循环中应该使用xrange，这样每次只生成一个数， 而不是直接生成所有的列表
+&lt;/div&gt;
+
+*''id'' &lt;div&gt;
+
+判断id是否相同
+&lt;/div&gt;
 </pre>
 </div>
 <div changecount="12" created="20121010092800000" creator="samuel" modified="20121011012500000" modifier="samuel" title="Python Debug" type="text/x-tiddlywiki">
@@ -10361,14 +10450,35 @@ assert(1==val)
 @@color(blue): ''~IOError''@@ : 文件打开错误
 }}}</pre>
 </div>
-<div changecount="28" created="20120702063800000" creator="Samuel" modified="20140110012700000" modifier="Samuel" tags="_PYTHON_ _PYTHON_FAQ_" title="Python FAQ" type="text/x-tiddlywiki">
-<pre>*@@color(blue):''全局变量的访问''@@
-:使用@@color(blue):''global''@@关键字，在函数内部访问全局变量时，先用global声明一下，否则会当场局部变量
-:如global val=3
-*@@color(blue):''获取CPU的数量''@@
-: multiprocessing.cpu_count()
-*@@color(blue):''{{{__name__}}}属性''@@
-: 文件被python直接调用时{{{__name__}}}为{{{'__main__'}}}, 否则为文件名
+<div changecount="28" created="20120702063800000" creator="Samuel" modified="20150413074317779" modifier="Samuel" tags="_PYTHON_ _PYTHON_FAQ_" title="Python FAQ" type="text/vnd.tiddlywiki">
+<pre>*''py2exe'' &lt;div&gt;
+
+# 创建setup.py文件，内容如下: &lt;div&gt;
+
+```py
+import py2exe
+import numpy
+
+setup(windows=['win.py'],console=['cmd1.py', 'cmd2.py'])
+```
+&lt;/div&gt;
+# python ./setup.py py2exe
+&lt;/div&gt;
+
+* ''支持中文'' &lt;div&gt;
+
+# -*- coding: utf-8 -*-
+&lt;/div&gt;
+
+*''获取CPU的数量'' &lt;div&gt;
+
+multiprocessing.cpu_count()
+&lt;/div&gt;
+
+* ''`__name__`属性'' &lt;div&gt;
+
+文件被python直接调用时`__name__`为`__main__`, 否则为文件名
+&lt;/div&gt;
 
 </pre>
 </div>
@@ -10400,37 +10510,23 @@ from: 0-文件开头@@color(red):(或不提供)@@  1-文件当前位置2-文件�
 : 使用''socket.connect()''@@color(green):(使用connect以后，客户机只和connect的地址交互)@@以后使用''socket.getpeername()''
 </pre>
 </div>
-<div changecount="38" created="20120913032800000" creator="samuel" modified="20140714073300000" modifier="Samuel" title="Python Miscellaneous" type="text/x-tiddlywiki">
-<pre>*@@color(blue):''xrange''@@
-&gt;循环中应该使用xrange，这样每次只生成一个数， 而不是直接生成所有的列表
-*@@color(blue):''运算符''@@
-&gt;** :平方
-&gt;{{{//}}} : 浮点除法（四舍五入），from __future__ import division ： / 将使用真正的浮点除法，不会管是否整数
-&gt;不支持++， -- .。++和-- 等价于 -（-） 没有效果还是原值
-*@@color(blue):''内存管理''@@
-&gt;python中不需要关注类存管理。 但可以显式的使用del x将引用计数-1， 其x不能再用
-*@@color(blue):''判断id是否相同''@@
-&gt;python通过传递引用来处理对象：float时 a=1.1 b=1.1 指向不同的对象， 但是int str时 ， 只要值相同就指向相同的对象 (a is b  id(a)==id(b))@@color(red):(整数对象和字符串对象是不可变对象，所以Python 会很高效的缓存它们，只会对一个小范围内的数值进行缓存如：（-1,100）范围版本不一样会变，不要依赖这个)@@
-*@@color(blue):''long型数据''@@
-&gt;python中long可以表示非常大的数据，@@color(red):与你的类存有关@@，只要在数字后面加上大写L
-*@@color(blue):''print语句会自动加一个回车符''@@
-&gt;print语句后加逗号取消换行
-*@@color(blue):''支持中文''@@
-&gt;# -*- coding: utf-8 -*-</pre>
-</div>
-<div changecount="11" created="20131016015300000" creator="Samuel" modified="20131016021800000" modifier="Samuel" title="Python pdb" type="text/x-tiddlywiki">
-<pre>*{{normal{@@color(blue):''Debug''@@
-python -m pdb test.py paras
-}}}
-*{{normal{@@color(blue):''command''@@
-#@@color(green):''h/help''@@ : 打印所有的命令及其缩写
-#@@color(green):''w/where''@@ : 打印出当前的执行位置
-#@@color(green):''u/up''@@ :  程序回到上一个函数调用
-#@@color(green):''d/down''@@ : 程序执行到下一个函数里面
-#@@color(green):''b(reak) {{{[[filename:]lineno | function[, condition]]}}}''@@ : 设置断点
-#@@color(green):''tbreak {{{[[filename:]lineno | function[, condition]]}}}''@@ : 设置临时断点， 执行到了以后就无效
-#@@color(green):''cl(ear) {{{[[filename:]lineno | function[, condition]]}}}''@@ : 删除断点， 执行到了以后就无效
-}}}</pre>
+<div changecount="11" created="20131016015300000" creator="Samuel" modified="20150413073614580" modifier="Samuel" title="Python pdb" type="text/vnd.tiddlywiki">
+<pre>* ''Debug'' &lt;div&gt;
+
+*`shell ` : python -m pdb test.py paras    
+*`emacs`: ALT+x pdb
+&lt;/div&gt;
+
+* ''command'' &lt;div&gt;
+
+* `h/help` : 打印所有的命令及其缩写
+* `w/where` : 打印出当前的执行位置
+* `u/up` :  程序回到上一个函数调用
+* `d/down` : 程序执行到下一个函数里面
+* `b(reak) [[filename:]lineno | function[, condition]]` : 设置断点
+* `tbreak [[filename:]lineno | function[, condition]]` : 设置临时断点， 执行到了以后就无效
+* `cl(ear) [[filename:]lineno | function[, condition]]` : 删除断点， 执行到了以后就无效
+&lt;/div&gt;</pre>
 </div>
 <div changecount="1" created="20130819054400000" creator="Samuel" modifier="Samuel" title="Python Tkinter" type="text/x-tiddlywiki">
 <pre>安装tcl/tk 或者安装python-tk</pre>
@@ -10452,37 +10548,49 @@ python -m pdb test.py paras
 }}}
 </pre>
 </div>
-<div changecount="52" created="20120629071600000" creator="Samuel" modified="20131008095800000" modifier="Samuel" title="Python函数" type="text/x-tiddlywiki">
-<pre>*@@color(red):''Python不支持函数或方法的重载''@@
-&gt;后定义的函数或方法@@color(red):会覆盖@@前面的定义的同名函数或方法
-*@@color(red):''变量作用域''@@
-&gt;只有def class lamda可以改变变量的作用域， if else while 不可以
-*@@color(blue):''添加函数说明''@@
-**{{normal{@@bgcolor(green):示例@@
-&lt;code python&gt;
+<div changecount="52" created="20120629071600000" creator="Samuel" modified="20150413072725914" modifier="Samuel" title="Python函数" type="text/vnd.tiddlywiki">
+<pre>*''Python不支持函数或方法的重载'' &lt;div&gt;
+
+后定义的函数或方法`会覆盖`前面的定义的同名函数或方法
+&lt;/div&gt;
+
+* ''变量作用域'' &lt;div&gt;
+
+只有`def class lamda`可以改变变量的作用域，` if else while `不可以
+&lt;/div&gt;
+
+* ''添加函数说明''   &lt;div&gt;
+
+```py
 def test():             
-    'for test'                     访问方式1：test.__doc__   
-    print('test')                  访问方式2：help(test)
-&lt;/code&gt;
-}}}
-*@@color(blue):''函数的参数''@@
-:@@color(red):python只支持值传递@@。传列表或字典时，在函数内是可以改变参数的值的，因为其实mutable变量， 如果重新给一个字典或列表对象，在外面是没有改变的。而字符串、数字、元组是不可以变的。即内部不会影响外部
-*{{normal{@@color(blue):''函数的传参数方式''@@
-*@@color(blue):apply(func [, args [, kwargs ]]) @@ @@color(red):''（Python 3没有了）''@@
-:函数用于当函数参数已经存在于一个元组或字典中时，间接地调用函数。@@color(green):在python3中可以使用在列表和字典前加星号来进行传递@@（参数两种方式传递：直接传和用关键字传）
-&lt;code python&gt;
+    'for test'          #访问方式1：test.__doc__   
+    print('test')       #访问方式2：help(test)
+```
+&lt;/div&gt;
+
+* ''函数的参数'' &lt;div&gt;
+
+`python只支持值传递`。传列表或字典时，在函数内是可以改变参数的值的，因为其实mutable变量， 如果重新给一个字典或列表对象，在外面是没有改变的。而字符串、数字、元组是不可以变的。即内部不会影响外部
+&lt;/div&gt;
+
+* ''函数的传参数方式'' &lt;div&gt;
+
+```py
 #1、关键字参数 ，不需要按顺序传参数，相当于字典
     def  func(**paras) 
     func(para2='val2', para1 = 'val1') 
 #2、默认参数值
    def  func(para1='val1', para2 = 'val2') :
 #3、传元组、列表或字典作为参数，在函数中自己需要知道， 参考如下：4
-&lt;/code&gt;
-}}}
-*{{normal{@@color(blue):''函数的可变参数个数''@@
-#参数加* ： 任意的非关键字参数将被放到元组里面， 还可以传元组需加*
-#参数加** ： 任意的关键字参数将被放到字典里面，还可以传字典需加**； @@color(red):这样传递是无法修改字典的值的@@可以3的方式传递字典或列表，或者可以在函数中返回列表和字典
-&lt;code python&gt;
+```
+&lt;/div&gt;
+
+* ''函数的可变参数个数''  &lt;div&gt;
+
+#参数加`* `： 任意的非关键字参数将被放到元组里面， 还可以传元组需加*
+#参数加`**` ： 任意的关键字参数将被放到字典里面，还可以传字典需加`**`；这样传递是无法修改字典的值的可以3的方式传递字典或列表，或者可以在函数中返回列表和字典
+
+```py
 #4、可变参数
 def foo(arg1, arg2, *TuplePara, **Dictpara) :
      statement
@@ -10492,15 +10600,24 @@ aDict = {'z': 9}
 newfoo(1, 2, 3,'hello' , x=4, y=5, *aTuple, **aDict)
 #3,hello,aTuple将被放到TuplePara中
 #x=4, y=5,aDict将被放到Dictpara中   
-&lt;/code&gt;
-}}}
-*@@color(blue):''函数的返回''@@
-:return 后可以不接变量。 作用为结束函数
-*@@color(blue):''闭包''@@
-:函数内声明的函数称为闭包
-*{{normal{@@color(blue):''函数装饰器''-可用来实现静态函数@@
-其实也是一个函数，装饰器的作用就是为已经存在的对象添加额外的功能。 如看一下下面时间测试函数:
-&lt;code python&gt;
+```
+&lt;/div&gt;
+
+* ''函数的返回'' &lt;div&gt;
+
+return 后可以不接变量。 作用为结束函数
+&lt;/div&gt;
+
+* ''闭包'' &lt;div&gt;
+
+函数内声明的函数称为闭包
+&lt;/div&gt;
+
+* ''函数装饰器'' &lt;div&gt;
+
+其实也是一个函数，`可用来实现静态函数` ,装饰器的作用就是为已经存在的对象添加额外的功能。 如看一下下面时间测试函数: 
+
+```py
 def timeit(func):
     def wrapper(*a , ** aa): #函数的参数
         start = time.clock()
@@ -10535,8 +10652,7 @@ def test(para):
 
 if __name__ == &quot;__main__&quot;:
     test('abcd')
-&lt;/code&gt;
-}}}
+```
 </pre>
 </div>
 <div changecount="66" created="20120629084700000" creator="Samuel" modified="20150305034200000" modifier="Samuel" tags="_PYTHON_" title="Python控制结构" type="text/x-tiddlywiki">
@@ -10629,10 +10745,12 @@ if __name__ == &quot;__main__&quot;:
 
 </pre>
 </div>
-<div changecount="2" created="20121022025400000" creator="Samuel" modified="20121022025400000" modifier="Samuel" title="Python生成器" type="text/x-tiddlywiki">
-<pre>*{{normal{使用yield实现 (详细见python-core p445)
-#有next方法
-}}}</pre>
+<div changecount="2" created="20121022025400000" creator="Samuel" modified="20150413063251970" modifier="Samuel" title="Python生成器" type="text/vnd.tiddlywiki">
+<pre>* 使用yield实现(详细见python-core p445) &lt;div&gt;
+
+1.  有next方法
+&lt;/div&gt;
+</pre>
 </div>
 <div changecount="6" created="20150116013500000" creator="Samuel" modified="20150116014100000" modifier="Samuel" title="R Graphic" type="text/x-tiddlywiki">
 <pre>*{{normal{@@color(blue):''plot(x,y)'':@@只能画二维的图形
@@ -10766,26 +10884,35 @@ Conf_H(x) = |\sum\limits_{t=1}^Th_t(x)-b|
 \)
 }}}</pre>
 </div>
-<div changecount="40" created="20120719081300000" creator="Samuel" modified="20150108005700000" modifier="Samuel" tags="_GIT_" title="Remote Repository" type="text/x-tiddlywiki">
-<pre>*{{normal{@@color(blue):''git clone''@@ 
-#{{{--}}}bare  [src-directory]  [dst-directory[如gitlearn.git]] 创建远程
-#[remote-repository.git]  [dst-directory]拷贝远程到另一个目录
-}}}                   
-*{{normal{@@color(blue):''git remote''@@
-#''git remote'' ：显示当前的远程仓库
-#''git remote add name   remote.git'' : 添加远程仓库
-#''git remote set-url remote-name  new-remote-URL'' : 修改当前远程名的URL
-#''git remote rename old new'' ： 修改远程名
-}}}
-*''git push  [remote-repository.git / short-name]''
-:如果没有dst，则默认push到origin对应的远程仓库，没有设置origin则会出错
-:-all ,push所有的改变(默认不会push tag)
-:-tags push tags
-:@@color(red):git push remote-name(origin) brach-name@@: push指定的分支到指定的远程
+<div changecount="40" created="20120719081300000" creator="Samuel" modified="20150410091420761" modifier="Samuel" tags="_GIT_" title="Remote Repository" type="text/vnd.tiddlywiki">
+<pre>* ''git clone'' &lt;div&gt;
+
+#`--bare  [src-directory]  [dst-directory[如gitlearn.git]]` : 创建远程
+#`[remote-repository.git]  [dst-directory]` : 拷贝远程到另一个目录        
+&lt;/div&gt; 
+
+* ''git remote'' &lt;div&gt;
+
+#`git remote` ：显示当前的远程仓库
+#`git remote add name   remote.git` : 添加远程仓库
+#`git remote set-url remote-name  new-remote-URL` : 修改当前远程名的URL
+#`git remote rename old new` ： 修改远程名
+&lt;/div&gt;
+
+*''git push  [remote-repository.git / short-name]'' &lt;div&gt;
+
+*`无参数` ：则默认push到origin对应的远程仓库，没有设置origin则会出错
+
+*`-all` : push所有的改变(默认不会push tag)
+
+*`-tags` :  push tags
+
+* `git push remote-name(origin) brach-name` : push指定的分支到指定的远程
+&lt;/div&gt;
 *''git pull  [remote-repository.git / short-name]''
 : 获取远程仓库中的文件， 并merge
 *''git fetch'' 
-:获取远程仓库中的文件，@@color(red):但是不merge@@</pre>
+:获取远程仓库中的文件，`但是不merge`</pre>
 </div>
 <div changecount="3" created="20120711021000000" creator="Samuel" modified="20120716024400000" modifier="Samuel" tags="_SHELL_ _SHELL_COMMAND_" title="rm" type="text/x-tiddlywiki">
 <pre>*@@bgcolor(green):功能@@
@@ -11067,9 +11194,11 @@ tar -jxvf    file
 |~| centre | right|
 &lt;/div&gt;</pre>
 </div>
-<div created="20150403101551530" modified="20150403102249987" tags="" title="Tools">
+<div created="20150403101551530" modified="20150413081039528" tags="" title="Tools">
 <pre>&gt;[[Linux]]    
+
 &gt;[[Git]]
+
 &gt;[[FFmpeg]]</pre>
 </div>
 <div changecount="9" created="20140719080400000" creator="Samuel" modified="20140811063200000" modifier="Samuel" title="Torch" type="text/x-tiddlywiki">
