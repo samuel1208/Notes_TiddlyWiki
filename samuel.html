@@ -241,8 +241,6 @@ Error message and password prompt
 
 <li>Cascade Adaboost</li>
 
-<li>case</li>
-
 <li>class 类型转换</li>
 
 <li>Cmake</li>
@@ -301,8 +299,6 @@ Error message and password prompt
 
 <li>find</li>
 
-<li>for</li>
-
 <li>gcc&amp;g++</li>
 
 <li>get_filename_component</li>
@@ -324,8 +320,6 @@ Error message and password prompt
 <li>grep</li>
 
 <li>if</li>
-
-<li>if,else</li>
 
 <li>include_directories</li>
 
@@ -555,6 +549,8 @@ Error message and password prompt
 
 <li>Shell</li>
 
+<li>Shell 控制结构</li>
+
 <li>shift</li>
 
 <li>SiteSubtitle</li>
@@ -630,8 +626,6 @@ Error message and password prompt
 <li>ViewTemplate</li>
 
 <li>watershed</li>
-
-<li>while</li>
 
 <li>WindowTitle</li>
 
@@ -5882,6 +5876,16 @@ Error message and password prompt
             &quot;modifier&quot;: &quot;samuel&quot;,
             &quot;title&quot;: &quot;Python Build-in Function&quot;,
             &quot;type&quot;: &quot;text/x-tiddlywiki&quot;
+        },
+        &quot;add_dependencies&quot;: {
+            &quot;text&quot;: &quot;*@@color(blue):''add_dependencies''@@ (target-name  depend-target1 depend-target2 ...)\n**@@bgcolor(green):功能@@\n***确保一个项目在另一个项目之前建立\n**@@bgcolor(green):说明@@\n***只能用于top-level(由~ADD_EXECUTABLE, ~ADD_LIBRARY, ~ADD_CUSTOM_TARGET命令创建的)的目标之间\n&quot;,
+            &quot;changecount&quot;: &quot;2&quot;,
+            &quot;created&quot;: &quot;20121127013200000&quot;,
+            &quot;creator&quot;: &quot;Samuel&quot;,
+            &quot;modified&quot;: &quot;20121127013200000&quot;,
+            &quot;modifier&quot;: &quot;Samuel&quot;,
+            &quot;title&quot;: &quot;add_dependencies&quot;,
+            &quot;type&quot;: &quot;text/x-tiddlywiki&quot;
         }
     }
 }</pre>
@@ -6036,10 +6040,10 @@ Error message and password prompt
 <div modified="20150403100817644" title="$:/state/tab-1749438307">
 <pre>$:/core/ui/ControlPanel/Info</pre>
 </div>
-<div modified="20150416072745734" title="$:/state/tab-1844142075">
-<pre>Programming</pre>
+<div modified="20150428055609131" title="$:/state/tab-1844142075">
+<pre>Tools</pre>
 </div>
-<div list="MainMenu Cmake [[cmake command]] if" title="$:/StoryList">
+<div list="MainMenu Linux [[Linux FAQ]]" title="$:/StoryList">
 <pre></pre>
 </div>
 <div plugin-type="info" title="$:/temp/info-plugin" type="application/json">
@@ -6586,13 +6590,12 @@ res = str.split('+')
 
 </pre>
 </div>
-<div changecount="5" created="20121127010800000" creator="Samuel" modified="20121127015600000" modifier="Samuel" title="add_definitions" type="text/x-tiddlywiki">
-<pre>*@@color(blue):''add_definitions ''@@ (-DFOO &amp;nbsp;-DBAR ...)
-**@@bgcolor(green):功能@@
-***设置预编译宏
-**@@bgcolor(green):说明@@
-***对当前目录项目和子目录有效(add_subdirectory命令需放在其下面才有效, @@color(red):平级的add_subdirectory子目录里定义的宏互不相关@@)
-</pre>
+<div changecount="5" created="20121127010800000" creator="Samuel" modified="20150421015656178" modifier="Samuel" title="add_definitions" type="text/vnd.tiddlywiki">
+<pre>*''add_definitions ''  (-DFOO &amp;nbsp;-DBAR ...) &lt;div&gt;
+
+&gt;1. 对当前目录项目和子目录有效(add_subdirectory命令需放在其下面才有效
+&gt;2. 平级的add_subdirectory子目录里定义的宏互不相关
+&lt;/div&gt;</pre>
 </div>
 <div changecount="2" created="20121127013200000" creator="Samuel" modified="20121127013200000" modifier="Samuel" title="add_dependencies" type="text/x-tiddlywiki">
 <pre>*@@color(blue):''add_dependencies''@@ (target-name  depend-target1 depend-target2 ...)
@@ -7197,18 +7200,6 @@ template&lt;&gt; struct b&lt;double&gt;{}
 }}}
 #@@color(blue):''清空负样本集\(N\)''@@
 #@@color(blue):''如果\(F_i&gt;F_{target}\),将当前cascade检测器应用到负样本集上，将检测错误的负样本放到\(N\)中''@@@@color(red):（上面用于训练的样本需要检测一下加入吗）@@</pre>
-</div>
-<div changecount="39" created="20120629024700000" creator="Samuel" modified="20120716075700000" modifier="Samuel" tags="_SHELL_ _SHELL_CONTROL_STRUCT_" title="case" type="text/x-tiddlywiki">
-<pre>*{{normal{@@bgcolor(green):用法@@
-&lt;code sh&gt;
-case  variable  in
-    pattern [ | pattern] ...) statement;; #可以有多个pattern 用 |隔开
-    pattern [ | pattern] ...) statement;; #结尾必须有两个分号
-    ...   ;;
-esac
-&lt;/code&gt;
-}}}
- </pre>
 </div>
 <div changecount="32" created="20130225075000000" creator="Samuel" modified="20130328032500000" modifier="samuel" title="class 类型转换" type="text/x-tiddlywiki">
 <pre>!@@bgcolor(red):''隐式转换''@@
@@ -7821,17 +7812,6 @@ ffmpeg -i in.avi -vf  &quot;transpose=1&quot;  out.avi
 &lt;/div&gt;
 </pre>
 </div>
-<div changecount="2" created="20120716080300000" creator="Samuel" modified="20120716080800000" modifier="Samuel" tags="_SHELL_ _SHELL_CONTROL_STRUCT_" title="for" type="text/x-tiddlywiki">
-<pre>*{{normal{@@bgcolor(green):用法@@
-&lt;code sh&gt;
-for variable in values
-do     
-    statement
-done
-&lt;/code&gt;
-}}}
-</pre>
-</div>
 <div changecount="61" created="20120919013300000" creator="Samuel" modified="20130716015900000" modifier="Samuel" tags="_GCC_ _G++_" title="gcc&amp;g++" type="text/x-tiddlywiki">
 <pre>@@color(blue):''FAQ''@@
 *{{normal{@@color(green):''隐藏内部函数接口''@@
@@ -8091,21 +8071,6 @@ endif(expression)
 &lt;/code&gt;
 }}}
 
-</pre>
-</div>
-<div changecount="10" created="20120716075400000" creator="Samuel" modified="20120716080400000" modifier="Samuel" tags="_SHELL_ _SHELL_CONTROL_STRUCT_" title="if,else" type="text/x-tiddlywiki">
-<pre>*{{normal{@@bgcolor(green):用法@@
-&lt;code sh&gt;
-if condition 
-then
-    statement
-elif condition ;then #注意此处的冒号是隔开两个命令
-    statement
-else
-    statement
-fi
-&lt;/code&gt;
-}}}
 </pre>
 </div>
 <div changecount="3" created="20121127015600000" creator="Samuel" modified="20121127051300000" modifier="Samuel" title="include_directories" type="text/x-tiddlywiki">
@@ -10956,18 +10921,61 @@ Conf_H(x) = |\sum\limits_{t=1}^Th_t(x)-b|
 **@@bgcolor(green):说明@@
 *** ''~DEBUG_POSTFIX'' ：为Debug编译生成的文件所加的后缀名。 @@color(red):vc下默认为d @@</pre>
 </div>
-<div changecount="63" created="20120629024000000" creator="Samuel" modified="20120716084100000" modifier="Samuel" tags="_SCRIPT_LANGUAGE_ _SHELL_" title="Shell" type="text/x-tiddlywiki">
-<pre>*@@color(blue):''Shell 变量''@@
-&gt;$0 : shell脚本的名字
-&gt;$1, $2 ... : shell脚本程序的参数
-&gt;$@、$* : 所有参数的值， 一般使用$@.因为$*中变量需要IFS中的分隔符来分隔
-&gt;$? : 用于检查上一个命令,函数或者脚本执行是否正确.非0值为出错
-*@@color(blue):''Shell 控制结构''@@
-&gt;[[case]]
-&gt;[[if,else]]
-&gt;[[for]]
-&gt;[[while]]
+<div changecount="63" created="20120629024000000" creator="Samuel" modified="20150428055537323" modifier="Samuel" tags="_SCRIPT_LANGUAGE_ _SHELL_" title="Shell" type="text/vnd.tiddlywiki">
+<pre>*''Shell 命令行变量'' &lt;div&gt;
 
+&gt;`$0` : shell脚本的名字
+&gt;`$1, $2 ...` : shell脚本程序的参数
+&gt;`$@、$*` : 所有参数的值， 一般使用$@.因为$*中变量需要IFS中的分隔符来分隔
+&gt;`$?` : 用于检查上一个命令,函数或者脚本执行是否正确.非0值为出错
+&lt;/div&gt;
+* [[Shell 控制结构]]</pre>
+</div>
+<div created="20150428055404698" modified="20150428055425084" title="Shell 控制结构">
+<pre>* ''case''&lt;div&gt;
+
+```shell
+case  variable  in
+    pattern [ | pattern] ...) statement;; #可以有多个pattern 用 |隔开
+    pattern [ | pattern] ...) statement;; #结尾必须有两个分号
+    ...   ;;
+esac
+```
+&lt;/div&gt;
+
+* ''if,else''  &lt;div&gt; 
+
+```shell
+if condition 
+then
+    statement
+elif condition ;then #注意此处的冒号是隔开两个命令
+    statement
+else
+    statement
+fi
+```
+&lt;/div&gt;
+
+* ''for'' &lt;div&gt;
+
+```shell
+for variable in values
+do     
+    statement
+done
+```
+&lt;/div&gt;
+
+* ''while'' &lt;div&gt;
+
+```shell
+while condition 
+do                     #do可以接在condition后面，但是需要使用冒号隔开
+    statement
+done
+```
+&lt;/div&gt;
 </pre>
 </div>
 <div changecount="17" created="20120629031700000" creator="Samuel" modified="20120629054900000" modifier="Samuel" tags="_SHELL_ SHELL_COMMAND" title="shift" type="text/x-tiddlywiki">
@@ -11721,17 +11729,6 @@ valgrind --leak-check=full --show-reachable=yes --track-origins=yes --vgdb=yes -
 ** 遍历这一梯度范围内的点，将没有设置的label的点进行设置，并寻找其领域内的点，将同一个level梯度的点设置同样的label
 * 遍历下一个梯度值范围
 
-</pre>
-</div>
-<div changecount="5" created="20120716080700000" creator="Samuel" modified="20120716080800000" modifier="Samuel" tags="_SHELL_ _SHELL_CONTROL_STRUCT_" title="while" type="text/x-tiddlywiki">
-<pre>*{{normal{@@bgcolor(green):用法@@
-&lt;code sh&gt;
-while condition 
-do                     #do可以接在condition后面，但是需要使用冒号隔开
-    statement
-done
-&lt;/code&gt;
-}}}
 </pre>
 </div>
 <div changecount="1" created="20120618044100000" creator="YourName" modifier="YourName" title="WindowTitle" type="text/x-tiddlywiki">
