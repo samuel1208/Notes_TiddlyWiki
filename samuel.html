@@ -175,10 +175,6 @@ Error message and password prompt
 
 <li>函数指针</li>
 
-<li>集合</li>
-
-<li>列表与元组</li>
-
 <li>权重(Neural Network)</li>
 
 <li>梯度</li>
@@ -196,10 +192,6 @@ Error message and password prompt
 <li>直方图处理</li>
 
 <li>直方图均衡化(Histogram Equalization)</li>
-
-<li>字典</li>
-
-<li>字符串</li>
 
 <li>Adaboost</li>
 
@@ -241,6 +233,8 @@ Error message and password prompt
 
 <li>Cascade Adaboost</li>
 
+<li>cffi</li>
+
 <li>class 类型转换</li>
 
 <li>Cmake</li>
@@ -267,11 +261,9 @@ Error message and password prompt
 
 <li>courting sort</li>
 
+<li>cscope</li>
+
 <li>DefaultTiddlers</li>
-
-<li>Desicion Tree</li>
-
-<li>Discreate Adaboost</li>
 
 <li>Editor</li>
 
@@ -304,8 +296,6 @@ Error message and password prompt
 <li>get_filename_component</li>
 
 <li>getopt</li>
-
-<li>Gini Index Split Criterion</li>
 
 <li>Git</li>
 
@@ -350,6 +340,8 @@ Error message and password prompt
 <li>LEVAN</li>
 
 <li>LIBSVM</li>
+
+<li>link_directories</li>
 
 <li>Linux</li>
 
@@ -489,11 +481,19 @@ Error message and password prompt
 
 <li>python 成员函数</li>
 
+<li>Python 集合</li>
+
 <li>python 类属性</li>
+
+<li>Python 列表与元组</li>
 
 <li>python 数字类型</li>
 
 <li>python 新式类</li>
+
+<li>Python 字典</li>
+
+<li>Python 字符串</li>
 
 <li>Python Build-in Function</li>
 
@@ -532,8 +532,6 @@ Error message and password prompt
 <li>Random</li>
 
 <li>re</li>
-
-<li>Real AdaBoost</li>
 
 <li>Remote Repository</li>
 
@@ -620,6 +618,8 @@ Error message and password prompt
 <li>Training&amp;detection</li>
 
 <li>types</li>
+
+<li>UNetbootin</li>
 
 <li>valgrind</li>
 
@@ -6034,16 +6034,16 @@ Error message and password prompt
 <div modified="20150403100626585" title="$:/state/tab--2112689675">
 <pre>$:/core/ui/ControlPanel/Advanced</pre>
 </div>
-<div modified="20150403102036506" title="$:/state/tab--355582113">
-<pre>Tools</pre>
+<div modified="20150709053551295" title="$:/state/tab--355582113">
+<pre>Editor</pre>
 </div>
 <div modified="20150403100817644" title="$:/state/tab-1749438307">
 <pre>$:/core/ui/ControlPanel/Info</pre>
 </div>
-<div modified="20150428055609131" title="$:/state/tab-1844142075">
-<pre>Tools</pre>
+<div modified="20150720091515502" title="$:/state/tab-1844142075">
+<pre>Languages</pre>
 </div>
-<div list="MainMenu Linux [[Linux FAQ]]" title="$:/StoryList">
+<div list="MainMenu Python Python变量&amp;类型 [[Python 字符串]]" title="$:/StoryList">
 <pre></pre>
 </div>
 <div plugin-type="info" title="$:/temp/info-plugin" type="application/json">
@@ -6060,8 +6060,8 @@ Error message and password prompt
     }
 }</pre>
 </div>
-<div created="20150327100313339" modified="20150416072825412" title="$:/temp/search">
-<pre>for</pre>
+<div created="20150327100313339" modified="20150720091541484" title="$:/temp/search">
+<pre>cffi</pre>
 </div>
 <div author="JeremyRuston" core-version="&gt;=5.0.0" dependents="$:/themes/tiddlywiki/vanilla" description="A clean theme that emphasises individual tiddlers" name="Snow White" plugin-type="theme" title="$:/themes/tiddlywiki/snowwhite" type="application/json" version="5.1.7">
 <pre>{
@@ -6180,52 +6180,6 @@ v(t) = \alpha v(t-1) + \Delta w(t)
 int  (*f) (int a)   /* 声明一个函数指正变量 f */
 typedef  int  (*f) (int a)   /* 声明一个函数指正类型*/
 ```</pre>
-</div>
-<div changecount="1" created="20120906021700000" creator="samuel" modifier="samuel" title="集合" type="text/x-tiddlywiki">
-<pre>*@@bgcolor(green):说明@@
-:set是python2.3以后引入的内建类型。
-*@@bgcolor(green):方法@@
-&gt; ''union'' == ''|''
-&gt; ''issubset'', ''issupperset''
-&gt;''difference'' == ''-''
-&gt;''symmetric_difference'' == ''^''
-</pre>
-</div>
-<div changecount="66" created="20120629091300000" creator="Samuel" modified="20130827051100000" modifier="Samuel" tags="_PYTHON_ _PYTHON_DATASTRUCTURE_" title="列表与元组" type="text/x-tiddlywiki">
-<pre>*@@bgcolor(green):说明@@
-**列表与元组(list, tuple)的主要@@color(red):区别：@@列表可以修改，元组则不能。 一般情况下元组可以用列表替换，@@color(red): 例外：@@元组作为字典的键（不允许修改）
-**列表用''[ ]'', 元组用''( )''
-**@@color(red):列表保存的是对象的地址，如a=[1,2].保存了两个对象的地址和两个整数对象，而numpy中的数组保存的是数组的值@@
-*@@bgcolor(green):操作@@
-**@@color(blue):''python中数组下标从负数开始表示反向''@@,  如：a=[1,2,3,4] . a[-1]=4
-**@@color(blue):''len, max, min''@@
-::求序列的长度、最大值、最小值
-**@@color(blue):''in''@@
-::判断成员资格，返回true or false
-**@@color(blue):''remove''@@
-::删除某个元素值，如果有重复，只会删除第一个
-**@@color(blue):''分片  &amp;  分片赋值''@@
-:@@bgcolor(green):''分片赋值与分片类似''@@
-:{{normal{
-访问序列中部分元素。如:
-&lt;code python&gt;
-tag=[1,2,3,4,5,6,7,8,9]
-tag[0:3] 为1 2 3，最后索引为包含最后元素的下一个元素
-tag[-3:] 7 8 9, tag[-3: -1] 7 8 后一个索引必须必前一个后出现 
-tag[:] 1 2 3 4 5 6 7 8 9
-tag[1:4:2] 为2  4。@@color(green):''2为步长， 上面的默认步长为1''@@
-&lt;/code&gt;
-}}}
-*@@color(blue):''控制结构可以用在list的赋值中''@@
-&gt;sqdEvens = [x ** 2 for x in range(8) if x&gt;2 ]
-&gt;支持多层循环 sqdEvens = [(x,y) for x in range(8) for y in range(8) ]
-*@@color(blue):''单元素元组''@@
-&gt;('xyz',) ;需要加逗号，负责会被认为是字符串@@color(red):圆括号被重载了，它也被用作分组操作符@@
-*@@color(blue):''注意浅copy和深copy的区别''@@
-&gt;深copy是两个对象互不影响， 浅copy是子copy不能影响原来的对象。但原来的对象可以影响copy@@color(red):(不同的python版本，行为不一样)@@
-
-
-</pre>
 </div>
 <div changecount="59" created="20140702012700000" creator="Samuel" modified="20140704092400000" modifier="Samuel" title="权重(Neural Network)" type="text/x-tiddlywiki">
 <pre>{{normal{@@color(blue):''权重初始化''@@
@@ -6463,129 +6417,11 @@ for(int i=1; i&lt;L; i++)
 
 </pre>
 </div>
-<div changecount="31" created="20120702070200000" creator="Samuel" modified="20130822054800000" modifier="Samuel" tags="_PYTHON_ _PYTHON_DATASTRUCTURE_" title="字典" type="text/x-tiddlywiki">
-<pre>@@bgcolor(green):''键值不唯一，键是唯一的''@@
-*{{normal{@@color(blue):''字典的创建''@@
-&lt;code python&gt;
-d = {'key1' : 'val', 'key2' : 'val'} 
-d = dict(key1='val', key2='val')
-items = [ ('key1' , 'val'), ('key2' : 'val')]       
-d = dict[items]
-&lt;/code&gt;
-}}}
-*{{normal{@@color(blue):''update''@@
-字典的合并 : dict1.update(dict2)
-}}}
-*@@color(blue):''赋值式与列表的区别''@@
-:可以为不存在的键添加值，列表超过索引则不行（可以用append方法）
-*{{normal{@@color(blue):''判断键值是否存在''@@
-#  'key' @@color(blue):''in''@@ dict
-# dict.has_key('key')
-}}}</pre>
-</div>
-<div changecount="69" created="20120702022200000" creator="Samuel" modified="20131026093900000" modifier="Samuel" tags="_PYTHON_ _PYTHON_DATASTRUCTURE_" title="字符串" type="text/x-tiddlywiki">
-<pre>*@@color(blue):''str()和repr()区别''@@
-#str和int等是一种类型，而repr是函数，显示时候用： 如list等不能用str，可以用repr来显示其值
-#str转换float会发生精度截断，这是可以用repr
-*@@color(blue):''python中数组下标从负数开始表示反向''@@,  如：a=[1,2,3,4] . a[-1]=4
-*@@color(blue):''原始字符串''@@
-: 前面加r/R，字符中的特殊字符将会被当着一般字符
-*@@color(blue):''字符串常量''@@
-&gt;''string.digits'' ： 0-9的字符串
-&gt;''string.letters'' ： 包含所有字母（大小写）的字符串
-&gt;''string.lowercase'' ： 包含所有小写字母的字符串
-&gt;''string.printable'' ： 包含所有可打印的字符
-&gt;''string.punctuation'' ： 包含所有标点的字符串
-&gt;''string.uppercase'' ： 包含所有大写字母的字符串
-*@@color(blue):''三引号''@@
-:三引号中的字符可以换行
-*@@color(blue):''format() &amp; %''@@
-**@@bgcolor(green):''功能''@@
-::格式化字符串.@@color(red):详细见：python核心编程6.4.~String-Only Operators@@
-**@@bgcolor(green):''用法''@@
-::{{normal{
-&lt;code python&gt;
-#详细见文档
-a = &quot;i am a %s&quot;%sub1
-b = &quot;i am a {0:&lt;6}&quot;.format(sub1) #左对齐
-b = &quot;i am a {0:&gt;6}&quot;.format(sub1) #右对齐
-#字典字符串格式化
-c = &quot;with %(kwarg)s!&quot;%{'kwarg':sub2}
-d = &quot;with {kwarg}!&quot;.format(kwarg=sub2)
-&lt;/code&gt;
-}}}
-*@@color(blue):''find()''@@
-**@@bgcolor(green):''功能''@@
-::寻找子字符串的最左端索引， 没找到返回-1
-**@@bgcolor(green):''用法''@@
-::{{normal{
-&lt;code python&gt;
-'string'.find('substr')
-&lt;/code&gt;
-}}}
-*@@color(blue):''upper() &amp; lower()''@@
-**@@bgcolor(green):''功能''@@
-::大小写转换
-**@@bgcolor(green):''用法''@@
-::{{normal{
-&lt;code python&gt;
-'string'.lower()  | 'string'.upper()
-&lt;/code&gt;
-}}}
-*@@color(blue):''split([sep[, maxsplit]])''@@
-**@@bgcolor(green):''功能''@@
-::分割字符串， sep只支持一个分隔符，可以用正则表达式的@@color(blue):''re.split''@@
-*@@color(blue):''strip()''@@
-**@@bgcolor(green):''功能''@@
-::去除字符串两侧的空格字符(不包含内部)
-**@@bgcolor(green):''用法''@@
-::{{normal{
-&lt;code python&gt;
-'string'.strip()
-&lt;/code&gt;
-}}}
-*@@color(blue):''replace() &amp; translate()''@@
-**@@bgcolor(green):''功能''@@
-::replace进行单词替换
-::translate进行单个字母的替换
-**@@bgcolor(green):''用法''@@
-::{{normal{
-&lt;code python&gt;
- 'string'.replace('is' , 'are')
- 'string'.translate('ab' , 'AB')
-&lt;/code&gt;
-}}}
-*@@color(blue):''join() &amp; split()''@@
-**@@bgcolor(green):''功能''@@
-::join将字符串序列链接成一个字符串
-::split将一个字符串拆分成字符串序列
-**@@bgcolor(green):''用法''@@
-::{{normal{
-&lt;code python&gt;
-#链接
-seq = ['1', '2' , '3' , '4']
-res = '+'.join(seq)
-#拆分
-str = '1+2+3+4'
-res = str.split('+')
-&lt;/code&gt;
-}}}</pre>
-</div>
-<div changecount="35" created="20130312091100000" creator="Samuel" modified="20140331010800000" modifier="Samuel" tags="__adaboost__" title="Adaboost" type="text/x-tiddlywiki">
-<pre>*{{normal{@@color(red):Question@@
-#@@color(red):''Q'' - adaboost用于多类的弱分类器设计方法@@
-#{{normal{@@color(red):''Q'' - adaboost中更新每一层的权重可以用所有层的弱分类器吗?@@  
-不可以，那就多次叠加了
-}}}
-}}}
-*{{normal{
-[[Real AdaBoost]]
-[[Discreate Adaboost]]
-[[Cascade Adaboost]]
-}}}
-*{{normal{
-[[opencv desicion tree in adaboost]]
-}}}
+<div changecount="35" created="20130312091100000" creator="Samuel" modified="20150430070942372" modifier="Samuel" tags="__adaboost__" title="Adaboost" type="text/vnd.tiddlywiki">
+<pre>[[Cascade Adaboost]]    
+
+[[opencv desicion tree in adaboost]]    
+
 
 
 </pre>
@@ -7173,7 +7009,7 @@ template&lt;&gt; struct b&lt;double&gt;{}
 在指定地址构造对象： @@color(blue):new  (place_address)  type@@
 }}}</pre>
 </div>
-<div changecount="73" created="20130403055400000" creator="samuel" modified="20140324055900000" modifier="Samuel" title="Cascade Adaboost" type="text/x-tiddlywiki">
+<div changecount="73" created="20130403055400000" creator="samuel" modified="20150429094155707" modifier="Samuel" title="Cascade Adaboost" type="text/vnd.tiddlywiki">
 <pre>''说明''
 #正样本集是固定的@@color(red):(也可以更新)@@，负样本集每次是需要更新的
 ''Step''
@@ -7200,6 +7036,53 @@ template&lt;&gt; struct b&lt;double&gt;{}
 }}}
 #@@color(blue):''清空负样本集\(N\)''@@
 #@@color(blue):''如果\(F_i&gt;F_{target}\),将当前cascade检测器应用到负样本集上，将检测错误的负样本放到\(N\)中''@@@@color(red):（上面用于训练的样本需要检测一下加入吗）@@</pre>
+</div>
+<div created="20150720083828110" modified="20150720092556912" title="cffi">
+<pre>* ''Hello World'' &lt;div&gt;
+
+```py
+from cffi import FFI
+ffi = FFI()
+
+#1. 加载so文件,使用系统函数时设为None，如printf，
+lib = ffi.dlopen(None)#ffi.dlopen(&quot;libfoo.so&quot;)
+
+#2. 函数声明
+ffi.cdef(&quot;int printf(const char *fmt, ...);&quot;)
+
+#3. 调用
+lib.printf(&quot;Hello World&quot;)
+ffi.dlclose(lib)
+```
+&lt;/div&gt;
+* ''FFI Interface'' [[tutorial|https://cffi.readthedocs.org/en/latest/using.html#id2]]&lt;div&gt; 
+
+* ''ffi.cast(&quot;C type&quot;, value)'' : 返回一个c类型的变量 &lt;div&gt;
+
+```py
+&gt;&gt;&gt; x = ffi.cast(&quot;int&quot;, 42)
+&gt;&gt;&gt; x
+&lt;cdata 'int' 42&gt;
+&gt;&gt;&gt; int(x)
+```
+&lt;/div&gt;
+
+* ''ffi.new(&quot;C type&quot;, value)'' : 返回一个c类型的变量 &lt;div&gt;
+
+```py
+# 创建一个int内存块
+ffi.new(&quot;int *&quot;) 
+
+# 创建1000个int的内存块
+ffi.new(&quot;int [1000]&quot;) or ffi.new(&quot;int []&quot;, 1000)
+
+# 创建4个int内存块并初始化
+ffi.new(&quot;int []&quot;, [1,2,3,4])
+```
+&lt;/div&gt;
+
+*''ffi.addressof(cdata, *fields_or_indexes)'' : 同c的‘&amp;’ 
+&lt;/div&gt;</pre>
 </div>
 <div changecount="32" created="20130225075000000" creator="Samuel" modified="20130328032500000" modifier="samuel" title="class 类型转换" type="text/x-tiddlywiki">
 <pre>!@@bgcolor(red):''隐式转换''@@
@@ -7267,7 +7150,7 @@ operator  int() const {return 2;}
 
 </pre>
 </div>
-<div changecount="24" created="20120713013900000" creator="Samuel" modified="20150416071654951" modifier="Samuel" tags="_CMAKE_ _CMAKE_COMMAND_" title="cmake command" type="text/vnd.tiddlywiki">
+<div changecount="24" created="20120713013900000" creator="Samuel" modified="20150515032933285" modifier="Samuel" tags="_CMAKE_ _CMAKE_COMMAND_" title="cmake command" type="text/vnd.tiddlywiki">
 <pre>*[[add_custom_command]]
 *[[add_definitions]]
 *[[add_dependencies]]
@@ -7282,6 +7165,7 @@ operator  int() const {return 2;}
 *[[macro、function]]
 *[[install]]
 *[[include_directories]]
+*[[link_directories]]
 *[[if]]
 *[[message]]
 *[[set]]
@@ -7473,56 +7357,55 @@ class config(cp.ConfigParser):
 &lt;/div&gt;
 &lt;/div&gt;</pre>
 </div>
+<div created="20150709055602315" modified="20150709065331471" title="cscope">
+<pre>''Install for Emacs''  &lt;div&gt;
+
+# 安装cscope  &lt;div&gt;
+
+```sh
+# method 1
+aptitude install cscope
+#method 2
+compile with the source code then
+cp ./contrib/xcscope/cscope-indexer  /usr/local/bin
+```
+&lt;/div&gt;
+# 添加xcscope.el到emacs的搜索路径 &lt;div&gt;
+
+```sh
+sudo cp xcscope.el  /usr/share/emacs23/site-lisp/
+```
+&lt;/div&gt;
+# 在emacs中调用 &lt;div&gt;
+
+```sh
+(require 'xcscope)
+```
+&lt;/div&gt;
+&lt;/div&gt;
+
+''usage''  &lt;div&gt;
+
+# 生成cscope文件  &lt;div&gt;
+
+```sh
+#项目根目录下运行
+cscope-indexer -r
+```
+&lt;/div&gt;
+# 常用命令(`详细见xcscope.el`) &lt;div&gt;    
+
+```
+C-c s s     Find symbol.
+C-c s d     Find global definition.
+C-c s g     Find global definition (alternate binding).
+C-c s G     Find global definition without prompting.
+```
+&lt;/div&gt;
+&lt;/div&gt;</pre>
+</div>
 <div changecount="6" created="20120618044100000" creator="YourName" modified="20120618044800000" modifier="Samuel" title="DefaultTiddlers" type="text/x-tiddlywiki">
 <pre></pre>
-</div>
-<div changecount="3" created="20140324081000000" creator="Samuel" modified="20150405132755394" modifier="Samuel" title="Desicion Tree" type="text/vnd.tiddlywiki">
-<pre>[[Gini Index Split Criterion]]</pre>
-</div>
-<div changecount="126" created="20130403031700000" creator="samuel" modified="20130417012600000" modifier="Samuel" title="Discreate Adaboost" type="text/x-tiddlywiki">
-<pre>''说明''
-#Discreate ~AdaBoost的弱分类器可以参考@@color(red):''Robust ~Real-Time Face Detection''@@
-#@@color(red):(重新分配权重，后其不影响前面分对的吗)@@
-''Step - 多类''
-#{{normal{@@color(blue):''Input''@@ :
- \((x_1,y_1)... (x_n, y_n)  \hspace{8mm} y_i\in Y(1, 2, ...k)  \). 
-}}}
-#{{normal{@@color(blue):''初始化权重值w(也是概率分布D)''@@
-\( 
-w_i = 1/n    ...........  (n为样本的个数 )\\
-(Cascade \hspace{4mm} Adaboost二类中 wp_i = 1/2m, wn_i=1/2l,m,l分别为正负样本的个数 )
-\)
-}}}
-#{{normal{@@color(blue):''For t=0, 1...T:''
-@@@@color(red):（T如何选取，可以根据正检率和误检率中间跳出吗?每次都更新一下正检率和误检率是不是很影响性能）@@
-#{{normal{''归一化权重值''
-\(
-\LARGE w_{t,i} = \frac{w_{t,i}}{\sum\limits_{j=1}^nw_{t,j}}
-\)
-}}}
-#{{normal{''对不同的特征训练若干弱分类器\(h_j\),寻找最小的误差值\({err}_t\)的弱分类器作为\(h_t\)''
-@@color(green):\({err}_t\)''(是所有的错误率，所以多类也是0.5)''必须小于0.5,大于0.5需要退出循环。如果大于0.5 则下一步\(\beta_t\)就会大于1，无法减小分对的权重@@
-\(
-\Large  {err}_j = \sum\limits_i^nw_i|h_j(x_i)-y_i|
-\)
-}}}
-#{{normal{''更新权重\(w\)''
-@@color(green):减小分对的权重,  分类错误的样本可以除以\beta_t变大或不变@@
-\(
-\Large w_{t+1,i} =w_{t,i}*\begin{cases}
-\beta_t  \hspace{16mm}if\hspace{4mm}  h_t(x_i)=y_i\\
-1 or \beta_t^{-1}\hspace{16mm} otherwise
-\end{cases} \\
-\beta_t = {err}_t / (1-{err}_t)
-\)
-}}}
-}}}
-#{{normal{@@color(blue):''最终的强分类器''@@
-\(
-\Large h_{final}(x) = max\sum\limits_{t:h_t(x)==y}log(1/\beta_t)
-\)
-@@color(green):寻找使(h(x)=y的情况下,log(1/B)之和)最大者即是输出分类y。 误差越小log(1/B)越大,二类情况下只要大于所有和的一半即可@@
-}}}</pre>
 </div>
 <div created="20150403101713577" modified="20150413081104603" tags="" title="Editor">
 <pre>&gt;[[Emacs]]
@@ -7669,7 +7552,7 @@ M=Alt (或先按一下 ESC 键然后放开，再输入 &lt;chr&gt;)''@@
 &gt;''quit(q)''  退出GDB调试
 </pre>
 </div>
-<div changecount="15" created="20120629054900000" creator="Samuel" modified="20120703055200000" modifier="Samuel" tags="_SHELL_ _SHELL_COMMAND_" title="eval" type="text/x-tiddlywiki">
+<div changecount="15" created="20120629054900000" creator="Samuel" modified="20150618063448112" modifier="Samuel" tags="_SHELL_ _SHELL_COMMAND_" title="eval" type="text/vnd.tiddlywiki">
 <pre>*@@bgcolor(green):功能@@
 :允许对参数进行求值
 *@@bgcolor(green):用法@@
@@ -7909,39 +7792,6 @@ for op, arg in options:
 &lt;/code&gt;
 }}}</pre>
 </div>
-<div changecount="59" created="20140324081200000" creator="Samuel" modified="20140327014900000" modifier="Samuel" title="Gini Index Split Criterion" type="text/x-tiddlywiki">
-<pre>*{{normal{@@color(blue):''定义''@@
-若样本集合包含n类样本， 则在集合D上的Gini index为
-\(
-Gini(D) = 1 - \sum_{j=1}^{n}p_j^2    \hspace{8mm}  (p_j 为属于类别j的样本在D中出现的概率)  \\
-若集合被分割为两个节点，则Gini index为 \\
-Gini(D) = \frac{N_l}{N}Gini(D_l) + \frac{N_r}{N}Gini(D_r)  \hspace{8mm}  (N为总样本数，N_(l,r)为左右节点的总样本数)
-\)
-@@color(red):分割应选取Gini index最小地方@@
-
-}}}
-*{{normal{@@color(blue):''以opencv中的2类的gini index stump细节进行说明''@@
-@@color(green):''target function -  MIN(Gini(D))''@@
-P 为节点中所有正样本权重的和, N为节点中所有负样本权重的和
-:\(
-MIN :T =  \frac{P_l+N_l}{1}Gini(D_l) + \frac{P_r+N_r}{1}Gini(D_r) \\
-T = \frac{P_l+N_l}{1}(1-(\frac{P_l}{P_l+N_l})^2-(\frac{N_l}{P_l+N_l})^2) + \frac{P_r+N_r}{1}(1-(\frac{P_r}{P_r+N_r})^2-(\frac{N_r}{P_r+N_r})^2) \\
-T = \frac{P_l+N_l}{1} + \frac{P_r+N_r}{1} - (\frac{P_l^2+N_l^2}{P_l+N_l} + \frac{P_r^2+N_r^2}{P_r+N_r}) \\
-由于\frac{P_l+N_l}{1} + \frac{P_r+N_r}{1} = 1
-\)
-@@color(green):''target function可以改为''@@
-:\(MAX : T = \frac{P_l^2+N_l^2}{P_l+N_l}+ \frac{P_r^2+N_r^2}{P_r+N_r}  \\
-设W_l = P_l+N_l ,W_r = P_r+N_r\\
-则可以写成\\
-T = \frac{(P_l^2+N_l^2)*W_r+ (P_r^2+N_r^2)*W_l}{W_r*W_l} \\
-当右节点有一个正样本(设其权重为\Delta w)更新到左节点以后。\\
-T = \frac{((P_l+\Delta w)^2+N_l^2)*(W_r-\Delta w)+ ((P_r-\Delta w)^2+N_r^2)*(W_l+\Delta w)}{W_r*W_l} \\ 
-=\frac{((P_l^2+2*P_i*\Delta w+\Delta w^2)+N_l^2)*(W_r-\Delta w)+ ((P_r^2-2*P_r*\Delta w+\Delta w^2)+N_r^2)*(W_l+\Delta w) }{W_r*W_l} 
-\)
-
-}}}
-</pre>
-</div>
 <div changecount="135" created="20120620061100000" creator="Samuel" modified="20150329134410679" modifier="Samuel" tags="_GIT_" title="Git" type="text/vnd.tiddlywiki">
 <pre>*[[Local Repository]]
 *[[Remote Repository]]
@@ -7954,13 +7804,13 @@ T = \frac{((P_l+\Delta w)^2+N_l^2)*(W_r-\Delta w)+ ((P_r-\Delta w)^2+N_r^2)*(W_l
 
 </pre>
 </div>
-<div changecount="2" created="20150108005800000" creator="Samuel" modified="20150108005900000" modifier="Samuel" title="Git Submodule" type="text/x-tiddlywiki">
-<pre>*{{normal{@@color(blue):''add''@@ 
-''git submodule add respoitory.git  name'' : 添加一个submodule
-}}}        
-*{{normal{@@color(blue):''deinit''@@ 
-''git submodule deinit  name'' : 删除一个submodule(需要在git rm 文件)
-}}}                    </pre>
+<div changecount="2" created="20150108005800000" creator="Samuel" modified="20150619085320842" modifier="Samuel" title="Git Submodule" type="text/vnd.tiddlywiki">
+<pre>*''add'' &lt;div&gt;
+`git submodule add respoitory.git  name` : 添加一个submodule
+&lt;/div&gt;
+*''deinit'' &lt;div&gt;
+`git submodule deinit  name` : 删除一个submodule(需要在git rm 文件)
+&lt;/div&gt;</pre>
 </div>
 <div changecount="3" created="20120719081500000" creator="Samuel" modified="20150330072720858" modifier="Samuel" tags="_GIT_" title="Git tag" type="text/vnd.tiddlywiki">
 <pre>*''git tag'' &lt;div&gt;
@@ -8073,15 +7923,18 @@ endif(expression)
 
 </pre>
 </div>
-<div changecount="3" created="20121127015600000" creator="Samuel" modified="20121127051300000" modifier="Samuel" title="include_directories" type="text/x-tiddlywiki">
-<pre>*@@color(blue):''include_directories ''@@ ([AFTER|BEFORE]  [SYSTEM]  dir1 dir2 dir3...) 
-**@@bgcolor(green):功能@@
-***添加头文件搜索路径
-**{{normal{@@bgcolor(green):说明@@
-&gt;AFTER: 其包含顺序为dir1 dir2 dir3... 默认为AFTER
-&gt;BEFORE : 其包含顺序为... dir3 dir2 dir1
-&gt;SYSTEM： 在某些平台上会被加到系统路径里
-}}}
+<div changecount="3" created="20121127015600000" creator="Samuel" modified="20150515033155518" modifier="Samuel" title="include_directories" type="text/vnd.tiddlywiki">
+<pre>''include_directories '' ([AFTER|BEFORE]  [SYSTEM]  dir1 dir2 dir3...)  &lt;div&gt;
+
+*''功能'' &lt;div&gt;
+添加头文件搜索路径
+&lt;/div&gt;
+*''说明'' &lt;div&gt;
+
+*`AFTER` : 其包含顺序为dir1 dir2 dir3... 默认为AFTER    
+*`BEFORE` : 其包含顺序为... dir3 dir2 dir1
+*`SYSTEM`： 在某些平台上会被加到系统路径里
+&lt;/div&gt;
 </pre>
 </div>
 <div changecount="98" created="20120628032800000" creator="Samuel" modified="20120628083800000" modifier="Samuel" title="install" type="text/x-tiddlywiki">
@@ -8190,13 +8043,19 @@ if iter == 10000
 end
 &lt;/code&gt;</pre>
 </div>
-<div changecount="15" created="20121017011700000" creator="Samuel" modified="20130407061700000" modifier="Samuel" title="Java" type="text/x-tiddlywiki">
+<div changecount="15" created="20121017011700000" creator="Samuel" modified="20150515053607007" modifier="Samuel" title="Java" type="text/vnd.tiddlywiki">
 <pre>[[Java Datatype]]
+
 [[Java Method]]
+
 [[Java Class]]
+
 [[Java Exception]]
+
 [[Java  GUI]]
+
 [[Java 泛型]]
+
 [[java Miscellaneous]]
 </pre>
 </div>
@@ -8273,32 +8132,54 @@ end
 #接口可以继承多个接口
 }}}</pre>
 </div>
-<div changecount="64" created="20121017011900000" creator="Samuel" modified="20130226095500000" modifier="Samuel" title="Java Datatype" type="text/x-tiddlywiki">
-<pre>@@color(red):''说明：''@@
-&gt;''java中数组和以new创建的对象是在堆中，其余在栈中''
-&gt;''当没有引用指向数组和对象时，其会被java自动释放，@@color(red):后面再用就不保险了@@''
-&gt;''当某些对象不想用的时侯，@@color(red):可以将该对象的引用赋null@@，如果没有其他的引用指向它的时候就会被释放''
-*{{normal{@@color(blue):''常量用final 而不是const''@@
-@@color(blue):final static int@@ a;
-}}}
-*{{normal{@@color(blue):''char''@@
-#Java中char默认是Unicode型的，所以占有两个字节@@color(green):（Character.SIZE/8） @@
+<div changecount="64" created="20121017011900000" creator="Samuel" modified="20150626035158161" modifier="Samuel" title="Java Datatype" type="text/vnd.tiddlywiki">
+<pre>''说明''  &lt;div&gt;    
+
+* java中数组和以new创建的对象是在堆中，其余在栈中     
+
+* 当没有引用指向数组和对象时，其会被java自动释放，@@color:red;后面再用就不保险了@@
+
+* 当某些对象不想用的时侯，@@color:red;可以将该对象的引用赋null@@，如果没有其他的引用指向它的时候就会被释放
+
+*常量用`final`, 而不是`const`    &lt;div&gt;
+
+```java
+final static int a;
+```
+&lt;/div&gt;
+&lt;/div&gt;
+
+''类型''  &lt;div&gt;    
+
+* `char`  &lt;div&gt;
+
+#Java中char默认是Unicode型的，所以占有两个字节@@color:green;（Character.SIZE/8） @@
 #与其他类型的转换问题 （基本程序设计 p37）
-}}}
-*{{normal{@@color(blue):''string''@@
-*''string是对象''
-&gt; Java中将字符串默认为string对象， 所有String str=“welcome” 是合法的 
-*''string对象是不可改变的，可以使用~StringBuffer或~StringBuilder替代''
-&gt;~StringBuffer的修改缓冲区是同步的，实用于多任务。其他~StringBuffer和~StringBuilder可以互用
-*''可以转换成数组''
-&gt;char[] array = &quot;welcome&quot;.toCharArray()
-*''数组构造string''
-&gt; 用valueOf @@color(green):(也可以转换数字)@@或者构造函数
-*''格式化字符串''
-&gt;format函数
-}}}
-*{{normal{@@color(blue):''数组''@@
-@@color(red):java中数组被看做是对象@@
+&lt;/div&gt;
+
+* `string`  &lt;div&gt;
+
+* string是对象
+* Java中将字符串默认为string对象， 所以`String str=&quot;welcome&quot;` 是合法的 
+* string对象是不可改变的，可以使用`StringBuffer`或`StringBuilder`替代
+* `StringBuffer`的修改缓冲区是同步的，实用于多任务。其他`StringBuffer`和`StringBuilder`可以互用
+* 转换成数组 &lt;div&gt;
+
+```java
+char[] array = &quot;welcome&quot;.toCharArray();
+```
+&lt;/div&gt;
+* 数组构造string&lt;div&gt;
+ 用valueOf (也可以转换数字)或者构造函数
+&lt;/div&gt;
+* format函数格式化字符串
+&lt;/div&gt;
+
+* `数组`  &lt;div&gt;
+
+@@color:red;java中数组被看做是对象 @@
+
+
 *''定义方式''
 &gt;@@color(blue):double@@[] arrary1 = @@color(blue):new double@@[10];
 &gt;@@color(blue):double@@[] arrary1 = {1.0,2.0};
@@ -8369,7 +8250,7 @@ main函数返回值必须为void
 &gt;[[Java]]
 &gt;[[R Language]]</pre>
 </div>
-<div changecount="115" created="20121126025200000" creator="Samuel" modified="20150405132311976" modifier="Samuel" title="LATEX" type="text/vnd.tiddlywiki">
+<div changecount="115" created="20121126025200000" creator="Samuel" modified="20150515083523449" modifier="Samuel" title="LATEX" type="text/vnd.tiddlywiki">
 <pre>Get More details from [[here|http://mohu.org/info/symbols/symbols.htm]]    
 
 * ''换行与空格'' &lt;div&gt;
@@ -8379,7 +8260,7 @@ main函数返回值必须为void
 
 * ''字体加粗'' &lt;div&gt;
 
-`\textbf{text}`
+`\textbf{text},  \mathbf{abc}`
 &lt;/div&gt;
 
 * ''字体大小'' &lt;div&gt;
@@ -8479,6 +8360,14 @@ svm_group_classes ： 将样本整理排列起来， 即同类的放在一起
 }}}
 }}}</pre>
 </div>
+<div created="20150515032953182" modified="20150515033147535" title="link_directories">
+<pre>''link_directories '' (dir1 dir2 dir3...)  &lt;div&gt;
+
+*''功能'' &lt;div&gt;
+添加头文件搜索路径
+&lt;/div&gt;
+&lt;/div&gt;</pre>
+</div>
 <div changecount="20" created="20120716084000000" creator="Samuel" modified="20150327114451785" modifier="Samuel" tags="_LINUX_COMMAND_" title="Linux" type="text/vnd.tiddlywiki">
 <pre>[[Linux FAQ]]    
 
@@ -8502,7 +8391,7 @@ svm_group_classes ： 将样本整理排列起来， 即同类的放在一起
 &gt;[[ssh]] : 链接远程 
 &gt;[[dd]] : 获取指定大小文件类容到新文件 </pre>
 </div>
-<div changecount="53" created="20121205033500000" creator="Samuel" modified="20150331005607766" modifier="Samuel" title="Linux FAQ" type="text/vnd.tiddlywiki">
+<div changecount="53" created="20121205033500000" creator="Samuel" modified="20150618062750176" modifier="Samuel" title="Linux FAQ" type="text/vnd.tiddlywiki">
 <pre>* ''Read file line by line'' &lt;div&gt;
 
 ```sh
@@ -8510,6 +8399,13 @@ while read line
 do
 echo ${line}
 done &lt; file
+```
+&lt;/div&gt;
+
+* ''扫描局域网所有地址'' &lt;div&gt;
+
+```sh
+nmap -sP 192.168.60.*
 ```
 &lt;/div&gt;
 *''ubuntu添加mainmenu''&lt;div&gt;
@@ -8645,7 +8541,7 @@ setenv (&quot;~LIBGL_ALWAYS_INSIRECT&quot;, &quot;yes&quot;, 1)
 }}}
 </pre>
 </div>
-<div changecount="15" created="20140710074800000" creator="Samuel" modified="20150405123228174" modifier="Samuel" title="LUA" type="text/vnd.tiddlywiki">
+<div changecount="15" created="20140710074800000" creator="Samuel" modified="20150515051758744" modifier="Samuel" title="LUA" type="text/vnd.tiddlywiki">
 <pre>[[Lua Type]]
 
 [[Lua Operator]]
@@ -8666,10 +8562,11 @@ setenv (&quot;~LIBGL_ALWAYS_INSIRECT&quot;, &quot;yes&quot;, 1)
 
 [[Lua 解释器]]</pre>
 </div>
-<div changecount="4" created="20140710074900000" creator="Samuel" modified="20150305034500000" modifier="Samuel" title="Lua 解释器" type="text/x-tiddlywiki">
-<pre>*{{normal{''lua  -i filename''
+<div changecount="4" created="20140710074900000" creator="Samuel" modified="20150515052115882" modifier="Samuel" title="Lua 解释器" type="text/vnd.tiddlywiki">
+<pre>*''lua  -i filename'' &lt;div&gt;
 运行filename中代码块，然后打开lua解释器
-}}}</pre>
+&lt;/div&gt;
+</pre>
 </div>
 <div changecount="24" created="20140713124100000" creator="Samuel" modified="20150106100300000" modifier="Samuel" title="Lua 控制结构" type="text/x-tiddlywiki">
 <pre>*{{normal{@@color(blue):''do-end : 定义局部代码块''@@
@@ -9082,7 +8979,7 @@ invalid
 }}}
 }}}</pre>
 </div>
-<div changecount="4" created="20140713124000000" creator="Samuel" modified="20150407033021503" modifier="Samuel" title="Lua Table" type="text/vnd.tiddlywiki">
+<div changecount="4" created="20140713124000000" creator="Samuel" modified="20150626033857866" modifier="Samuel" title="Lua Table" type="text/vnd.tiddlywiki">
 <pre>*''key访问''&lt;div&gt;
 
 ```lua
@@ -9184,26 +9081,32 @@ print(c2()) --&gt; 2
 &lt;/code&gt;
 }}}</pre>
 </div>
-<div changecount="30" created="20140416011200000" creator="Samuel" modified="20140429085400000" modifier="Samuel" title="Machine Learning Miscellaneous" type="text/x-tiddlywiki">
-<pre>*{{normal{@@color(blue):''训练的改进''@@
-*{{normal{@@color(red):当模型underfit的时候， 增加训练样本不会有太大的帮助@@
-例如用线性函数去模拟二次函数的数据。就算样本增多，其最后的模型还是线性方程，无法改善
-}}}
-*{{normal{@@color(red):当验证集和训练集的错误曲线之间的gap比较大时，模型肯定过拟合了@@
-gap大到什么程度呢？
-}}}
-}}}
-*{{normal{@@color(blue):''错误率的统计''@@
-@@color(green):当待测试的正负样本数量一样才有意义吧？@@
+<div changecount="30" created="20140416011200000" creator="Samuel" modified="20150708083755241" modifier="Samuel" title="Machine Learning Miscellaneous" type="text/vnd.tiddlywiki">
+<pre>''训练的改进'' &lt;div&gt;    
+
+* 当模型underfit的时候， 增加训练样本不会有太大的帮助 &lt;div&gt;
+`例如用线性函数去模拟二次函数的数据。就算样本增多，其最后的模型还是线性方程，无法改善`
+&lt;/div&gt;
+
+* 当验证集和训练集的错误曲线之间的gap比较大时，模型肯定过拟合了
+&lt;/div&gt;
+
+''错误率的统计'' &lt;div&gt;
+
 ||!ground_truth 1|!ground_truth 0|
 |!predict 1| True Pos | False Pos |
 |!predict 0| False Neg | True Neg |
-\(
-precision = \frac{True Pos}{True Pos + False Pos} \\ 
-recall = \frac{True Pos}{True Pos + False Neg}  \\
+
+$$
+precision = \frac{True Pos}{True Pos + False Pos}
+$$
+$$
+recall = \frac{True Pos}{True Pos + False Neg}        
+$$    
+$$
 F1_{score} (or F_{score}) = 2*\frac{precision*recall}{precision+recall}
-\)
-}}}</pre>
+$$
+&lt;div&gt;</pre>
 </div>
 <div changecount="14" created="20140318004900000" creator="Samuel" modified="20141215092100000" modifier="Samuel" title="Machine Learnning" type="text/x-tiddlywiki">
 <pre>[[Machine Learnning--Andrew Ng]]
@@ -9248,7 +9151,7 @@ F1_{score} (or F_{score}) = 2*\frac{precision*recall}{precision+recall}
 &lt;/div&gt;
 </pre>
 </div>
-<div changecount="111" created="20120618044600000" creator="YourName" modified="20150413080943872" modifier="Samuel" title="MainMenu" type="text/vnd.tiddlywiki">
+<div changecount="111" created="20120618044600000" creator="YourName" modified="20150709053554094" modifier="Samuel" title="MainMenu" type="text/vnd.tiddlywiki">
 <pre>&lt;&lt;tabs &quot;Tools Editor Programming Languages Algorithm&quot;  &quot;Tools&quot;&gt;&gt;
 
 
@@ -9858,46 +9761,56 @@ object c中使用@@color(blue):@interface@@， 而不是@@color(blue):@class@@�
 <div changecount="2" created="20130328024200000" creator="samuel" modified="20130328024200000" modifier="samuel" title="OpenCV" type="text/x-tiddlywiki">
 <pre>*[[opencv内存分配]]</pre>
 </div>
-<div changecount="159" created="20140324060000000" creator="Samuel" modified="20140331010500000" modifier="Samuel" title="opencv desicion tree in adaboost" type="text/x-tiddlywiki">
-<pre>*{{normal{@@color(red):''说明''@@
-#opencv中discrete和real使用的@@color(red):分类树@@，gentle使用是@@color(red):回归树@@
-}}}
-*{{normal{@@color(blue):''Discrete''@@
+<div changecount="159" created="20140324060000000" creator="Samuel" modified="20150508100329566" modifier="Samuel" title="opencv desicion tree in adaboost" type="text/vnd.tiddlywiki">
+<pre>* ''说明'' &lt;div&gt;
+
+opencv中discrete和real使用`分类树`，gentle使用是`回归树`
+&lt;/div&gt;
+* ''Discrete'' &lt;div&gt;
+
 #基于某一维特征，将所有的样本都放到右边树,则在右边树正样本权重和P=0.5, 负样本权重和N=0.5
-#{{normal{以样本的特征为阈值@@color(red):(如果两个特征的值太接近，不要在此处分分割，跳到下一个特征)@@，
- 一个一个将右边的样本往左边移， 直到左边树的{{{|P-N|}}}的绝对值达到最大}}}
-#再在所有的不同的特征上重复step1和step2，找到全局最大的{{{|P-N|}}}
-@@color(green):''Attention'' - @@叶子节点的值为0(当负样本比正阳本多的时候)，否则为1
 
-:....... / ..................  \ ...........{{{-------&gt;}}} ...... / ..................... \ ......
-:P(0)|N(0) ... P(0.5)|N(0.5)   {{{------&gt;}}}   P(x)|N(y) ... P(0.5-x)|N(0.5-y)    {{{-----&gt;}}} {{{max(abs(P-N))}}}
-}}}
+#以样本的特征为阈值`(如果两个特征的值太接近，不要在此处分分割，跳到下一个特征)`， 一个一个将右边的样本往左边移， 直到左边树的|P-N|的绝对值达到最大
 
-*{{normal{@@color(blue):''Real''@@ 
+#再在所有的不同的特征上重复step1和step2，找到全局最大的|P-N|
+`注意`: 叶子节点的值为0(当负样本比正阳本多的时候)，否则为1
+&lt;/div&gt;
+
+*''Real'' &lt;div&gt; 
+
 #基于某一维特征，将所有的样本都放到右边树,则在右边树P=0.5, N=0.5
-#{{normal{以样本的特征为阈值@@color(red):(如果两个特征的值太接近，不要在此处分分割，跳到下一个特征)@@，
- 一个一个将右边的样本往左边移， 直到整个树的Gini Index最小[[Gini Index Split Criterion]]
-}}}
+
+#以样本的特征为阈值`(如果两个特征的值太接近，不要在此处分分割，跳到下一个特征)`， 一个一个将右边的样本往左边移， 直到整个树的Gini Index最小[[Gini Index Split Criterion]]
+
 #再在所有的不同的特征上重复step1和step2，找到全局最小的Gini Index
-@@color(green):''Attention''  - @@叶子节点的值为0.5*log(P/N)
-}}}
 
-*{{normal{@@color(blue):''Gentle''@@ 
+`注意`: 叶子节点的值为0.5*log(P/N)
+&lt;/div&gt;
+
+* ''Gentle'' &lt;div&gt;
+
 #基于某一维特征，将所有的样本都放到右边树,则在右边树P=0.5, N=0.5
-#{{normal{以样本的特征为阈值@@color(red):(如果两个特征的值太接近，不要在此处分分割，跳到下一个特征)@@，
- 一个一个将右边的样本往左边移， 直到整个树的均方误差最小
-}}}
-#再在所有的不同的特征上重复step1和step2，找到全局最小的均方误差
-@@color(green):''Attention''  - @@叶子节点的值为{{{(P-N)/(P+N)}}}
 
-{{normal{@@color(green):''opencv中使用的均方误差''@@
-\(
-MIN : \frac{(P+N)^2 - (P-N)^2}{P+N}
-= \frac{-4PN}{P+N} \\
-MAX : \frac{PN}{P+N} = \frac{P_lN_l}{P_l+N_l} + \frac{P_rN_r}{P_r+N_r}
-\)
-}}}
-}}}</pre>
+#以样本的特征为阈值`(如果两个特征的值太接近，不要在此处分分割，跳到下一个特征)`， 一个一个将右边的样本往左边移， 直到整个树的`均方误差`最小
+
+#再在所有的不同的特征上重复step1和step2，找到全局最小的`均方误差`
+`注意`:  &lt;div&gt;
+
+# 叶子节点的值为(P-N)/(P+N)
+
+# opencv中使用的均方误差  &lt;div&gt;   
+
+$$
+MIN : \frac{(P+N)^2 - (P-N)^2}{P+N} = \frac{4PN}{P+N} 
+$$
+
+$$
+MIN: \frac{PN}{P+N} = \frac{P_lN_l}{P_l+N_l} + \frac{P_rN_r}{P_r+N_r}
+$$
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+</pre>
 </div>
 <div changecount="22" created="20121024014700000" creator="YourName" modified="20121207013000000" modifier="Samuel" title="OpenGL" type="text/x-tiddlywiki">
 <pre>*临时修改一些状态时，需使用push和pop操作，这比直接修改效率更高
@@ -10154,14 +10067,15 @@ plot(a); hold on; plot(b)
 
 </pre>
 </div>
-<div created="20150403102311659" modified="20150413081012078" tags="" title="Programming">
+<div created="20150403102311659" modified="20150709053615546" tags="" title="Programming">
 <pre>&gt;[[valgrind]]
 &gt;[[gprof]]
 &gt;[[Cmake]]
 &gt;[[Make]]
-&gt;[[gmock]]</pre>
+&gt;[[gmock]]
+&gt;[[cscope]]</pre>
 </div>
-<div changecount="43" created="20120629070300000" creator="Samuel" modified="20150413072935192" modifier="Samuel" tags="_SCRIPT_LANGUAGE_ _PYTHON_" title="Python" type="text/vnd.tiddlywiki">
+<div changecount="43" created="20120629070300000" creator="Samuel" modified="20150720091632192" modifier="Samuel" tags="_SCRIPT_LANGUAGE_ _PYTHON_" title="Python" type="text/vnd.tiddlywiki">
 <pre>类似于Java，Python实际上是字节编译的，其结果就是可以生成一种近似机器语言的中间形式
 
 &gt;[[Python pdb]]
@@ -10178,7 +10092,7 @@ plot(a); hold on; plot(b)
 &gt;[[Python Internet]]
 &gt;[[Python Exception]]
 &gt;[[Python equivalent function of MATLAB]]
-&gt;[[C/C++ Extention for Python ]]
+&gt;[[cffi]]
 
 </pre>
 </div>
@@ -10228,28 +10142,49 @@ class foo (bases):
 #在变量前面使用{{{__}}}(双下划线)，这样函数(变量)名在被翻译时变成&quot;_+类名{{{__}}}变量名“ 如：_className{{{__}}}varName
 #使用{{{__}}}(双下划线)后，子类中的变量不会影响父类中变量,因为名字不一样</pre>
 </div>
-<div changecount="28" created="20130821061500000" creator="Samuel" modified="20131008101100000" modifier="Samuel" title="python 成员函数" type="text/x-tiddlywiki">
-<pre>*{{normal{@@color(blue):''实例函数''@@
-#第一个默认参数为self, 
-#{{normal{@@color(blue):''{{{__init__|__new__| __del__}}}'' @@ 
-#初始化函数， 子类需要调用父类的__init__， 需要传递self这个参数。 且init函数是没有返回值的
-#@@color(red):new, del 用到在学？@@
-}}}
-}}}
-*{{normal{@@color(blue):''类函数''@@
-#第一个默认参数为cls, 通过@@color(blue):@classmethod@@描述符指定
+<div changecount="28" created="20130821061500000" creator="Samuel" modified="20150511034633297" modifier="Samuel" title="python 成员函数" type="text/vnd.tiddlywiki">
+<pre>*''实例函数'' &lt;div&gt;
+
+#第一个默认参数为`self`, 
+#`__init__|__new__| __del__` 
+#初始化函数， 子类需要调用父类的`__init__`， 需要传递`self`这个参数(`super(classname, self).__init__()`)。 且init函数是没有返回值的
+#`new, del `用到再学？
+&lt;/div&gt;
+
+*''类函数'' &lt;div&gt;
+
+#第一个默认参数为`cls`, 通过`@classmethod`描述符指定
 #可以通过类名和实例名访问
-}}}
-*{{normal{@@color(blue):''静态函数''@@
-#没有默认参数，即没有self和cls. 通过@@color(blue):@staticmethod@@描述符指定
-#没有self，@@color(red):所有不可以访问实例变量@@
-#没有cls，@@color(red):可以通过类名来访问类变量@@
+&lt;/div&gt;
+
+*''静态函数'' &lt;div&gt;
+
+#没有默认参数，即没有`self`和`cls`. 通过`@staticmethod@@`描述符指定
+#没有self，`所有不可以访问实例变量`
+#没有cls，`可以通过类名来访问类变量`
 #可以通过类名和实例名访问
-}}}
-*{{normal{@@color(blue):''私有函数'' @@ @@color(green):(外部其实还是可以访问,Python没有真正的私有化支持)@@
-#在函数前面使用{{{__}}}(双下划线)，这样函数名在被翻译时变成&quot;_+类名{{{__}}}函数名“ 如：_className{{{__}}}function
-#使用{{{__}}}(双下划线)后，子类中的函数不会影响父类中函数，因为名字不一样
-}}}</pre>
+&lt;/div&gt;
+*''私有函数'' &lt;div&gt;
+
+`外部其实还是可以访问,Python没有真正的私有化支持`
+
+#在函数前面使用`__双下划线`，这样函数名在被翻译时变`_+类名__函数名`“ 如：`_className__function`
+#使用`__双下划线`后，子类中的函数不会影响父类中函数，因为名字不一样
+&lt;div&gt;</pre>
+</div>
+<div changecount="1" created="20120906021700000" creator="samuel" modified="20150724024142052" modifier="samuel" title="Python 集合" type="text/vnd.tiddlywiki">
+<pre>* ''说明'' &lt;div&gt;
+set是python2.3以后引入的内建类型。
+&lt;/div&gt;
+
+* ''方法'' &lt;div&gt;
+
+&gt; ''union'' == ''|''
+&gt; ''issubset'', ''issupperset''
+&gt;''difference'' == ''-''
+&gt;''symmetric_difference'' == ''^''
+&lt;/div&gt;
+</pre>
 </div>
 <div changecount="14" created="20130821060300000" creator="Samuel" modified="20130821061500000" modifier="Samuel" title="python 类属性" type="text/x-tiddlywiki">
 <pre>*''{{{__doc__}}}'' 
@@ -10266,6 +10201,42 @@ class foo (bases):
 #python新式类中所有的的属性都是放在{{{__dict__}}}中的@@color(green):(inst.foo等价于inst.__dict__['foo'])@@， 字典是比较占类存的，可以使用{{{__slots__}}}来定义
 }}}</pre>
 </div>
+<div changecount="66" created="20120629091300000" creator="Samuel" modified="20150724024246375" modifier="Samuel" tags="_PYTHON_ _PYTHON_DATASTRUCTURE_" title="Python 列表与元组" type="text/x-tiddlywiki">
+<pre>*@@bgcolor(green):说明@@
+**列表与元组(list, tuple)的主要@@color(red):区别：@@列表可以修改，元组则不能。 一般情况下元组可以用列表替换，@@color(red): 例外：@@元组作为字典的键（不允许修改）
+**列表用''[ ]'', 元组用''( )''
+**@@color(red):列表保存的是对象的地址，如a=[1,2].保存了两个对象的地址和两个整数对象，而numpy中的数组保存的是数组的值@@
+*@@bgcolor(green):操作@@
+**@@color(blue):''python中数组下标从负数开始表示反向''@@,  如：a=[1,2,3,4] . a[-1]=4
+**@@color(blue):''len, max, min''@@
+::求序列的长度、最大值、最小值
+**@@color(blue):''in''@@
+::判断成员资格，返回true or false
+**@@color(blue):''remove''@@
+::删除某个元素值，如果有重复，只会删除第一个
+**@@color(blue):''分片  &amp;  分片赋值''@@
+:@@bgcolor(green):''分片赋值与分片类似''@@
+:{{normal{
+访问序列中部分元素。如:
+&lt;code python&gt;
+tag=[1,2,3,4,5,6,7,8,9]
+tag[0:3] 为1 2 3，最后索引为包含最后元素的下一个元素
+tag[-3:] 7 8 9, tag[-3: -1] 7 8 后一个索引必须必前一个后出现 
+tag[:] 1 2 3 4 5 6 7 8 9
+tag[1:4:2] 为2  4。@@color(green):''2为步长， 上面的默认步长为1''@@
+&lt;/code&gt;
+}}}
+*@@color(blue):''控制结构可以用在list的赋值中''@@
+&gt;sqdEvens = [x ** 2 for x in range(8) if x&gt;2 ]
+&gt;支持多层循环 sqdEvens = [(x,y) for x in range(8) for y in range(8) ]
+*@@color(blue):''单元素元组''@@
+&gt;('xyz',) ;需要加逗号，负责会被认为是字符串@@color(red):圆括号被重载了，它也被用作分组操作符@@
+*@@color(blue):''注意浅copy和深copy的区别''@@
+&gt;深copy是两个对象互不影响， 浅copy是子copy不能影响原来的对象。但原来的对象可以影响copy@@color(red):(不同的python版本，行为不一样)@@
+
+
+</pre>
+</div>
 <div changecount="8" created="20121010074400000" creator="samuel" modified="20121010080200000" modifier="samuel" title="python 数字类型" type="text/x-tiddlywiki">
 <pre>@@bgcolor(green):五种数字类型：int , long ,  bool , float , complex@@
 *{{normal{@@color(blue):''complex''@@
@@ -10280,6 +10251,135 @@ class foo (bases):
 <pre>#Python 3.0以后不用注意，否则在使用新式类时， @@color(red):最好是继承object类@@，而不是type
 #在多重继承中。新式类使用广度优先搜索，旧式类使用深度优先搜索
 </pre>
+</div>
+<div changecount="31" created="20120702070200000" creator="Samuel" modified="20150724024858437" modifier="Samuel" tags="_PYTHON_ _PYTHON_DATASTRUCTURE_" title="Python 字典" type="text/vnd.tiddlywiki">
+<pre>* ''属性'' &lt;div&gt;
+键值不唯一，键是唯一的
+&lt;/div&gt;
+
+* ''创建'' &lt;div&gt;
+
+```py
+d = {'key1' : 'val', 'key2' : 'val'} 
+d = dict(key1='val', key2='val')
+items = [ ('key1' , 'val'), ('key2' : 'val')]       
+d = dict[items]
+```
+&lt;/div&gt;
+
+* ''字典的合并'' &lt;div&gt;
+
+```py
+dict1.update(dict2)
+```
+&lt;/div&gt;
+
+* ''赋值时与列表的区别'' &lt;div&gt;
+
+可以为不存在的键添加值，列表超过索引则不行（可以用append方法）
+&lt;/div&gt;
+
+* ''判断键值是否存在'' &lt;div&gt;
+
+```py
+key in dict
+dict.has_key(key)
+```
+&lt;/div&gt;</pre>
+</div>
+<div changecount="69" created="20120702022200000" creator="Samuel" modified="20150724030241062" modifier="Samuel" tags="_PYTHON_ _PYTHON_DATASTRUCTURE_" title="Python 字符串" type="text/vnd.tiddlywiki">
+<pre>* ''str()和repr()区别'' &lt;div&gt;
+
+#str和int等是一种类型，而repr是函数，显示时候用： 如list等不能用str，可以用repr来显示其值
+#str转换float会发生精度截断，这是可以用repr
+&lt;/div&gt;
+
+* ''数组访问'' &lt;div&gt;
+
+* python中数组下标从负数开始表示反向 &lt;div&gt;
+
+```py
+a=[1,2,3,4]
+a[-1]=4
+```
+&lt;/div&gt;
+&lt;/div&gt;
+
+* ''原始字符串'' &lt;div&gt;
+
+前面加`r/R`，字符中的特殊字符将会被当着一般字符
+&lt;/div&gt;
+
+* ''字符串常量'' &lt;div&gt;
+
+&gt;`string.digits` ： 0-9的字符串
+&gt;`string.letters` ： 包含所有字母（大小写）的字符串
+&gt;`string.lowercase` ： 包含所有小写字母的字符串
+&gt;`string.printable` ： 包含所有可打印的字符
+&gt;`string.punctuation` ： 包含所有标点的字符串
+&gt;`string.uppercase` ： 包含所有大写字母的字符串
+&lt;/div&gt;
+
+* 字符串格式化 &lt;div&gt;
+
+详细见`python核心编程6.4.~String-Only Operators`     
+
+```py
+#详细见文档
+a = &quot;i am a %s&quot;%sub1
+b = &quot;i am a {0:&lt;6}&quot;.format(sub1) #左对齐
+b = &quot;i am a {0:&gt;6}&quot;.format(sub1) #右对齐
+#字典字符串格式化
+c = &quot;with %(kwarg)s!&quot;%{'kwarg':sub2}
+d = &quot;with {kwarg}!&quot;.format(kwarg=sub2)
+```
+&lt;/div&gt;
+
+* ''find'' &lt;div&gt;
+
+寻找子字符串的最左端索引， 没找到返回-1 
+
+```py
+string.find('str')
+```
+&lt;/div&gt;
+
+* ''upper() &amp; lower()'' &lt;div&gt;
+
+大小写转换
+&lt;/div&gt;
+
+* ''split([sep[, maxsplit]])'' &lt;div&gt;
+
+分割字符串， sep只支持`一个分隔符`，可以用正则表达式`re.split`
+&lt;/div&gt;
+
+* ''strip()'' &lt;div&gt;
+
+去除字符串两侧的空格字符(不包含内部)
+&lt;/div&gt;
+
+* ''replace() &amp; translate()'' &lt;div&gt;
+
+* `replace`进行单词替换
+* `translate`进行单个字母的替换
+&lt;/div&gt;
+
+* ''join() &amp; split()'' &lt;div&gt;
+
+* `join` 将字符串序列链接成一个字符串
+* `split`将一个字符串拆分成字符串序列 &lt;div&gt;
+
+```py
+#链接
+seq = ['1', '2' , '3' , '4']
+res = '+'.join(seq)
+#拆分
+str = '1+2+3+4'
+res = str.split('+')
+```
+&lt;/div&gt;
+&lt;/div&gt;</pre>
 </div>
 <div changecount="15" created="20121011090600000" creator="Samuel" modified="20150413072642206" modifier="samuel" title="Python Build-in Function" type="text/vnd.tiddlywiki">
 <pre>*''input 和 raw_input'' &lt;div&gt;
@@ -10358,62 +10458,82 @@ raw_input:将所有输入当成原始输入，不会把数字变成int等
 
 }}}</pre>
 </div>
-<div changecount="6" created="20140303081000000" creator="Samuel" modified="20140303083300000" modifier="Samuel" title="Python equivalent function of MATLAB" type="text/x-tiddlywiki">
-<pre>#{{normal{''@@color(blue):conv2 -- 卷积@@ ''
+<div changecount="6" created="20140303081000000" creator="Samuel" modified="20150720083134979" modifier="Samuel" title="Python equivalent function of MATLAB" type="text/vnd.tiddlywiki">
+<pre>*''conv2 -- 卷积'' &lt;div&gt;
 scipy.signal.convolve -- 边缘处理。 超过边界的值用0
-}}}
-#{{normal{''@@color(blue):corr2 -- 互相关@@ ''
+&lt;/div&gt;
+
+*''corr2 -- 互相关'' &lt;div&gt;
 scipy.signal.correlate -- 边缘处理。 超过边界的值用0
-}}}
-#{{normal{''@@color(blue):imfilter -- 滤波@@ ''
-1.里面对于超过边界的值有多种处理方式。且包含了 corr和conv
-2.@@color(red):python中convolve和correlate对边缘只有赋0一种操作@@
-}}}</pre>
+&lt;/div&gt;
+
+*''imfilter -- 滤波'' &lt;div&gt;
+
+#里面对于超过边界的值有多种处理方式。且包含了 corr和conv
+
+#python中convolve和correlate对边缘只有赋0一种操作
+&lt;/div&gt;</pre>
 </div>
-<div changecount="17" created="20121010082700000" creator="samuel" modified="20150107020100000" modifier="Samuel" title="Python Exception" type="text/x-tiddlywiki">
-<pre>*@@color(blue):''引发异常''@@
-&gt;raise Exception(&quot;info&quot;) : 可以引发很多其他异常
-*{{normal{@@color(blue):''捕捉异常''@@
-&lt;code py&gt;
+<div changecount="17" created="20121010082700000" creator="samuel" modified="20150720083735649" modifier="Samuel" title="Python Exception" type="text/vnd.tiddlywiki">
+<pre>*''引发异常'' &lt;div&gt;
+
+```py
+raise Exception(&quot;info&quot;) 
+```
+&lt;/div&gt;
+
+*''捕捉异常'' &lt;div&gt;
+
+```py
 try:
     statements
-excep (ZeroDivsionError,  TypeError): #捕获2个异常
+except (ZeroDivsionError,  TypeError): #捕获2个异常
     statements
-excep :  #捕获所有异常
+except :  #捕获所有异常
     statements
 else : #加个子句，没有异常时执行
     statement
 finally : 
     statement
-&lt;/code&gt;
-}}}
-*{{normal{@@color(blue):''异常参数''@@
-&lt;code py&gt;
+```
+&lt;/div&gt;
+
+*''异常参数'' &lt;div&gt;
+
+```py
 try:
     statements
 excep (ZeroDivsionError,  TypeError), reason: #reason异常参数
     statements
 excep IOError, reason :  #reason异常参数
-&lt;/code&gt;
-}}}
-*{{normal{@@color(blue):''with字句''@@
-它仅能工作于支持上下文管理协议的对象, @@color(green):Python2.6支持，见python核心编程10.4@@,
-&lt;code py&gt;
+```
+&lt;/div&gt;
+
+* ''with字句'' &lt;div&gt;
+
+它仅能工作于支持上下文管理协议的对象, `Python2.6支持，见python核心编程10.4`    
+
+```py
 with open('/etc/passwd', 'r') as f:
     for eachLine in f:
       do stuff with eachLine or f...
-&lt;/code&gt;
-}}}
-*{{normal{@@color(blue):''assert''@@
-断言，出错以后会@@color(blue): ''raise ~AssertionError''@@
-&lt;code py&gt;
+```
+&lt;/div&gt;
+
+* ''assert'' &lt;div&gt;
+
+断言，出错以后会`raise AssertionError`
+
+```py
 assert(1==val)
-&lt;/code&gt;
-}}}
-*{{normal{@@color(blue):''Error''@@
-@@color(blue): ''~AssertionError''@@ : assert错误
-@@color(blue): ''~IOError''@@ : 文件打开错误
-}}}</pre>
+```
+&lt;/div&gt;
+
+* ''Error'' &lt;div&gt;
+
+&gt;`AssertionError` : assert错误
+&gt;`IOError` : 文件打开错误
+&lt;/div&gt;</pre>
 </div>
 <div changecount="28" created="20120702063800000" creator="Samuel" modified="20150413074317779" modifier="Samuel" tags="_PYTHON_ _PYTHON_FAQ_" title="Python FAQ" type="text/vnd.tiddlywiki">
 <pre>*''py2exe'' &lt;div&gt;
@@ -10447,26 +10567,38 @@ multiprocessing.cpu_count()
 
 </pre>
 </div>
-<div changecount="17" created="20121015014900000" creator="samuel" modified="20130823054200000" modifier="Samuel" title="Python File IO" type="text/x-tiddlywiki">
-<pre>*{{normal{@@color(blue):''open''@@(file_name, [, access_mode][, buffering]) 
+<div changecount="17" created="20121015014900000" creator="samuel" modified="20150514130919243" modifier="Samuel" title="Python File IO" type="text/vnd.tiddlywiki">
+<pre>*''open''(file_name, [, access_mode][, buffering])  &lt;div&gt;
+
 打开文件，并返回一个文件对象
+&lt;/div&gt;
 
-}}}
-*{{normal{@@color(blue):''fileObj.close''@@
+*''fileObj.close''&lt;div&gt;
+
 关闭文件
+&lt;/div&gt;
 
-}}}
-*{{normal{@@color(blue):''fileObj.seek''@@(offset[, from]) 
-from: 0-文件开头@@color(red):(或不提供)@@  1-文件当前位置2-文件末尾
+*''fileObj.seek''(offset[, from])  &lt;div&gt;
 
-}}}
-*@@color(blue):''文件操作中使用通用换行符 ''@@
-&gt;打开方式使用U选项， 表示提供通用换行符支持
-*@@color(blue):''writeline和readline  ''@@
-&gt;readline函数会读取回车符;  writeline不会写回车符到文件中
-*@@color(blue):''文件操作使用迭代器 和 xreadlines()''@@
-&gt;for eachLine in f: 文件迭代更为高效 @@color(green):(Python 2.3支持)@@
-&gt;xreadlines(): 每次只读取固定的块， 减少内存的使用； iter有相同的功能，所有可以放弃这个函数</pre>
+`from`: 0-文件开头(或不提供)  1-文件当前位置 2-文件末尾
+&lt;/div&gt;
+
+*''文件操作中使用通用换行符 '' &lt;div&gt;
+
+打开方式使用U选项， 表示提供通用换行符支持
+&lt;/div&gt;
+
+*''writeline和readline '' &lt;div&gt;
+
+*`readline` : 函数会读取回车符    
+* `writeline` : 不会写回车符到文件中
+&lt;/div&gt;
+
+*''文件操作使用迭代器 和 xreadlines()''&lt;div&gt;
+
+&gt;for eachLine in f: 文件迭代更为高效(`Python 2.3支持`)
+&gt;xreadlines(): 每次只读取固定的块， 减少内存的使用； iter有相同的功能，所有可以放弃这个函数
+&lt;/div&gt;</pre>
 </div>
 <div changecount="10" created="20120906022000000" creator="samuel" modified="20120906065600000" modifier="samuel" title="Python Internet" type="text/x-tiddlywiki">
 <pre>*@@color(blue):获取地址@@
@@ -10496,21 +10628,27 @@ from: 0-文件开头@@color(red):(或不提供)@@  1-文件当前位置2-文件�
 <div changecount="1" created="20130819054400000" creator="Samuel" modifier="Samuel" title="Python Tkinter" type="text/x-tiddlywiki">
 <pre>安装tcl/tk 或者安装python-tk</pre>
 </div>
-<div changecount="38" created="20120629090800000" creator="Samuel" modified="20130821063500000" modifier="Samuel" tags="_PYTHON_ _PYTHON_DATASTRUCTURE_" title="Python变量&amp;类型" type="text/x-tiddlywiki">
-<pre>*@@color(green):''Python不支持静态变量''@@
-*{{normal{@@color(green):''immutable and mutable''@@
-*python中所有都是对象 。immutable是对象可改变如:@@color(blue):list, dict，mutable@@不可改变如:@@color(blue):number, string ,tuple@@
-*''举例'':  @@color(red):python中数字1，2，...都是不同的对象指向不同的地址， 当赋个一个变量的时候就是将地址给这个变量。 一旦这个变量的值改变了了其就是把另一个对象地址给它@@
+<div changecount="38" created="20120629090800000" creator="Samuel" modified="20150724024303516" modifier="Samuel" tags="_PYTHON_ _PYTHON_DATASTRUCTURE_" title="Python变量&amp;类型" type="text/vnd.tiddlywiki">
+<pre>* ''Python不支持静态变量''
+* ''immutable and mutable''   &lt;div&gt;
 
-}}}
-*{{normal{@@color(green):''数据类型''@@
+python中所有都是对象
+
+*  `immutable` : 是对象可改变的，如`list, dict`
+* ` mutable` : 是不可改变的对象，如`number, string ,tuple`
+
+* pythonn中数字`1，2，...`,都是不同的对象指向不同的地址， 当赋个一个变量的时候就是将地址给这个变量。 一旦这个变量的值改变了了其就是把另一个对象地址给它
+&lt;/div&gt;
+
+* ''数据类型'' &lt;div&gt;
+
 &gt;[[python 数字类型]]
-&gt;[[列表与元组]]
-&gt;[[字符串]]
-&gt;[[字典]]
-&gt;[[集合]]
+&gt;[[Python 列表与元组]]
+&gt;[[Python 字符串]]
+&gt;[[Python 字典]]
+&gt;[[Python 集合]]
 &gt;[[堆]] , [[双端队列]]
-}}}
+&lt;/div&gt;
 </pre>
 </div>
 <div changecount="52" created="20120629071600000" creator="Samuel" modified="20150413072725914" modifier="Samuel" title="Python函数" type="text/vnd.tiddlywiki">
@@ -10669,11 +10807,15 @@ if __name__ == &quot;__main__&quot;:
 }}}
 </pre>
 </div>
-<div changecount="84" created="20120629072500000" creator="Samuel" modified="20130821062300000" modifier="Samuel" tags="_PYTHON_ _PYTHON_CLASS_" title="Python类" type="text/x-tiddlywiki">
-<pre>[[python 新式类]]
-[[python 成员变量]]
+<div changecount="84" created="20120629072500000" creator="Samuel" modified="20150511033951938" modifier="Samuel" tags="_PYTHON_ _PYTHON_CLASS_" title="Python类" type="text/vnd.tiddlywiki">
+<pre>[[python 新式类]]    
+
+[[python 成员变量]]    
+
 [[python 成员函数]]
+
 [[python 类属性]]
+
 [[python 类继承]]
 
 </pre>
@@ -10784,70 +10926,6 @@ re.split('; |, |\*|\n',a)
 &lt;/code&gt;
 }}}
 @@color(red):''Attention'':@@''在python中使用原始字符创与ASSIC中的特殊字符区别开''</pre>
-</div>
-<div changecount="45" created="20130417010300000" creator="Samuel" modified="20140324055600000" modifier="Samuel" title="Real AdaBoost" type="text/x-tiddlywiki">
-<pre>''说明''
-
-''Step 二类''
-#{{normal{@@color(blue):''Input''@@ :
- \((x_1,y_1)... (x_n, y_n)  \hspace{8mm} y_i\in Y(1, -1)  \). 
-
-}}}
-#{{normal{@@color(blue):''初始化权重值w(也是概率分布D)''@@
-\( 
-w_i = 1/n    ...........  (n为样本的个数 )
-\)
-@@color(green):(正负样本数不等可以参考 Adaboost二类中 wp_i = 1/2m, wn_i=1/2l,m,l分别为正负样本的个数 )@@
-
-}}}
-#{{normal{''For t=0, 1...T:''
-#{{normal{''在每个特征维上''
-#{{normal{将样本特征分为n个空间
-
-}}}
-#{{normal{在每个空间中计算正负样本的权重和
-
-\(
-\Large  {W}^j_l = P(x_i \in X_j, y_i=l) = \sum\limits_{i}D_t(i)  \hspace{8mm} l=±1  
-\)
-}}}
-#{{normal{其空间上的判决函数为\(h\)
-
-\(
-\large   x \in X_j, h(x) =\frac{1}{2}ln(\frac{W_{+1}^j+\epsilon}{W_{-1}^j+\epsilon}) \hspace{8mm}  \epsilon 为一个小整数。防止除0
-\)
-@@color(red):判决函数前面的\(\frac{1}{2}\)是公式上的意义@@
-
-}}}
-#{{normal{计算归一化因子
-
-\(
-Z=2\sum\limits_j\sqrt{W_{+1}^jW_{-1}^j}
-\)
-@@color(red):系数2是公式形式上的需要，没有实际意义@@
-}}}
-}}}
-#{{normal{''挑选最小的\(Z_t\)的分类函数作为这一层的\(h_t\)''
-
-}}}
-#{{normal{''更新权重''
-#{{normal{
-\(
-\Large  D_{t+1}(i) = D_t(i)exp[-y_ih_t(x_j)]
-\)
-}}}
-#归一化权重，可参考''discreet adaboost''
-}}}
-}}}
-#{{normal{@@color(blue):''最终分类器''@@
-\(
-H(x) = sign[\sum\limits_{t=1}^Th_t(x)-b]  \hspace{8mm} b是个阈值默认为0    
-\)
-或者写成自信度函数
-\(
-Conf_H(x) = |\sum\limits_{t=1}^Th_t(x)-b|
-\)
-}}}</pre>
 </div>
 <div changecount="40" created="20120719081300000" creator="Samuel" modified="20150410091420761" modifier="Samuel" tags="_GIT_" title="Remote Repository" type="text/vnd.tiddlywiki">
 <pre>* ''git clone'' &lt;div&gt;
@@ -11049,7 +11127,7 @@ scp   username@B:/B/sbc   /A/abc
 :与subprocess.call(*popenargs, **kwargs)功能一样，只是如果子进程返回的returncode不为0的话，将触发~CalledProcessError异常。在异常对象中，包括进程的returncode信息。
 }}}</pre>
 </div>
-<div changecount="63" created="20140422093700000" creator="Samuel" modified="20140627070800000" modifier="Samuel" title="Supported Vector Machine" type="text/x-tiddlywiki">
+<div changecount="63" created="20140422093700000" creator="Samuel" modified="20150616093346216" modifier="Samuel" title="Supported Vector Machine" type="text/vnd.tiddlywiki">
 <pre>*{{normal{@@color(blue):''SVM的Cost Function''@@
 *{{normal{@@color(green):logistic regressition@@
 \(
@@ -11095,36 +11173,40 @@ f_n = similiarty(x,l_n) \\
 <pre>[[unix]]
 [[windows]]</pre>
 </div>
-<div changecount="29" created="20120711013200000" creator="Samuel" modified="20120711033300000" modifier="Samuel" tags="_SHELL_ SHELL_COMMAND_" title="tar" type="text/x-tiddlywiki">
-<pre>*@@bgcolor(green):功能@@
-:解压或压缩文件
-*@@bgcolor(green):参数@@
-:''-c'' : 建立一个压缩文件的参数指令(create 的意思) 
-:''-x'' : 解开一个压缩文件的参数指令 
-:''-t'' :  查看 tarfile 里面的文件
-:@@color(red): c/x/t 仅能存在一个！不可同时存在! 因为不可能同时压缩与解压缩@@ 
-:''-z'' : 是否同时具有 gzip 的属性？亦即是否需要用 gzip 压缩？ 
-:''-j'' :  是否同时具有 bzip2 的属性？亦即是否需要用 bzip2 压缩？ 
-:''-v'' :  压缩的过程中显示文件！这个常用，但不建议用在背景执行过程！ 
-:{{normal{''-f'' :  使用档名，注意，在 f 之后要立即接档名喔！不要再加参数！ 
-&lt;code sh&gt;
-tar -zcvfP tfile sfile  错误 
-tar -zcvPf tfile sfile  正确
-&lt;/code&gt;
-}}}
-:''-p'' : 使用原文件的原来属性（属性不会依据使用者而变） 
-:''-P'' : 可以使用绝对路径来压缩！ 
-:''-N''  : 比后面接的日期(yyyy/mm/dd)还要新的才会被打包进新建的文件中！ 
-*{{normal{@@bgcolor(green):用法@@
-&lt;code sh&gt;
+<div changecount="29" created="20120711013200000" creator="Samuel" modified="20150618063434338" modifier="Samuel" tags="_SHELL_ SHELL_COMMAND_" title="tar" type="text/vnd.tiddlywiki">
+<pre>* ''参数''  &lt;div&gt;
+
+&gt;`-c` : 建立一个压缩文件的参数指令(create 的意思)      
+&gt;`-x` : 解开一个压缩文件的参数指令          
+&gt;`-t` : 查看 tarfile 里面的文件
+&gt;` c/x/t 仅能存在一个！不可同时存在! 因为不可能同时压缩与解压缩`
+
+&gt;`-z` : 是否同时具有 gzip 的属性？亦即是否需要用 gzip 压缩？ 
+&gt;`-j` :  是否同时具有 bzip2 的属性？亦即是否需要用 bzip2 压缩？ 
+&gt;`-v` :  压缩的过程中显示文件！这个常用，但不建议用在背景执行过程！ 
+&gt;`-f` :  使用档名，注意，在 f 之后要立即接档名喔！不要再加参数！ &lt;div&gt;
+
+```sh
+tar -zcvfP tfile sfile  #错误 
+tar -zcvPf tfile sfile  #正确
+```
+&lt;/div&gt;
+&gt;`-p` : 使用原文件的原来属性（属性不会依据使用者而变） 
+&gt;`-P` : 可以使用绝对路径来压缩！ 
+&gt;`-N` : 比后面接的日期(yyyy/mm/dd)还要新的才会被打包进新建的文件中！ 
+&lt;/div&gt;
+
+* ''用法'' &lt;div&gt;
+
+```sh
 #压缩
 tar -zcvf   dstFile  srcFile
 tar -jcvf    dstFile  srcFile
 #解压
 tar -zxvf   file 
 tar -jxvf    file
-&lt;/code&gt;
-}}}</pre>
+```
+&lt;/div&gt;</pre>
 </div>
 <div changecount="1" created="20120913071300000" creator="samuel" modifier="samuel" tags="_PYTHON_ _PYTHON_MODULE_ _THREAD_" title="thread" type="text/x-tiddlywiki">
 <pre>*@@color(blue):''守护线程''@@
@@ -11202,12 +11284,14 @@ tar -jxvf    file
 |~| centre | right|
 &lt;/div&gt;</pre>
 </div>
-<div created="20150403101551530" modified="20150413081039528" tags="" title="Tools">
+<div created="20150403101551530" modified="20150714030150334" tags="" title="Tools">
 <pre>&gt;[[Linux]]    
 
 &gt;[[Git]]
 
-&gt;[[FFmpeg]]</pre>
+&gt;[[FFmpeg]]
+
+&gt;[[UNetbootin]]</pre>
 </div>
 <div changecount="9" created="20140719080400000" creator="Samuel" modified="20140811063200000" modifier="Samuel" title="Torch" type="text/x-tiddlywiki">
 <pre>[[Torch Storage]]
@@ -11684,7 +11768,10 @@ coef : 与''~SpatialSubtractiveNormalization''中的作用相同
 <pre>@@bgcolor(green):元素类型的一些操作@@
 *判断类型：type(x) is types.~IntType # 判断是否int 类型</pre>
 </div>
-<div changecount="48" created="20130704024400000" creator="Samuel" modified="20150329081801009" modifier="Samuel" title="valgrind" type="text/vnd.tiddlywiki">
+<div created="20150714030057426" modified="20150714030143649" title="UNetbootin">
+<pre>使用unetbootin打开界面，进行操作</pre>
+</div>
+<div changecount="48" created="20130704024400000" creator="Samuel" modified="20150515051604948" modifier="Samuel" title="valgrind" type="text/vnd.tiddlywiki">
 <pre>* ''Usage''&lt;div&gt;
  
 ```sh
