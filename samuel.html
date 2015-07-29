@@ -6040,10 +6040,10 @@ Error message and password prompt
 <div modified="20150403100817644" title="$:/state/tab-1749438307">
 <pre>$:/core/ui/ControlPanel/Info</pre>
 </div>
-<div modified="20150720091515502" title="$:/state/tab-1844142075">
-<pre>Languages</pre>
+<div modified="20150729092119435" title="$:/state/tab-1844142075">
+<pre>Tools</pre>
 </div>
-<div list="MainMenu Python Python变量&amp;类型 [[Python 字符串]]" title="$:/StoryList">
+<div list="MainMenu Git [[Branches and merging]]" title="$:/StoryList">
 <pre></pre>
 </div>
 <div plugin-type="info" title="$:/temp/info-plugin" type="application/json">
@@ -6545,40 +6545,52 @@ void fastFree(void* ptr)
 |@@color(blue):''fix''@@|向0方向近似|
 |@@color(blue):''rem''@@|求余数|</pre>
 </div>
-<div changecount="45" created="20120719081100000" creator="Samuel" modified="20150108101500000" modifier="Samuel" tags="_GIT_" title="Branches and merging" type="text/x-tiddlywiki">
-<pre>*{{normal{@@color(blue):''git branch''@@
-''git branch'' :  列出所有本地的分支， 带*表示当前活动的分支
-''git branch -a'' :  列出所有本地和远程的分支
-''git branch -m oldname newname'' :  修改分支名
-''git branch branch-nameA'' : 通过当前分支创建branch-nameA分支
-''git branch -D/-d  branch-nameA'' :  删除本地分支branch-nameA          
-''git branch -rd  origin/branch-nameA'' :  删除本地的远程分支,@@color(red):并没有删掉服务器上的远程分支@@
-}}}          
+<div changecount="45" created="20120719081100000" creator="Samuel" modified="20150729093722889" modifier="Samuel" tags="_GIT_" title="Branches and merging" type="text/vnd.tiddlywiki">
+<pre>''git branch'' &lt;div&gt;
 
-*{{normal{@@color(blue):''git checkout'' @@
-''git checkout branch-nameA''  :  切换到branch-nameA 分支
-''git checkout -b branch-nameA  origin/branch_name''  :  切换远程的分支到本地
-''git checkout -b branch-nameA  tag_name'' :  切换某一个tag到本地
-''git checkout -b branch-nameA '' :  切换当前分支到branch-name
-''git checkout -b branch-nameA  master'' :  切换master分支到branch-name
-}}}
+*''git branch'' :  列出所有本地的分支， 带*表示当前活动的分支    
+*''git branch -a'' :  列出所有本地和远程的分支
+*''git branch -m oldname newname'' :  修改分支名
+*''git branch branch-nameA'' : 通过当前分支创建branch-nameA分支
+*''git branch -D/-d  branch-nameA'' :  删除本地分支branch-nameA          
+*''git branch -rd  origin/branch-nameA'' :  删除本地的远程分支,`并没有删掉服务器上的远程分支`, 如下命令可以删除服务器上面的分支`git push origin :branch-name`
+&lt;/div&gt;         
 
-*{{normal{@@color(blue):''git merge''@@
-''git merge branch-nameA'' : 合并branch-nameA到当前分支
-}}}
+''git checkout''  &lt;div&gt;
 
-*''git checkout commit-name [filename / dir / 默认为所有文件当前目录文件]''
-:commit-name为commitID的前四位。
-:{{normal{@@bgcolor(red):Attention：@@
+* ''git checkout branch-nameA''  :  切换到branch-nameA 分支
+* ''git checkout -b branch-nameA  origin/branch_name''  :  切换远程的分支到本地
+* ''git checkout -b branch-nameA  tag_name'' :  切换某一个tag到本地
+* ''git checkout -b branch-nameA '' :  切换当前分支到branch-name
+* ''git checkout -b branch-nameA  master'' :  切换master分支到branch-name
+&lt;/div&gt;
+
+''git merge''  &lt;div&gt;
+
+* ''git merge branch-nameA'' : 合并branch-nameA到当前分支
+&lt;/div&gt;
+
+''git checkout commit-name [filename / dir / 默认为所有文件当前目录文件]'' &lt;div&gt;
+
+* `commit-name`为commitID的前四位。
+* `Attention` &lt;div&gt;
+
 1、git checkout . 以后当前的head就会变成是checkout的那个版本 ，提交的话会删掉这版本向后的版本 
+
 2、应该只git checkout  某个版本的某个文件
-}}}
-*''git revert  commit-name''
-:revert与reset的区别？
-*''git reset  commit-name''
-:git reset –mixed：此为默认方式，不带任何参数的git reset，即时这种方式，它回退到某个版本，只保留源码，回退commit和index信息
-:git reset –soft：回退到某个版本，只回退了commit的信息，不会恢复到index file一级。如果还要提交，直接commit即可
-:git reset –hard：彻底回退到某个版本，本地的源码也会变为上一个版本的内容</pre>
+&lt;/div&gt;
+&lt;/div&gt;
+
+''git revert  commit-name''    &lt;div&gt;
+`revert与reset的区别？`
+&lt;/div&gt;
+
+''git reset  commit-name'' &lt;div&gt;
+
+* `git reset –mixed` : 此为默认方式，不带任何参数的git reset，即时这种方式，它回退到某个版本，只保留源码，回退commit和index信息
+* `git reset –soft`：回退到某个版本，只回退了commit的信息，不会恢复到index file一级。如果还要提交，直接commit即可
+* `git reset –hard`：彻底回退到某个版本，本地的源码也会变为上一个版本的内容
+&lt;/div&gt;</pre>
 </div>
 <div changecount="29" created="20121009025700000" creator="Samuel" modified="20150409092452904" modifier="Samuel" title="C/C++" type="text/vnd.tiddlywiki">
 <pre>!C++ 
@@ -10820,22 +10832,34 @@ if __name__ == &quot;__main__&quot;:
 
 </pre>
 </div>
-<div changecount="58" created="20120629083600000" creator="Samuel" modified="20130827051200000" modifier="Samuel" tags="_PYTHON_ _PYTHON_MODULE_" title="Python模块" type="text/x-tiddlywiki">
-<pre>*@@color(blue):''导入方法''@@
-&gt;使用sys.path.append()或insert(),增加路径
-&gt;''import os as myModel''
+<div changecount="58" created="20120629083600000" creator="Samuel" modified="20150728093946569" modifier="Samuel" tags="_PYTHON_ _PYTHON_MODULE_" title="Python模块" type="text/vnd.tiddlywiki">
+<pre>*''导入方法''  &lt;div&gt;
+
+使用sys.path.append()或insert(),增加路径
+
 &gt;1、可以从zip文件中导入模块
 &gt;2、可以定义自己的导入方法
-&gt;3、@@color(red):模块可以使用包来管理， 每个包目录下使用__init__.py文件。在里面定义__all__变量@@
-*@@color(blue):''循环导入'':  当A导入B， B又导入A时会出现其中一个模块导入不存在@@
+&gt;3、模块可以使用包来管理， 每个包目录下使用__init__.py文件。在里面定义__all__变量
+&lt;/div&gt;    
+* ''循环导入'':  当A导入B， B又导入A时会出现其中一个模块导入不存在 &lt;div&gt;
+
 &gt;1.可以将其中一条导入放在最后，但是如果在这之前使用了函数的话就不可以了
 &gt;2.在需要使用这个模块的函数的内部导入这个模块
-*@@color(blue):''作用域''@@
-&gt;使用from ** import *时，模块中的变量被赋值的时候，会被当成局部变量 
-&gt;使用globals和locals函数查看作用域
-*@@color(blue):''编码格式''@@
-&gt;在代码开始处写上(''# -*- coding: ~UTF-8 -*-'')
-*@@color(blue):''model list''@@
+&lt;/div&gt;
+
+* ''作用域'' &lt;div&gt;
+
+&gt;使用`from ** import *`时，模块中的变量被赋值的时候，会被当成局部变量 
+&gt;使用`globals`和`locals`函数查看作用域
+&lt;/div&gt;
+
+* ''编码格式'' &lt;div&gt;
+
+在代码开始处写上`# -*- coding: ~UTF-8 -*-`
+&lt;/div&gt;
+
+* ''model list'' &lt;div&gt; 
+
 &gt;[[sys]]
 &gt;[[types]]
 &gt;[[os]]
@@ -10849,6 +10873,7 @@ if __name__ == &quot;__main__&quot;:
 &gt;[[getopt]]: 分析参数模块
 &gt;[[numpy]]:数值运算模块
 &gt;[[time]] : 时间模块
+&lt;/div&gt;
 
 </pre>
 </div>
@@ -10876,17 +10901,18 @@ if __name__ == &quot;__main__&quot;:
 &gt; ''randint(a,b)'' : 返回[a,b]之间的整数。randint(0,1)返回0或1模拟50%的概率
 &gt; ''uniform(a,b)'' : 返回[a,b)之间的浮点数</pre>
 </div>
-<div changecount="57" created="20120911015100000" creator="YourName" modified="20130801034400000" modifier="Samuel" tags="_PYTHON_ _PYTHON_MODULE_ _RE_" title="re" type="text/x-tiddlywiki">
-<pre>@@bgcolor(green):常用正则表达式符号@@
-&gt;''re1 | re2 '' : 匹配正则表达式re1或re2  ''e.g''. foo | bar
-&gt;''.'' : 匹配任何字符（换行符除外(可以设置python的编译标示[S or DOTALL]取消这一限制)）   ''e.g''. b.b
-&gt;''^'' : 匹配字符串的开始     ''e.g''.^dear @@color(red):(从最开始就必须匹配上)@@
-&gt;''$'' : 匹配字符串的结尾    ''e.g''.dear$ @@color(red):(从最后，不包含换行符就必须匹配上)@@
-&gt;''*'' : 匹配前面出现的正则表达式0次或多次    ''e.g''.[~A-Z]*
-&gt;''+'' : 匹配前面出现的正则表达式1次或多次    ''e.g''.[~A-Z]+
-&gt;''?'' : 匹配前面出现的正则表达式0次或1次@@color(red):(第二个含义：紧跟在重复字符后面，表示字符串越短越好. ''非贪婪模式'') @@    ''e.g''.[~A-Z]?
-&gt;''{N}'' : 匹配前面出现的正则表达式N次     ''e.g''.[~A-Z]{3}
-&gt;''{M,N}'' : 匹配重复出现M次到N次的正则表达式     ''e.g''.[~A-Z]{2， 3}
+<div changecount="57" created="20120911015100000" creator="YourName" modified="20150728093518381" modifier="Samuel" tags="_PYTHON_ _PYTHON_MODULE_ _RE_" title="re" type="text/vnd.tiddlywiki">
+<pre>''常用正则表达式符号''&lt;div&gt;
+
+&gt;`re1 | re2 ` : 匹配正则表达式re1或re2  ''e.g''. foo | bar
+&gt;`.`  : 匹配任何字符（换行符除外(可以设置python的编译标示[S or DOTALL]取消这一限制)）   ''e.g''. b.b
+&gt;`^` : 匹配字符串的开始     ''e.g''.^dear @@color(red):(从最开始就必须匹配上)@@
+&gt;`$` : 匹配字符串的结尾    ''e.g''.dear$ @@color(red):(从最后，不包含换行符就必须匹配上)@@
+&gt;`*` : 匹配前面出现的正则表达式0次或多次    ''e.g''.[~A-Z]*
+&gt;`+` : 匹配前面出现的正则表达式1次或多次    ''e.g''.[~A-Z]+
+&gt;`?` : 匹配前面出现的正则表达式0次或1次@@color(red):(第二个含义：紧跟在重复字符后面，表示字符串越短越好. ''非贪婪模式'') @@    ''e.g''.[~A-Z]?
+&gt;`{N}` : 匹配前面出现的正则表达式N次     ''e.g''.[~A-Z]{3}
+&gt;`{M,N}` : 匹配重复出现M次到N次的正则表达式     ''e.g''.[~A-Z]{2， 3}
 &gt;''[.....]'' : 匹配字符组里面出现的任意@@color(red):''单个''@@字符  ''e.g''.[aeiou]
 &gt;''[^.....]'': 不匹配字符组里面出现的任意@@color(red):''单个''@@字符， 包含某一范围内的字符 ''e.g'' . [^0-9A-Za-z]
 &gt;''[..x-y...]'' : 匹配字x到y的任意一个字符  ''e.g''.[0-9], [~A-Za-z]
